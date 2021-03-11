@@ -138,16 +138,22 @@ public class BoardDAO {
 
 
 	public BoardDTO detail(String boardIdx) {
-		String sql = "SELECT id,subject,content FROM bbs WHERE boardIdx=?";
-		BoardDTO dto = new BoardDTO();
+		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id, p.oriFileName, p.newFileName "+ 
+				"FROM bbs b, photo p WHERE b.boardIdx = p.fileIdx(+) AND b.boardIdx = ?";		
+		BoardDTO dto = null;
+		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, Integer.parseInt(boardIdx));
 			rs=ps.executeQuery();
 			if(rs.next()) {
+				dto = new BoardDTO();
 				dto.setId(rs.getString("id"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
+				dto.setbHit(rs.getInt("bHit"));
+				dto.setOriFileName(rs.getString("oriFileName"));
+				dto.setNewFileName(rs.getString("newFileName"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

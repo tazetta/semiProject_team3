@@ -91,7 +91,7 @@ public class BoardService {
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println(dto);
 			
-			String page="/boardlist";
+			String page="/boardList";
 			
 			if(dto!=null) {	
 				dao = new BoardDAO();
