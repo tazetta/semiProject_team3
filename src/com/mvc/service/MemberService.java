@@ -41,11 +41,16 @@ public class MemberService {
 		System.out.println(id + "/" + pw);
 		boolean success = dao.login(id, pw); // dao에 id,pw 담아 보낸 후 로그인 메서드 실행
 		System.out.println(success);
+		//실패시
+		page = "login.jsp";
+		msg = "아이디와 비밀번호를 다시 확인해주세요!";
+		
 		if (success) { // 로그인 성공시 (true 반환시)
-			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
+			page = "/profile"; 
 	
 			req.getSession().setAttribute("loginId", id); // "loginId"라는 이름으로 session에 저장
 		}
+		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 	}
@@ -151,7 +156,8 @@ public class MemberService {
 		ArrayList<BoardDTO> list = dao.wroteList(loginId);
 		
 	}
-
+	
+	/*중복 체크*/
 	public void overlay() throws IOException {
 		String id = req.getParameter("id");
 		boolean success = false;
@@ -179,6 +185,7 @@ public class MemberService {
 		
 	}
 	
+	/*회원가입*/
 	public void join() throws IOException {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
@@ -212,6 +219,21 @@ public class MemberService {
 		resp.setContentType("text/html; charset=UTF-8"); //보낼 데이터 타입과 한글깨짐 방지를 위한 인코딩 타입 지정
 		resp.setHeader("Access-Control-Allow", "*");//javascript 에서 다른 도메인으로 통신은 기본적으로 안된다.(cross domain issue) - 허용 처리
 		resp.getWriter().print(json);//페이지에 그려주는것
+		
+	}
+
+	public void findId() throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+		String name = req.getParameter("userName");
+		String email = req.getParameter("email");
+		System.out.println(name+"/"+email);
+		
+		String id = dao.findId(name, email);
+		req.setAttribute(id, "id");
+		
+		if(id==null) {
+			
+		}
 		
 	}
 

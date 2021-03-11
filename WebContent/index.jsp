@@ -118,8 +118,8 @@ a:visited {
 		</div>
 		<div class="login">
 			<ul>
-				<li><a href="#">로그인</a></li>
-				<li><a href="#">회원가입 </a></li>
+				<li><a href="login.jsp">로그인</a></li>
+				<li><a href="joinForm.jsp">회원가입 </a></li>
 
 			</ul>
 		</div>
@@ -169,6 +169,8 @@ a:visited {
     $("li").hover(function () {
         $(this).toggleClass("li");
     });
+    
+
  
 </script>
 

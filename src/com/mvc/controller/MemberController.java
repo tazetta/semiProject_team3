@@ -78,7 +78,7 @@ public class MemberController extends HttpServlet {
 			
 		case "/findId":
 			System.out.println("아이디 찾기 요청");
-			//service.findId();
+			service.findId();
 			break;
 			
 		case "/findPw":
