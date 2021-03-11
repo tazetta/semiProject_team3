@@ -136,13 +136,13 @@ a:visited {
 
 				<li class="navi"><a href="#">고객센터</a></li>
 
-				<li class="navi"><a href="profile.jsp">마이페이지</a></li>
+				<li class="navi"><a href="profile">마이페이지</a></li>
 
 			</ul>
 		</div>
 	</section>
 	
-	<section>
+<section>
 	<form action="login" method="post">
 		<table>
 			<tr>
@@ -155,14 +155,14 @@ a:visited {
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="login"/> <!-- /login을 받는 컨트롤러로 데이터 전송 -->
-					<input type="button" value="회원가입" onclick="location.href='joinForm.jsp'"/> <!-- joinForm으로 이동 -->
+					<input type="submit" value="login"/> 
+					<input type="button" value="회원가입" onclick="location.href='joinForm.jsp'"/> 
 				</td>
 			</tr>
 		
 		</table>
 	</form>
-	</section>
+	</section> 
 
 </body>
 <script>
@@ -170,6 +170,10 @@ a:visited {
         $(this).toggleClass("li");
     });
  
+    var msg="${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
 </script>
 
 </html>

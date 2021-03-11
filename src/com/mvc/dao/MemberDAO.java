@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -132,25 +133,63 @@ public class MemberDAO {
 	
 	}
 
-	/*내가 쓴 글 리스트 기능*/
-	public ArrayList<BoardDTO> wroteList(String loginId) {
-		String sql ="SELECT boardidx, subject, reg_date FROM bbs WHERE id=?";
+	/*내가 쓴 글 리스트 기능 +페이징*/
+	public HashMap<String, Object> wroteList(String loginId, int page) {
+		
+
+		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
+		
+		int end= page*pagePerCnt; //페이지 끝 rnum
+		int start = end-(pagePerCnt-1); //페이지 시작 rnum
+		
+		String sql ="SELECT rnum, subject, reg_date FROM "
+				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date, id FROM bbs)" 
+				+"WHERE rnum BETWEEN ? AND ? AND id=?"; 
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, loginId);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			ps.setString(3, loginId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				System.out.println("");
+				BoardDTO dto = new BoardDTO();
+				dto.setSubject(rs.getString("subject"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setRnum(rs.getInt("rnum"));
+				list.add(dto);
 			}
 			
+			int maxPage = getMaxPage(pagePerCnt); 
+			System.out.println("maxPage:"+maxPage);
+			map.put("list", list); 
+			map.put("maxPage", maxPage); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();}
-		return list;
+		return map;
 	}
 	
+	/*마지막 페이지*/
+	private int getMaxPage(int pagePerCnt) {
+		String sql =  "SELECT COUNT(boardidx) FROM bbs";
+		int max = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1); 
+				max = (int)Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
+	}
+
 	public boolean overlay(String id) throws SQLException {
 		
 		boolean success = false;

@@ -16,9 +16,16 @@ public class BoardDTO {
 	private int fileIdx;
 	private String oriFileName;
 	private String newFileName;
+	private int rnum;
 	
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getFileIdx() {
 		return fileIdx;
 	}
