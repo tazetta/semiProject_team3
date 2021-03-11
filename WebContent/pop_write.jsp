@@ -14,7 +14,7 @@
 	<jsp:include page="admin_navbar.jsp" />
 	
     <div class="pop">
-        <form action="write" method="post">
+        <form action="popupWrite" method="post">
             <table>
                 <tr>
                     <th>등록관리자</th>

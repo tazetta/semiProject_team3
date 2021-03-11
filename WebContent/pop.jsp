@@ -21,13 +21,13 @@
                     <th>제목</th>
                     <th>노출여부</th>                 
                 </tr>
-                <c:forEach items="${list}" var="popup">
+                <c:forEach items="${popupList}" var="popup">
                 <tr>
 	                <td>${popup.reg_date}</td>
 	                <td>${popup.managerid}</td>
-					<td><a href="detail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
+					<td><a href="popupDetail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
 					<td>${popup.popupalert}</td>
-					<td><a href="del?infoidx=${popup.infoidx}">삭제</a></td>
+					<td><a href="popupDel?infoidx=${popup.infoidx}">삭제</a></td>
                 </tr>
                 </c:forEach>
             </table>

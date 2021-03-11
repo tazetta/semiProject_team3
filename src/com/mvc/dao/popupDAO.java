@@ -38,9 +38,9 @@ public class popupDAO {
 		}
 	}
 	
-	public ArrayList<popupDTO> list() {
+	public ArrayList<popupDTO> popupList() {
 		
-		ArrayList<popupDTO> list = new ArrayList<popupDTO>();
+		ArrayList<popupDTO> popupList = new ArrayList<popupDTO>();
 		String sql = "SELECT infoidx, reg_date, managerid, subject, popupalert FROM popup"
 				+" ORDER BY infoidx DESC";
 		
@@ -54,18 +54,18 @@ public class popupDAO {
 				dto.setManagerid(rs.getString("managerid"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setPopupalert(rs.getString("popupalert"));
-				list.add(dto);
+				popupList.add(dto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}		
-		return list;
+		return popupList;
 	}
 	
 	
-	public boolean write(popupDTO dto) {
+	public boolean popupWrite(popupDTO dto) {
 		String sql = "INSERT INTO popup(infoidx,managerid,subject,content,popupalert)VALUES(popup_seq.NEXTVAL,?,?,?,?)";		
 		boolean success = false;	
 		try {
@@ -86,7 +86,7 @@ public class popupDAO {
 		return success;
 	}
 
-	public boolean del(String infoidx) {
+	public boolean popupDel(String infoidx) {
 	
 		String sql="DELETE FROM popup WHERE infoidx=?";
 		boolean success = false;
@@ -134,27 +134,45 @@ public class popupDAO {
 		}			
 		return dto;
 	}
+
 	
-	public int update(popupDTO dto) {
+//	public int update(popupDTO dto) {
+//		int success = -1;
+//		String sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			ps.setString(1, dto.getSubject());
+//			ps.setString(2, dto.getContent());
+//			ps.setString(3, dto.getPopupalert());
+//			ps.setInt(4, dto.getInfoidx());
+//			success = ps.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			resClose();
+//		}			
+//		System.out.println("수정 여부 :"+success);
+//		return success;
+//	}
+
+
+	public int update(String subject, String content, String popupalert, String infoidx) {
 		int success = 0;
-		String sql="UPDATE popup SET subject=?, content=? popupalert=? WHERE infoidx=?";
+		String sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
 		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getSubject());
-			ps.setString(2, dto.getContent());
-			ps.setString(3, dto.getPopupalert());
-			success= ps.executeUpdate();
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, subject);
+		ps.setString(2, content);
+		ps.setString(3, popupalert);
+		ps.setString(4, infoidx);
+		success = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}			
-		System.out.println("수정여부 :"+success);
 		return success;
+
 	}
-
-
-
-
-
 }
