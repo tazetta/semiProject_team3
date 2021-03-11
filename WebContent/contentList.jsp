@@ -84,7 +84,7 @@ a:visited {
 		</ul>
 	</nav>
 
-	<form action="paging" method="get">
+	<form action="themeResult" method="get">
 		<div class="contentList">
 			<c:forEach items="${contentList}" var="content">
 				<div class="content">

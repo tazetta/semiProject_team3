@@ -128,9 +128,9 @@ a:visited {
 	<section id="navi">
 		<div class="bar">
 			<ul>
-				<li class="navi"><a href="#">테마별</a></li>
+				<li class="navi"><a href="./themeContentList">테마별</a></li>
 
-				<li class="navi"><a href="#">지역별</a></li>
+				<li class="navi"><a href="./areaContentList">지역별</a></li>
 
 				<li class="navi"><a href="#">커뮤니티</a></li>
 

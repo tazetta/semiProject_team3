@@ -116,7 +116,7 @@ a {
 		</ul>
 	</nav>
 
-	<form action="paging" method="get">
+	<form action="themeResult" method="get">
 	<div class="contentList">
 		<c:forEach items="${contentList}" var="content">
 			<div class="content">
@@ -163,13 +163,14 @@ a {
 			<span> 
 				<c:if test="${currPage == 1}">이전</c:if> 
 				<c:if	 test="${currPage > 1}">
-					<a href="./paging?${url}&page=${currPage-1}">이전</a>
+					<a href="./themeResult?${url}&page=${currPage-1}">이전</a>
 				</c:if>
 			</span> 
 			<span id="page">${currPage}</span> 
 			<span> 
 				<c:if test="${currPage == maxPage}">다음</c:if> 
-				<c:if test="${currPage < maxPage}"><a href="./paging?${url}&page=${currPage+1}">다음</a></c:if>
+				<c:if test="${currPage < maxPage}"><a href="./themeResult?${url}&page=${currPage+1}">다음</a></c:if>
+				currPage : ${currPage} / maxPage : ${maxPage}
 			</span>
 		</div>
 </body>
