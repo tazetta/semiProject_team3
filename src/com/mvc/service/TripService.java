@@ -27,8 +27,8 @@ public class TripService {
 	}
 
 	public void contentList() throws ServletException, IOException {
-		ArrayList<ContentDTO> list = dao.content();
-		ArrayList<AreaDTO> areaList = dao.area();
+		ArrayList<ContentDTO> list = dao.contentList();
+		ArrayList<AreaDTO> areaList = dao.areaList();
 		dao.resClose();
 
 		req.setAttribute("contentList", list);
@@ -37,48 +37,15 @@ public class TripService {
 		dis.forward(req, resp);
 	}
 
-	public void areaList() {
-	}
-
-//	public void localList() {
-//		String[] checkList = req.getParameterValues("city");
-//		
-//		for (String list : checkList) {
-//			System.out.println("list : " + list);
-//		}
-//	}
-
-	public void content() throws ServletException, IOException {
-		ArrayList<ContentDTO> list = dao.content();
-		ArrayList<AreaDTO> areaList = dao.area();
-		dao.resClose();
-
-		req.setAttribute("list", list);
-		req.setAttribute("areaList", areaList);
-		RequestDispatcher dis = req.getRequestDispatcher("contentList.jsp");
-		dis.forward(req, resp);
-	}
-
-	public void list() throws ServletException, IOException {
-		String areaCode = req.getParameter("areaCode");
-		System.out.println("areaCode : " + areaCode);
-
-		ArrayList<CityDTO> list = dao.list(areaCode);
-
-		req.setAttribute("list", list);
-		RequestDispatcher dis = req.getRequestDispatcher("areaList.jsp");
-		dis.forward(req, resp);
-
-	}
-	public void contentResult() throws ServletException, IOException {
+	public void themeResult() throws ServletException, IOException {
 		StringBuffer url = new StringBuffer();
 		String pageParam = req.getParameter("page");
 		String contentCode = req.getParameter("content");
 		String[] areaCode = req.getParameterValues("city");
 		System.out.println("page : " + pageParam);
 		System.out.println(contentCode + " / " + areaCode[0]);
-		ArrayList<ContentDTO> contentList = dao.content();
-		ArrayList<AreaDTO> areaList = dao.area();
+		ArrayList<ContentDTO> contentList = dao.contentList();
+		ArrayList<AreaDTO> areaList = dao.areaList();
 //		ArrayList<TripDTO> list = dao.contentSearch(contentCode, areaCode);
 		
 		int group = 1; 
@@ -90,8 +57,8 @@ public class TripService {
 			url.append("&city="+areaCode[i]);
 		}
 		System.out.println(url);
-		HashMap<String, Object> map = dao.pageList(group, contentCode, areaCode);
-		
+		HashMap<String, Object> map = dao.themeResult(group, contentCode, areaCode);
+		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list", map.get("list"));
 		req.setAttribute("currPage", group);
@@ -100,6 +67,57 @@ public class TripService {
 		req.setAttribute("contentList", contentList);
 		req.setAttribute("areaList", areaList);
 		RequestDispatcher dis = req.getRequestDispatcher("contentResult.jsp");
+		dis.forward(req, resp);
+	}
+	
+	public void areaContentList() throws ServletException, IOException {
+		
+		String areaCode = req.getParameter("areaCode");
+		System.out.println(areaCode);
+		if(areaCode == null) {
+			areaCode = "1";
+		}
+		ArrayList<AreaDTO> areaList = dao.areaList();
+		ArrayList<CityDTO> cityList = dao.cityList(areaCode);
+		dao.resClose();
+		
+		req.setAttribute("areaList", areaList);
+		req.setAttribute("cityList", cityList);
+		req.setAttribute("areaCode", areaCode);
+		RequestDispatcher dis = req.getRequestDispatcher("areaContentList.jsp");
+		dis.forward(req, resp);
+	}
+	
+	public void areaContentResult() throws ServletException, IOException {
+		StringBuffer url = new StringBuffer();
+		String pageParam = req.getParameter("page");
+		String areaCode = req.getParameter("areaCode");
+		String[] cityCode = req.getParameterValues("city");
+		System.out.println("page : " + pageParam);
+		System.out.println("cityCode : " + cityCode[0] + " / areaCode : " + areaCode);
+		
+		ArrayList<AreaDTO> areaList = dao.areaList();
+		ArrayList<CityDTO> cityList = dao.cityList(areaCode);
+		
+		int group = 1; 
+		if(pageParam != null) {
+			group = Integer.parseInt(pageParam);
+		}
+		url.append("content="+areaCode);
+		for(int i = 0; i < cityCode.length;i++) {
+			url.append("&city="+cityCode[i]);
+		}
+		System.out.println(url);
+		HashMap<String, Object> map = dao.areaContentResult(group, areaCode, cityCode);
+		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("list", map.get("list"));
+		req.setAttribute("currPage", group);
+		
+		req.setAttribute("url", url);
+		req.setAttribute("cityList", cityList);
+		req.setAttribute("areaList", areaList);
+		RequestDispatcher dis = req.getRequestDispatcher("areaContentResult.jsp");
 		dis.forward(req, resp);
 	}
 

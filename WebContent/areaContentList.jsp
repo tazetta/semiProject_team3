@@ -84,31 +84,33 @@ a:visited {
 		</ul>
 	</nav>
 
-	<form action="themeResult" method="get">
 		<div class="contentList">
-			<c:forEach items="${contentList}" var="content">
+			<c:forEach items="${areaList}" var="area">
 				<div class="content">
-					<input type="radio" name="content" value="${content.contentCode}"/>${content.name}
+					<a href="./areaContentList?areaCode=${area.areaCode}">${area.name}</a>
 				</div>
 			</c:forEach>
 		</div>
 
+	<form action="areaContentResult?areaCode=${areaCode}" method="GET">
 		<div class="areaList">
-			<c:forEach items="${areaList}" var="area" varStatus="status">
+			<c:forEach items="${cityList}" var="city" varStatus="status">
 				<c:if test="${status.index % 5 == 0}">
 					<div class="clear">
-						<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+						<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
 					</div>
 				</c:if>
 				<c:if test="${status.index % 5 != 0}">
 					<div>
-						<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+						<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
 					</div>
 				</c:if>
 			</c:forEach>
 		</div>
+		<input type="hidden" name="areaCode" value="${areaCode}"/>
 		<input type="submit" value="검색"/>
 	</form>
+
 </body>
 <script>
 	var contentId = "";

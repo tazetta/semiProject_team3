@@ -73,7 +73,7 @@ public class TripDAO {
 		return list;
 	}
 
-	public ArrayList<ContentDTO> content() {
+	public ArrayList<ContentDTO> contentList() {
 		ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
 		ContentDTO dto = null;
 		String sql = "SELECT contentCode,name FROM contenttype";
@@ -92,7 +92,7 @@ public class TripDAO {
 		return list;
 	}
 
-	public ArrayList<AreaDTO> area() {
+	public ArrayList<AreaDTO> areaList() {
 		ArrayList<AreaDTO> list = new ArrayList<AreaDTO>();
 		AreaDTO dto = null;
 		String sql = "SELECT areaCode,name FROM area";
@@ -111,31 +111,96 @@ public class TripDAO {
 		return list;
 	}
 
-//	public ArrayList<TripDTO> contentSearch(String contentCode, String[] areaCode) {
-//		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
-//		TripDTO tripDTO = null;
-//
-//		try {
-//			for (int i = 0; i < areaCode.length; i++) {
-//				String sql = "SELECT contentId,firstImage,title,reg_date FROM trip WHERE areaCode=? AND contentCode = ?";
-//				ps = conn.prepareStatement(sql);
-//				ps.setString(1, areaCode[i]);
-//				ps.setString(2, contentCode);
-//				rs = ps.executeQuery();
-//				while (rs.next()) {
-//					tripDTO = new TripDTO();
-//					tripDTO.setContentId(rs.getInt("contentId"));
-//					tripDTO.setFirstImage(rs.getString("firstImage"));
-//					tripDTO.setTitle(rs.getString("title"));
-//					tripDTO.setReg_date(rs.getDate("reg_date"));
-//					list.add(tripDTO);
-//				}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
+	public ArrayList<CityDTO> cityList(String areaCode) {
+		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
+		CityDTO dto = null;
+		String sql = "SELECT cityCode,name FROM city WHERE areacode=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, areaCode);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				dto = new CityDTO();
+				dto.setCityCode(rs.getInt("cityCode"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public HashMap<String, Object> themeResult(int page, String contentCode, String[] areaCode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		int pagePerCnt = 10/areaCode.length;
+		System.out.println("areaCode.length : " + areaCode);
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxPage = 0;
+		System.out.println("end : " + end + " / start : " + start);
+
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		try {
+			for (int i = 0; i < areaCode.length; i++) {
+				String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
+						+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+						+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE areacode=? AND contentcode=?"
+						+ ") WHERE rnum BETWEEN ? AND ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, areaCode[i]);
+				ps.setString(2, contentCode);
+				ps.setInt(3, start);
+				ps.setInt(4, end);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					TripDTO dto = new TripDTO();
+					dto.setContentId(rs.getInt("contentId"));
+					dto.setAreaCode(rs.getString("areaCode"));
+					dto.setContentCode(rs.getString("contentCode"));
+					dto.setFirstImage(rs.getString("firstImage"));
+					dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
+					dto.setTitle(rs.getString("title"));
+					dto.setReg_date(rs.getDate("reg_date"));
+					list.add(dto);
+				}
+			}
+			maxPage = getMaxPage(contentCode, areaCode, pagePerCnt);
+			System.out.println("max page : " + maxPage);
+			map.put("list", list);
+			map.put("maxPage", maxPage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return map;
+	}
+
+	private int getMaxPage(String contentCode, String[] areaCode, int pagePerCnt) {
+		int maxPage = 0;
+		try {
+			for (int i = 0; i < areaCode.length; i++) {
+				String sql = "SELECT COUNT(contentId) FROM trip WHERE contentCode=? AND areaCode=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, contentCode);
+				ps.setString(2, areaCode[i]);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					int cnt = rs.getInt(1);
+					maxPage += (int) Math.ceil(cnt/(double)pagePerCnt);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maxPage;
+	}
+	
+	public HashMap<String, Object> areaContentResult(int group, String areaCode, String[] cityCode) {
+		return null;
+	}
 
 	public void insert(TripDTO dto) {
 		String sql = "INSERT INTO trip(contentId,firstImage,latitude,longitude,address,title,"
@@ -165,49 +230,5 @@ public class TripDAO {
 
 	}
 
-	public HashMap<String, Object> pageList(int page, String contentCode, String[] areaCode) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		int pagePerCnt = 10 / areaCode.length;
-		int end = page * pagePerCnt;
-		int start = end - (pagePerCnt - 1);
-		int maxPage = 0;
-		System.out.println("end : " + end + " / start : " + start);
-
-		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
-		try {
-			for (int i = 0; i < areaCode.length; i++) {
-				String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
-						+ "SELECT ROW_NUMBER() OVER(ORDER BY bookmarkCnt DESC) AS rnum, "
-						+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage, title, reg_date FROM trip WHERE areacode=? AND contentcode=?"
-						+ ") WHERE rnum BETWEEN ? AND ?";
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, areaCode[i]);
-				ps.setString(2, contentCode);
-				ps.setInt(3, start);
-				ps.setInt(4, end);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					TripDTO dto = new TripDTO();
-					dto.setContentId(rs.getInt("contentId"));
-					dto.setAreaCode(rs.getString("areaCode"));
-					dto.setContentCode(rs.getString("contentCode"));
-					dto.setFirstImage(rs.getString("firstImage"));
-					dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
-					dto.setTitle(rs.getString("title"));
-					dto.setReg_date(rs.getDate("reg_date"));
-					list.add(dto);
-				}
-				maxPage += list.size();
-			}
-			map.put("list", list);
-			map.put("maxPage", maxPage);
-			System.out.println("max page : " + maxPage);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		return map;
-	}
 }

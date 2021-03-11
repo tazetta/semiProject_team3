@@ -77,7 +77,7 @@
                </table>
                <div style="text-align: center;margin-top: 10px;">
                    <button>회원가입</button>
-                   <input type="button" onclick="location.href='./index.jsp'" value="취소"/>
+                   <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
                </div>
            </fieldset>
         
@@ -114,7 +114,7 @@
 		});
 		//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
-            if($(this).val().length<5){
+           if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
                 $(this).focus();
             }else{

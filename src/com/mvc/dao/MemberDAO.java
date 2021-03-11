@@ -264,6 +264,29 @@ public class MemberDAO {
 		return success;
 	}
 
+	public String findId(String name, String email) {
+		
+		String id = null;
+		String sql = "SELECT id FROM member WHERE name=? AND email=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			ps.setString(2, email);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				id=rs.getString("userId");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return id;
+	}
+
 	
 
 }

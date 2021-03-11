@@ -121,8 +121,8 @@ a:visited {
 		</div>
 		<div class="login">
 			<ul>
-				<li><a href="#">로그인</a></li>
-				<li><a href="#">회원가입 </a></li>
+				<li><a href="login.jsp">로그인</a></li>
+				<li><a href="joinForm.jsp">회원가입 </a></li>
 
 			</ul>
 		</div>
@@ -131,9 +131,9 @@ a:visited {
 	<section id="navi">
 		<div class="bar">
 			<ul>
-				<li class="navi"><a href="#">테마별</a></li>
+				<li class="navi"><a href="./themeContentList">테마별</a></li>
 
-				<li class="navi"><a href="#">지역별</a></li>
+				<li class="navi"><a href="./areaContentList">지역별</a></li>
 
 				<li class="navi"><a href="./boardList">커뮤니티</a></li>
 
@@ -172,6 +172,8 @@ a:visited {
     $("li").hover(function () {
         $(this).toggleClass("li");
     });
+    
+
  
     var msg="${msg}";
 	if(msg!=""){
