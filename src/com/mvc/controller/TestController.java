@@ -35,10 +35,6 @@ public class TestController extends HttpServlet {
 			service.tripDetail();
 			break;
 
-//		case "/addBook":
-//			System.out.println("북마크추가");
-//			service.addBook();
-//			break;
 
 		case "/bookmarkUpdate":
 			System.out.println("북마크추가");

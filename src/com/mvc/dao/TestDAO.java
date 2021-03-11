@@ -57,18 +57,19 @@ public class TestDAO {
 			ps.setString(2, conIdx);
 			ps.setString(3, conIdx);
 			rs = ps.executeQuery();
-			
+			System.out.println(1111);
 			if(rs.next()) {
+				System.out.println(rs.getString("firstimage"));
 				dto = new TripDTO();
 				dto.setTitle(rs.getString("title"));
 				dto.setReg_date(rs.getDate("reg_date"));
-//				dto.setFirstimage(rs.getString("firstimage"));
-//				dto.setDeactivate(rs.getString("deactivate"));
-//				dto.setArea(rs.getString("area"));
-//				dto.setBookmark(rs.getInt("bookmark"));
-//				dto.setOverview(rs.getString("overview"));
-//				dto.setLATITUDE(rs.getString("LATITUDE"));
-//				dto.setLONGITUDE(rs.getString("LONGITUDE"));
+				dto.setFirstImage(rs.getString("firstimage"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setArea(rs.getString("area"));
+				dto.setBookmark(rs.getInt("bookmark"));
+				dto.setOverview(rs.getString("overview"));
+				dto.setLatitude(rs.getString("LATITUDE"));
+				dto.setLongitude(rs.getString("LONGITUDE"));
 			}
 			
 			
@@ -134,34 +135,7 @@ public class TestDAO {
 		return dto;
 	}
 
-//	public int addBook(String myidx, String deact, String conIdx) {
-////id 받아와야함. 세션에서 
-//		int suc = 0;
-//		System.out.println(myidx+"/" + deact+"/" + conIdx);
-//		String sql = "INSERT INTO bookmark (myIdx, contentId, id, type) VALUES (6,?,'test',1)";
-//		try {
-//			if(myidx!="") {
-//				System.out.println("업데이트");
-//				 sql = "UPDATE bookmark SET deactivate='FALSE' WHERE myidx=?  ";
-//				if(deact.equals("FALSE")) {
-//					sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=? ";				
-//				}			
-//				ps = conn.prepareStatement(sql);
-//				ps.setString(1, myidx);
-//			}else {
-//				ps = conn.prepareStatement(sql);
-//				ps.setString(1, conIdx);
-//			}
-//			suc=ps.executeUpdate();
-//			
-//			System.out.println("추가,수정 : " + suc);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return suc;
-//	}
+
 
 	public int addDel(TestBookDTO bdto) {
 				int suc = 0;

@@ -40,14 +40,14 @@ public class MemberService {
 		String pw = req.getParameter("userPw");
 		System.out.println(id + "/" + pw);
 		boolean success = dao.login(id, pw); // dao에 id,pw 담아 보낸 후 로그인 메서드 실행
-		System.out.println(success);
-		//실패시
-		page = "login.jsp";
-		msg = "아이디와 비밀번호를 다시 확인해주세요!";
-		
+
+		System.out.println("로그인:"+success);
+		msg="아이디와 비밀번호를 확인해주세요";
+		page="index.jsp";
 		if (success) { // 로그인 성공시 (true 반환시)
-			page = "/profile"; 
-	
+			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
+			msg=id+"님 로그인 되었습니다";
+
 			req.getSession().setAttribute("loginId", id); // "loginId"라는 이름으로 session에 저장
 		}
 		req.setAttribute("msg", msg);
@@ -149,12 +149,25 @@ public class MemberService {
 	}
 
 	/*내가 쓴 글 목록*/
-	public void wroteList() {
+	public void wroteList() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		System.out.println(loginId+"의 게시글 목록");
 		
-		ArrayList<BoardDTO> list = dao.wroteList(loginId);
+		String pageParam = req.getParameter("page"); //이전|다음 링크로 들어온 param 받기
+		System.out.println("page:"+pageParam); 
 		
+		int page = 1; //기본은 1
+		
+		if(pageParam != null) { //페이지 요청하는 param이 있으면
+			page = Integer.parseInt(pageParam); //페이지를 요청page 값으로 설정
+		}
+		HashMap<String, Object> map  = dao.wroteList(loginId,page);
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("list", map.get("list")); //req에 저장
+		req.setAttribute("currPage", page);
+		//특정페이지로 보내기
+		RequestDispatcher dis = req.getRequestDispatcher("wroteList.jsp"); //분기 없이 바로 list.jsp 로 보내기
+		dis.forward(req, resp);
 	}
 	
 	/*중복 체크*/
