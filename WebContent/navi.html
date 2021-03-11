@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>navi</title>
+    <link rel="icon" href="favicon.png">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <style>
+        div.bar {
+            display: flex;
+            background-color: #faf9f9;
+            height: 60px;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            color: black;
+          
+            justify-content: center;
+            align-items: center;
+        }
+
+        li {
+            position: relative;
+            float: left;
+            padding: 20px 30px;
+            color: black;
+            font-size: 120%;
+            font-weight: 500;
+            text-align: center;
+            width: 100px;
+            height: 20px;
+            list-style-type: none;
+            display: inline;
+        }
+
+        .li {
+            font-weight: 600;
+        }
+
+        a:link {
+            text-decoration: none;
+            font-size: 90%;
+            color: black;
+        }
+
+        a:visited {
+            color: black;
+        }
+ 
+    </style>
+</head>
+
+<body>
+    <div class="bar">
+        <ul>
+            <li><a href="#">테마별</a> </li>
+
+            <li><a href="#">지역별</a></li>
+
+            <li><a href="#">커뮤니티</a></li>
+
+            <li><a href="#">고객센터</a></li>
+
+            <li><a href="profile" >마이페이지</a></li>
+
+        </ul>
+    </div>
+
+
+</body>
+<script>
+    $("li").hover(function () {
+        $(this).toggleClass("li");
+    });
+    $("li").click(function(){
+        $(this).css({"background-color":"#E6E6E6","font-weight": "600"});
+    });
+</script>
+
+</html>
