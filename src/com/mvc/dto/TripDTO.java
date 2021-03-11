@@ -18,8 +18,30 @@ public class TripDTO {
 	private String managerId;
 	private Date reg_date;
 	private int bookmarkCnt;
+	private String deactivate;
 	private String overview;
+	/////
+	private int bookmark;
+	private String area;
 	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public int getBookmark() {
+		return bookmark;
+	}
+	public void setBookmark(int bookmark) {
+		this.bookmark = bookmark;
+	}
+	public String getDeactivate() {
+		return deactivate;
+	}
+	public void setDeactivate(String deactivate) {
+		this.deactivate = deactivate;
+	}
 	public int getContentId() {
 		return contentId;
 	}
