@@ -34,8 +34,8 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button onclick="location.href='./updateForm?infoidx=${dto.infoidx}'">수정</button>
-					<button onclick="location.href='./list'">닫기</button>
+					<button onclick="location.href='./popupUpdateForm?infoidx=${dto.infoidx}'">수정</button>
+					<button onclick="location.href='./popupList'">닫기</button>
 				</td>
 			</tr>
 		</table>

@@ -46,24 +46,11 @@ public class TestService {
 			req.setAttribute("conIdx", conIdx);
 		}
 		dao.resClose();
-		dis =req.getRequestDispatcher("Tdetail.jsp");
+		dis =req.getRequestDispatcher("tripDetail.jsp");
 		dis.forward(req, resp);
 		
 	}
 	
-	
-//	public void addBook() throws  ServletException, IOException {
-//		String myidx = req.getParameter("myidx");
-//		String deact = req.getParameter("deact");
-//		String conIdx = req.getParameter("conIdx");
-//		System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx);
-//		
-//		TestDAO dao = new TestDAO();	
-//		dao.addBook(myidx,deact,conIdx);
-//		dao.resClose();
-//		resp.sendRedirect("./detail");	
-//		
-//	}
 	
 	public void addDel() throws ServletException, IOException {
 		//비회원은 선택 ㄴㄴ 

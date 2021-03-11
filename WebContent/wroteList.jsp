@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- c태그 사용위해 불러옴 -->
+<!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
-<title>마이 페이지 - 회원정보 수정</title>
-<link rel="icon" href="south-korea.png">
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- JQuery사용 위해 불러옴 -->
 <style>
 body {
-	min-width: 1500px;
+	min-width: 1300px;
 }
 
 /*top*/
@@ -43,10 +45,11 @@ li {
 	right: 5%;
 }
 /*검색창*/
-form{
-width:700px;
-height:40px;
+form {
+	width: 700px;
+	height: 40px;
 }
+
 div#search {
 	position: absolute;
 	top: 40px;
@@ -54,7 +57,7 @@ div#search {
 	height: 30px;
 }
 
-#searchText {
+input[type='text'] {
 	border: 2px solid #e8f8fd;
 	background-color: #e8f8fd;
 	text-align: center;
@@ -84,7 +87,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 40px;
+	margin-top: 67px;
 }
 
 .navi {
@@ -115,7 +118,6 @@ a:visited {
 	color: black;
 }
 
-
 /*좌측 카테고리*/
 table, tr, td {
 	border: 1px solid lightgray;
@@ -131,55 +133,61 @@ section#left {
 	padding: 10px;
 }
 
-        .menuHover {
-            font-weight: 600;
-        }
-
-
-/*콘텐츠*/
-#content {
-	height: 600px;
-	background-color: #F2F2F2;
-	text-align: center;
-	float: left;
-	margin-top :10px;
-	width: 80%;
+.menuHover {
+	font-weight: 600;
 }
 
-table, tr, td {
-	border: 1px solid lightgray;
-	border-collapse: collapse;
+/*콘텐츠*/
+
+#content {
+	background-color: #F2F2F2;
 	text-align: center;
-	padding: 20px;
+	position: relative;
+	top: 0px;
+	left: 20px;
+	float: left;
+	margin: 10px;
+	width: 1200px;
+	height : 900px;
 }
 
 span {
 	position: relative;
 	top: 50px;
 	font-weight: 600;
-	color: dimgrey;
 }
 
-table#profile {
+table#wroteList {
 	background-color: white;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 600px;
+	width: 900px;
+
+}
+/*페이징*/
+.pageArea {
+	text-align: center;
+	position:absolute;
+	justify-content:center;
 }
 
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	padding: 2px 10px;
+}
 
+a {
+	text-decoration: none;
+}
 
-input[type="text"],
-input[type="password"],
-input[type="email"]{
-	width: 80%;
-	height: 30px;
+#page {
+	font-weight: 600;
+	border: none;
 }
 </style>
-
 </head>
-
 <body>
 	<section>
 		<div class="ci">
@@ -187,8 +195,8 @@ input[type="email"]{
 				width="200px" height="50px"></a>
 		</div>
 		<div id="search">
-			<form >
-				<input type="text" name="search" placeholder="검색어를 입력해주세요" id="searchText"/> <input
+			<form>
+				<input type="text" name="search" placeholder="검색어를 입력해주세요" /> <input
 					type="submit" value="검색" />
 			</form>
 		</div>
@@ -216,6 +224,7 @@ input[type="email"]{
 			</ul>
 		</div>
 	</section>
+
 	<section id="left">
 		<div>
 			<table>
@@ -223,7 +232,7 @@ input[type="email"]{
 					<td class="menu"><a href="profile">사용자 정보</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="commu">내가 쓴 글 보기</a></td>
+					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">가봤어요</a></td>
@@ -233,93 +242,41 @@ input[type="email"]{
 				</tr>
 			</table>
 		</div>
-		
-		
 	</section>
-	<div id="content">
-		<span>프로필 수정</span>
-			<table id="profile">
-				<tr>
-					<th>아이디</th>
-					<td>${sessionScope.loginId}</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" id="userName" value="${profile.name}" ></td>
-				</tr>
-				<tr>
-					<th>핸드폰 번호</th>
-					<td><input type="text" id="userPhone" value="${profile.phone}"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td><input type="email" id="userEmail" value="${profile.email}"></td>
-				</tr>
-				<tr>
-					<th>현재 비밀번호</th>
-					<td><input type="password" id="userPw"></td>
-				</tr>
-				<tr >
-                	<td colspan="2" style="border:none" >
-       
-		<input type="button" value="저장" id="save"/>
-		<button onclick="location.href='profile'">취소</button>
 
-                	</td>
-                </tr>
-			</table>
-	</div>
+	<section id=background>
+		<div id="content">
+			<span>커뮤니티 - 내가 쓴 글</span>
 
-
-
+				<table id="wroteList">
+					<c:forEach items="${list }" var="bbs">
+						<tr>
+							<td>${bbs.rnum}</td>
+							<th>${bbs.subject }</th>
+							<td>${bbs.reg_date }</td>
+							<td>
+								<button>수정</button>
+								<button>삭제</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+</section>
+		<div class="pageArea">
+			<span> 
+				<c:if test="${currPage==1}">이전</c:if> 
+				<c:if test="${currPage>1}"><a href="?page=${currPage-1}">이전</a></c:if>
+			</span> 
+			<span id="page">${currPage}</span> 
+			<span> 
+				<c:if test="${currPage==maxPage}">다음</c:if> 
+				<c:if test="${currPage<maxPage}"><a href="?page=${currPage+1}">다음</a></c:if>
+			</span>
+		</div>
+	
 </body>
 <script>
-	/*좌측 카테고리*/
-    $(".menu").hover(function () {
-        $(this).toggleClass("menuHover");
-    });
-    $(".menu").click(function () {
-        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
-    });
-    
-    /*비밀번호 유효성 검사*/
-    
-    $("#save").click(function(){
-    	var $pw = $("#userPw");
-    	var $name =  $("#userName");
-    	var $phone = $("#userPhone");
-    	var $email = $("#userEmail");
-    	
-    	if($pw.val()==""){
-    		alert("비밀번호를 입력해주세요");
-    	}else{
-    		console.log("서버로 전송");
-    		
-    		var params ={};
-    		params.pw = $pw.val();
-    		params.name = $name.val();
-    		params.email = $email.val();
-    		params.phone = $phone.val();
-    		
-    		$.ajax({
-    			type:"post"
-    			,url:"memberUpdate"
-    			,data:params
-    			,dataType:"json"
-    			,success:function(data){
-    				console.log("data:",data);
-    				if(data.success ==true){
-    					alert("저장되었습니다");
-    					location.href="profile"; //컨트롤러 탄 후 회원정보 페이지로 이동(profile.jsp)
-    				}else{
-    					alert("비밀번호를 확인해주세요");
-    				}
-    			},error:function(e){
-    				console.log(e);
-    			}
-    		});
-    	}
-    });
+	
 </script>
-
 </html>

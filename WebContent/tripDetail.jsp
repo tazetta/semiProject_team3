@@ -82,7 +82,7 @@
                         <div style="text-align: left;">
                             <span>지역</span><h3>${detail.area }</h3>
                         </div>
-                        <img src="${detail.firstimage }"/>
+                        <img src="${detail.firstImage }"/>
                         <br/><br/><br/><br/>
                         <div style="text-align: left;">
                         	${detail.overview }
@@ -103,25 +103,25 @@
     </body>
     <script>
         $('#fav').click(function(){
-			location.href='./addDel?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';
+			location.href='./bookmarkUpdate?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';
         });
         
         $('#vis').click(function(){
 
-			location.href='./addDel?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
+			location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
         });
         
         
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(${detail.LATITUDE}, ${detail.LONGITUDE}  ), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(${detail.latitude}, ${detail.longitude}  ), // 지도의 중심좌표
 	        level: 2 // 지도의 확대 레벨
 	    };
 	
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		
 		// 마커가 표시될 위치입니다 
-		var markerPosition  = new kakao.maps.LatLng(${detail.LATITUDE}, ${detail.LONGITUDE}); 
+		var markerPosition  = new kakao.maps.LatLng(${detail.latitude}, ${detail.longitude}); 
 		
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({

@@ -24,7 +24,7 @@ public class PopupController extends HttpServlet {
 	}
 
 	private void dual(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("요청");
+		
 		String uri = req.getRequestURI();
 		String ctx = req.getContextPath();
 		String sub = uri.substring(ctx.length());
@@ -36,12 +36,12 @@ public class PopupController extends HttpServlet {
 		
 		case "/popupList":
 			System.out.println("팝업 목록 요청");
-			service.list();
+			service.popupList();
 			break;
 		
 		case "/popupWrite":
 			System.out.println("팝업 등록 요청");
-			service.write();
+			service.popupWrite();
 			break;
 			
 		case "/popupDetail":
@@ -61,7 +61,7 @@ public class PopupController extends HttpServlet {
 		
 		case "/popupDel":
 			System.out.println("팝업 삭제 요청");
-			service.del();
+			service.popupDel();
 			break;
 		
 		
