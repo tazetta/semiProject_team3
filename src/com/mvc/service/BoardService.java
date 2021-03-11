@@ -89,7 +89,7 @@ public class BoardService {
 			String boardIdx = req.getParameter("boardIdx");
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
-			System.out.println(dto);
+			System.out.println("oriFileName"+dto.getOriFileName());
 			
 			String page="/boardList";
 			

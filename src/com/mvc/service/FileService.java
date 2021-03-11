@@ -19,7 +19,7 @@ public class FileService {
 
 	public BoardDTO regist() {
 		
-		String savePath="C:/upload";//1. 저장할 폴더 지정
+		String savePath="C:/upload/";//1. 저장할 폴더 지정
 		int maxSize = 10*1024*1024;//2. 사이즈 지정
 		BoardDTO dto = new BoardDTO();
 		try {

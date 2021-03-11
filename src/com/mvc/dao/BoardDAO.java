@@ -139,7 +139,7 @@ public class BoardDAO {
 
 	public BoardDTO detail(String boardIdx) {
 		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id, p.oriFileName, p.newFileName "+ 
-				"FROM bbs b, photo p WHERE b.boardIdx = p.fileIdx(+) AND b.boardIdx = ?";		
+				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ?";		
 		BoardDTO dto = null;
 		
 		try {

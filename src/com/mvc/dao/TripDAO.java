@@ -146,7 +146,7 @@ public class TripDAO {
 			for (int i = 0; i < areaCode.length; i++) {
 				String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
 						+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
-						+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE areacode=? AND contentcode=?"
+						+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE areacode=? and contentcode=?"
 						+ ") WHERE rnum BETWEEN ? AND ?";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, areaCode[i]);

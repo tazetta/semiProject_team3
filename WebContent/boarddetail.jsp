@@ -83,7 +83,7 @@
 				<th>내용</th>
 				<td>${dto.content}</td>
 			</tr>
-			<c:if test="${dto.newFileName ne null}">
+			<%-- <c:if test="${dto.newFileName ne null}"> --%>
 			<tr>
 				<th>첨부사진</th>
 				<td>
@@ -92,7 +92,7 @@
 					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
 				</td>
 			</tr>			
-			</c:if>
+			<%-- </c:if> --%>
 		</table>
 		<input id="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
