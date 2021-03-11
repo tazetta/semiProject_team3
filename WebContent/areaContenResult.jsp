@@ -118,23 +118,23 @@ a {
 
 	<form action="themeResult" method="get">
 	<div class="contentList">
-		<c:forEach items="${contentList}" var="content">
+		<c:forEach items="${areaList}" var="area">
 			<div class="content">
-				<input type="radio" name="content" value="${content.contentCode}" />${content.name}
+				<input type="radio" name="area" value="${area.areaCode}" />${area.name}
 			</div>
 		</c:forEach>
 	</div>
 
 	<div class="areaList">
-		<c:forEach items="${areaList}" var="area" varStatus="status">
+		<c:forEach items="${cityList}" var="city" varStatus="status">
 			<c:if test="${status.index % 5 == 0}">
 				<div class="clear">
-					<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+					<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
 				</div>
 			</c:if>
 			<c:if test="${status.index % 5 != 0}">
 				<div>
-					<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+					<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
 				</div>
 			</c:if>
 		</c:forEach>
@@ -163,13 +163,13 @@ a {
 			<span> 
 				<c:if test="${currPage == 1}">이전</c:if> 
 				<c:if	 test="${currPage > 1}">
-					<a href="./themeResult?${url}&page=${currPage-1}">이전</a>
+					<a href="./areaContentResult?${url}&page=${currPage-1}">이전</a>
 				</c:if>
 			</span> 
 			<span id="page">${currPage}</span> 
 			<span> 
 				<c:if test="${currPage == maxPage}">다음</c:if> 
-				<c:if test="${currPage < maxPage}"><a href="./themeResult?${url}&page=${currPage+1}">다음</a></c:if>
+				<c:if test="${currPage < maxPage}"><a href="./areaContentResult?${url}&page=${currPage+1}">다음</a></c:if>
 				currPage : ${currPage} / maxPage : ${maxPage}
 			</span>
 		</div>

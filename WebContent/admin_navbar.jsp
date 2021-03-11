@@ -36,7 +36,7 @@ a {
 			<li><a href="">여행지 관리</a></li>
 			<li><a href="">신고내역 관리</a></li>
 			<li><a href="info_General.jsp" target="_parent">회원정보 관리</a></li>
-			<li><a href="./list" target="_parent">팝업 관리</a></li>
+			<li><a href="./popupList" target="_parent">팝업 관리</a></li>
 	</div>
 </body>
 </html>
