@@ -215,7 +215,7 @@ table#profile {
 					<td class="menu"><a href="profile">사용자 정보</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="wrote">내가 쓴 글 보기</a></td>
+					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">가봤어요</a></td>
@@ -250,7 +250,7 @@ table#profile {
 				</tr>
 				<tr>
 					<td colspan="2" style="border: none">
-						<button onclick="location.href='updateDetail'">회원정보 수정</button>
+						<button onclick="location.href='memberUpdateForm'">회원정보 수정</button>
 						<button onclick="location.href='pwUpdate.jsp'">비밀번호 변경</button>
 					</td>
 				</tr>
