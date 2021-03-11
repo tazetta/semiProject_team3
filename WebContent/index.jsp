@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String loginId = (String) request.getSession().getAttribute("loginId");
+%>
 <!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
 <html>
@@ -132,7 +135,7 @@ a:visited {
 
 				<li class="navi"><a href="#">지역별</a></li>
 
-				<li class="navi"><a href="#">커뮤니티</a></li>
+				<li class="navi"><a href="./boardList">커뮤니티</a></li>
 
 				<li class="navi"><a href="#">고객센터</a></li>
 

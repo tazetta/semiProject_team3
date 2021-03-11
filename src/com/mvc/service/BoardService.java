@@ -43,10 +43,10 @@ public class BoardService {
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
-		dis = req.getRequestDispatcher("list.jsp");
+		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
 		//}else {
-			//resp.sendRedirect("./");
+			//resp.sendRedirect("index.jsp");
 		//}
 	}
 
@@ -62,20 +62,20 @@ public class BoardService {
 			//DB저장(작성자,제목,내용 + 파일 이름)
 			BoardDAO dao = new BoardDAO();
 			
-			String page = "writeForm.jsp";
+			String page = "boardwriteForm.jsp";
 			String msg = "글 등록에 실패하였습니다.";
 			
 			long idx = dao.write(dto);
 			
 			if(idx>0) {
-				page = "/";
+				page = "/boardList";
 				msg = "글 등록에 성공하였습니다.";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);		
 		//} else {
-		//	resp.sendRedirect("./");
+		//	resp.sendRedirect("index.jsp");
 		//}
 		
 	}
@@ -91,11 +91,12 @@ public class BoardService {
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println(dto);
 			
-			String page="/";
+			String page="/boardlist";
+			
 			if(dto!=null) {	
 				dao = new BoardDAO();
 				//dao.upHit(idx);
-				page="detail.jsp";
+				page="boarddetail.jsp";
 				req.setAttribute("dto", dto );
 				//req.setAttribute("loginId", loginId);
 			}		
