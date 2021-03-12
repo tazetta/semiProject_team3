@@ -84,7 +84,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 40px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -174,7 +174,7 @@ table#profile {
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
+			<a href="index.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form >
@@ -193,11 +193,12 @@ table#profile {
 	<section id="navi">
 		<div class="bar">
 			<ul>
-				<li class="navi"><a href="#">테마별</a></li>
+				<li class="navi"><a href="./themeContentList">테마별</a></li>
 
-				<li class="navi"><a href="#">지역별</a></li>
+				<li class="navi"><a href="./areaContentList">지역별</a></li>
 
-				<li class="navi"><a href="#">커뮤니티</a></li>
+				<li class="navi"><a href="./boardList">커뮤니티</a></li>
+
 
 				<li class="navi"><a href="#">고객센터</a></li>
 
@@ -217,7 +218,7 @@ table#profile {
 					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="#">가봤어요</a></td>
+					<td class="menu"><a href="visitedList">가봤어요</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">즐겨찾기</a></td>
@@ -261,9 +262,9 @@ table#profile {
 	</section>
 </body>
 <script>
-var msg = "${msg}"; //el태그 사용해서 request로 저장된 msg 담기
-if (msg != "") {  //공백이 아니면 (컨트롤러를 거쳐서 msg가 담기면)
-	alert(msg); //해당 메시지 출력
+var msg = "${msg}"; 
+if (msg != "") {  
+	alert(msg); 
 }
 
 	/*카테고리 이벤트 */
@@ -277,6 +278,8 @@ if (msg != "") {  //공백이 아니면 (컨트롤러를 거쳐서 msg가 담기
     $(".menu").click(function () {
         $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
     })
+    
+
 </script>
 
 </html>

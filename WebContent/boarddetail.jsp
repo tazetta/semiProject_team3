@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%String loginId = (String)request.getSession().getAttribute("loginId"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +20,8 @@
 		padding : 5px 10px;
 	}
 	#total{
-		margin-left:20%;
-		border:1px solid black;
+		margin-left:10%;
+		border:0px solid black;
 		width :1200px;
 	}
 	button{
@@ -36,21 +38,23 @@
 		left:67%;
 		margin:5px;
 	}
-	#comment{
+	.comment{
 		position: relative;
 		left:18%;
 		font-size:18px;
 		width:700px;
 		height: 30px;
 		margin-top: 5px;
+		margin-bottom :5px;
 	}
-	#comm_regist{
+	#comm_regist,#comm_update{
 		position: relative;
 		left:18%;
 	}
 	p{
 		text-align: center;
 	}
+	
 </style>
 </head>
 <body>
@@ -58,16 +62,16 @@
     <iframe id="navi" src="navi.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
     	
 		<div id="total">
-			<%-- <c:if test="${dto.id==loginId}"> --%>
+			<c:if test="${dto.id==loginId or 'admin'}">
 			<div id="btn1">
-				<button onclick="location.href='./boardupdate'">수정</button>
-				<button onclick="location.href='./boarddel'">삭제</button>
+				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
+				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>
 			</div>
-			<%-- </c:if> --%>
-			<%-- <c:if test="${dto.id!=loginId}"> --%>
+			</c:if>
 			<div id= "btn2">
+				<c:if test="${dto.id!=loginId}">
 				<button onclick="location.href='./report'">신고</button>
-				<%-- </c:if> --%>
+				</c:if>
 				<button onclick="location.href='./boardList'">목록</button>
 			</div>
 		<table>
@@ -83,30 +87,57 @@
 				<th>내용</th>
 				<td>${dto.content}</td>
 			</tr>
-			<%-- <c:if test="${dto.newFileName ne null}"> --%>
+			<c:if test="${dto.newFileName ne null}">
 			<tr>
-				<th>첨부사진</th>
-				<td>
+				<th class="bbstable">첨부사진</th>
+				<td class="bbstable">
 					<a href="photo/${dto.newFileName}" target="_blank">${dto.oriFileName}</a>
 					<br/>
 					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
 				</td>
 			</tr>			
-			<%-- </c:if> --%>
+			</c:if>
 		</table>
-		<input id="comment" type="text" placeholder="댓글을 입력해주세요"/>
+		<input id="comment" class="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
-		<%-- <c:if test="댓글이 있는경우">
-		<table>
-			<tr>
-				<td>userId</td>
-				<td>추천추천</td>
-			</tr>
-		</table>
+		<c:if test="${commentUpdatedto.content ne null}">
+			<input id ="comm_up" class="comment" type="text" value="${commentUpdatedto.content}"/>
+			<button id="comm_update">수정</button>
 		</c:if>
-		<c:if test="댓글이 없는경우"> --%>
-			<p>현재 댓글이 없습니다.</p>
-		<%-- </c:if> --%>
+		<c:if test="${not empty list}">
+		<c:forEach items="${list}" var="comment">
+			<table class ="comm_table">
+			<tr>
+				<td>${comment.id}</td>
+				<td>
+					${comment.content}
+					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
+						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
+					</c:if>
+				</td>
+				<td>${comment.reg_date}</td>
+			</tr>
+			</table>
+		</c:forEach>
+		</c:if>
+		<c:if test="${empty list}"><!-- 댓글이 없는경우 -->
+			<p class ="comm_table">현재 댓글이 없습니다.</p>
+		</c:if>
 		</div>
 </body>
+<script>
+	$('#comm_regist').click(function(){
+		var comment = $('#comment').val();
+		location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}';
+	});
+	$('#comm_update').click(function(){
+		var comment = $('#comm_up').val();
+		location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}';
+	});
+	var msg="${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
+</script>
 </html>

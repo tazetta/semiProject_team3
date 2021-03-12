@@ -2,7 +2,7 @@ package com.mvc.dto;
 
 import java.sql.Date;
 
-public class popupDTO {
+public class PopupDTO {
 
 	private int infoidx;
 	private String subject;

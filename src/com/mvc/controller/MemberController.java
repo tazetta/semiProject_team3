@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.MemberService;
 
-@WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"})
+@WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
+	,"/visitedList"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -91,7 +92,14 @@ public class MemberController extends HttpServlet {
 			System.out.println("--회원탈퇴 요청--");
 			service.memberWithdraw();
 			break;
+			
+		case "/visitedList":
+			System.out.println("");
+			System.out.println("--가봤어요 리스트 요청--");
+			service.visitedList();
+			break;
 		}
+		
 		
 	}
 		

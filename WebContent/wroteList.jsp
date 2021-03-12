@@ -271,8 +271,8 @@ a {
 							<th style="width:500px"><a href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
 							<td>${bbs.reg_date }</td>
 							<td>
-								<button>수정</button><br/>
-								<button>삭제</button>
+								<button onclick="location.href='boardUpdateForm?boardIdx=${bbs.boardIdx}'">수정</button><br/>
+								<button onclick="location.href='boardDel'">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>

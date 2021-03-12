@@ -282,22 +282,21 @@ public class MemberService {
 		}
 	}
 
-	// 컨트롤러로부터 로그인 요청시 실행
-//	public boolean login() {
-//		
-//		MemberDAO dao = new MemberDAO();//dao 객체화
-//		//유저아이디와 비밀번호를 가져옴
-//		String id = req.getParameter("userId");
-//		String pw = req.getParameter("userPw");
-//		System.out.println(id+"/"+pw);//값이 제대로 들어왔는지
-//		return dao.login(id, pw);//dao한테 받은 결과를 다시 컨트롤러에 전달
-//	}
-//	
-//	public ArrayList<MemberDTO> main() {
-//		
-//		MemberDAO dao = new MemberDAO();
-//		ArrayList<MemberDTO> list = dao.list();
-//		return list;
-//	}
+	/* 가봤어요 리스트*/
+	public void visitedList() throws IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println(loginId+"의 가봤어요 리스트");
+		
+		if (loginId != null) {// 로그인 체크
+			boolean success= false;
+			dao.visitedList(loginId);
+		}else {
+			resp.sendRedirect("index.jsp");
+		}
+		
+		
+	}
+
+
 
 }
