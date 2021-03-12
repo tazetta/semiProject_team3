@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
+import com.mvc.dto.CommentDTO;
 
 public class BoardDAO {
 	
@@ -266,6 +267,74 @@ public class BoardDAO {
 			resClose();
 		}	
 		return success;
+	}
+   
+	public boolean commentWrite(String boardIdx, String comment, String loginId) {
+		String sql = "INSERT INTO bbs_comment (reIdx,content,id,boardIdx)VALUES(comment_seq.NEXTVAL,?,?,?)";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comment);
+			ps.setString(2, loginId);
+			ps.setString(3, boardIdx);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
+
+	public ArrayList<CommentDTO> comm_list(String boardIdx) {
+		String sql = "SELECT reIdx,id,content,reg_date FROM BBS_COMMENT WHERE boardIdx=? ORDER BY reIdx DESC";
+		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				CommentDTO dto = new CommentDTO();
+				dto.setId(rs.getString("id"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setReIdx(rs.getInt("reIdx"));
+				list.add(dto);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		
+		return list;
+	}
+
+	public boolean commentUpdate(String reIdx) {
+
+		return false;
+	}
+
+	public CommentDTO commentUpdateForm(String reIdx) {
+		String sql = "SELECT content,id FROM bbs_comment WHERE reIdx=?";
+		CommentDTO dto = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, reIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dto = new CommentDTO();
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return dto;
 	}
 
 	

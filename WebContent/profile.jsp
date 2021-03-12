@@ -198,7 +198,7 @@ table#profile {
 
 				<li class="navi"><a href="#">지역별</a></li>
 
-				<li class="navi"><a href="#">커뮤니티</a></li>
+				<li class="navi"><a href="boardList">커뮤니티</a></li>
 
 				<li class="navi"><a href="#">고객센터</a></li>
 

@@ -70,6 +70,11 @@ public class BoardController  extends HttpServlet{
 				System.out.println("댓글쓰기 요청");
 				service.commentWrite();
 				break;
+				
+			case "/commentUpdate":
+				System.out.println("댓글 수정 요청");
+				service.commentUpdate();
+				break;
 			}
 		}
 

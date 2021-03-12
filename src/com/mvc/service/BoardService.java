@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.dao.BoardDAO;
 import com.mvc.dto.BoardDTO;
+import com.mvc.dto.CommentDTO;
 
 public class BoardService {
 
@@ -27,9 +28,9 @@ public class BoardService {
 
 	public void list() throws ServletException, IOException {
 		
-		//String loginId = (String) req.getSession().getAttribute("loginId");
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		//if(loginId!=null) {
+		if(loginId!=null) {
 		String pageParam =  req.getParameter("page");
 		System.out.println("page:"+pageParam);
 		//한페이지 그룹 -> 1~10번
@@ -45,16 +46,16 @@ public class BoardService {
 		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
-		//}else {
-			//resp.sendRedirect("index.jsp");
-		//}
+		}else {
+			resp.sendRedirect("index.jsp");
+		}
 	}
 
 	public void write() throws ServletException, IOException {
 		
-		//String loginId = (String) req.getSession().getAttribute("loginId");
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		//if(loginId!=null) { //로그인 체크
+		if(loginId!=null) { //로그인 체크
 			//FileService에 우리는 파일과 관련된 내용을 추가할 예정
 			FileService upload = new FileService(req);
 			BoardDTO dto = upload.regist();
@@ -74,44 +75,46 @@ public class BoardService {
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);		
-		//} else {
-		//	resp.sendRedirect("index.jsp");
-		//}
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
 		
 	}
 
 	public void detail() throws ServletException, IOException {
 		
-		//String loginId = (String) req.getSession().getAttribute("loginId");
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		//if(loginId!=null) {
+		if(loginId!=null) {
 			BoardDAO dao = new BoardDAO();
 			String boardIdx = req.getParameter("boardIdx");
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println("oriFileName"+dto.getOriFileName());
-			
+			dao = new BoardDAO();
+			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
+			System.out.println("댓글리스트 사이즈: "+list.size());
 			String page="/boardList";
 			
 			if(dto!=null) {	
 				dao = new BoardDAO();
 				dao.upHit(boardIdx);
 				page="boarddetail.jsp";
-				req.setAttribute("dto", dto );
-				//req.setAttribute("loginId", loginId);
+				req.setAttribute("dto", dto);
+				req.setAttribute("list", list);
 			}		
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 
-		//}else{
-			//resp.sendRedirect("index.jsp");
-			//}
+		}else{
+			resp.sendRedirect("index.jsp");
+			}
 	}
 
 	public void del() throws IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
-		//if(loginId== id || loginId== "admin") {
+		if(loginId== id || loginId== "admin") {
 		System.out.println("delete idx : "+boardIdx);
 		System.out.println("삭제할 글 작성자 아이디:"+id);	
 		FileService upload = new FileService(req);
@@ -127,7 +130,7 @@ public class BoardService {
 			upload.delete(newFileName);
 		}
 		resp.sendRedirect("./boardList");	
-		//}
+		}
 		
 		
 	}
@@ -139,10 +142,10 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(boardIdx);
 		
-		//page = "/boardList";
-		//if(loginId==dto.getId()) {//로그인아이디와 작성자 아이디가 같으면
+		page = "/boardList";
+		if(loginId==dto.getId()) {//로그인아이디와 작성자 아이디가 같으면
 			page="boardUpdateForm.jsp";
-		//}
+		}
 		req.setAttribute("dto", dto);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -150,9 +153,9 @@ public class BoardService {
 	}
 
 	public void update() throws IOException {
-		//String loginId = (String) req.getSession().getAttribute("loginId");
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		//if(loginId!=null) {
+		if(loginId!=null) {
 			FileService upload = new FileService(req);
 			BoardDTO dto = upload.regist();
 			BoardDAO dao = new BoardDAO();
@@ -173,14 +176,50 @@ public class BoardService {
 			}
 			
 			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx());
-		//} else {
-			//resp.sendRedirect("index.jsp");
-		//}
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
 	}
 
-	public void commentWrite() {
+	public void commentWrite() throws ServletException, IOException {
 		String comment = req.getParameter("comment");
+		String boardIdx = req.getParameter("boardIdx");
 		System.out.println("댓글내용:"+comment);
+		System.out.println("boardIdx:"+boardIdx);
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			BoardDAO dao = new BoardDAO();
+			page="boardDetail";
+			msg="댓글등록에 실패하였습니다.";
+			if(dao.commentWrite(boardIdx,comment,loginId)) {
+				msg="댓글이 등록되었습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			
+		}else {
+			resp.sendRedirect("index.jsp");
+		}
+		
+	}
+
+	public void commentUpdate() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String id = req.getParameter("id");
+		String reIdx = req.getParameter("reIdx");
+		System.out.println(id+"/"+reIdx);
+		BoardDAO dao = new BoardDAO();
+		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
+		
+		page = "/boardDetail";
+		if(loginId==commentUpdatedto.getId()) {//로그인아이디와 작성자 아이디가 같으면
+			req.setAttribute("commentUpdatedto", commentUpdatedto);
+		}
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 		
 	}
 
