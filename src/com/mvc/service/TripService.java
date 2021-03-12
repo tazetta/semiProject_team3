@@ -107,10 +107,9 @@ public class TripService {
 	}
 
 	public void tripInsert() throws IOException {
-		
+
 		if (isManagered()) {
 			boolean success = false;
-
 			String managerId = req.getParameter("managerId");
 			String contentId = req.getParameter("contentId");
 			String firstImage = req.getParameter("firstImage");
@@ -186,11 +185,6 @@ public class TripService {
 
 	}
 
-	private boolean isManagered() {
-		String loginId = (String) req.getSession().getAttribute("loginId");
-		return dao.chkManager(loginId);
-	}
-
 	public void tripInsetrInformation() throws ServletException, IOException {
 
 		if (isManagered()) {
@@ -215,5 +209,10 @@ public class TripService {
 		} else {
 			resp.sendRedirect("index.jsp");
 		}
+	}
+
+	private boolean isManagered() {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		return dao.chkManager(loginId);
 	}
 }
