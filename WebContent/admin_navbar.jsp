@@ -32,7 +32,7 @@ a {
 </head>
 <body>
 <div class="navbar">
-			<li><a href="index.jsp" target="_parent">관리자정보</a></li>
+			<li><a href="./adminList" target="_parent">관리자정보</a></li>
 			<li><a href="">여행지 관리</a></li>
 			<li><a href="">신고내역 관리</a></li>
 			<li><a href="info_General.jsp" target="_parent">회원정보 관리</a></li>
