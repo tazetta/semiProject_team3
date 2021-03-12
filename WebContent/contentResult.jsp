@@ -154,15 +154,11 @@ a {
 			<tr>
 				<th><img src="${result.firstImage}" width="100px"
 					height="100px" /></th>
-<<<<<<< HEAD
-				<th><a href="./tripDetail?contentId=${selectResult.contentId }"  target=window.open()>${selectResult.title}</a></th>
-				<th>${selectResult.reg_date}</th>
-				<th>${selectResult.bookmarkCnt}</th>
-=======
-				<th><a href="./tripDetail?contentId=${result.contentId}">${result.title}</a></th>
+
+				<th><a href="./tripDetail?contentId=${result.contentId}" target=window.open()>${result.title}</a></th>
 				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>
->>>>>>> 80cc9e4702a627b56874e4757c3fc32911d841a1
+
 			</tr>
 		</c:forEach>
 	</table>
