@@ -87,7 +87,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 67px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -165,7 +165,14 @@ table#wroteList {
 	width: 900px;
 
 }
-
+.noneList{
+position:relative;
+top: 150px;
+height:60px;
+text-align: center;
+align-items:stretch;
+background-color : transParent;
+}
 /*페이징*/
 .pageArea {
 	text-align: center;
@@ -196,8 +203,7 @@ a {
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src=""
-				width="200px" height="50px"></a>
+			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form>
@@ -252,7 +258,11 @@ a {
 	<section id=background>
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-
+				<c:if test="${list eq '[]'}">
+					<div class="noneList">
+						<p>작성한 글이 존재하지 않습니다</p>
+					</div>
+				</c:if>
 				<table id="wroteList">
 					
 					<c:forEach items="${list }" var="bbs">
@@ -269,6 +279,7 @@ a {
 				</table>
 			</div>
 </section>
+	<c:if test="${list ne '[]'}">
 		<div class="pageArea">
 			<span> 
 				<c:if test="${currPage==1}">이전</c:if> 
@@ -280,7 +291,7 @@ a {
 				<c:if test="${currPage<maxPage}"><a href="?page=${currPage+1}">다음</a></c:if>
 			</span>
 		</div>
-	
+	</c:if>
 </body>
 <script>
 	
