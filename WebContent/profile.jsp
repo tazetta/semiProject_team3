@@ -218,7 +218,7 @@ table#profile {
 					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="#">가봤어요</a></td>
+					<td class="menu"><a href="visitedList">가봤어요</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">즐겨찾기</a></td>
@@ -262,9 +262,9 @@ table#profile {
 	</section>
 </body>
 <script>
-var msg = "${msg}"; //el태그 사용해서 request로 저장된 msg 담기
-if (msg != "") {  //공백이 아니면 (컨트롤러를 거쳐서 msg가 담기면)
-	alert(msg); //해당 메시지 출력
+var msg = "${msg}"; 
+if (msg != "") {  
+	alert(msg); 
 }
 
 	/*카테고리 이벤트 */
