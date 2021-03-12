@@ -65,10 +65,10 @@ public class BoardService {
 			String page = "boardwriteForm.jsp";
 			String msg = "글 등록에 실패하였습니다.";
 			
-			long idx = dao.write(dto);
+			long boardIdx = dao.write(dto);
 			
-			if(idx>0) {
-				page = "/boardList";
+			if(boardIdx>0) {
+				page = "boardDetail?boardIdx="+boardIdx;
 				msg = "글 등록에 성공하였습니다.";
 			}
 			req.setAttribute("msg", msg);
@@ -95,7 +95,7 @@ public class BoardService {
 			
 			if(dto!=null) {	
 				dao = new BoardDAO();
-				//dao.upHit(idx);
+				dao.upHit(boardIdx);
 				page="boarddetail.jsp";
 				req.setAttribute("dto", dto );
 				//req.setAttribute("loginId", loginId);
@@ -112,14 +112,50 @@ public class BoardService {
 		
 	}
 
-	public void updateForm() {
-		// TODO Auto-generated method stub
+	public void updateForm() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String boardIdx = req.getParameter("boardIdx");
+		BoardDAO dao = new BoardDAO();
+		BoardDTO dto = dao.detail(boardIdx);
+		
+		//page = "/boardList";
+		//if(loginId==dto.getId()) {//로그인아이디와 작성자 아이디가 같으면
+			page="boardUpdateForm.jsp";
+		//}
+		req.setAttribute("dto", dto);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 		
 	}
 
-	public void update() {
-		// TODO Auto-generated method stub
+	public void update() throws IOException {
+		//String loginId = (String) req.getSession().getAttribute("loginId");
 		
+		//if(loginId!=null) {
+			FileService upload = new FileService(req);
+			BoardDTO dto = upload.regist();
+			BoardDAO dao = new BoardDAO();
+			dao.update(dto);
+			if(dto.getOriFileName()!=null) {
+				//업로드 파일이 있다면 기존파일 지우기, 새로운 내용을 photo에 update
+				int boardIdx= dto.getBoardIdx();
+				dao = new BoardDAO();
+				String delFileName = dao.getFileName(String.valueOf(boardIdx));
+				System.out.println("삭제할 파일명: "+ delFileName);
+				dao = new BoardDAO();
+				dao.updateFileName(delFileName,dto);
+				
+				//파일삭제
+				if(delFileName!=null) {
+					upload.delete(delFileName);				
+				}
+			}
+			
+			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx());
+		//} else {
+			//resp.sendRedirect("index.jsp");
+		//}
 	}
 
 }

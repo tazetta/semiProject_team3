@@ -18,7 +18,7 @@
 		padding : 5px 10px;
 	}
 	#total{
-		margin-left:20%;
+		margin-left:10%;
 		border:1px solid black;
 		width :1200px;
 	}
@@ -60,7 +60,7 @@
 		<div id="total">
 			<%-- <c:if test="${dto.id==loginId}"> --%>
 			<div id="btn1">
-				<button onclick="location.href='./boardupdate'">수정</button>
+				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}'">수정</button>
 				<button onclick="location.href='./boarddel'">삭제</button>
 			</div>
 			<%-- </c:if> --%>
@@ -83,7 +83,7 @@
 				<th>내용</th>
 				<td>${dto.content}</td>
 			</tr>
-			<%-- <c:if test="${dto.newFileName ne null}"> --%>
+			<c:if test="${dto.newFileName ne null}">
 			<tr>
 				<th>첨부사진</th>
 				<td>
@@ -92,7 +92,7 @@
 					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
 				</td>
 			</tr>			
-			<%-- </c:if> --%>
+			</c:if>
 		</table>
 		<input id="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
@@ -109,4 +109,10 @@
 		<%-- </c:if> --%>
 		</div>
 </body>
+<script>
+	var msg="${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
+</script>
 </html>

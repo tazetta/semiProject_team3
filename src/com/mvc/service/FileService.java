@@ -59,4 +59,9 @@ public class FileService {
 		return dto;
 	}
 
+	public void delete(String delFileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
