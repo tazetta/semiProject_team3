@@ -325,4 +325,19 @@ public class TripDAO {
 		return list;
 	}
 
+	public boolean chkManager(String loginId) {
+		boolean success = false;
+		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
 }

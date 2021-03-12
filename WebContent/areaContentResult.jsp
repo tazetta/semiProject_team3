@@ -154,7 +154,8 @@ a {
 			<tr>
 				<th><img src="${result.firstImage}" width="100px"
 					height="100px" /></th>
-				<th><a href="./tripDetail?contentId=${result.contentId}">${result.title}</a></th>
+
+				<th><a href="./tripDetail?contentId=${result.contentId}" target=window.open()>${result.title}</a></th>
 				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>
 			</tr>

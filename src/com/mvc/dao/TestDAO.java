@@ -57,7 +57,6 @@ public class TestDAO {
 			ps.setString(2, conIdx);
 			ps.setString(3, conIdx);
 			rs = ps.executeQuery();
-			System.out.println(1111);
 			if(rs.next()) {
 				System.out.println(rs.getString("firstimage"));
 				dto = new TripDTO();

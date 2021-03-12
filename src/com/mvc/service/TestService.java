@@ -27,8 +27,9 @@ public class TestService {
 	}
 	
 	public void tripDetail() throws ServletException, IOException {
-//		String conIdx =req.getParameter("contentId");
-		String conIdx ="745873";
+		String conIdx =req.getParameter("contentId");
+		System.out.println("dddd : "+conIdx);
+//		String conIdx ="745873";
 		//id 가져와야함
 		String id = "test";
 		TestDAO dao = new TestDAO();		
@@ -72,9 +73,10 @@ public class TestService {
 		
 		
 		TestDAO dao = new TestDAO();	
-		dao.addDel(bdto);
+		int a =dao.addDel(bdto);
+		System.out.println("성공여부 : "+a);
 		dao.resClose();
-		resp.sendRedirect("./tripDetail");	
+		resp.sendRedirect("./tripDetail?contentId="+conIdx);
 		
 	}
 	
