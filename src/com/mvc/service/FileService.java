@@ -19,7 +19,7 @@ public class FileService {
 
 	public BoardDTO regist() {
 		
-		String savePath="C:/upload";//1. 저장할 폴더 지정
+		String savePath="C:/upload/";//1. 저장할 폴더 지정
 		int maxSize = 10*1024*1024;//2. 사이즈 지정
 		BoardDTO dto = new BoardDTO();
 		try {
@@ -57,6 +57,15 @@ public class FileService {
 		}
 		
 		return dto;
+	}
+
+	public void delete(String newFileName) {
+		File file = new File("C:/upload/"+newFileName);
+		
+		if(file.exists()) {
+			boolean success = file.delete();
+			System.out.println("삭제 성공 여부 : "+ success);
+		}
 	}
 
 }

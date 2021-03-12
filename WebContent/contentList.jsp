@@ -84,38 +84,37 @@ a:visited {
 		</ul>
 	</nav>
 
-	<form action="themeResult" method="get">
-		<div class="contentList">
-			<c:forEach items="${contentList}" var="content">
-				<div class="content">
-					<input type="radio" name="content" value="${content.contentCode}"/>${content.name}
-				</div>
-			</c:forEach>
-		</div>
+	<div class="contentList">
+		<c:forEach items="${contentList}" var="content">
+			<div class="content" id="${content.contentCode}">
+				<a href="./themeContentList?nav=${content.contentCode}">${content.name}</a>
+			</div>
+		</c:forEach>
+	</div>
 
+	<form action="resultList" method="get">
 		<div class="areaList">
 			<c:forEach items="${areaList}" var="area" varStatus="status">
 				<c:if test="${status.index % 5 == 0}">
 					<div class="clear">
-						<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
 					</div>
 				</c:if>
 				<c:if test="${status.index % 5 != 0}">
 					<div>
-						<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
+						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
 					</div>
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="submit" value="검색"/>
+		<input type="hidden" name="nav" value="${nav}" /> 
+		<input type="hidden" name="type" value="theme"/>
+		<input type="submit" value="검색" />
 	</form>
 </body>
 <script>
-	var contentId = "";
-	$('.content').click(function() {
-		console.log($(this).attr('id'));
-		contentId = $(this).attr('id');
-		$(this).attr('value', contentId);
+	$(document).ready(function() {
+		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
 </script>
 </html>

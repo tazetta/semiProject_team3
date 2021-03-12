@@ -8,12 +8,12 @@
 <title>테마별</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-div.contentList {
+div.areaList {
 	position: absolute;
 	top: 25%;
 }
 
-div.content {
+div.area {
 	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
@@ -26,7 +26,7 @@ div.clear {
 	border: 1px solid black;
 }
 
-div.areaList>div {
+div.cityList>div {
 	float: left;
 	border: 1px solid black;
 	padding: 5px 5px;
@@ -34,7 +34,7 @@ div.areaList>div {
 	/* text-align: center; */
 }
 
-div.areaList {
+div.cityList {
 	position: absolute;
 	left: 25%;
 	top: 10%;
@@ -84,40 +84,38 @@ a:visited {
 		</ul>
 	</nav>
 
-		<div class="contentList">
+		<div class="areaList">
 			<c:forEach items="${areaList}" var="area">
-				<div class="content">
-					<a href="./areaContentList?areaCode=${area.areaCode}">${area.name}</a>
+				<div class="area" id="${area.areaCode}">
+					<a href="./areaContentList?nav=${area.areaCode}">${area.name}</a>
 				</div>
 			</c:forEach>
 		</div>
 
-	<form action="areaContentResult?areaCode=${areaCode}" method="GET">
-		<div class="areaList">
+	<form action="resultList" method="GET">
+		<div class="cityList">
 			<c:forEach items="${cityList}" var="city" varStatus="status">
 				<c:if test="${status.index % 5 == 0}">
 					<div class="clear">
-						<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
+						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
 					</div>
 				</c:if>
 				<c:if test="${status.index % 5 != 0}">
 					<div>
-						<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
+						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
 					</div>
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="areaCode" value="${areaCode}"/>
+		<input type="hidden" name="nav" value="${nav}"/>
+		<input type="hidden" name="type" value="area"/>
 		<input type="submit" value="검색"/>
 	</form>
 
 </body>
 <script>
-	var contentId = "";
-	$('.content').click(function() {
-		console.log($(this).attr('id'));
-		contentId = $(this).attr('id');
-		$(this).attr('value', contentId);
+	$(document).ready(function() {
+		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
 </script>
 </html>

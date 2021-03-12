@@ -1,6 +1,6 @@
+.settings/
+WebContent/META-INF/MANIFEST.MF
 .classpath
 .project
-.settings/
+WebContent/WEB-INF/
 build/
-WebContent/META-INF/MANIFEST.MF
-WebContent/WEB-INF/lib/

@@ -48,24 +48,28 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-/*로그인*/
-//	public boolean login(String id, String pw) {
-//		boolean success = false ; //결과값 담을 변수
-//		String sql = "SELECT id FROM member WHERE id =? AND pw=?"; //쿼리문 준비 - SELECT
-//		try {
-//			ps = conn.prepareStatement(sql); //conn으로부터 ps가져와서 sql담기
-//			ps.setString(1, id);
-//			ps.setString(2, pw);
-//			rs = ps.executeQuery(); //쿼리 실행
-//			success = rs.next(); //다음값이 있으면 true, 없으면 false 담김
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally { //항상 자원 반납
-//			resClose();
-//		}
-//		System.out.println("로그인 성공 여부:"+success);
-//		return success;
-//	}
+
+	
+	/*로그인 +탈퇴여부확인*/
+	public boolean login(String id, String pw) {
+		
+		boolean success = false;
+		String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, pw);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
+	}
+
+	
 	/*회원정보*/
 	public MemberDTO profile(String loginId) {
 		String sql = "SELECT name, phone, email FROM member WHERE id=?";
@@ -142,7 +146,7 @@ public class MemberDAO {
 		int end= page*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql ="SELECT rnum, subject, reg_date FROM "
+		String sql ="SELECT boardIdx,rnum, subject, reg_date FROM "
 				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date, id FROM bbs)" 
 				+"WHERE rnum BETWEEN ? AND ? AND id=?"; 
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -159,6 +163,7 @@ public class MemberDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setRnum(rs.getInt("rnum"));
+				dto.setBoardIdx(rs.getInt("boardidx"));
 				list.add(dto);
 			}
 			
@@ -200,24 +205,6 @@ public class MemberDAO {
 		success = rs.next();
 		
 		return !success;
-	}
-
-	public boolean login(String id, String pw) {
-		
-		boolean success = false;
-		String sql = "SELECT id FROM member WHERE id=? AND pw=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.setString(2, pw);
-			rs = ps.executeQuery();
-			success = rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			resClose();
-		}
-		return success;
 	}
 
 	public ArrayList<MemberDTO> list() {
@@ -285,6 +272,31 @@ public class MemberDAO {
 		}
 		
 		return id;
+	}
+
+	/*회원탈퇴*/
+	public boolean memberWithdraw(String loginId, String pw) {
+		 String sql="UPDATE member SET withdraw='TRUE', update_date=SYSDATE WHERE id=? AND pw=? ";
+		 boolean success= false;
+		 try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			ps.setString(2, pw);
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}return success;
+		
+	}
+
+	/*가봤어요 리스트*/
+	public void visitedList(String loginId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

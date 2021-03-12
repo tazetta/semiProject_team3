@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- c태그 사용위해 불러옴 -->
+<!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
-<title>마이 페이지 - 회원정보 보기</title>
+<title>마이 페이지- 회원탈퇴 안내</title>
 <link rel="icon" href="south-korea.png">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 body {
-	min-width: 1500px;
+	min-width: 1300px;
 }
 
 /*top*/
@@ -43,10 +46,11 @@ li {
 	right: 5%;
 }
 /*검색창*/
-form{
-width:700px;
-height:40px;
+form {
+	width: 700px;
+	height: 40px;
 }
+
 div#search {
 	position: absolute;
 	top: 40px;
@@ -84,7 +88,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 30px;
+	margin-top: 67px;
 }
 
 .navi {
@@ -133,58 +137,62 @@ section#left {
 .menuHover {
 	font-weight: 600;
 }
-
 /*콘텐츠*/
 #content {
 	height: 600px;
 	background-color: #F2F2F2;
 	text-align: center;
-	position: relative;
-	top: 0px;
-	left: 20px;
 	float: left;
-	margin: 10px;
 	width: 80%;
+	margin-top:10px;
+}
+
+table, tr, td {
+	border: 1px solid lightgray;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 20px;
 }
 
 span {
 	position: relative;
 	top: 50px;
 	font-weight: 600;
+	color: dimgrey;
 }
 
-table#profile {
+table#pwChk {
 	background-color: white;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
 	width: 600px;
-	clear: both;
 }
 
-#wd {
-	position: absolute;
-	right: 20px;
-	bottom: 20px;
+input[type="password"] {
+	width: 80%;
+	height: 30px;
 }
+
 </style>
 
 </head>
 
 <body>
-	<section>
+<header>
+	 <section>
 		<div class="ci">
-			<a href="index.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
+			<a href="main.html" target="_parent"><img alt="CI" src="" width="200px" height="50px"></a>
 		</div>
 		<div id="search">
 			<form >
-				<input type="text" name="search" placeholder="검색어를 입력해주세요" /> <input
+				<input type="text" name="search" placeholder="검색어를 입력해주세요" id="searchText"/> <input
 					type="submit" value="검색" />
 			</form>
 		</div>
 		<div class="login">
 			<ul>
-				<li><a href="logout">로그아웃</a></li>
+				<li><a href="#">로그인</a></li>
 				<li><a href="#">회원가입 </a></li>
 
 			</ul>
@@ -193,12 +201,11 @@ table#profile {
 	<section id="navi">
 		<div class="bar">
 			<ul>
-				<li class="navi"><a href="./themeContentList">테마별</a></li>
+				<li class="navi"><a href="#">테마별</a></li>
 
-				<li class="navi"><a href="./areaContentList">지역별</a></li>
+				<li class="navi"><a href="#">지역별</a></li>
 
-				<li class="navi"><a href="./boardList">커뮤니티</a></li>
-
+				<li class="navi"><a href="#">커뮤니티</a></li>
 
 				<li class="navi"><a href="#">고객센터</a></li>
 
@@ -207,6 +214,7 @@ table#profile {
 			</ul>
 		</div>
 	</section>
+	</header>
 
 	<section id="left">
 		<div>
@@ -218,7 +226,7 @@ table#profile {
 					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
+					<td class="menu"><a href="#">가봤어요</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">즐겨찾기</a></td>
@@ -227,59 +235,70 @@ table#profile {
 		</div>
 	</section>
 
-	<section id="background">
-		<div id="content">
-			<span>회원정보</span>
-
-			<table id="profile">
+	<div id="content">
+		<span>탈퇴안내</span> <br />
+		
+				<form action="memberWithdraw" method="post">
+			<table id="pwChk">
 				<tr>
-					<th>아이디</th>
-					<td>${sessionScope.loginId}</td>
+					<th>비밀번호 확인</th>
+					<td><input type="password" name="userPw" id="confirmPw"></td>
 				</tr>
-				<tr>
-					<th>이름</th>
-					<td>${profile.name}</td>
-				</tr>
-				<tr>
-					<th>핸드폰 번호</th>
-					<td>${profile.phone}</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>${profile.email}</td>
+				<tr >
+					<th colspan="2" >
+					<br/>
+						✓ 사용하고 계신 아이디는 탈퇴 할 경우 재사용이 불가능합니다.<br/><br/>
+						✓ 게시판형 서비스에 남아있는 글은 탈퇴 후 삭제가 불가능합니다.<br/>
+						<br/> 
+					</th>
 				</tr>
 				<tr>
 					<td colspan="2" style="border: none">
-						<button onclick="location.href='memberUpdateForm'">회원정보 수정</button>
-						<button onclick="location.href='pwUpdate.jsp'">비밀번호 변경</button>
-					</td>
+					<input type="button" value="탈퇴하기" id="withdraw"></td>
+					
 				</tr>
 			</table>
-			<button id="wd" onclick="location.href='memberWithdraw.jsp'">회원탈퇴</button>
-		</div>
+			</form>
+	</div>
 
-
-	</section>
 </body>
 <script>
 var msg = "${msg}"; 
 if (msg != "") {  
 	alert(msg); 
 }
+/*카테고리 이벤트*/
+$("li").hover(function () {
+    $(this).toggleClass("li");
+});
+$("li").click(function(){
+    $(this).css({"background-color":"#E6E6E6","font-weight": "600"});
+});
 
-	/*카테고리 이벤트 */
-	$("li").hover(function () {
-        $(this).toggleClass("li");
-    });
-	
-    $(".menu").hover(function () {
-        $(this).toggleClass("menuHover");
-    });
-    $(".menu").click(function () {
-        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
-    })
-    
+$(".menu").hover(function () {
+    $(this).toggleClass("menuHover");
+});
+$(".menu").click(function () {
+    $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
+})
 
+	 var $confirmPw = $("#confirmPw");
+
+ 
+/*비밀번호 유효성 검사+ y/n confirm*/
+
+ $("#withdraw").click(function(){
+	 if($confirmPw.val()==""){
+	 	alert("비밀번호를 입력해주세요");
+	 }else{
+		 if(confirm("정말로 탈퇴하시겠습니까?")){
+		 $("form").submit();
+			}else{
+				location.href="/profile";
+			}
+	 }
+	 
+ });
 </script>
 
 </html>

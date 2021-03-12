@@ -87,7 +87,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 67px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -148,7 +148,7 @@ section#left {
 	float: left;
 	margin: 10px;
 	width: 1200px;
-	height : 900px;
+	height : 1200px;
 }
 
 span {
@@ -165,16 +165,26 @@ table#wroteList {
 	width: 900px;
 
 }
+.noneList{
+position:relative;
+top: 150px;
+height:60px;
+text-align: center;
+align-items:stretch;
+background-color : transParent;
+}
 /*페이징*/
 .pageArea {
 	text-align: center;
-	position:absolute;
-	justify-content:center;
+	position: absolute;
+	bottom : -500px;
+	left:780px;
 }
 
 .pageArea span {
 	font-size: 16px;
 	border: 1px solid lightgray;
+	background-color: lightgray;
 	padding: 2px 10px;
 }
 
@@ -185,14 +195,15 @@ a {
 #page {
 	font-weight: 600;
 	border: none;
+	background-color : transparent;
+
 }
 </style>
 </head>
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src=""
-				width="200px" height="50px"></a>
+			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form>
@@ -229,10 +240,10 @@ a {
 		<div>
 			<table>
 				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
+					<td class="menu"><a href="./profile">사용자 정보</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
+					<td class="menu"><a href="./wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">가봤어요</a></td>
@@ -247,22 +258,28 @@ a {
 	<section id=background>
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-
+				<c:if test="${list eq '[]'}">
+					<div class="noneList">
+						<p>작성한 글이 존재하지 않습니다</p>
+					</div>
+				</c:if>
 				<table id="wroteList">
+					
 					<c:forEach items="${list }" var="bbs">
-						<tr>
-							<td>${bbs.rnum}</td>
-							<th>${bbs.subject }</th>
+						<tr class="bbsTr">
+							<td >${bbs.rnum}</td>
+							<th style="width:500px"><a href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
 							<td>${bbs.reg_date }</td>
 							<td>
-								<button>수정</button>
-								<button>삭제</button>
+								<button onclick="location.href='boardUpdateForm?boardIdx=${bbs.boardIdx}'">수정</button><br/>
+								<button onclick="location.href='boardDel'">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 </section>
+	<c:if test="${list ne '[]'}">
 		<div class="pageArea">
 			<span> 
 				<c:if test="${currPage==1}">이전</c:if> 
@@ -274,7 +291,7 @@ a {
 				<c:if test="${currPage<maxPage}"><a href="?page=${currPage+1}">다음</a></c:if>
 			</span>
 		</div>
-	
+	</c:if>
 </body>
 <script>
 	

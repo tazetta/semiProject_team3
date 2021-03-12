@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
+import com.mvc.dto.CommentDTO;
 
 public class BoardDAO {
 	
@@ -137,17 +138,25 @@ public class BoardDAO {
 	}
 
 
-	public BoardDTO detail(String boardIdx) {
-		String sql = "SELECT id,subject,content FROM bbs WHERE boardIdx=?";
-		BoardDTO dto = new BoardDTO();
+	public BoardDTO detail(String boardIdx, String loginId) {
+		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id, p.oriFileName, p.newFileName "+ 
+				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ? AND id=?";		
+		BoardDTO dto = null;
+		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, Integer.parseInt(boardIdx));
+			ps.setString(2, loginId);
 			rs=ps.executeQuery();
 			if(rs.next()) {
+				dto = new BoardDTO();
+				dto.setBoardIdx(rs.getInt("boardIdx"));
 				dto.setId(rs.getString("id"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
+				dto.setbHit(rs.getInt("bHit"));
+				dto.setOriFileName(rs.getString("oriFileName"));
+				dto.setNewFileName(rs.getString("newFileName"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,5 +166,178 @@ public class BoardDAO {
 		
 		return dto;
 	}
+
+	public void upHit(String boardIdx) {
+		System.out.println("조회수올리기");
+		String sql ="UPDATE bbs SET bHit= bHit+1 WHERE boardIdx=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			int success = ps.executeUpdate();
+			System.out.println("조회수 올리기 성공 : "+success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+	}
+
+	public int update(BoardDTO dto) {
+		String sql = "UPDATE bbs SET subject=?,content=? WHERE boardIdx=?";
+		int success = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getSubject());
+			ps.setString(2, dto.getContent());
+			ps.setInt(3, dto.getBoardIdx());
+			success = ps.executeUpdate();
+			System.out.println("업데이트 완료된 개수 : "+success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
+
+	public String getFileName(String boardIdx) {
+		String newFileName = null;
+		String sql = "SELECT oriFileName,newFileName FROM photo WHERE boardIdx=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				newFileName = rs.getString("newFileName");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return newFileName;
+	}
+
+	public int updateFileName(String delFileName, BoardDTO dto) {
+		String sql = "";
+		int success = 0;
+		
+		try {
+			if(delFileName!=null) { //기존파일이 있고 사진을 변경할 시
+				sql = "UPDATE photo SET newFileName=?,oriFileName=? WHERE boardIdx=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getNewFileName());
+				ps.setString(2, dto.getOriFileName());
+				ps.setInt(3, dto.getBoardIdx());	
+			}else {//기존사진이 없고 사진을 신규로 올릴 시
+				sql = "INSERT INTO photo (fileIdx,oriFileName,newFileName,boardIdx)VALUES(photo_seq.NEXTVAL,?,?,?)";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getOriFileName());
+				ps.setString(2, dto.getNewFileName());
+				ps.setInt(3, dto.getBoardIdx());
+			}
+			success = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		System.out.println(sql+" 성공여부  :" +success);
+		return success;	
+		
+	}
+
+	public int del(String boardIdx, String newFileName) {
+		int success = 0;
+		
+		try {
+			if(newFileName!= null) {
+				String photoSQL = "DELETE FROM photo WHERE boardIdx = ?";
+				ps = conn.prepareStatement(photoSQL);
+				ps.setString(1, boardIdx);
+				ps.executeUpdate();
+			}
+			String bbsSQL = "DELETE FROM bbs WHERE boardIdx=?";
+			ps = conn.prepareStatement(bbsSQL);
+			ps.setString(1, boardIdx);
+			success = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}	
+		return success;
+	}
+   
+	public boolean commentWrite(String boardIdx, String comment, String loginId) {
+		String sql = "INSERT INTO bbs_comment (reIdx,content,id,boardIdx)VALUES(comment_seq.NEXTVAL,?,?,?)";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comment);
+			ps.setString(2, loginId);
+			ps.setString(3, boardIdx);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
+
+	public ArrayList<CommentDTO> comm_list(String boardIdx) {
+		String sql = "SELECT reIdx,id,content,reg_date FROM BBS_COMMENT WHERE boardIdx=? ORDER BY reIdx DESC";
+		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				CommentDTO dto = new CommentDTO();
+				dto.setId(rs.getString("id"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setReIdx(rs.getInt("reIdx"));
+				list.add(dto);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		
+		return list;
+	}
+
+	public boolean commentUpdate(String reIdx) {
+
+		return false;
+	}
+
+	public CommentDTO commentUpdateForm(String reIdx) {
+		String sql = "SELECT content,id FROM bbs_comment WHERE reIdx=?";
+		CommentDTO dto = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, reIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dto = new CommentDTO();
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return dto;
+	}
+
+	
 
 }

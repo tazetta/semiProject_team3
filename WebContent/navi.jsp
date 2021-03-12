@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>navi</title>
-		<link rel="icon" href="favicon.png">
+		<link rel="icon" href="./koreaCI.png">
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<style>
         div.bar {
