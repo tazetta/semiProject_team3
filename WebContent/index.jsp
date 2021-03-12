@@ -5,5 +5,8 @@
 	function page() {
 		location.href="./main";
 	}
+	
+	
+	
 	page();
 </script>
