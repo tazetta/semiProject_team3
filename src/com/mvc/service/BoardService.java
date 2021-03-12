@@ -142,7 +142,6 @@ public class BoardService {
 		String id = req.getParameter("id");
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(boardIdx);
-		
 		page = "/boardList";
 		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면 => dto에 값이 있으면
 			page="boardUpdateForm.jsp";
