@@ -255,7 +255,7 @@ table#profile {
 					</td>
 				</tr>
 			</table>
-			<button id="wd">회원탈퇴</button>
+			<button id="wd" onclick="location.href='memberWithdraw.jsp'">회원탈퇴</button>
 		</div>
 
 
