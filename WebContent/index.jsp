@@ -3,7 +3,7 @@
 
 <script>
 	function page() {
-		location.href="./main.jsp";
+		location.href="./main";
 	}
 	page();
 </script>
