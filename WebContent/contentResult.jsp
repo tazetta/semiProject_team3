@@ -116,30 +116,32 @@ a {
 		</ul>
 	</nav>
 
-	<form action="themeResult" method="get">
 	<div class="contentList">
 		<c:forEach items="${contentList}" var="content">
-			<div class="content">
-				<input type="radio" name="content" value="${content.contentCode}" />${content.name}
+			<div class="content" id="${content.contentCode}">
+				<a href="./themeContentList?nav=${content.contentCode}">${content.name}</a>
 			</div>
 		</c:forEach>
 	</div>
 
-	<div class="areaList">
-		<c:forEach items="${areaList}" var="area" varStatus="status">
-			<c:if test="${status.index % 5 == 0}">
-				<div class="clear">
-					<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
-				</div>
-			</c:if>
-			<c:if test="${status.index % 5 != 0}">
-				<div>
-					<input type="checkbox" name="city" value="${area.areaCode}">${area.name}
-				</div>
-			</c:if>
-		</c:forEach>
-		<input type="submit" value="검색" />
-	</div>
+	<form action="resultList" method="get">
+		<div class="areaList">
+			<c:forEach items="${areaList}" var="area" varStatus="status">
+				<c:if test="${status.index % 5 == 0}">
+					<div class="clear">
+						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+					</div>
+				</c:if>
+				<c:if test="${status.index % 5 != 0}">
+					<div>
+						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+					</div>
+				</c:if>
+			</c:forEach>
+			<input type="hidden" name="nav" value="${nav}" /> 
+			<input type="hidden" name="type" value="theme"/>
+			<input type="submit" value="검색" />
+		</div>
 	</form>
 	<table>
 		<tr>
@@ -163,24 +165,19 @@ a {
 			<span> 
 				<c:if test="${currPage == 1}">이전</c:if> 
 				<c:if	 test="${currPage > 1}">
-					<a href="./themeResult?${url}&page=${currPage-1}">이전</a>
+					<a href="./resultList?${url}&page=${currPage-1}">이전</a>
 				</c:if>
 			</span> 
 			<span id="page">${currPage}</span> 
 			<span> 
 				<c:if test="${currPage == maxPage}">다음</c:if> 
-				<c:if test="${currPage < maxPage}"><a href="./themeResult?${url}&page=${currPage+1}">다음</a></c:if>
-				currPage : ${currPage} / maxPage : ${maxPage}
+				<c:if test="${currPage < maxPage}"><a href="./resultList?${url}&page=${currPage+1}">다음</a></c:if>
 			</span>
 		</div>
 </body>
 <script>
-	var contentId = "";
-	$('.content').click(function() {
-		console.log($(this).attr('id'));
-		contentId = $(this).attr('id');
-
-		$(this).attr('value', contentId);
+	$(document).ready(function() {
+		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
 </script>
 </html>
