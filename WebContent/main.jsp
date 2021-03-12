@@ -125,7 +125,7 @@ a:visited {
 
 	<section>
 		<span class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src=""
+			<a href="main.html" target="_parent"><img alt="CI" src="koreaCI.png"
 				width="200px" height="50px"></a>
 		</span>
 		<div id="search">
