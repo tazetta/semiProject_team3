@@ -89,7 +89,7 @@ public class BoardService {
 			BoardDAO dao = new BoardDAO();
 			String boardIdx = req.getParameter("boardIdx");
 			System.out.println("boardIdx: " +boardIdx);
-			BoardDTO dto = dao.detail(boardIdx);
+			BoardDTO dto = dao.detail(boardIdx, loginId);
 			System.out.println("oriFileName"+dto.getOriFileName());
 			dao = new BoardDAO();
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
@@ -141,13 +141,13 @@ public class BoardService {
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
 		BoardDAO dao = new BoardDAO();
-		BoardDTO dto = dao.detail(boardIdx);
+		BoardDTO dto = dao.detail(boardIdx,loginId);
 		
 		page = "/boardList";
-		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면
+		if(dto!=null) {//로그인아이디와 작성자 아이디가 같으면 => dto에 값이 있으면
 			page="boardUpdateForm.jsp";
+			req.setAttribute("dto", dto);
 		}
-		req.setAttribute("dto", dto);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		
