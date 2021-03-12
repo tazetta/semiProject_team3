@@ -145,13 +145,12 @@ public class PopupService {
 	}
 
 	public void popupMain() throws ServletException, IOException {
-		
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
-		
+
 		page = "main.jsp";
-		
+	
 		if (dto != null) {
 			req.setAttribute("dto", dto);
 		}
