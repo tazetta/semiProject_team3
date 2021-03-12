@@ -87,7 +87,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 67px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -203,8 +203,7 @@ a {
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src=""
-				width="200px" height="50px"></a>
+			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form>
