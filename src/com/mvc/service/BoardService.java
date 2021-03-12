@@ -210,14 +210,15 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
-		System.out.println(id+"/"+reIdx);
+		String boardIdx = req.getParameter("boardIdx");
+		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		BoardDAO dao = new BoardDAO();
 		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
 		
-		page = "/boardDetail";
-		if(loginId==commentUpdatedto.getId()) {//로그인아이디와 작성자 아이디가 같으면
+		page = "/boardDetail?boardIdx="+boardIdx;
+		//if(loginId==id) {//로그인아이디와 작성자 아이디가 같으면
 			req.setAttribute("commentUpdatedto", commentUpdatedto);
-		}
+		//}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		

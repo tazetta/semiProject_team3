@@ -38,7 +38,7 @@
 		left:67%;
 		margin:5px;
 	}
-	#comment{
+	.comment{
 		position: relative;
 		left:18%;
 		font-size:18px;
@@ -47,7 +47,7 @@
 		margin-top: 5px;
 		margin-bottom :5px;
 	}
-	#comm_regist{
+	#comm_regist,#comm_update{
 		position: relative;
 		left:18%;
 	}
@@ -98,8 +98,12 @@
 			</tr>			
 			</c:if>
 		</table>
-		<input id="comment" type="text" placeholder="댓글을 입력해주세요"/>
+		<input class="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
+		<c:if test="${commentUpdatedto.content ne null}">
+			<input class="comment" id="" type="text" value="${commentUpdatedto.content}"/>
+			<button id="comm_update">수정</button>
+		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
 			<table class ="comm_table">
@@ -108,8 +112,8 @@
 				<td>
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-						<a href="commentUpdate?reIdx=${comment.reIdx}&id=${comment.id}">수정</a>
-						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}">삭제</a>
+						<a href="commentUpdate?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
 				<td>${comment.reg_date}</td>

@@ -11,6 +11,7 @@ public class CommentDTO {
 	private Date reg_date;
 	private int reportCnt;
 	private String deactivate;
+	
 	public int getReIdx() {
 		return reIdx;
 	}
