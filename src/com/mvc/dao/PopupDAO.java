@@ -10,15 +10,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mvc.dto.popupDTO;
+import com.mvc.dto.PopupDTO;
 
-public class popupDAO {
+public class PopupDAO {
 
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
-	public popupDAO() {
+	public PopupDAO() {
 		try {
 			Context ctx = new InitialContext();
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle");
@@ -38,17 +38,17 @@ public class popupDAO {
 		}
 	}
 	
-	public ArrayList<popupDTO> popupList() {
+	public ArrayList<PopupDTO> popupList() {
 		
-		ArrayList<popupDTO> popupList = new ArrayList<popupDTO>();
+		ArrayList<PopupDTO> popupList = new ArrayList<PopupDTO>();
 		String sql = "SELECT infoidx, reg_date, managerid, subject, popupalert FROM popup"
-				+" ORDER BY infoidx DESC";
+				+" ORDER BY popupalert DESC, infoidx DESC";
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				popupDTO dto = new popupDTO();
+				PopupDTO dto = new PopupDTO();
 				dto.setInfoidx(rs.getInt("infoidx"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setManagerid(rs.getString("managerid"));
@@ -64,16 +64,15 @@ public class popupDAO {
 		return popupList;
 	}
 	
-	
-	public boolean popupWrite(popupDTO dto) {
-		String sql = "INSERT INTO popup(infoidx,managerid,subject,content,popupalert)VALUES(popup_seq.NEXTVAL,?,?,?,?)";		
+	public boolean popupWrite(PopupDTO dto) {
+		String sql = "INSERT INTO popup(infoidx,managerid,subject,content)VALUES(popup_seq.NEXTVAL,?,?,?)";		
 		boolean success = false;	
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getManagerid());
 			ps.setString(2, dto.getSubject());
 			ps.setString(3, dto.getContent());
-			ps.setString(4, dto.getPopupalert());
+			//ps.setString(4, dto.getPopupalert());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}
@@ -106,9 +105,9 @@ public class popupDAO {
 		return success;
 	}
 
-	public popupDTO detail(String infoidx) {
+	public PopupDTO detail(String infoidx) {
 		
-		popupDTO dto = null;
+		PopupDTO dto = null;
 		String sql="SELECT infoidx, managerid, subject, content, popupalert "+ 
 				"FROM popup WHERE infoidx= ?";		
 		
@@ -119,7 +118,7 @@ public class popupDAO {
 			rs = ps.executeQuery();
 			System.out.println("rs : "+rs);
 			if(rs.next()) {
-				dto = new popupDTO();
+				dto = new PopupDTO();
 				dto.setInfoidx(rs.getInt("infoidx"));
 				dto.setManagerid(rs.getString("managerid"));
 				dto.setSubject(rs.getString("subject"));
@@ -136,43 +135,50 @@ public class popupDAO {
 	}
 
 	
-//	public int update(popupDTO dto) {
-//		int success = -1;
-//		String sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
-//		try {
-//			ps = conn.prepareStatement(sql);
-//			ps.setString(1, dto.getSubject());
-//			ps.setString(2, dto.getContent());
-//			ps.setString(3, dto.getPopupalert());
-//			ps.setInt(4, dto.getInfoidx());
-//			success = ps.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			resClose();
-//		}			
-//		System.out.println("수정 여부 :"+success);
-//		return success;
-//	}
-
-
-	public int update(String subject, String content, String popupalert, String infoidx) {
-		int success = 0;
-		String sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
+	public boolean update(PopupDTO dto) {
+		boolean success = false;
+		String sql="UPDATE popup SET popupalert='NO'";
 		try {
-		ps = conn.prepareStatement(sql);
-		ps.setString(1, subject);
-		ps.setString(2, content);
-		ps.setString(3, popupalert);
-		ps.setString(4, infoidx);
-		success = ps.executeUpdate();
+			ps = conn.prepareStatement(sql);
+			int a = ps.executeUpdate();
+			System.out.println(a);
+			
+			sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dto.getSubject());
+			ps.setString(2, dto.getContent());
+			ps.setString(3, dto.getPopupalert());
+			ps.setInt(4, dto.getInfoidx());
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}			
+		System.out.println("수정 여부 :"+success);
 		return success;
+	}
 
+	public PopupDTO popupMain() {
+		
+		PopupDTO dto = new PopupDTO();
+		String sql = "SELECT subject,content FROM popup WHERE popupalert='YES'";
+		try {
+			ps  = conn.prepareStatement(sql);
+			System.out.println("쿼리 실행");
+			rs = ps.executeQuery();
+			System.out.println("rs:"+rs);
+			if(rs.next()) {
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}		
+		return dto;
 	}
 }
