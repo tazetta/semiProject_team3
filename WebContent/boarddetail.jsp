@@ -108,7 +108,7 @@
 		<c:forEach items="${list}" var="comment">
 			<table class ="comm_table">
 			<tr>
-				<td>${comment.id}</td>
+				<td style="width:100px;">${comment.id}</td>
 				<td>
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->

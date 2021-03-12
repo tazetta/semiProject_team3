@@ -114,7 +114,7 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
-		if(loginId== id || loginId== "admin") {
+		if(loginId.equals(id) || loginId.equals("admin")) {
 		System.out.println("delete idx : "+boardIdx);
 		System.out.println("삭제할 글 작성자 아이디:"+id);	
 		FileService upload = new FileService(req);
