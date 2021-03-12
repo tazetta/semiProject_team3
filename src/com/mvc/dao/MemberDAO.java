@@ -66,6 +66,27 @@ public class MemberDAO {
 //		System.out.println("로그인 성공 여부:"+success);
 //		return success;
 //	}
+	
+	/*로그인 +탈퇴여부확인*/
+	public boolean login(String id, String pw) {
+		
+		boolean success = false;
+		String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, pw);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
+	}
+
+	
 	/*회원정보*/
 	public MemberDTO profile(String loginId) {
 		String sql = "SELECT name, phone, email FROM member WHERE id=?";
@@ -203,24 +224,6 @@ public class MemberDAO {
 		return !success;
 	}
 
-	public boolean login(String id, String pw) {
-		
-		boolean success = false;
-		String sql = "SELECT id FROM member WHERE id=? AND pw=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.setString(2, pw);
-			rs = ps.executeQuery();
-			success = rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			resClose();
-		}
-		return success;
-	}
-
 	public ArrayList<MemberDTO> list() {
 		//쿼리 준비
 		String sql = "SELECT id,name,email FROM member";
@@ -286,6 +289,25 @@ public class MemberDAO {
 		}
 		
 		return id;
+	}
+
+	/*회원탈퇴*/
+	public boolean memberWithdraw(String loginId, String pw) {
+		 String sql="UPDATE member SET withdraw='TRUE', update_date=SYSDATE WHERE id=? AND pw=? ";
+		 boolean success= false;
+		 try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			ps.setString(2, pw);
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}return success;
+		
 	}
 
 	
