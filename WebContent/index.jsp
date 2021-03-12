@@ -139,7 +139,7 @@ a:visited {
 
 				<li class="navi"><a href="#">고객센터</a></li>
 
-				<li class="navi"><a href="profile">마이페이지</a></li>
+				<li class="navi"><a href="./profile">마이페이지</a></li>
 
 			</ul>
 		</div>
