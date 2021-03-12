@@ -52,41 +52,49 @@ public class TripService {
 		System.out.println("type : " + type);
 		System.out.println("page : " + pageParam);
 		System.out.println("nav : " + nav);
-		System.out.println("local[0] : " + localCode[0]);
 
-		ArrayList<ContentDTO> contentList = dao.contentList();
-		ArrayList<AreaDTO> areaList = dao.areaList();
-		if (type.equals("area")) {
-			ArrayList<CityDTO> cityList = dao.cityList(nav);
-			req.setAttribute("cityList", cityList);
-		}
-		int group = 1;
-		if (pageParam != null) {
-			group = Integer.parseInt(pageParam);
-		}
-		url.append("nav=" + nav);
-		url.append("&type=" + type);
-		for (int i = 0; i < localCode.length; i++) {
-			url.append("&local=" + localCode[i]);
-		}
+		if (localCode != null) {
 
-		HashMap<String, Object> map = dao.resultList(group, nav, localCode, type);
-		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
+			ArrayList<ContentDTO> contentList = dao.contentList();
+			ArrayList<AreaDTO> areaList = dao.areaList();
+			if (type.equals("area")) {
+				ArrayList<CityDTO> cityList = dao.cityList(nav);
+				req.setAttribute("cityList", cityList);
+			}
+			int group = 1;
+			if (pageParam != null) {
+				group = Integer.parseInt(pageParam);
+			}
+			url.append("nav=" + nav);
+			url.append("&type=" + type);
+			for (int i = 0; i < localCode.length; i++) {
+				url.append("&local=" + localCode[i]);
+			}
 
-		req.setAttribute("maxPage", map.get("maxPage"));
-		req.setAttribute("list", map.get("list"));
-		req.setAttribute("currPage", group);
-		req.setAttribute("url", url);
-		req.setAttribute("nav", nav);
-		req.setAttribute("contentList", contentList);
-		req.setAttribute("areaList", areaList);
+			HashMap<String, Object> map = dao.resultList(group, nav, localCode, type);
+			System.out.println("map.get(maxpage) : " + map.get("maxPage"));
 
-		String page = "contentResult.jsp";
-		if (type.equals("area")) {
-			page = "areaContentResult.jsp";
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("list", map.get("list"));
+			req.setAttribute("currPage", group);
+			req.setAttribute("url", url);
+			req.setAttribute("nav", nav);
+			req.setAttribute("contentList", contentList);
+			req.setAttribute("areaList", areaList);
+
+			String page = "contentResult.jsp";
+			if (type.equals("area")) {
+				page = "areaContentResult.jsp";
+			}
+			RequestDispatcher dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+		} else {
+			if (type.equals("theme")) {
+				resp.sendRedirect("themeContentList");
+			} else if (type.equals("area")) {
+				resp.sendRedirect("areaContentList");
+			}
 		}
-		RequestDispatcher dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
 	}
 
 	public void areaContentList() throws ServletException, IOException {

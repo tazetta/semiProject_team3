@@ -50,9 +50,7 @@ public class TripController extends HttpServlet {
 				System.out.println("데이터 삽입");
 				service.tripInsert();
 				break;
-				
 		}
 	}
-
 	
 }
