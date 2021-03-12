@@ -64,7 +64,7 @@
 		<div id="total">
 			<c:if test="${dto.id==loginId or 'admin'}">
 			<div id="btn1">
-				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}'">수정</button>
+				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>
 			</div>
 			</c:if>
@@ -98,10 +98,10 @@
 			</tr>			
 			</c:if>
 		</table>
-		<input class="comment" type="text" placeholder="댓글을 입력해주세요"/>
+		<input id="comment" class="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
 		<c:if test="${commentUpdatedto.content ne null}">
-			<input class="comment" id="" type="text" value="${commentUpdatedto.content}"/>
+			<input id ="comm_up" class="comment" type="text" value="${commentUpdatedto.content}"/>
 			<button id="comm_update">수정</button>
 		</c:if>
 		<c:if test="${not empty list}">
@@ -112,7 +112,7 @@
 				<td>
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-						<a href="commentUpdate?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
 						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
@@ -130,6 +130,10 @@
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
 		location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}';
+	});
+	$('#comm_update').click(function(){
+		var comment = $('#comm_up').val();
+		location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}';
 	});
 	var msg="${msg}";
 	if(msg!=""){
