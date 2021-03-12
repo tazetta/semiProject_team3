@@ -4,7 +4,14 @@ public class CityDTO {
 	private int cityCode;
 	private String name;
 	private String areaCode;
+	private String areaName;
 	
+	public String getAreaName() {
+		return areaName;
+	}
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
 	public int getCityCode() {
 		return cityCode;
 	}

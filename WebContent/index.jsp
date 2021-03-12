@@ -11,7 +11,7 @@ String loginId = (String) request.getSession().getAttribute("loginId");
 <head>
 <meta charset="utf-8">
 <title>index</title>
-<link rel="icon" href="favicon.png">
+<link rel="icon" href="./koreaCI.png">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
@@ -75,7 +75,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 70px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -111,8 +111,8 @@ a:visited {
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src=""
-				width="200px" height="50px"></a>
+			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png"
+				width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form>
