@@ -138,14 +138,15 @@ public class BoardDAO {
 	}
 
 
-	public BoardDTO detail(String boardIdx) {
+	public BoardDTO detail(String boardIdx, String loginId) {
 		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id, p.oriFileName, p.newFileName "+ 
-				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ?";		
+				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ? AND id=?";		
 		BoardDTO dto = null;
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, Integer.parseInt(boardIdx));
+			ps.setString(2, loginId);
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				dto = new BoardDTO();

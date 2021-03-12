@@ -48,24 +48,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-/*로그인*/
-//	public boolean login(String id, String pw) {
-//		boolean success = false ; //결과값 담을 변수
-//		String sql = "SELECT id FROM member WHERE id =? AND pw=?"; //쿼리문 준비 - SELECT
-//		try {
-//			ps = conn.prepareStatement(sql); //conn으로부터 ps가져와서 sql담기
-//			ps.setString(1, id);
-//			ps.setString(2, pw);
-//			rs = ps.executeQuery(); //쿼리 실행
-//			success = rs.next(); //다음값이 있으면 true, 없으면 false 담김
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally { //항상 자원 반납
-//			resClose();
-//		}
-//		System.out.println("로그인 성공 여부:"+success);
-//		return success;
-//	}
+
 	
 	/*로그인 +탈퇴여부확인*/
 	public boolean login(String id, String pw) {
@@ -307,6 +290,12 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}return success;
+		
+	}
+
+	/*가봤어요 리스트*/
+	public void visitedList(String loginId) {
+		// TODO Auto-generated method stub
 		
 	}
 
