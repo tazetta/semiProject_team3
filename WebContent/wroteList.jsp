@@ -148,7 +148,7 @@ section#left {
 	float: left;
 	margin: 10px;
 	width: 1200px;
-	height : 900px;
+	height : 1200px;
 }
 
 span {
@@ -165,16 +165,19 @@ table#wroteList {
 	width: 900px;
 
 }
+
 /*페이징*/
 .pageArea {
 	text-align: center;
-	position:absolute;
-	justify-content:center;
+	position: absolute;
+	bottom : -500px;
+	left:780px;
 }
 
 .pageArea span {
 	font-size: 16px;
 	border: 1px solid lightgray;
+	background-color: lightgray;
 	padding: 2px 10px;
 }
 
@@ -185,6 +188,8 @@ a {
 #page {
 	font-weight: 600;
 	border: none;
+	background-color : transparent;
+
 }
 </style>
 </head>
@@ -229,10 +234,10 @@ a {
 		<div>
 			<table>
 				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
+					<td class="menu"><a href="./profile">사용자 정보</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
+					<td class="menu"><a href="./wroteList">내가 쓴 글 보기</a></td>
 				</tr>
 				<tr>
 					<td class="menu"><a href="#">가봤어요</a></td>
@@ -249,13 +254,14 @@ a {
 			<span>커뮤니티 - 내가 쓴 글</span>
 
 				<table id="wroteList">
+					
 					<c:forEach items="${list }" var="bbs">
-						<tr>
-							<td>${bbs.rnum}</td>
-							<th>${bbs.subject }</th>
+						<tr class="bbsTr">
+							<td >${bbs.rnum}</td>
+							<th style="width:500px"><a href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
 							<td>${bbs.reg_date }</td>
 							<td>
-								<button>수정</button>
+								<button>수정</button><br/>
 								<button>삭제</button>
 							</td>
 						</tr>
