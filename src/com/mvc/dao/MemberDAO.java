@@ -271,9 +271,7 @@ public class MemberDAO {
 	public String findId(String name, String phone) {
 		
 		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
-		
 		String id = "";
-		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
@@ -282,7 +280,6 @@ public class MemberDAO {
 			if(rs.next()) {
 				id = rs.getString("id");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -293,7 +290,7 @@ public class MemberDAO {
 		return id;
 	}
 
-<<<<<<< HEAD
+
 	public String findPw(String id, String name, String phone) {
 		
 		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
@@ -312,7 +309,8 @@ public class MemberDAO {
 		}
 		System.out.println(pw);
 		return pw;
-=======
+	}
+
 	/*회원탈퇴*/
 	public boolean memberWithdraw(String loginId, String pw) {
 		 String sql="UPDATE member SET withdraw='TRUE', update_date=SYSDATE WHERE id=? AND pw=? ";
@@ -329,8 +327,7 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}return success;
-		
->>>>>>> 82fa89424a4d7277ef4a87399ffae287aafe621e
+
 	}
 
 	

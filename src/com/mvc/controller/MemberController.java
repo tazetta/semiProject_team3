@@ -25,7 +25,6 @@ public class MemberController extends HttpServlet {
 
 	private void dual(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sub = req.getRequestURI().substring(req.getContextPath().length());
-		req.setCharacterEncoding("UTF-8");
 		MemberService service = new MemberService(req,resp);
 		switch (sub) {
 		case"/login":

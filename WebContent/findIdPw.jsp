@@ -13,7 +13,7 @@
                 padding: 5px 10px;
             }
             table{
-            	width: 500px;
+            	width:500px;
             }
             #fieldset1{
                 padding: 20px 30px;
@@ -25,7 +25,7 @@
             }
             #fieldset2{
             	padding: 20px 30px;
-            	width:500px;
+            	width: 500px;
             	margin: auto;
             	border: 1px solid white;
             	background-color: whitesmoke;
@@ -39,7 +39,7 @@
 	<h2 style="text-align : center">아이디 비밀번호 찾기</h2>
 	<form action="findId" method="POST">
 		<fieldset id="fieldset1">
-            <div >아이디 찾기</div>
+            <div>아이디 찾기</div>
             <table>
                 <tr>
                     <th>이름</th>
@@ -59,7 +59,7 @@
             </div>
         </fieldset>
 	</form>
-        
+	
 	<form action="findPw" method="POST">
         <fieldset id="fieldset2">
             <div>비밀번호 찾기</div>
@@ -93,23 +93,6 @@
 		var nameChk = false;
 		var idChk = false;
 	
-	    $('#userName1').focusout(function(){
-	       if($(this).val()==null){
-	            alert('필수! 이름을 입력해주세요.');
-	            $(this).focus();
-	        }else{
-	            nameChk = true;
-	        }
-	    });
-	    
-	    $('#userId').focusout(function(){
-		       if($(this).val()==null){
-		            alert('필수! 아이디를 입력해주세요.');
-		            $(this).focus();
-		        }else{
-		            idChk = true;
-		        }
-		    });
 	
 		$('#userPhone1').keydown(function(event) {
 	        var key = event.charCode || event.keyCode || 0;
@@ -128,64 +111,11 @@
 	
 	
 		$("#btn1").click(function(){
-			
-			var $name = $("#userName1");
-			var $phone = $("#userPhone1");
-			
-			if(nameChk){
-				
-				if($name.val()==''){
-					alert('이름을 입력해주세요.');
-					$name.focus();
-				}else if($phone.val()==''){
-					alert('핸드폰번호를 입력해주세요.');
-					$phone.focus();
-				}else{
-					
-				}
-				
-			}
-			
+			var $name = $("#userName");
+			var $phone = $("#userPhone");
 		});
 		
-		
-		
-		
-		$('#userPhone2').keydown(function(event) {
-	        var key = event.charCode || event.keyCode || 0;
-	        $text = $(this);
-	        if (key !== 8 && key !== 9) {
-	            if ($text.val().length == 3) {
-	                $text.val($text.val() + '-');
-	            }
-	            if ($text.val().length == 8) {
-	                $text.val($text.val() + '-');
-	            }
-	        }
-	     
-	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
-    	});
-		
 		$("#btn2").click(function(){
-			
-			var $id = ${"#userId"};
-			var $name = $("#userName2");
-			var $phone = $("#userPhone2");
-			
-			if(nameChk){
-				
-				if($id.val()==''){
-					alert('아이디를 입력해주세요.');
-					$id.focus();
-				}else if($name.val()==''){
-					alert('이름을 입력해주세요.');
-					$name.focus();
-				}else if($phone.val()==''){
-					alert('핸드폰번호를 입력해주세요.');
-					$phone.focus();
-				}
-				
-			}
 			
 		});
 	</script>
