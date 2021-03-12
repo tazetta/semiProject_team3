@@ -14,6 +14,9 @@ import javax.sql.DataSource;
 import com.mvc.dto.AreaDTO;
 import com.mvc.dto.CityDTO;
 import com.mvc.dto.ContentDTO;
+import com.mvc.dto.LargeDTO;
+import com.mvc.dto.MediumDTO;
+import com.mvc.dto.SmallDTO;
 import com.mvc.dto.TripDTO;
 
 public class TripDAO {
@@ -114,16 +117,29 @@ public class TripDAO {
 	public ArrayList<CityDTO> cityList(String areaCode) {
 		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
 		CityDTO dto = null;
-		String sql = "SELECT cityCode,name FROM city WHERE areacode=?";
 		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, areaCode);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				dto = new CityDTO();
-				dto.setCityCode(rs.getInt("cityCode"));
-				dto.setName(rs.getString("name"));
-				list.add(dto);
+			if (!areaCode.equals("0")) {
+				String sql = "SELECT cityCode,name, areaCode FROM city WHERE areacode=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, areaCode);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					dto = new CityDTO();
+					dto.setCityCode(rs.getInt("cityCode"));
+					dto.setName(rs.getString("name"));				
+					list.add(dto);
+				}
+			} else if(areaCode.equals("0")) {
+				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY citycode";
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					dto = new CityDTO();
+					dto.setCityCode(rs.getInt(1));
+					dto.setName(rs.getString(2));
+					dto.setAreaName(rs.getString(3));
+					list.add(dto);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,7 +159,7 @@ public class TripDAO {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		// type이 theme일 때
 		String insertSQL = " areaCode = ? AND contentCode=?";
-		if(type.equals("area")) { // type이 area일 때
+		if (type.equals("area")) { // type이 area일 때
 			insertSQL = " cityCode = ? AND areaCode = ?";
 		}
 		String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
@@ -170,7 +186,7 @@ public class TripDAO {
 					list.add(dto);
 				}
 			}
-			maxPage = getMaxPage(nav, localCode, pagePerCnt,type);
+			maxPage = getMaxPage(nav, localCode, pagePerCnt, type);
 			System.out.println("max page : " + maxPage);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
@@ -187,7 +203,7 @@ public class TripDAO {
 		try {
 			for (int i = 0; i < localCode.length; i++) {
 				String sql = "SELECT COUNT(contentId) FROM trip WHERE contentCode=? AND areaCode=?";
-				if(type.equals("area")) {
+				if (type.equals("area")) {
 					sql = "SELECT COUNT(contentId) FROM trip WHERE areaCode = ? AND cityCode = ?";
 				}
 				ps = conn.prepareStatement(sql);
@@ -205,32 +221,123 @@ public class TripDAO {
 		return maxPage;
 	}
 
-	public void insert(TripDTO dto) {
-		String sql = "INSERT INTO trip(contentId,firstImage,latitude,longitude,address,title,"
+	public boolean insert(TripDTO dto) {
+		boolean success = false;
+		String sql = "INSERT INTO trip(managerId,contentId,firstImage,latitude,longitude,address,title,"
 				+ "contentCode,mediumCode,smallCode,areaCode,cityCode,largeIdx,overview) "
-				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		int success = 0;
+				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, dto.getContentId());
-			ps.setString(2, dto.getFirstImage());
-			ps.setString(3, dto.getLatitude());
-			ps.setString(4, dto.getLongitude());
-			ps.setString(5, dto.getAddress());
-			ps.setString(6, dto.getTitle());
-			ps.setString(7, dto.getContentCode());
-			ps.setString(8, dto.getMediumCode());
-			ps.setString(9, dto.getSmallCode());
-			ps.setString(10, dto.getAreaCode());
-			ps.setString(11, dto.getCityCode());
-			ps.setString(12, dto.getLargeIdx());
-			ps.setString(13, dto.getOverview());
-			success = ps.executeUpdate();
-			System.out.println("insert 성공한 여부 : " + success);
+			ps.setString(1, dto.getManagerId());
+			ps.setInt(2, dto.getContentId());
+			ps.setString(3, dto.getFirstImage());
+			ps.setString(4, dto.getLatitude());
+			ps.setString(5, dto.getLongitude());
+			ps.setString(6, dto.getAddress());
+			ps.setString(7, dto.getTitle());
+			ps.setString(8, dto.getContentCode());
+			ps.setString(9, dto.getMediumCode());
+			ps.setString(10, dto.getSmallCode());
+			ps.setString(11, dto.getAreaCode());
+			ps.setString(12, dto.getCityCode());
+			ps.setString(13, dto.getLargeIdx());
+			ps.setString(14, dto.getOverview());
+			if(ps.executeUpdate() > 0) {
+				success = true;
+			}
+			System.out.println("insert success : " + success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	public boolean tripInsertOverlay(String contentId) {
+		boolean success = false;
+		String sql = "SELECT contentId FROM trip WHERE contentId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, contentId);
+			rs = ps.executeQuery();
+			success = rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		return !success;
 	}
 
+	public ArrayList<LargeDTO> largeList() {
+		ArrayList<LargeDTO> list = new ArrayList<LargeDTO>();
+		LargeDTO dto = null;
+		String sql  = "SELECT largeIdx,name,contentCode FROM large";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new LargeDTO();
+				dto.setLargeIdx(rs.getInt("largeIdx"));
+				dto.setName(rs.getString("name"));
+				dto.setContentCode(rs.getString("contentCode"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<MediumDTO> mediumList() {
+		ArrayList<MediumDTO> list = new ArrayList<MediumDTO>();
+		MediumDTO dto = null;
+		String sql = "SELECT mediumCode,name FROM medium";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new MediumDTO();
+				dto.setMediumCode(rs.getString("mediumCode"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<SmallDTO> smallList() {
+		ArrayList<SmallDTO> list = new ArrayList<SmallDTO>();
+		SmallDTO dto = null;
+		String sql = "SELECT smallCode,name FROM small";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new SmallDTO();
+				dto.setSmallCode(rs.getString("smallCode"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public boolean chkManager(String loginId) {
+		boolean success = false;
+		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
 }

@@ -38,7 +38,7 @@
     <body>
     <c:if test="${detail.deactivate ne 'FALSE' }">
 	    <h1>삭제 되거나 없는 페이지 입니다.</h1>
-	    <button onclick=window.close()>창닫기</button>
+	    <button onclick=top.window.close()>창닫기</button>
     </c:if>
     <c:if test="${detail.deactivate eq 'FALSE' }">
         <fieldset id="page">
@@ -97,7 +97,7 @@
                     </td>
                 </tr>
             </table>
-            <button onclick=window.close()>창닫기</button>
+            <button onclick=top.window.close()>창닫기</button>
         </fieldset>
     </c:if>
     </body>
