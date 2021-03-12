@@ -154,7 +154,7 @@ a {
 			<tr>
 				<th><img src="${selectResult.firstImage}" width="100px"
 					height="100px" /></th>
-				<th>${selectResult.title}</th>
+				<th><a href="./tripDetail?contentId=${selectResult.contentId }"  target="_blank">${selectResult.title}</a></th>
 				<th>${selectResult.reg_date}</th>
 				<th>${selectResult.bookmarkCnt}</th>
 			</tr>
