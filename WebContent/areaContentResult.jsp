@@ -150,13 +150,13 @@ a {
 			<th>등록일</th>
 			<th>즐겨찾기 수</th>
 		</tr>
-		<c:forEach items="${list}" var="selectResult" varStatus="status">
+		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<th><img src="${selectResult.firstImage}" width="100px"
+				<th><img src="${result.firstImage}" width="100px"
 					height="100px" /></th>
-				<th>${selectResult.title}</th>
-				<th>${selectResult.reg_date}</th>
-				<th>${selectResult.bookmarkCnt}</th>
+				<th><a href="./tripDetail?contentId=${result.contentId}">${result.title}</a></th>
+				<th>${result.reg_date}</th>
+				<th>${result.bookmarkCnt}</th>
 			</tr>
 		</c:forEach>
 	</table>
