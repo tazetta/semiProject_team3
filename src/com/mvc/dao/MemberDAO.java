@@ -142,7 +142,7 @@ public class MemberDAO {
 		int end= page*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql ="SELECT rnum, subject, reg_date FROM "
+		String sql ="SELECT boardIdx,rnum, subject, reg_date FROM "
 				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date, id FROM bbs)" 
 				+"WHERE rnum BETWEEN ? AND ? AND id=?"; 
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -159,6 +159,7 @@ public class MemberDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setRnum(rs.getInt("rnum"));
+				dto.setBoardIdx(rs.getInt("boardidx"));
 				list.add(dto);
 			}
 			
