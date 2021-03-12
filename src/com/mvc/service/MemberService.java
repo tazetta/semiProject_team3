@@ -164,6 +164,7 @@ public class MemberService {
 		HashMap<String, Object> map  = dao.wroteList(loginId,page);
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list", map.get("list")); //req에 저장
+		System.out.println("list:"+map.get("list"));
 		req.setAttribute("currPage", page);
 		//특정페이지로 보내기
 		RequestDispatcher dis = req.getRequestDispatcher("wroteList.jsp"); //분기 없이 바로 list.jsp 로 보내기

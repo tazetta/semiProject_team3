@@ -166,6 +166,18 @@ table#wroteList {
 
 }
 
+﻿
+.noneList{
+position:relative;
+top: 150px;
+height:60px;
+text-align: center;
+align-items:stretch;
+background-color : white;
+}
+
+﻿
+
 /*페이징*/
 .pageArea {
 	text-align: center;
@@ -252,7 +264,11 @@ a {
 	<section id=background>
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-
+				<c:if test="${list eq '[]'}">
+					<div class="noneList">
+						<p>작성한 글이 존재하지 않습니다</p>
+					</div>
+				</c:if>
 				<table id="wroteList">
 					
 					<c:forEach items="${list }" var="bbs">
@@ -269,6 +285,7 @@ a {
 				</table>
 			</div>
 </section>
+	<c:if test="${list ne '[]'}">
 		<div class="pageArea">
 			<span> 
 				<c:if test="${currPage==1}">이전</c:if> 
@@ -280,7 +297,7 @@ a {
 				<c:if test="${currPage<maxPage}"><a href="?page=${currPage+1}">다음</a></c:if>
 			</span>
 		</div>
-	
+	</c:if>
 </body>
 <script>
 	
