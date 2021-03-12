@@ -8,12 +8,12 @@
 <title>테마별</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-div.contentList {
+div.areaList {
 	position: absolute;
 	top: 25%;
 }
 
-div.content {
+div.area {
 	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
@@ -26,7 +26,7 @@ div.clear {
 	border: 1px solid black;
 }
 
-div.areaList>div {
+div.cityList>div {
 	float: left;
 	border: 1px solid black;
 	padding: 5px 5px;
@@ -34,7 +34,7 @@ div.areaList>div {
 	/* text-align: center; */
 }
 
-div.areaList {
+div.cityList {
 	position: absolute;
 	left: 25%;
 	top: 10%;
@@ -116,30 +116,32 @@ a {
 		</ul>
 	</nav>
 
-	<form action="themeResult" method="get">
-	<div class="contentList">
-		<c:forEach items="${areaList}" var="area">
-			<div class="content">
-				<input type="radio" name="area" value="${area.areaCode}" />${area.name}
-			</div>
-		</c:forEach>
-	</div>
+		<div class="areaList">
+			<c:forEach items="${areaList}" var="area">
+				<div class="area" id="${area.areaCode}">
+					<a href="./areaContentList?nav=${area.areaCode}">${area.name}</a>
+				</div>
+			</c:forEach>
+		</div>
 
-	<div class="areaList">
-		<c:forEach items="${cityList}" var="city" varStatus="status">
-			<c:if test="${status.index % 5 == 0}">
-				<div class="clear">
-					<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
-				</div>
-			</c:if>
-			<c:if test="${status.index % 5 != 0}">
-				<div>
-					<input type="checkbox" name="city" value="${city.cityCode}">${city.name}
-				</div>
-			</c:if>
-		</c:forEach>
-		<input type="submit" value="검색" />
-	</div>
+	<form action="resultList" method="get">
+		<div class="cityList">
+			<c:forEach items="${cityList}" var="city" varStatus="status">
+				<c:if test="${status.index % 5 == 0}">
+					<div class="clear">
+						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+					</div>
+				</c:if>
+				<c:if test="${status.index % 5 != 0}">
+					<div>
+						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+					</div>
+				</c:if>
+			</c:forEach>
+			<input type="hidden" name="nav" value="${nav}" /> 
+			<input type="hidden" name="type" value="area" /> 
+				<input type="submit"value="검색" />
+		</div>
 	</form>
 	<table>
 		<tr>
@@ -148,13 +150,13 @@ a {
 			<th>등록일</th>
 			<th>즐겨찾기 수</th>
 		</tr>
-		<c:forEach items="${list}" var="selectResult" varStatus="status">
+		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<th><img src="${selectResult.firstImage}" width="100px"
+				<th><img src="${result.firstImage}" width="100px"
 					height="100px" /></th>
-				<th>${selectResult.title}</th>
-				<th>${selectResult.reg_date}</th>
-				<th>${selectResult.bookmarkCnt}</th>
+				<th><a href="./tripDetail?contentId=${result.contentId}">${result.title}</a></th>
+				<th>${result.reg_date}</th>
+				<th>${result.bookmarkCnt}</th>
 			</tr>
 		</c:forEach>
 	</table>
@@ -163,24 +165,19 @@ a {
 			<span> 
 				<c:if test="${currPage == 1}">이전</c:if> 
 				<c:if	 test="${currPage > 1}">
-					<a href="./areaContentResult?${url}&page=${currPage-1}">이전</a>
+					<a href="./resultList?${url}&page=${currPage-1}">이전</a>
 				</c:if>
 			</span> 
 			<span id="page">${currPage}</span> 
 			<span> 
 				<c:if test="${currPage == maxPage}">다음</c:if> 
-				<c:if test="${currPage < maxPage}"><a href="./areaContentResult?${url}&page=${currPage+1}">다음</a></c:if>
-				currPage : ${currPage} / maxPage : ${maxPage}
+				<c:if test="${currPage < maxPage}"><a href="./resultList?${url}&page=${currPage+1}">다음</a></c:if>
 			</span>
 		</div>
 </body>
 <script>
-	var contentId = "";
-	$('.content').click(function() {
-		console.log($(this).attr('id'));
-		contentId = $(this).attr('id');
-
-		$(this).attr('value', contentId);
+	$(document).ready(function() {
+		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
 </script>
 </html>

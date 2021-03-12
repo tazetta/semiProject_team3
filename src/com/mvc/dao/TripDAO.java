@@ -119,7 +119,7 @@ public class TripDAO {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, areaCode);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				dto = new CityDTO();
 				dto.setCityCode(rs.getInt("cityCode"));
 				dto.setName(rs.getString("name"));
@@ -130,27 +130,31 @@ public class TripDAO {
 		}
 		return list;
 	}
-	
-	public HashMap<String, Object> themeResult(int page, String contentCode, String[] areaCode) {
+
+	public HashMap<String, Object> resultList(int page, String nav, String[] localCode, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		int pagePerCnt = 10/areaCode.length;
-		System.out.println("areaCode.length : " + areaCode);
+		int pagePerCnt = 10 / localCode.length;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		int maxPage = 0;
 		System.out.println("end : " + end + " / start : " + start);
 
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		// type이 theme일 때
+		String insertSQL = " areaCode = ? AND contentCode=?";
+		if(type.equals("area")) { // type이 area일 때
+			insertSQL = " cityCode = ? AND areaCode = ?";
+		}
+		String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL
+				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
-			for (int i = 0; i < areaCode.length; i++) {
-				String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
-						+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
-						+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE areacode=? and contentcode=?"
-						+ ") WHERE rnum BETWEEN ? AND ?";
+			for (int i = 0; i < localCode.length; i++) {
 				ps = conn.prepareStatement(sql);
-				ps.setString(1, areaCode[i]);
-				ps.setString(2, contentCode);
+				ps.setString(1, localCode[i]);
+				ps.setString(2, nav);
 				ps.setInt(3, start);
 				ps.setInt(4, end);
 				rs = ps.executeQuery();
@@ -166,7 +170,7 @@ public class TripDAO {
 					list.add(dto);
 				}
 			}
-			maxPage = getMaxPage(contentCode, areaCode, pagePerCnt);
+			maxPage = getMaxPage(nav, localCode, pagePerCnt,type);
 			System.out.println("max page : " + maxPage);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
@@ -178,28 +182,27 @@ public class TripDAO {
 		return map;
 	}
 
-	private int getMaxPage(String contentCode, String[] areaCode, int pagePerCnt) {
+	private int getMaxPage(String nav, String[] localCode, int pagePerCnt, String type) {
 		int maxPage = 0;
 		try {
-			for (int i = 0; i < areaCode.length; i++) {
+			for (int i = 0; i < localCode.length; i++) {
 				String sql = "SELECT COUNT(contentId) FROM trip WHERE contentCode=? AND areaCode=?";
+				if(type.equals("area")) {
+					sql = "SELECT COUNT(contentId) FROM trip WHERE areaCode = ? AND cityCode = ?";
+				}
 				ps = conn.prepareStatement(sql);
-				ps.setString(1, contentCode);
-				ps.setString(2, areaCode[i]);
+				ps.setString(1, nav);
+				ps.setString(2, localCode[i]);
 				rs = ps.executeQuery();
-				if(rs.next()) {
+				if (rs.next()) {
 					int cnt = rs.getInt(1);
-					maxPage += (int) Math.ceil(cnt/(double)pagePerCnt);
+					maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return maxPage;
-	}
-	
-	public HashMap<String, Object> areaContentResult(int group, String areaCode, String[] cityCode) {
-		return null;
 	}
 
 	public void insert(TripDTO dto) {
@@ -229,6 +232,5 @@ public class TripDAO {
 		}
 
 	}
-
 
 }
