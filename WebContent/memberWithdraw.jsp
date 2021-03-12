@@ -285,13 +285,17 @@ $(".menu").click(function () {
 	 var $confirmPw = $("#confirmPw");
 
  
-/*비밀번호 유효성 검사*/
- 
+/*비밀번호 유효성 검사+ y/n confirm*/
+
  $("#withdraw").click(function(){
 	 if($confirmPw.val()==""){
 	 	alert("비밀번호를 입력해주세요");
 	 }else{
+		 if(confirm("정말로 탈퇴하시겠습니까?")){
 		 $("form").submit();
+			}else{
+				location.href="/profile";
+			}
 	 }
 	 
  });
