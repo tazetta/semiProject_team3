@@ -265,24 +265,49 @@ public class MemberDAO {
 		return success;
 	}
 
-	public boolean findId(String name, String phone) {
+	public String findId(String name, String phone) {
 		
-		boolean success = false;
 		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
+		
+		String id = "";
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ps.setString(2, phone);
 			rs = ps.executeQuery();
-			success = rs.next();
+			if(rs.next()) {
+				id = rs.getString("id");
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}
 		
-		return success;
+		System.out.println(id);
+		return id;
+	}
+
+	public String findPw(String id, String name, String phone) {
+		
+		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
+		String pw = "";
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, name);
+			ps.setString(3, phone);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString("pw");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(pw);
+		return pw;
 	}
 
 	

@@ -84,6 +84,7 @@
 	</body>
 	<script>
 		var overChk = false;//중복 체크 여부
+		var idChk = false;
 		var pwChk = false;
 		var emailChk = false;
 	
