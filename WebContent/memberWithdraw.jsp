@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>마이 페이지- 비밀번호변경</title>
+<title>마이 페이지- 회원탈퇴 안내</title>
 <link rel="icon" href="south-korea.png">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
