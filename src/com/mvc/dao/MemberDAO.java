@@ -264,27 +264,24 @@ public class MemberDAO {
 		return success;
 	}
 
-	public String findId(String name, String email) {
+	public boolean findId(String name, String phone) {
 		
-		String id = null;
-		String sql = "SELECT id FROM member WHERE name=? AND email=?";
+		boolean success = false;
+		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
-			ps.setString(2, email);
+			ps.setString(2, phone);
 			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				id=rs.getString("userId");
-			}
+			success = rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}
 		
-		return id;
+		return success;
 	}
 
 	

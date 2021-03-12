@@ -27,18 +27,18 @@
                 <tr>
                     <th>이름</th>
                     <td>
-                        <input type="text">
+                        <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
                     <th>핸드폰 번호</th>
                     <td>
-                        <input type="text">
+                        <input type="text" id="userPhone" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
                     </td>
                 </tr>
             </table>
             <div style="text-align: right;">
-                <button>찾기</button>
+                <button id="btn1">찾기</button>
             </div>
         </fieldset>
         <fieldset>
@@ -47,28 +47,51 @@
                 <tr>
                     <th>아이디</th>
                     <td>
-                        <input type="text">
+                        <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
                     <th>이름</th>
                     <td>
-                        <input type="text">
+                        <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
                     <th>핸드폰 번호</th>
                     <td>
-                        <input type="text">
+                        <input type="text" id="userPhone" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
                     </td>
                 </tr>
             </table>
             <div style="text-align: right;">
-                <button>찾기</button>
+                <button id="btn2">찾기</button>
             </div>
         </fieldset>
 	</body>
 	<script>
-
+		$('#userPhone1').keydown(function(event) {
+	        var key = event.charCode || event.keyCode || 0;
+	        $text = $(this);
+	        if (key !== 8 && key !== 9) {
+	            if ($text.val().length == 3) {
+	                $text.val($text.val() + '-');
+	            }
+	            if ($text.val().length == 8) {
+	                $text.val($text.val() + '-');
+	            }
+	        }
+	     
+	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+    	});
+	
+	
+		$("#btn1").click(function(){
+			var $name = $("#userName");
+			var $phone = $("#userPhone");
+		});
+		
+		$("#btn2").click(function(){
+			
+		});
 	</script>
 </html>
