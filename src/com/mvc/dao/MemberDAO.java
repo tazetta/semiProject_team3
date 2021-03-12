@@ -310,6 +310,12 @@ public class MemberDAO {
 		
 	}
 
+	/*가봤어요 리스트*/
+	public void visitedList(String loginId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

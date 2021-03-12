@@ -84,7 +84,7 @@ div.bar {
 }
 
 section#navi {
-	margin-top: 40px;
+	margin-top: 30px;
 }
 
 .navi {
@@ -174,7 +174,7 @@ table#profile {
 <body>
 	<section>
 		<div class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
+			<a href="index.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
 		</div>
 		<div id="search">
 			<form >
@@ -193,11 +193,11 @@ table#profile {
 	<section id="navi">
 		<div class="bar">
 			<ul>
-				<li class="navi"><a href="#">테마별</a></li>
+				<li class="navi"><a href="./themeContentList">테마별</a></li>
 
-				<li class="navi"><a href="#">지역별</a></li>
+				<li class="navi"><a href="./areaContentList">지역별</a></li>
 
-				<li class="navi"><a href="#">커뮤니티</a></li>
+				<li class="navi"><a href="./boardList">커뮤니티</a></li>
 
 				<li class="navi"><a href="#">고객센터</a></li>
 
@@ -277,6 +277,8 @@ if (msg != "") {  //공백이 아니면 (컨트롤러를 거쳐서 msg가 담기
     $(".menu").click(function () {
         $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
     })
+    
+
 </script>
 
 </html>
