@@ -102,13 +102,33 @@ public class BoardService {
 			}		
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 
-		//}
-		
-		
+		//}else{
+			//resp.sendRedirect("index.jsp");
+			//}
 	}
 
-	public void del() {
-		// TODO Auto-generated method stub
+	public void del() throws IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String boardIdx = req.getParameter("boardIdx");
+		String id = req.getParameter("id");
+		//if(loginId== id || loginId== "admin") {
+		System.out.println("delete idx : "+boardIdx);
+		System.out.println("삭제할 글 작성자 아이디:"+id);	
+		FileService upload = new FileService(req);
+
+		BoardDAO dao = new BoardDAO();
+		String newFileName = dao.getFileName(boardIdx);//파일명추출
+
+		dao = new BoardDAO();
+		int success = dao.del(boardIdx,newFileName);
+
+		if(success>0 && newFileName!=null) {
+			System.out.println("파일 삭제");
+			upload.delete(newFileName);
+		}
+		resp.sendRedirect("./boardList");	
+		//}
+		
 		
 	}
 
@@ -156,6 +176,12 @@ public class BoardService {
 		//} else {
 			//resp.sendRedirect("index.jsp");
 		//}
+	}
+
+	public void commentWrite() {
+		String comment = req.getParameter("comment");
+		System.out.println("댓글내용:"+comment);
+		
 	}
 
 }

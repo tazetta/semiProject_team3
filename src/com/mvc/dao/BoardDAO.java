@@ -245,6 +245,29 @@ public class BoardDAO {
 		
 	}
 
+	public int del(String boardIdx, String newFileName) {
+		int success = 0;
+		
+		try {
+			if(newFileName!= null) {
+				String photoSQL = "DELETE FROM photo WHERE boardIdx = ?";
+				ps = conn.prepareStatement(photoSQL);
+				ps.setString(1, boardIdx);
+				ps.executeUpdate();
+			}
+			String bbsSQL = "DELETE FROM bbs WHERE boardIdx=?";
+			ps = conn.prepareStatement(bbsSQL);
+			ps.setString(1, boardIdx);
+			success = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}	
+		return success;
+	}
+
 	
 
 }
