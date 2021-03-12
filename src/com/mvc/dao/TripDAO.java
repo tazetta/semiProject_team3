@@ -146,7 +146,20 @@ public class TripDAO {
 		}
 		return list;
 	}
-
+	
+	private void varSQL(String[] localCode) throws SQLException {
+		if (localCode.length == 1) {
+			ps.setString(1, localCode[0]);
+		} else if (localCode.length == 2) {
+			ps.setString(1, localCode[0]);
+			ps.setString(2, localCode[1]);
+		} else if (localCode.length == 3) {
+			ps.setString(1, localCode[0]);
+			ps.setString(2, localCode[1]);
+			ps.setString(3, localCode[2]);
+		}
+	}
+	
 	public HashMap<String, Object> resultList(int page, String nav, String[] localCode, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -174,22 +187,9 @@ public class TripDAO {
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY bookmarkCnt DESC) AS rnum, "
 				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL
 				+ ") WHERE rnum BETWEEN ? AND ?";
-		System.out.println("inSQL : " + inSQL);
-		System.out.println("insertSQL : " + insertSQL);
-		System.out.println("SQL : " + sql);
 		try {
 			ps = conn.prepareStatement(sql);
-
-			if (localCode.length == 1) {
-				ps.setString(1, localCode[0]);
-			} else if (localCode.length == 2) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-			} else if (localCode.length == 3) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-				ps.setString(3, localCode[2]);
-			}
+			varSQL(localCode);
 			ps.setString(localCode.length + 1, nav);
 			ps.setInt(localCode.length + 2, start);
 			ps.setInt(localCode.length + 3, end);
@@ -234,16 +234,7 @@ public class TripDAO {
 			}
 			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL;
 			ps = conn.prepareStatement(sql);
-			if (localCode.length == 1) {
-				ps.setString(1, localCode[0]);
-			} else if (localCode.length == 2) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-			} else if (localCode.length == 3) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-				ps.setString(3, localCode[2]);
-			}
+			varSQL(localCode);
 			ps.setString(localCode.length+1, nav);
 			rs = ps.executeQuery();
 			if (rs.next()) {
