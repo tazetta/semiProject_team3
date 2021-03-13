@@ -132,8 +132,6 @@ public class BoardService {
 		}
 		resp.sendRedirect("./boardList");	
 		}
-		
-		
 	}
 
 	public void updateForm() throws ServletException, IOException {
@@ -192,8 +190,10 @@ public class BoardService {
 		
 		if(loginId!=null) {
 			BoardDAO dao = new BoardDAO();
+			dao.upDown(boardIdx); //댓글등록할때도 조회수가 올라가버려서
 			page="boardDetail";
 			msg="댓글등록에 실패하였습니다.";
+			dao = new BoardDAO();
 			if(dao.commentWrite(boardIdx,comment,loginId)) {
 				msg="댓글이 등록되었습니다.";
 			}
@@ -215,7 +215,8 @@ public class BoardService {
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		BoardDAO dao = new BoardDAO();
 		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
-		
+		dao = new BoardDAO();
+		dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
 		page = "/boardDetail?boardIdx="+boardIdx;
 		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면
 			req.setAttribute("commentUpdatedto", commentUpdatedto);
@@ -235,8 +236,10 @@ public class BoardService {
 		
 		if(loginId.equals(id)) {
 			BoardDAO dao = new BoardDAO();
+			dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
 			page="/boardDetail?boardIdx="+boardIdx;
 			msg="댓글 수정에 실패하였습니다.";
+			dao = new BoardDAO();
 			if(dao.commentUpdate(reIdx, comment)) {
 				msg="댓글 수정이 완료되었습니다.";
 			}
@@ -251,17 +254,19 @@ public class BoardService {
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
-		System.out.println(id+"/"+reIdx+"/"+boardIdx);
-		if(loginId.equals(id)) {
-			BoardDAO dao = new BoardDAO();
-			page="/boardDetail?boardIdx="+boardIdx;
+		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
+		page="/boardDetail?boardIdx="+boardIdx;
+		BoardDAO dao = new BoardDAO();
+		dao.upDown(boardIdx); //댓글삭제할때도 조회수가 올라가버려서
+		if(loginId.equals(id) || loginId.equals("admin")) {//본인이거나 관리자일때
 			msg="댓글 삭제에 실패했습니다.";
+			dao = new BoardDAO();
 			if(dao.commentDel(reIdx)) {
 				msg="댓글 삭제에 성공했습니다.";
 			}
-			req.setAttribute("msg",msg);
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
 		}
+		req.setAttribute("msg",msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 }

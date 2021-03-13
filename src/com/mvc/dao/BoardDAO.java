@@ -180,6 +180,20 @@ public class BoardDAO {
 			resClose();
 		}
 	}
+	
+	public void upDown(String boardIdx) {
+		System.out.println("조회수내리기");
+		String sql ="UPDATE bbs SET bHit= bHit-1 WHERE boardIdx=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			int success = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+	}
 
 	public int update(BoardDTO dto) {
 		String sql = "UPDATE bbs SET subject=?,content=? WHERE boardIdx=?";

@@ -113,6 +113,8 @@
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
 						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+					</c:if>
+					<c:if test="${loginId==comment.id ||loginId=='admin'}">
 						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
