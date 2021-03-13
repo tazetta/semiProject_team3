@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.service.BoardService;
 
 
-<<<<<<< HEAD
+
 @WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel"})
-=======
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentDel","/commentUpdateForm","/commentUpdate"})
->>>>>>> f78e95b4fb7a880ae0097020e0da3734c89c89b1
+
 public class BoardController  extends HttpServlet{
 	
 

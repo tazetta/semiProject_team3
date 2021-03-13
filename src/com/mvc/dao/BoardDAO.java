@@ -347,6 +347,23 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
+
+	public boolean commentDel(String reIdx) {
+		String sql ="UPDATE BBS_COMMENT SET deactivate='TRUE' WHERE reIdx=?";
+		boolean success=false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, reIdx);
+			if(ps.executeUpdate()>0) {
+				success=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return success;
 	}

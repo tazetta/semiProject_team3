@@ -246,14 +246,22 @@ public class BoardService {
 		}		
 	}
 
-	public void commentDel() {
+	public void commentDel() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx);
 		if(loginId.equals(id)) {
-			
+			BoardDAO dao = new BoardDAO();
+			page="/boardDetail?boardIdx="+boardIdx;
+			msg="댓글 삭제에 실패했습니다.";
+			if(dao.commentDel(reIdx)) {
+				msg="댓글 삭제에 성공했습니다.";
+			}
+			req.setAttribute("msg",msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
 		}
 	}
 }
