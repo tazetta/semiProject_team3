@@ -69,10 +69,9 @@ public class PopupDAO {
 		boolean success = false;	
 		try {
 			ps = conn.prepareStatement(sql);
-//			ps.setString(1, dto.getManagerid());
-//			ps.setString(2, dto.getSubject());
-//			ps.setString(3, dto.getContent());
-			//ps.setString(4, dto.getPopupalert());
+			ps.setString(1, dto.getManagerid());
+			ps.setString(2, dto.getSubject());
+			ps.setString(3, dto.getContent());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}
@@ -169,7 +168,6 @@ public class PopupDAO {
 			ps  = conn.prepareStatement(sql);
 			System.out.println("쿼리 실행");
 			rs = ps.executeQuery();
-//			System.out.println("rs:"+rs);
 			if(rs.next()) {
 				dto = new PopupDTO();
 				dto.setSubject(rs.getString("subject"));
