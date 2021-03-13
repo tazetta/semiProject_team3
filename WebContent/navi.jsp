@@ -57,7 +57,7 @@
 
             <li><a href="areaContentList">지역별</a></li>
 
-            <li><a href="#">커뮤니티</a></li>
+            <li><a href="boardList">커뮤니티</a></li>
 
             <li><a href="#">고객센터</a></li>
 

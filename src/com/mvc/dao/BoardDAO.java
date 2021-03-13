@@ -174,7 +174,6 @@ public class BoardDAO {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
 			int success = ps.executeUpdate();
-			System.out.println("조회수 올리기 성공 : "+success);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
