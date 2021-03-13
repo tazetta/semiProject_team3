@@ -57,7 +57,7 @@ public class BoardDAO {
 		int start = end-(pagePerCnt-1);
 		String sql ="SELECT boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
-				"        FROM bbs" + 
+				"        FROM bbs WHERE DEACTIVATE='FALSE'" + 
 				") WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -139,7 +139,7 @@ public class BoardDAO {
 
 
 	public BoardDTO detail(String boardIdx) {
-		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id, p.oriFileName, p.newFileName "+ 
+		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id,b.deactivate, p.oriFileName, p.newFileName "+ 
 				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ?";		
 		BoardDTO dto = null;
 		
@@ -154,6 +154,7 @@ public class BoardDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
 				dto.setbHit(rs.getInt("bHit"));
+				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setOriFileName(rs.getString("oriFileName"));
 				dto.setNewFileName(rs.getString("newFileName"));
 			}
@@ -250,13 +251,13 @@ public class BoardDAO {
 		int success = 0;
 		
 		try {
-			if(newFileName!= null) {
-				String photoSQL = "DELETE FROM photo WHERE boardIdx = ?";
+			if(newFileName!= null) {//사진이 있는경우 사진 먼저 비활성화
+				String photoSQL = "UPDATE photo SET deactivate='TRUE' WHERE boardIdx = ?";
 				ps = conn.prepareStatement(photoSQL);
 				ps.setString(1, boardIdx);
 				ps.executeUpdate();
 			}
-			String bbsSQL = "DELETE FROM bbs WHERE boardIdx=?";
+			String bbsSQL = "UPDATE bbs SET deactivate='TRUE' WHERE boardIdx = ?";
 			ps = conn.prepareStatement(bbsSQL);
 			ps.setString(1, boardIdx);
 			success = ps.executeUpdate();
@@ -289,7 +290,7 @@ public class BoardDAO {
 	}
 
 	public ArrayList<CommentDTO> comm_list(String boardIdx) {
-		String sql = "SELECT reIdx,id,content,reg_date FROM BBS_COMMENT WHERE boardIdx=? ORDER BY reIdx DESC";
+		String sql = "SELECT reIdx,id,content,reg_date FROM BBS_COMMENT WHERE boardIdx=? AND deactivate='FALSE' ORDER BY reIdx DESC";
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -312,13 +313,9 @@ public class BoardDAO {
 		return list;
 	}
 
-	public boolean commentUpdate(String reIdx) {
-
-		return false;
-	}
 
 	public CommentDTO commentUpdateForm(String reIdx) {
-		String sql = "SELECT content,id FROM bbs_comment WHERE reIdx=?";
+		String sql = "SELECT content,id,reIdx FROM bbs_comment WHERE reIdx=?";
 		CommentDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -328,6 +325,7 @@ public class BoardDAO {
 				dto = new CommentDTO();
 				dto.setContent(rs.getString("content"));
 				dto.setId(rs.getString("id"));
+				dto.setReIdx(rs.getInt("reIdx"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -335,6 +333,22 @@ public class BoardDAO {
 			resClose();
 		}
 		return dto;
+	}
+	
+	public boolean commentUpdate(String reIdx, String comment) {
+		String sql = "UPDATE BBS_COMMENT SET content=? WHERE reIdx=?";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comment);
+			ps.setString(2, reIdx);
+			if(ps.executeUpdate()>0) {
+				success=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 	

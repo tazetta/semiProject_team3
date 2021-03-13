@@ -94,9 +94,10 @@ public class BoardService {
 			dao = new BoardDAO();
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
 			System.out.println("댓글리스트 사이즈: "+list.size());
+			System.out.println("비활성화상태:"+dto.getDeactivate());
 			String page="/boardList";
 			
-			if(dto!=null) {	
+			if(dto!=null && dto.getDeactivate().equals("FALSE")) {	
 				dao = new BoardDAO();
 				dao.upHit(boardIdx);
 				page="boarddetail.jsp";
@@ -107,10 +108,10 @@ public class BoardService {
 			dis.forward(req, resp); 
 		}else{
 			resp.sendRedirect("index.jsp");
-			}
+		}
 	}
 
-	public void del() throws IOException {
+	public void del() throws IOException {//비활성화
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
@@ -143,7 +144,7 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(boardIdx);
 		page = "/boardList";
-		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면 => dto에 값이 있으면
+		if(loginId.equals(id) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
 			page="boardUpdateForm.jsp";
 			req.setAttribute("dto", dto);
 		}
@@ -216,21 +217,43 @@ public class BoardService {
 		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
 		
 		page = "/boardDetail?boardIdx="+boardIdx;
-		//if(loginId==id) {//로그인아이디와 작성자 아이디가 같으면
+		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면
 			req.setAttribute("commentUpdatedto", commentUpdatedto);
-		//}
+		}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		
 	}
 
-	public void commentUpdate() {
+	public void commentUpdate() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
+		String comment = req.getParameter("comment");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		
+		if(loginId.equals(id)) {
+			BoardDAO dao = new BoardDAO();
+			page="/boardDetail?boardIdx="+boardIdx;
+			msg="댓글 수정에 실패하였습니다.";
+			if(dao.commentUpdate(reIdx, comment)) {
+				msg="댓글 수정이 완료되었습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+		}		
 	}
 
+	public void commentDel() {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String id = req.getParameter("id");
+		String reIdx = req.getParameter("reIdx");
+		String boardIdx = req.getParameter("boardIdx");
+		System.out.println(id+"/"+reIdx+"/"+boardIdx);
+		if(loginId.equals(id)) {
+			
+		}
+	}
 }
