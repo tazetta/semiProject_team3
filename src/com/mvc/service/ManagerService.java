@@ -61,7 +61,7 @@ public class ManagerService {
 	}
 
 	public void tripInsert() throws IOException {
-		if (isManager()) { // 관리자 MVC로 옮겨야 한다.
+		if (isManager()) {
 			boolean success = false;
 			String managerId = req.getParameter("managerId");
 			String contentId = req.getParameter("contentId");
@@ -140,7 +140,6 @@ public class ManagerService {
 	}
 
 	public void tripInsetrInformation() throws ServletException, IOException {
-		// 관리자 MVC로 옮겨야 한다.
 		if (isManager()) {
 			tripDAO = new TripDAO();
 			ArrayList<ContentDTO> contentList = tripDAO.contentList();
@@ -167,9 +166,6 @@ public class ManagerService {
 
 	private boolean isManager() {
 		boolean isManager = (boolean) req.getSession().getAttribute("isManager");
-		if(isManager != true) {
-			isManager = false;
-		}
 		return isManager;
 	}
 }

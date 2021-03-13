@@ -142,11 +142,12 @@ public class PopupService {
 	}
 
 	public void popupMain() throws ServletException, IOException {
+		// 메인으로 오기 전에 관리자 여부를 false로 줌
+		req.getSession().setAttribute("isManager", false);
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
 		
-		req.getSession().setAttribute("isManager", false);
 		page = "main.jsp";
 	
 		if (dto != null) {
