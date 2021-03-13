@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.service.BoardService;
 
 
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentDel","/commentUpdateForm","/commentUpdate","/commentDel"})
+@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel"})
 public class BoardController  extends HttpServlet{
 	
 
