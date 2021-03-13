@@ -50,7 +50,7 @@ public class MemberService {
 			
 			dao = new MemberDAO();
 			if(dao.chkManager(id)) {
-				req.getSession().setAttribute("isManager", true);
+				req.getSession().setAttribute("isManager", "true");
 			}
 		}
 		req.setAttribute("msg", msg);
