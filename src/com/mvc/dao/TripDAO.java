@@ -51,31 +51,6 @@ public class TripDAO {
 		}
 	}
 
-	public ArrayList<CityDTO> list(String areaCode) {
-		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
-		CityDTO dto = null;
-
-		String sql = "SELECT cityCode,name,areaCode FROM city WHERE areaCode = ? ORDER BY cityCode";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, areaCode);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				dto = new CityDTO();
-				dto.setCityCode(rs.getInt("cityCode"));
-				dto.setName(rs.getString("name"));
-				dto.setAreaCode(rs.getString("areaCode"));
-				list.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-
-		return list;
-	}
-
 	public ArrayList<ContentDTO> contentList() {
 		ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
 		ContentDTO dto = null;
@@ -113,7 +88,7 @@ public class TripDAO {
 		}
 		return list;
 	}
-
+	
 	public ArrayList<CityDTO> cityList(String areaCode) {
 		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
 		CityDTO dto = null;
@@ -352,21 +327,21 @@ public class TripDAO {
 		return list;
 	}
 
-	public boolean chkManager(String loginId) {
-		boolean success = false;
-		String sql = "SELECT managerId FROM manager WHERE managerId=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, loginId);
-			rs = ps.executeQuery();
-			success = rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		return success;
-	}
+//	public boolean chkManager(String loginId) {
+//		boolean success = false;
+//		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			ps.setString(1, loginId);
+//			rs = ps.executeQuery();
+//			success = rs.next();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			resClose();
+//		}
+//		return success;
+//	}
 
 	public HashMap<String, Object> search(int page, String keyword, String searchType, String alignType) {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
@@ -399,9 +374,9 @@ public class TripDAO {
 				dto = new TripDTO();
 				dto.setContentId(rs.getInt("contentId"));
 				dto.setFirstImage(rs.getString("firstImage"));
-				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
 				dto.setTitle(rs.getString("title"));
-				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
+				dto.setRegDate(rs.getTimestamp("reg_date"));
 				list.add(dto);
 			}
 			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);

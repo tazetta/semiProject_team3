@@ -17,7 +17,7 @@ public class ManagerDAO {
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
-	
+
 	public ManagerDAO() {
 		try {
 			Context ctx = new InitialContext();
@@ -27,12 +27,18 @@ public class ManagerDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void resClose() {
 		try {
-			if(rs != null) {	rs.close();}
-			if(ps != null) {	ps.close();}
-			if(conn != null) {	conn.close();}
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,13 +46,13 @@ public class ManagerDAO {
 
 	public ArrayList<ManagerDTO> managerList() {
 		ArrayList<ManagerDTO> managerList = new ArrayList<ManagerDTO>();
-		
+
 		String sql = "SELECT managerid, name, reg_date FROM admin ORDER BY reg_date DESC";
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				ManagerDTO dto = new ManagerDTO();
 				dto.setManagerid(rs.getString("managerid"));
 				dto.setName(rs.getString("name"));
@@ -55,30 +61,30 @@ public class ManagerDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
-		}		
+		}
 		return managerList;
 	}
 
-		public boolean adminDel(String managerid) {
-			
-			String sql="DELETE FROM admin WHERE managerid=?";
-			boolean success = false;
-			
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, managerid);
-				if(ps.executeUpdate()>0) {
-					success = true;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-					resClose();
-			}	
-			System.out.println("삭제여부 :"+success);
-			return success;
-	}
+	public boolean adminDel(String managerid) {
 
+		String sql = "DELETE FROM admin WHERE managerid=?";
+		boolean success = false;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, managerid);
+			if (ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		System.out.println("삭제여부 :" + success);
+		return success;
+	}
+	
 }

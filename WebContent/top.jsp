@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><html>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <head>
     <meta charset="utf-8">
     <title>top</title>
@@ -76,7 +76,12 @@
     </div>
     <div class="login">
         <ul>
-          <li><a href="#">로그인</a></li>
+        	<c:if test="${sessionScope.loginId eq null}">
+            	<li><a href="./login.jsp">로그인</a></li>
+			</c:if>
+			<c:if test="${sessionScope.loginId ne null}">
+            	<li><a href="./logout">로그아웃</a></li>
+			</c:if>
           <li><a href="#">회원가입</a></li>
         </ul>
     </div>

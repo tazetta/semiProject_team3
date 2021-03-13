@@ -69,6 +69,7 @@ public class MemberController extends HttpServlet {
 			
 		case "/logout":
 			req.getSession().removeAttribute("loginId");//로그인체크
+			req.getSession().removeAttribute("isManager");
 			resp.sendRedirect("index.jsp");//로그아웃시 index.jsp로
 			break;
 			
