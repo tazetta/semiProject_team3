@@ -169,7 +169,7 @@ public class PopupDAO {
 			ps  = conn.prepareStatement(sql);
 			System.out.println("쿼리 실행");
 			rs = ps.executeQuery();
-			System.out.println("rs:"+rs);
+//			System.out.println("rs:"+rs);
 			if(rs.next()) {
 				dto = new PopupDTO();
 				dto.setSubject(rs.getString("subject"));

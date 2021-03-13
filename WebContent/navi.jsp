@@ -53,9 +53,9 @@
 	<body>
 	<div class="bar">
         <ul>
-            <li><a href="#">테마별</a> </li>
+            <li><a href="themeContentList">테마별</a> </li>
 
-            <li><a href="#">지역별</a></li>
+            <li><a href="areaContentList">지역별</a></li>
 
             <li><a href="#">커뮤니티</a></li>
 
