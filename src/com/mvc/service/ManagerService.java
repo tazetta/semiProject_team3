@@ -167,6 +167,9 @@ public class ManagerService {
 
 	private boolean isManager() {
 		boolean isManager = (boolean) req.getSession().getAttribute("isManager");
+		if(isManager != true) {
+			isManager = false;
+		}
 		return isManager;
 	}
 }

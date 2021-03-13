@@ -60,10 +60,10 @@
             <li><a href="boardList">커뮤니티</a></li>
 
             <li><a href="#">고객센터</a></li>
-			<c:if test="${sessionScope.isManager eq null}">
+			<c:if test="${sessionScope.isManager ne true}">
             	<li><a href="#">마이페이지</a></li>
 			</c:if>
-			<c:if test="${sessionScope.isManager ne null}">
+			<c:if test="${sessionScope.isManager eq true}">
             	<li><a href="#">관리자 페이지</a></li>
 			</c:if>
         </ul>

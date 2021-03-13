@@ -145,7 +145,8 @@ public class PopupService {
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
-
+		
+		req.getSession().setAttribute("isManager", false);
 		page = "main.jsp";
 	
 		if (dto != null) {
