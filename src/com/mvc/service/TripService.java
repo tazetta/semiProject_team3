@@ -116,7 +116,7 @@ public class TripService {
 
 	public void tripInsert() throws IOException {
 
-		if (isManagered()) {
+		if (isManager()) {
 			boolean success = false;
 			String managerId = req.getParameter("managerId");
 			String contentId = req.getParameter("contentId");
@@ -194,8 +194,7 @@ public class TripService {
 	}
 
 	public void tripInsetrInformation() throws ServletException, IOException {
-
-		if (isManagered()) {
+		if (isManager()) {
 			dao = new TripDAO();
 			ArrayList<ContentDTO> contentList = dao.contentList();
 			ArrayList<LargeDTO> largeList = dao.largeList();
@@ -219,8 +218,43 @@ public class TripService {
 		}
 	}
 
-	private boolean isManagered() {
+	private boolean isManager() {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		return dao.chkManager(loginId);
+	}
+
+	public void search() throws ServletException, IOException {
+		String keyword = req.getParameter("keyword");
+		String searchType = req.getParameter("searchType");
+		String alignType = req.getParameter("alignType");
+		String pageParam = req.getParameter("page");
+		System.out.println("keyword : " + keyword);
+		System.out.println("searchType : " + searchType);
+		System.out.println("page : " + pageParam);
+
+		if(alignType == null) {
+			alignType = "bookmarkCnt";
+		}
+		System.out.println("alignType : " + alignType);
+		
+		int group = 1;
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam);
+		}
+
+		String url = "keyword=" + keyword + "&searchType="+searchType + "&alignType="+alignType;
+		HashMap<String, Object> map = dao.search(group, keyword,searchType,alignType);
+		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
+		
+		req.setAttribute("searchType", searchType);
+		req.setAttribute("keyword", keyword);
+		req.setAttribute("url", url);
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("list", map.get("list"));
+		req.setAttribute("currPage", group);
+
+		String page = "searchResult.jsp";
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 }

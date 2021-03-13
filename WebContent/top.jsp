@@ -65,8 +65,12 @@
         <a href="index.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
     </div>
     <div id="search">
-        <form >
-            <input type="text" name="search" placeholder="검색어를 입력해주세요" />
+        <form action="search" method="GET">
+        	<select name="searchType">
+        		<option value="title">제목</option>
+        		<option value="overview">내용</option>
+        	</select>
+            <input type="text" name="keyword" placeholder="검색어를 입력해주세요" />
             <input type="submit"  value="검색" />
         </form>
     </div>

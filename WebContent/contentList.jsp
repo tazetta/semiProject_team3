@@ -10,20 +10,20 @@
 <style>
 div.contentList {
 	position: absolute;
-	top: 25%;
+	top: 20%;
 }
 
 div.content {
-	padding: 0px 15px;
+	padding: 5px 15px;
 	border: 1px solid black;
 	width: 120px;
+	height: 30px;
 	text-align: center;
 }
 
 div.clear {
 	border-color: red;
 	clear: left;
-	border: 1px solid black;
 }
 
 div.areaList>div {
@@ -37,14 +37,7 @@ div.areaList>div {
 div.areaList {
 	position: absolute;
 	left: 25%;
-	top: 10%;
-}
-
-nav {
-	width: 1000px;
-	height: 50px;
-	margin: 10px;
-	left: 50%;
+	top: 15%;
 }
 
 .mainUl>li {
@@ -74,16 +67,8 @@ a:visited {
 </style>
 </head>
 <body>
-	<nav>
-		<ul class="mainUl">
-			<li class='content'><a href="./contentList">테마별</a></li>
-			<li class='area'><a href="./areaList">지역별</a></li>
-			<li class='community'>커뮤니티</li>
-			<li class='help'>고객센터</li>
-			<li class='mypage'>마이페이지</li>
-		</ul>
-	</nav>
-
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
 	<div class="contentList">
 		<c:forEach items="${contentList}" var="content">
 			<div class="content" id="${content.contentCode}">
@@ -109,7 +94,6 @@ a:visited {
 		</div>
 		<input type="hidden" name="nav" value="${nav}" /> <input
 			type="hidden" name="type" value="theme" />
-		<!--  <input type="submit" value="검색" /> -->
 		<input type="button" onclick="maxChkBox()" value="검색" />
 	</form>
 </body>
