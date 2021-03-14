@@ -75,7 +75,7 @@
 				<th>지역</th>
 				<td>
 				<select id="area" name="areaType" onchange='cityList(value)'>
-					<option value="">선택</option>
+					<option value="">지역</option>
 						<c:forEach items="${areaList}" var="area">
 							<option value="${area.areaCode}">${area.name}</option>
 						</c:forEach>
@@ -83,8 +83,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th>시/군/구</th>
+				<th>시군구</th>
 				<td><select id="city" name="cityType">
+						<option value="">시/군/구</option>
 				</select></td>
 			</tr>
 			<tr>
@@ -122,7 +123,9 @@
 		for(var i = 0; i < form.smallType.length; i++){
 			form.smallType.options[i] = null;	
 		}
-		form.largeType.options[0] = new Option("선택","");
+		form.largeType.options[0] = new Option("대분류","");
+		form.mediumType.options[0] = new Option("중분류","");
+		form.smallType.options[0] = new Option("소분류","");
  		for(var i = 0; i < text.length; i++){
 			form.largeType.options[i+1] = new Option(text[i],value[i]);
 		}
@@ -147,7 +150,8 @@
 		for(var i = 0; i < form.smallType.length; i++){
 			form.smallType.options[i] = null;	
 		}
-		form.mediumType.options[0] = new Option("선택","");
+		form.mediumType.options[0] = new Option("중분류","");
+		form.smallType.options[0] = new Option("소분류","");
 		for(var i = 0; i < text.length; i++){
 			form.mediumType.options[i+1] = new Option(text[i],value[i]);
 		}
@@ -169,9 +173,9 @@
 		for(var i = 0; i < form.smallType.length; i++){
 			form.smallType.options[i] = null;	
 		}
-		form.smallType.options[0] = new Option("선택","");
+		form.smallType.options[0] = new Option("소분류","");
 		for(var i = 0; i < text.length; i++){
-			form.smallType.options[i] = new Option(text[i],value[i]);
+			form.smallType.options[i+1] = new Option(text[i],value[i]);
 		}
 	}; 
 	function cityList(type){
@@ -190,7 +194,6 @@
 		for(var i = 0; i < form.cityType.length; i++){
 			form.smallType.options[i] = null;	
 		}
-		form.cityType.options[0] = new Option("선택","");
 		for(var i = 0; i < text.length; i++){
 			form.cityType.options[i] = new Option(text[i],value[i]);
 		}
