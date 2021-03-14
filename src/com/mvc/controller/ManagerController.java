@@ -10,11 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.ManagerService;
 
-<<<<<<< HEAD
-@WebServlet({"/managerList","/managerDel","/managerRegist"})
-=======
-@WebServlet({"/managerList","/managerDel","/tripInsert","/tripInsertOverlay","/tripInsertInformation","/tripManage","/tripSearch"})
->>>>>>> 69b93d8605c26b26650f736682cb07f47f48441e
+@WebServlet({"/managerList","/managerDel","/managerRegist","/tripInsert","/tripInsertOverlay","/tripInsertInformation","/tripManage","/tripSearch"})
+
 public class ManagerController extends HttpServlet {
 
 	@Override
@@ -37,23 +34,6 @@ public class ManagerController extends HttpServlet {
 		ManagerService service = new ManagerService(req,resp);
 		
 		switch(sub) {
-<<<<<<< HEAD
-		case  "/managerList":
-			System.out.println("관리자 목록 요청");
-			service.managerList();
-			break;
-			
-		case  "/managerDel":
-			System.out.println("관리자 삭제 요청");
-			service.managerDel();
-			break;
-			
-		case  "/managerRegist":
-			System.out.println("관리자 등록 요청");
-			service.managerRegist();
-			break;
-			
-=======
 			case  "/managerList":
 				System.out.println("관리자 목록 요청");
 				service.managerList();
@@ -62,6 +42,11 @@ public class ManagerController extends HttpServlet {
 			case  "/managerDel":
 				System.out.println("관리자 목록 요청");
 				service.managerDel();
+				break;
+				
+			case  "/managerRegist":
+				System.out.println("관리자 등록 요청");
+				service.managerRegist();
 				break;
 				
 			case "/tripInsertInformation":
@@ -88,7 +73,6 @@ public class ManagerController extends HttpServlet {
 				System.out.println("tripSearch 요청");
 				service.tripSearch();
 				break;
->>>>>>> 69b93d8605c26b26650f736682cb07f47f48441e
 		}
 	}
 
