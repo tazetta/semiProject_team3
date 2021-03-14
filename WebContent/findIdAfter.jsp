@@ -10,12 +10,12 @@
 	<body>
 	<%
 		request.setCharacterEncoding("utf-8");
-		String userId = request.getParameter("userId");
+		String id = (String)request.getAttribute("id");
 	%>
 		<form action="findId" method="POST">
 		<fieldset id="fieldset1">
             <div id ="userName1"></div>
-            <h6>회원가입 시 사용한 아이디는 <b><%=userId%></b> 입니다.</h6>
+            <h6>회원가입 시 사용한 아이디는 <b><%=id%></b> 입니다.</h6>
             <div style="text-align: right;">
                 <button type="button" onclick="location.href='./login.jsp'">확인</button>
             </div>
@@ -24,5 +24,6 @@
 	
 	</body>
 	<script>
+	
 	</script>
 </html>

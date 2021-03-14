@@ -179,15 +179,7 @@
             }
         });
                 
-/*       //1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
-        $('#userId').focusout(function(){
-           if($(this).val().length<5){
-                alert('아이디를 5자 이상 입력해주세요.');
-                $(this).focus();
-            }else{
-                idChk = true;
-            }
-        }); */
+                
 	
 		$('button').click(function(){//버튼을 클릭하는 순간부터
 			
@@ -199,8 +191,8 @@
 			//유효성 체크
 			if(overChk){
 				
-				if($id.val().length<5){
-					alert('아이디를 5자 이상 입력해 주세요!');
+				if($id.val()==''){
+					alert('아이디를 입력해 주세요!');
 					$id.focus();
 				}else if($name.val()==''){
 					alert('이름을 입력해 주세요!');

@@ -54,7 +54,7 @@
                     </td>
                 </tr>
             </table>
-            <div style="text-align: right;">
+            <div style="text-align: right; margin-top: 10px;">
                 <button id="btn1" type="submit">찾기</button>
             </div>
         </fieldset>
@@ -130,9 +130,59 @@
 	
 	
 		$("#btn1").click(function(){
-			var $name = $("#userName");
-			var $phone = $("#userPhone");
+			var $name = $("#userName1");
+			var $phone = $("#userPhone1");
+			
+			if(nameChk){
+				if($name.val()==''){
+					alert('이름을 입력해주세요.');
+					$name.focus();
+				}else if($phone.val()==''){
+					alert('핸드폰번호를 입력해주세요.');
+					$phone.focus();
+				}
+			}
 		});
+		
+		$('#userId').focusout(function(){
+            if($(this).val()==''){
+                 alert('아이디를 입력해주세요.');
+                 $(this).focusin();
+             }else{
+                 idChk = true;
+             }
+         });
+		
+		$('#userName2').focusout(function(){
+            if($(this).val()==''){
+                 alert('이름을 입력해주세요.');
+                 $(this).focusin();
+             }else{
+                 nameChk = true;
+             }
+         });
+        
+        $('#userPhone2').focusout(function(){
+            if($(this).val()==''){
+                 alert('번호를 입력해주세요.');
+                 $(this).focusin();
+             }else{
+                 phoneChk = true;
+             }
+         });
+	
+	
+		$('#userPhone2').keydown(function(event) {
+	        var key = event.charCode || event.keyCode || 0;
+	        $text = $(this);
+	        if (key !== 8 && key !== 9) {
+	            if ($text.val().length == 3) {
+	                $text.val($text.val() + '-');
+	            }
+	            if ($text.val().length == 8) {
+	                $text.val($text.val() + '-');
+	            }
+	        }
 		
 		$("#btn2").click(function(){
 			
