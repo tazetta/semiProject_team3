@@ -3,6 +3,7 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%String loginId = (String)request.getSession().getAttribute("loginId"); %>
+<%String isManager = (String) request.getSession().getAttribute("isManager"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +63,7 @@
     <iframe id="navi" src="navi.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
     	
 		<div id="total">
-			<c:if test="${dto.id==loginId or 'admin'}">
+			<c:if test="${dto.id==loginId || isManager=='true'}">
 			<div id="btn1">
 				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>

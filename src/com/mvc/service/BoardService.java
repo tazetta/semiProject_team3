@@ -111,11 +111,12 @@ public class BoardService {
 		}
 	}
 
-	public void del() throws IOException {//비활성화
+	public void del() throws IOException, ServletException {//비활성화
 		String loginId = (String) req.getSession().getAttribute("loginId");
+		String isManager = (String) req.getSession().getAttribute("isManager");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
-		if(loginId.equals(id) || loginId.equals("admin")) {
+		if(loginId.equals(id) || isManager.equals("true")) {//작성자와 로그인아이디가 같거나 관리자 이면
 		System.out.println("delete idx : "+boardIdx);
 		System.out.println("삭제할 글 작성자 아이디:"+id);	
 		FileService upload = new FileService(req);
@@ -124,13 +125,19 @@ public class BoardService {
 		String newFileName = dao.getFileName(boardIdx);//파일명추출
 
 		dao = new BoardDAO();
-		int success = dao.del(boardIdx,newFileName);
-
-		if(success>0 && newFileName!=null) {
-			System.out.println("파일 삭제");
-			upload.delete(newFileName);
+		msg="삭제 실패했습니다.";
+		page="boardList";
+		if(dao.del(boardIdx,newFileName)>0) {
+			msg="삭제가 완료되었습니다.";
 		}
-		resp.sendRedirect("./boardList");	
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+//		if(success>0 && newFileName!=null) {//비활성화해도 파일은 남아있게 삭제하는부분 주석 처리
+//			System.out.println("파일 삭제");
+//			upload.delete(newFileName);
+//		}
+		
 		}
 	}
 
@@ -251,6 +258,7 @@ public class BoardService {
 
 	public void commentDel() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
+		String isManager = (String) req.getSession().getAttribute("isManager");
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
@@ -258,7 +266,7 @@ public class BoardService {
 		page="/boardDetail?boardIdx="+boardIdx;
 		BoardDAO dao = new BoardDAO();
 		dao.upDown(boardIdx); //댓글삭제할때도 조회수가 올라가버려서
-		if(loginId.equals(id) || loginId.equals("admin")) {//본인이거나 관리자일때
+		if(loginId.equals(id) || isManager.equals("true")) {//본인이거나 관리자일때
 			msg="댓글 삭제에 실패했습니다.";
 			dao = new BoardDAO();
 			if(dao.commentDel(reIdx)) {
