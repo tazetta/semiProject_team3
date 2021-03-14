@@ -29,7 +29,7 @@ public class FileService {
 			String subject = multi.getParameter("subject");
 			String content = multi.getParameter("content");
 			String id = multi.getParameter("userId");
-			System.out.println(boardIdx+"/"+subject+"/"+content+"/"+id);
+			System.out.println("글등록: "+boardIdx+"/"+subject+"/"+content+"/"+id);
 			
 			
 			if(boardIdx!=null) {
