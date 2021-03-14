@@ -312,13 +312,28 @@ public class MemberDAO {
 		}return success;
 
 	}
-
+	
 	/*가봤어요 리스트*/
 	public void visitedList(String loginId) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	public boolean chkManager(String loginId) {
+		boolean success = false;
+		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
 	
 
 }

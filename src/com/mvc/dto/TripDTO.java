@@ -1,6 +1,7 @@
 package com.mvc.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class TripDTO {
 	private int contentId;
@@ -17,6 +18,7 @@ public class TripDTO {
 	private String cityCode;
 	private String managerId;
 	private Date reg_date;
+	private Timestamp regDate;
 	private int bookmarkCnt;
 	private String deactivate;
 	private String overview;
@@ -125,6 +127,12 @@ public class TripDTO {
 	}
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
+	}
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
 	}
 	public int getBookmarkCnt() {
 		return bookmarkCnt;

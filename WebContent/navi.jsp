@@ -29,7 +29,7 @@
             font-size: 120%;
             font-weight: 500;
             text-align: center;
-            width: 100px;
+            width: 110px;
             height: 20px;
             list-style-type: none;
             display: inline;
@@ -53,16 +53,19 @@
 	<body>
 	<div class="bar">
         <ul>
-            <li><a href="#">테마별</a> </li>
+            <li><a href="themeContentList">테마별</a> </li>
 
-            <li><a href="#">지역별</a></li>
+            <li><a href="areaContentList">지역별</a></li>
 
-            <li><a href="#">커뮤니티</a></li>
+            <li><a href="boardList">커뮤니티</a></li>
 
             <li><a href="#">고객센터</a></li>
-
-            <li><a href="#">마이페이지</a></li>
-
+			<c:if test="${sessionScope.isManager ne true}">
+            	<li><a href="#">마이페이지</a></li>
+			</c:if>
+			<c:if test="${sessionScope.isManager eq true}">
+            	<li><a href="#">관리자 페이지</a></li>
+			</c:if>
         </ul>
     </div>
 	

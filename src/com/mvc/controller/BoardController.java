@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.service.BoardService;
 
 
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentDel","/commentUpdateForm","/commentUpdate"})
+
+@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel"})
+
 public class BoardController  extends HttpServlet{
 	
 
@@ -79,6 +81,11 @@ public class BoardController  extends HttpServlet{
 			case "/commentUpdate":
 				System.out.println("댓글 수정 요청");
 				service.commentUpdate();
+				break;
+				
+			case "/commentDel":
+				System.out.println("댓글 삭제 요청");
+				service.commentDel();
 				break;
 			}
 		}

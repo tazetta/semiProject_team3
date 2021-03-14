@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><html>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <head>
     <meta charset="utf-8">
     <title>top</title>
@@ -65,14 +65,23 @@
         <a href="index.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="150px" height="60px"></a>
     </div>
     <div id="search">
-        <form >
-            <input type="text" name="search" placeholder="검색어를 입력해주세요" />
+        <form action="search" method="GET">
+        	<select name="searchType">
+        		<option value="title">제목</option>
+        		<option value="overview">내용</option>
+        	</select>
+            <input type="text" name="keyword" placeholder="검색어를 입력해주세요" />
             <input type="submit"  value="검색" />
         </form>
     </div>
     <div class="login">
         <ul>
-          <li><a href="#">로그인</a></li>
+        	<c:if test="${sessionScope.loginId eq null}">
+            	<li><a href="./login.jsp">로그인</a></li>
+			</c:if>
+			<c:if test="${sessionScope.loginId ne null}">
+            	<li><a href="./logout">로그아웃</a></li>
+			</c:if>
           <li><a href="#">회원가입</a></li>
         </ul>
     </div>

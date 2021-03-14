@@ -10,18 +10,18 @@
 <style>
 div.areaList {
 	position: absolute;
-	top: 25%;
+	top: 20%;
 }
 
 div.area {
 	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
+	height: 30px;
 	text-align: center;
 }
 
 div.clear {
-	border-color: red;
 	clear: left;
 	border: 1px solid black;
 }
@@ -31,20 +31,12 @@ div.cityList>div {
 	border: 1px solid black;
 	padding: 5px 5px;
 	width: 140px;
-	/* text-align: center; */
 }
 
 div.cityList {
 	position: absolute;
 	left: 25%;
-	top: 10%;
-}
-
-nav {
-	width: 1000px;
-	height: 50px;
-	margin: 10px;
-	left: 50%;
+	top: 15%;
 }
 
 .mainUl>li {
@@ -74,23 +66,16 @@ a:visited {
 </style>
 </head>
 <body>
-	<nav>
-		<ul class="mainUl">
-			<li class='content'><a href="./contentList">테마별</a></li>
-			<li class='area'><a href="./areaList">지역별</a></li>
-			<li class='community'>커뮤니티</li>
-			<li class='help'>고객센터</li>
-			<li class='mypage'>마이페이지</li>
-		</ul>
-	</nav>
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
 
-		<div class="areaList">
-			<c:forEach items="${areaList}" var="area">
-				<div class="area" id="${area.areaCode}">
-					<a href="./areaContentList?nav=${area.areaCode}">${area.name}</a>
-				</div>
-			</c:forEach>
-		</div>
+	<div class="areaList">
+		<c:forEach items="${areaList}" var="area">
+			<div class="area" id="${area.areaCode}">
+				<a href="./areaContentList?nav=${area.areaCode}">${area.name}</a>
+			</div>
+		</c:forEach>
+	</div>
 
 	<form action="resultList" method="GET">
 		<div class="cityList">
@@ -107,9 +92,9 @@ a:visited {
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="nav" value="${nav}"/>
-		<input type="hidden" name="type" value="area"/>
-		<input type="button" onclick="maxChkBox()" value="검색" />
+		<input type="hidden" name="nav" value="${nav}" /> <input type="hidden"
+			name="type" value="area" /> <input type="button"
+			onclick="maxChkBox()" value="검색" />
 	</form>
 
 </body>

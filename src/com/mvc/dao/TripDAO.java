@@ -51,31 +51,6 @@ public class TripDAO {
 		}
 	}
 
-	public ArrayList<CityDTO> list(String areaCode) {
-		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
-		CityDTO dto = null;
-
-		String sql = "SELECT cityCode,name,areaCode FROM city WHERE areaCode = ? ORDER BY cityCode";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, areaCode);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				dto = new CityDTO();
-				dto.setCityCode(rs.getInt("cityCode"));
-				dto.setName(rs.getString("name"));
-				dto.setAreaCode(rs.getString("areaCode"));
-				list.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-
-		return list;
-	}
-
 	public ArrayList<ContentDTO> contentList() {
 		ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
 		ContentDTO dto = null;
@@ -113,7 +88,7 @@ public class TripDAO {
 		}
 		return list;
 	}
-
+	
 	public ArrayList<CityDTO> cityList(String areaCode) {
 		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
 		CityDTO dto = null;
@@ -147,6 +122,19 @@ public class TripDAO {
 		return list;
 	}
 
+	private void varSQL(String[] localCode) throws SQLException {
+		if (localCode.length == 1) {
+			ps.setString(1, localCode[0]);
+		} else if (localCode.length == 2) {
+			ps.setString(1, localCode[0]);
+			ps.setString(2, localCode[1]);
+		} else if (localCode.length == 3) {
+			ps.setString(1, localCode[0]);
+			ps.setString(2, localCode[1]);
+			ps.setString(3, localCode[2]);
+		}
+	}
+
 	public HashMap<String, Object> resultList(int page, String nav, String[] localCode, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -157,6 +145,7 @@ public class TripDAO {
 		System.out.println("end : " + end + " / start : " + start);
 
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		// 체크박스가 선택된 수만큼 ? 생성
 		String inSQL = " IN(";
 		for (int i = 1; i <= localCode.length; i++) {
 			if (i == localCode.length) {
@@ -174,22 +163,9 @@ public class TripDAO {
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY bookmarkCnt DESC) AS rnum, "
 				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL
 				+ ") WHERE rnum BETWEEN ? AND ?";
-		System.out.println("inSQL : " + inSQL);
-		System.out.println("insertSQL : " + insertSQL);
-		System.out.println("SQL : " + sql);
 		try {
 			ps = conn.prepareStatement(sql);
-
-			if (localCode.length == 1) {
-				ps.setString(1, localCode[0]);
-			} else if (localCode.length == 2) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-			} else if (localCode.length == 3) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-				ps.setString(3, localCode[2]);
-			}
+			varSQL(localCode);
 			ps.setString(localCode.length + 1, nav);
 			ps.setInt(localCode.length + 2, start);
 			ps.setInt(localCode.length + 3, end);
@@ -234,17 +210,8 @@ public class TripDAO {
 			}
 			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL;
 			ps = conn.prepareStatement(sql);
-			if (localCode.length == 1) {
-				ps.setString(1, localCode[0]);
-			} else if (localCode.length == 2) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-			} else if (localCode.length == 3) {
-				ps.setString(1, localCode[0]);
-				ps.setString(2, localCode[1]);
-				ps.setString(3, localCode[2]);
-			}
-			ps.setString(localCode.length+1, nav);
+			varSQL(localCode);
+			ps.setString(localCode.length + 1, nav);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				int cnt = rs.getInt(1);
@@ -360,19 +327,72 @@ public class TripDAO {
 		return list;
 	}
 
-	public boolean chkManager(String loginId) {
-		boolean success = false;
-		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+	public HashMap<String, Object> search(int page, String keyword, String searchType, String alignType) {
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		TripDTO dto = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 페이징
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxPage = 0;
+		
+		// 검색어
+		String addKeyword = "%"+keyword+"%";
+		String keywordType = "title"; // 타입이 제목으로 왔을 때
+		if(searchType.equals("overview")) { // 타입이 내용으로 왔을 때
+			keywordType = "overview";
+		}
+		String sql = "SELECT contentId,firstImage, title, bookmarkCnt, reg_date FROM ("
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY "+alignType+" DESC) AS rnum, "
+				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+keywordType+" LIKE ?"
+				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, loginId);
+			ps.setString(1, addKeyword);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
 			rs = ps.executeQuery();
-			success = rs.next();
+			while (rs.next()) {
+				dto = new TripDTO();
+				dto.setContentId(rs.getInt("contentId"));
+				dto.setFirstImage(rs.getString("firstImage"));
+				dto.setTitle(rs.getString("title"));
+				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
+				dto.setRegDate(rs.getTimestamp("reg_date"));
+				list.add(dto);
+			}
+			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);
+			map.put("maxPage", maxPage);
+			map.put("list", list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
-		return success;
+		return map;
+	}
+
+	private int getSearchMaxPage(int pagePerCnt, String keyword, String type) {
+		int maxPage = 0;
+		try {
+			String addKeyword = "%"+keyword+"%";
+			String keywordType = "title"; // 타입이 제목으로 왔을 때
+			if(type.equals("overview")) { // 타입이 내용으로 왔을 때
+				keywordType = "overview";
+			}
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+keywordType+" LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, addKeyword);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maxPage;
 	}
 }

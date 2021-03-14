@@ -46,8 +46,12 @@ public class MemberService {
 		if (success) { // 로그인 성공시 (true 반환시)
 			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
 			msg = id + "님 로그인 되었습니다";
-
 			req.getSession().setAttribute("loginId", id); // "loginId"라는 이름으로 session에 저장
+			
+			dao = new MemberDAO();
+			if(dao.chkManager(id)) {
+				req.getSession().setAttribute("isManager", "true");
+			}
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);

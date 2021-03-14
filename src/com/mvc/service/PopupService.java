@@ -36,17 +36,14 @@ public class PopupService {
 			String managerid = req.getParameter("managerid");
 			String subject = req.getParameter("subject");
 			String content = req.getParameter("content");
-			//String popupalert = req.getParameter("popupalert");
-			//System.out.println(managerid+"/"+subject+"/"+content+"/"+popupalert);
 			System.out.println(managerid+"/"+subject+"/"+content);
 			
 			PopupDTO dto = new PopupDTO();
 			PopupDAO dao = new PopupDAO();
-			
+						
 			dto.setManagerid(managerid);
 			dto.setSubject(subject);
 			dto.setContent(content);
-			//dto.setPopupalert(popupalert);
 			
 			page = "/pop_write.jsp";
 			msg = "팝업 등록에 실패 하였습니다.";
@@ -145,13 +142,12 @@ public class PopupService {
 	}
 
 	public void popupMain() throws ServletException, IOException {
-		
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
 		
 		page = "main.jsp";
-		
+	
 		if (dto != null) {
 			req.setAttribute("dto", dto);
 		}
