@@ -89,7 +89,7 @@ public class BoardDAO {
 	}
 	
 	private int getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(boardIdx) FROM bbs";
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE'";
 		int max=0;
 		try {
 			ps = conn.prepareStatement(sql);
