@@ -126,10 +126,10 @@ public class TripDAO {
 				while (rs.next()) {
 					dto = new CityDTO();
 					dto.setCityCode(rs.getInt("cityCode"));
-					dto.setName(rs.getString("name"));				
+					dto.setName(rs.getString("name"));
 					list.add(dto);
 				}
-			} else if(areaCode.equals("0")) {
+			} else if (areaCode.equals("0")) {
 				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY citycode";
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
@@ -150,41 +150,60 @@ public class TripDAO {
 	public HashMap<String, Object> resultList(int page, String nav, String[] localCode, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		int pagePerCnt = 10 / localCode.length;
+		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		int maxPage = 0;
 		System.out.println("end : " + end + " / start : " + start);
 
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		String inSQL = " IN(";
+		for (int i = 1; i <= localCode.length; i++) {
+			if (i == localCode.length) {
+				inSQL += "?)";
+			} else {
+				inSQL += "?,";
+			}
+		}
 		// type이 theme일 때
-		String insertSQL = " areaCode = ? AND contentCode=?";
+		String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
 		if (type.equals("area")) { // type이 area일 때
-			insertSQL = " cityCode = ? AND areaCode = ?";
+			insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
 		}
 		String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
-				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY bookmarkCnt DESC) AS rnum, "
 				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL
 				+ ") WHERE rnum BETWEEN ? AND ?";
+		System.out.println("inSQL : " + inSQL);
+		System.out.println("insertSQL : " + insertSQL);
+		System.out.println("SQL : " + sql);
 		try {
-			for (int i = 0; i < localCode.length; i++) {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, localCode[i]);
-				ps.setString(2, nav);
-				ps.setInt(3, start);
-				ps.setInt(4, end);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					TripDTO dto = new TripDTO();
-					dto.setContentId(rs.getInt("contentId"));
-					dto.setAreaCode(rs.getString("areaCode"));
-					dto.setContentCode(rs.getString("contentCode"));
-					dto.setFirstImage(rs.getString("firstImage"));
-					dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
-					dto.setTitle(rs.getString("title"));
-					dto.setReg_date(rs.getDate("reg_date"));
-					list.add(dto);
-				}
+			ps = conn.prepareStatement(sql);
+
+			if (localCode.length == 1) {
+				ps.setString(1, localCode[0]);
+			} else if (localCode.length == 2) {
+				ps.setString(1, localCode[0]);
+				ps.setString(2, localCode[1]);
+			} else if (localCode.length == 3) {
+				ps.setString(1, localCode[0]);
+				ps.setString(2, localCode[1]);
+				ps.setString(3, localCode[2]);
+			}
+			ps.setString(localCode.length + 1, nav);
+			ps.setInt(localCode.length + 2, start);
+			ps.setInt(localCode.length + 3, end);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				TripDTO dto = new TripDTO();
+				dto.setContentId(rs.getInt("contentId"));
+				dto.setAreaCode(rs.getString("areaCode"));
+				dto.setContentCode(rs.getString("contentCode"));
+				dto.setFirstImage(rs.getString("firstImage"));
+				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
+				dto.setTitle(rs.getString("title"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				list.add(dto);
 			}
 			maxPage = getMaxPage(nav, localCode, pagePerCnt, type);
 			System.out.println("max page : " + maxPage);
@@ -201,19 +220,35 @@ public class TripDAO {
 	private int getMaxPage(String nav, String[] localCode, int pagePerCnt, String type) {
 		int maxPage = 0;
 		try {
-			for (int i = 0; i < localCode.length; i++) {
-				String sql = "SELECT COUNT(contentId) FROM trip WHERE contentCode=? AND areaCode=?";
-				if (type.equals("area")) {
-					sql = "SELECT COUNT(contentId) FROM trip WHERE areaCode = ? AND cityCode = ?";
+			String inSQL = " IN(";
+			for (int i = 1; i <= localCode.length; i++) {
+				if (i == localCode.length) {
+					inSQL += "?)";
+				} else {
+					inSQL += "?,";
 				}
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, nav);
-				ps.setString(2, localCode[i]);
-				rs = ps.executeQuery();
-				if (rs.next()) {
-					int cnt = rs.getInt(1);
-					maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
-				}
+			}
+			String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
+			if (type.equals("area")) { // type이 area일 때
+				insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
+			}
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL;
+			ps = conn.prepareStatement(sql);
+			if (localCode.length == 1) {
+				ps.setString(1, localCode[0]);
+			} else if (localCode.length == 2) {
+				ps.setString(1, localCode[0]);
+				ps.setString(2, localCode[1]);
+			} else if (localCode.length == 3) {
+				ps.setString(1, localCode[0]);
+				ps.setString(2, localCode[1]);
+				ps.setString(3, localCode[2]);
+			}
+			ps.setString(localCode.length+1, nav);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -242,7 +277,7 @@ public class TripDAO {
 			ps.setString(12, dto.getCityCode());
 			ps.setString(13, dto.getLargeIdx());
 			ps.setString(14, dto.getOverview());
-			if(ps.executeUpdate() > 0) {
+			if (ps.executeUpdate() > 0) {
 				success = true;
 			}
 			System.out.println("insert success : " + success);
@@ -270,7 +305,7 @@ public class TripDAO {
 	public ArrayList<LargeDTO> largeList() {
 		ArrayList<LargeDTO> list = new ArrayList<LargeDTO>();
 		LargeDTO dto = null;
-		String sql  = "SELECT largeIdx,name,contentCode FROM large";
+		String sql = "SELECT largeIdx,name,contentCode FROM large";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();

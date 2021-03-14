@@ -17,6 +17,7 @@
    <div class="pop">
         <form action="popupUpdate" method="post">
             <table>
+            <input type="hidden" name="infoidx" value="${dto.infoidx}"/>
                 <tr>
                     <th>등록관리자</th>
                     <td><input type="text" name="managerid" value="${sessionScope.managerid}" readonly/></td>

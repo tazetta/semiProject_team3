@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%String loginId = (String)request.getSession().getAttribute("loginId"); %>
 <!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
 <html>
@@ -265,14 +266,14 @@ a {
 				</c:if>
 				<table id="wroteList">
 					
-					<c:forEach items="${list }" var="bbs">
+					<c:forEach items="${list}" var="bbs">
 						<tr class="bbsTr">
 							<td >${bbs.rnum}</td>
 							<th style="width:500px"><a href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
 							<td>${bbs.reg_date }</td>
 							<td>
-								<button>수정</button><br/>
-								<button>삭제</button>
+								<button onclick="location.href='boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button><br/>
+								<button onclick="location.href='boardDel'">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>

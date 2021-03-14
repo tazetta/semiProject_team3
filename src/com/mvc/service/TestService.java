@@ -79,6 +79,14 @@ public class TestService {
 		resp.sendRedirect("./tripDetail?contentId="+conIdx);
 		
 	}
+
+	public void reportBBS() throws ServletException, IOException {
+		
+		TestDAO dao = new TestDAO();	
+		
+		dao.reportBBS();
+	}
+
 	
 
 }

@@ -316,4 +316,20 @@ public class MemberService {
 	}
 
 
+	/* 가봤어요 리스트*/
+	public void visitedList() throws IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println(loginId+"의 가봤어요 리스트");
+		
+		if (loginId != null) {// 로그인 체크
+			boolean success= false;
+			dao.visitedList(loginId);
+		}else {
+			resp.sendRedirect("index.jsp");
+		}
+		
+		
+	}
+
+
 }

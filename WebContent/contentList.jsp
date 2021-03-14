@@ -107,14 +107,30 @@ a:visited {
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="nav" value="${nav}" /> 
-		<input type="hidden" name="type" value="theme"/>
-		<input type="submit" value="검색" />
+		<input type="hidden" name="nav" value="${nav}" /> <input
+			type="hidden" name="type" value="theme" />
+		<!--  <input type="submit" value="검색" /> -->
+		<input type="button" onclick="maxChkBox()" value="검색" />
 	</form>
 </body>
 <script>
 	$(document).ready(function() {
 		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
+	
+	function maxChkBox(){
+		var cnt = 0;
+		$('input[type="checkbox"]').each(function(idx, item){
+			
+			if($(this)[0].checked){
+					cnt++;
+				}
+		});
+		if(cnt > 3) {
+			alert('최대 3개까지 선택 가능합니다.');
+		} else{
+			$('form').submit();
+		}
+	}
 </script>
 </html>

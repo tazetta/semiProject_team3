@@ -114,7 +114,7 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
-		if(loginId== id || loginId== "admin") {
+		if(loginId.equals(id) || loginId.equals("admin")) {
 		System.out.println("delete idx : "+boardIdx);
 		System.out.println("삭제할 글 작성자 아이디:"+id);	
 		FileService upload = new FileService(req);
@@ -139,14 +139,14 @@ public class BoardService {
 		
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
+		String id = req.getParameter("id");
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(boardIdx);
-		
 		page = "/boardList";
-		if(loginId==dto.getId()) {//로그인아이디와 작성자 아이디가 같으면
+		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면 => dto에 값이 있으면
 			page="boardUpdateForm.jsp";
+			req.setAttribute("dto", dto);
 		}
-		req.setAttribute("dto", dto);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		
@@ -206,7 +206,7 @@ public class BoardService {
 		
 	}
 
-	public void commentUpdate() throws ServletException, IOException {
+	public void commentUpdateForm() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
@@ -221,6 +221,15 @@ public class BoardService {
 		//}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		
+	}
+
+	public void commentUpdate() {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String id = req.getParameter("id");
+		String reIdx = req.getParameter("reIdx");
+		String boardIdx = req.getParameter("boardIdx");
+		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		
 	}
 

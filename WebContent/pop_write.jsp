@@ -28,13 +28,13 @@
                     <th>내용</th>
                     <td><textarea name="content"></textarea></td>
                 </tr>
-                <tr>
+<!--                 <tr>
                     <th>노출여부</th>
                     <td>
                     <input type="radio" name="popupalert" value="YES"/>Y
                     <input type="radio" name="popupalert" value="NO"/>N
                     </td>
-                </tr>  
+                </tr>   -->
                 <tr>
                     <td colspan="2"><button>팝업 등록</button></td>
                 </tr>
