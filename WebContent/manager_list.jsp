@@ -26,12 +26,12 @@ button{
                 <th>등록일</th>
                 <th>이름</th>
             </tr>
-            <c:forEach items="${adminList}" var="sysAdmin">
+            <c:forEach items="${managerList}" var="sysAdmin">
             <tr>
-                <td>${sysAdmin.infoidx}</td>
+                <td>${sysAdmin.managerid}</td>
                 <td>${sysAdmin.reg_date}</td>
                 <td>${sysAdmin.name}</td>
-                <td><a href="adminDel?infoidx=${sysAdmin.infoidx}">삭제</a></td>
+                <td><a href="adminDel?infoidx=${sysAdmin.managerid}">삭제</a></td>
             </tr>
             </c:forEach>
             <button onclick="location.href='admin_regist.jsp'">신규 관리자 등록</button>

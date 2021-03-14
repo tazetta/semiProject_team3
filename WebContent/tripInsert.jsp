@@ -12,7 +12,7 @@
 		<table>
 			<tr>
 				<th>관리자 아이디</th>
-				<td><input type="text" id="managerId" value="admin" /></td>
+				<td><input type="text" id="managerId" value="${sessionScope.loginId}" readonly /></td>
 			</tr>
 			<tr>
 				<th>contentId</th>

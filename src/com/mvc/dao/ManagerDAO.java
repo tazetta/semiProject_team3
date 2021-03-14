@@ -47,7 +47,7 @@ public class ManagerDAO {
 	public ArrayList<ManagerDTO> managerList() {
 		ArrayList<ManagerDTO> managerList = new ArrayList<ManagerDTO>();
 
-		String sql = "SELECT managerid, name, reg_date FROM admin ORDER BY reg_date DESC";
+		String sql = "SELECT managerid, name, reg_date FROM manager ORDER BY reg_date DESC";
 
 		try {
 			ps = conn.prepareStatement(sql);

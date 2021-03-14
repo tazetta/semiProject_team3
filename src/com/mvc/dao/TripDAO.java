@@ -104,8 +104,8 @@ public class TripDAO {
 					dto.setName(rs.getString("name"));
 					list.add(dto);
 				}
-			} else if (areaCode.equals("0")) {
-				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY citycode";
+			}	else if (areaCode.equals("0")) { // tripInsetrInformation으로 요청이 올 때
+				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY c.citycode";
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -292,7 +292,7 @@ public class TripDAO {
 	public ArrayList<MediumDTO> mediumList() {
 		ArrayList<MediumDTO> list = new ArrayList<MediumDTO>();
 		MediumDTO dto = null;
-		String sql = "SELECT mediumCode,name FROM medium";
+		String sql = "SELECT mediumCode,name FROM medium ORDER BY name";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -311,7 +311,7 @@ public class TripDAO {
 	public ArrayList<SmallDTO> smallList() {
 		ArrayList<SmallDTO> list = new ArrayList<SmallDTO>();
 		SmallDTO dto = null;
-		String sql = "SELECT smallCode,name FROM small";
+		String sql = "SELECT smallCode,name FROM small ORDER BY name";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();

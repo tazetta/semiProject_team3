@@ -40,7 +40,7 @@ public class ManagerService {
 		ManagerDAO dao = new ManagerDAO();
 		ArrayList<ManagerDTO> managerList = dao.managerList();
 		req.setAttribute("managerList", managerList);
-		dis = req.getRequestDispatcher("./managerList");
+		dis = req.getRequestDispatcher("manager_list.jsp");
 		dis.forward(req, resp);
 	}
 
@@ -166,5 +166,9 @@ public class ManagerService {
 
 	private boolean isManager() {
 		return (String)req.getSession().getAttribute("isManager") != null;
+	}
+
+	public void tripManage() {
+		System.out.println("tripManage");
 	}
 }

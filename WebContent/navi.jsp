@@ -64,7 +64,7 @@
             	<li><a href="#">마이페이지</a></li>
 			</c:if>
 			<c:if test="${sessionScope.isManager eq true}">
-            	<li><a href="#">관리자 페이지</a></li>
+            	<li><a href="managerList">관리자 페이지</a></li>
 			</c:if>
         </ul>
     </div>
