@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.ManagerService;
 
-@WebServlet({"/managerList","/managerDel","/tripInsert","/tripInsertOverlay","/tripInsertInformation","/tripManage"})
+@WebServlet({"/managerList","/managerDel","/tripInsert","/tripInsertOverlay","/tripInsertInformation","/tripManage","/tripSearch"})
 public class ManagerController extends HttpServlet {
 
 	@Override
@@ -61,6 +61,11 @@ public class ManagerController extends HttpServlet {
 			case "/tripManage":
 				System.out.println("tripManage 요청");
 				service.tripManage();
+				break;
+				
+			case "/tripSearch":
+				System.out.println("tripSearch 요청");
+				service.tripSearch();
 				break;
 		}
 	}
