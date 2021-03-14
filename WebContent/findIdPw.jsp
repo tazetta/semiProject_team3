@@ -55,7 +55,7 @@
                 </tr>
             </table>
             <div style="text-align: right;">
-                <button id="btn1">찾기</button>
+                <button id="btn1" type="submit">찾기</button>
             </div>
         </fieldset>
 	</form>
@@ -91,7 +91,26 @@
 	</body>
 	<script>
 		var nameChk = false;
+		var phoneChk = false;
 		var idChk = false;
+		
+        $('#userName1').focusout(function(){
+            if($(this).val()==''){
+                 alert('이름을 입력해주세요.');
+                 $(this).focusin();
+             }else{
+                 nameChk = true;
+             }
+         });
+        
+        $('#userPhone1').focusout(function(){
+            if($(this).val()==''){
+                 alert('번호를 입력해주세요.');
+                 $(this).focusin();
+             }else{
+                 phoneChk = true;
+             }
+         });
 	
 	
 		$('#userPhone1').keydown(function(event) {
