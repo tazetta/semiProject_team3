@@ -3,7 +3,6 @@ package com.mvc.dto;
 import java.sql.Date;
 
 public class PopupDTO {
-
 	private int infoidx;
 	private String subject;
 	private String managerid;
@@ -47,8 +46,4 @@ public class PopupDTO {
 	public void setPopupalert(String popupalert) {
 		this.popupalert = popupalert;
 	}
-	
-	
-	
-
 }

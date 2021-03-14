@@ -11,17 +11,18 @@
         div.bar {
             display: flex;
             background-color: #faf9f9;
-            height: 60px;
+            height: 50px;
             border-radius: 5px;
             border: 1px solid lightgray;
             color: black;
-            margin-left: 30px;
-            margin-right: 30px;
+            /* margin-left: 30px;
+            margin-right: 30px; */
             justify-content: center;
             align-items: center;
+            margin:20px 5px;
         }
 
-        li {
+       .bar li {
             position: relative;
             float: left;
             padding: 20px 30px;
@@ -29,7 +30,7 @@
             font-size: 120%;
             font-weight: 500;
             text-align: center;
-            width: 100px;
+            width: 110px;
             height: 20px;
             list-style-type: none;
             display: inline;
@@ -53,16 +54,19 @@
 	<body>
 	<div class="bar">
         <ul>
-            <li><a href="#">테마별</a> </li>
+            <li><a href="themeContentList">테마별</a> </li>
 
-            <li><a href="#">지역별</a></li>
+            <li><a href="areaContentList">지역별</a></li>
 
-            <li><a href="#">커뮤니티</a></li>
+            <li><a href="boardList">커뮤니티</a></li>
 
             <li><a href="#">고객센터</a></li>
-
-            <li><a href="#">마이페이지</a></li>
-
+			<c:if test="${sessionScope.isManager ne true}">
+            	<li><a href="profile">마이페이지</a></li>
+			</c:if>
+			<c:if test="${sessionScope.isManager eq true}">
+            	<li><a href="managerList">관리자 페이지</a></li>
+			</c:if>
         </ul>
     </div>
 	

@@ -57,7 +57,7 @@ b {
 </style>
 </head>
 <body>
-
+<c:if test="${dto.subject ne null }">
 	<div id="popup">
 		<div id="popupMain">
 			<div style="height:100%;">
@@ -76,7 +76,7 @@ b {
 			</div>
 		</div>
 	</div>
-
+</c:if>
 </body>
 <script>
 	cookiedata = document.cookie;

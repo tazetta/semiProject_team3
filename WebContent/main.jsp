@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String loginId = (String) request.getSession().getAttribute("loginId");
+	String loginId = (String) request.getSession().getAttribute("loginId");
 %>
 <!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
@@ -15,15 +15,15 @@ String loginId = (String) request.getSession().getAttribute("loginId");
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
-body{
-min-width:1500px;
+ body {
+	min-width: 1500px;
 }
 /*top*/
 li {
 	float: left;
 	list-style-type: none;
 	padding: 0 10 0 10;
-	margin-left:15px;
+	margin-left: 15px;
 }
 
 .ci {
@@ -104,33 +104,38 @@ a:link {
 
 a:visited {
 	color: black;
-}
+} 
 
-.popup{
-	background-color:gray;
-	width:50%;
-	height:50%;
-	position:absolute;
-	z-index :10;
+.popup {
+	background-color: gray;
+	width: 50%;
+	height: 50%;
+	position: absolute;
+	z-index: 10;
 	opacity: 0.8;
-	
 }
-
 </style>
 </head>
 
 <body>
 
 	<jsp:include page="noticePop.jsp" />
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
 
-	<section>
-		<span class="ci">
-			<a href="main.html" target="_parent"><img alt="CI" src="koreaCI.png"
-				width="200px" height="50px"></a>
+
+	<!-- <section>
+		<span class="ci"> <a href="main.html" target="_parent"><img
+				alt="CI" src="koreaCI.png" width="200px" height="50px"></a>
 		</span>
 		<div id="search">
-			<form>
-				<input type="text" name="search" placeholder="검색어를 입력해주세요" /> <input type="submit" value="검색" />
+			<form action="search" method="GET">
+				<select name="searchType">
+					<option value="title">제목</option>
+					<option value="overview">내용</option>
+				</select>
+				<input type="text" name="keyword" placeholder="검색어를 입력해주세요" /> <input
+					type="submit" value="검색" />
 			</form>
 		</div>
 		<div class="login">
@@ -141,7 +146,7 @@ a:visited {
 			</ul>
 		</div>
 	</section>
-	
+
 	<section id="navi">
 		<div class="bar">
 			<ul>
@@ -157,48 +162,47 @@ a:visited {
 
 			</ul>
 		</div>
+	</section> -->
+
+	<section>
+		<form action="login" method="post">
+			<table>
+				<tr>
+					<th>ID</th>
+					<td><input type="text" name="userId" /></td>
+				</tr>
+				<tr>
+					<th>PW</th>
+					<td><input type="text" name="userPw" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="login" /> <input
+						type="button" value="회원가입" onclick="location.href='joinForm.jsp'" />
+					</td>
+				</tr>
+
+			</table>
+		</form>
 	</section>
-	
-<section>
-	<form action="login" method="post">
-		<table>
-			<tr>
-				<th>ID</th>
-				<td><input type="text" name="userId"/></td>
-			</tr>
-			<tr>
-				<th>PW</th>
-				<td><input type="text" name="userPw"/></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="login"/> 
-					<input type="button" value="회원가입" onclick="location.href='joinForm.jsp'"/> 
-				</td>
-			</tr>
-		
-		</table>
-	</form>
-	</section> 
 
 </body>
 <script>
-    $("li").hover(function () {
-        $(this).toggleClass("li");
-    });
-    
-    var msg="${msg}";
-	if(msg!=""){
+	$("li").hover(function() {
+		$(this).toggleClass("li");
+	});
+
+	var msg = "${msg}";
+	if (msg != "") {
 		alert(msg);
 	}
 	
-	$("#popupBtn").click(function(){
+	<%request.removeAttribute("msg");%>
+
+	$("#popupBtn").click(function() {
 		$(".popup").html("");
 		$(".popup").removeClass();
-		$("#popupBtn").attr("type","hidden");
+		$("#popupBtn").attr("type", "hidden");
 	});
-	
-	
 </script>
 
 </html>

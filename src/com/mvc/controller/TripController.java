@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.TripService;
 
-@WebServlet({"/themeContentList","/areaContentList","/tripInsert","/resultList","/tripInsertOverlay","/tripInsertInformation"})
+@WebServlet({"/themeContentList","/areaContentList","/resultList","/search"})
 public class TripController extends HttpServlet {
 
 	@Override
@@ -19,7 +19,7 @@ public class TripController extends HttpServlet {
 		String subAddr = req.getRequestURI().substring(req.getContextPath().length());
 		
 		TripService service = new TripService(req,resp);
-		System.out.println("get 요청");
+
 		switch(subAddr) {
 			case "/themeContentList":
 				System.out.println("contentList 요청");
@@ -36,23 +36,11 @@ public class TripController extends HttpServlet {
 				service.resultList();
 				break;
 				
-			case "/tripInsertInformation":
-				System.out.println("tripInsertInformation 요청");
-				service.tripInsetrInformation();
+			case "/search":
+				System.out.println("search 요청");
+				service.search();
 				break;
-				
-			case "/tripInsertOverlay":
-				System.out.println("tripInsertOverlay 요청");
-				service.tripInsertOverlay();
-				break;
-				
-			case "/tripInsert":
-				System.out.println("데이터 삽입");
-				service.tripInsert();
-				break;
-				
 		}
 	}
-
 	
 }

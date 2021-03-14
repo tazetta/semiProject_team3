@@ -63,7 +63,7 @@ public class PopupController extends HttpServlet {
 			System.out.println("팝업 삭제 요청");
 			service.popupDel();
 			break;
-			
+
 		case "/main":
 			System.out.println("팝업 노출 요청");
 			service.popupMain();

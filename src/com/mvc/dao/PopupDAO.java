@@ -72,7 +72,6 @@ public class PopupDAO {
 			ps.setString(1, dto.getManagerid());
 			ps.setString(2, dto.getSubject());
 			ps.setString(3, dto.getContent());
-			//ps.setString(4, dto.getPopupalert());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}
@@ -162,17 +161,18 @@ public class PopupDAO {
 	}
 
 	public PopupDTO popupMain() {
-		
-		PopupDTO dto = new PopupDTO();
+		boolean success = false;
+		PopupDTO dto = null;
 		String sql = "SELECT subject,content FROM popup WHERE popupalert='YES'";
 		try {
 			ps  = conn.prepareStatement(sql);
 			System.out.println("쿼리 실행");
 			rs = ps.executeQuery();
-			System.out.println("rs:"+rs);
 			if(rs.next()) {
+				dto = new PopupDTO();
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
+				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

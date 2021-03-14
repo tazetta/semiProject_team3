@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.mvc.dto.BoardDTO;
 import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
 
@@ -163,6 +165,23 @@ public class TestDAO {
 				}
 
 				return suc;
+	}
+
+	public void reportBBS() {
+		String sql="SELECT * FROM bbs WHERE reportcnt>0 AND deactivate='FALSE'";
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			ps= conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				//////////////////
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 

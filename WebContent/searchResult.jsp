@@ -98,39 +98,21 @@ a {
 	font-weight: 600;
 	color: red;
 }
+button{
+	padding: 20px 20px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
-	<div class="areaList">
-		<c:forEach items="${areaList}" var="area">
-			<div class="area" id="${area.areaCode}">
-				<a href="./areaContentList?nav=${area.areaCode}">${area.name}</a>
-			</div>
-		</c:forEach>
+	
+	
+	<div>
+		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt'">인기순</button>
+		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date'">최신순</button>
 	</div>
 
-	<form action="resultList" method="get">
-		<div class="cityList">
-			<c:forEach items="${cityList}" var="city" varStatus="status">
-				<c:if test="${status.index % 5 == 0}">
-					<div class="clear">
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
-					</div>
-				</c:if>
-				<c:if test="${status.index % 5 != 0}">
-					<div>
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
-					</div>
-				</c:if>
-			</c:forEach>
-			<input type="hidden" name="nav" value="${nav}" /> 
-			<input type="hidden" name="type" value="area" /> 
-			<input type="button" onclick="maxChkBox()" value="검색" />
-		</div>
-	</form>
 	<table>
 		<tr>
 			<th>사진</th>
@@ -145,7 +127,7 @@ a {
 
 				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
 					target=window.open()>${result.title}</a></th>
-				<th>${result.reg_date}</th>
+				<th>${result.regDate}</th>
 				<th>${result.bookmarkCnt}</th>
 			</tr>
 		</c:forEach>
@@ -155,7 +137,7 @@ a {
 		<span> 
 			<c:if test="${currPage == 1}">이전</c:if> 
 			<c:if test="${currPage > 1}">
-				<a href="./resultList?${url}&page=${currPage-1}">이전</a>
+				<a href="./search?${url}&page=${currPage-1}">이전</a>
 			</c:if>
 		</span> 
 		<span id="page">
@@ -164,30 +146,12 @@ a {
 		<span> 
 			<c:if test="${currPage == maxPage}">다음</c:if> 
 			<c:if test="${currPage < maxPage}">
-				<a href="./resultList?${url}&page=${currPage+1}">다음</a>
+				<a href="./search?${url}&page=${currPage+1}">다음</a>
 			</c:if>
 		</span>
 		<span>${currPage}/${maxPage}</span>
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
-		$("div#"+${nav}).css({"background-color" : "lightgray"});
-	});
-	
-	function maxChkBox(){
-		var cnt = 0;
-		$('input[type="checkbox"]').each(function(idx, item){
-			
-			if($(this)[0].checked){
-					cnt++;
-				}
-		});
-		if(cnt > 3) {
-			alert('최대 3개까지 선택 가능합니다.');
-		} else{
-			$('form').submit();
-		}
-	}
 </script>
 </html>

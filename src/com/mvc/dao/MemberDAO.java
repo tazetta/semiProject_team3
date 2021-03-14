@@ -139,15 +139,14 @@ public class MemberDAO {
 
 	/*내가 쓴 글 리스트 기능 +페이징*/
 	public HashMap<String, Object> wroteList(String loginId, int page) {
-		
-
+	
 		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 		
 		int end= page*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql ="SELECT boardIdx,rnum, subject, reg_date FROM "
-				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date, id FROM bbs)" 
+		String sql ="SELECT boardIdx,rnum, subject, reg_date,deactivate FROM "
+				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date,deactivate, id FROM bbs)" 
 				+"WHERE rnum BETWEEN ? AND ? AND id=?"; 
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
@@ -163,11 +162,12 @@ public class MemberDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setRnum(rs.getInt("rnum"));
-				dto.setBoardIdx(rs.getInt("boardidx"));
+				dto.setBoardIdx(rs.getInt("boardIdx"));
+				dto.setDeactivate(rs.getString("deactivate"));
 				list.add(dto);
 			}
 			
-			int maxPage = getMaxPage(pagePerCnt); 
+			int maxPage = getMaxPage(pagePerCnt,loginId); 
 			System.out.println("maxPage:"+maxPage);
 			map.put("list", list); 
 			map.put("maxPage", maxPage); 
@@ -179,11 +179,12 @@ public class MemberDAO {
 	}
 	
 	/*마지막 페이지*/
-	private int getMaxPage(int pagePerCnt) {
-		String sql =  "SELECT COUNT(boardidx) FROM bbs";
+	private int getMaxPage(int pagePerCnt, String loginId) {
+		String sql =  "SELECT COUNT(boardidx) FROM bbs WHERE id=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				int cnt = rs.getInt(1); 
@@ -251,19 +252,17 @@ public class MemberDAO {
 		return success;
 	}
 
-	public String findId(String name, String email) {
+	public String findId(String name, String phone) {
 		
-		String id = null;
-		String sql = "SELECT id FROM member WHERE name=? AND email=?";
-		
+		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
+		String id = "";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
-			ps.setString(2, email);
+			ps.setString(2, phone);
 			rs = ps.executeQuery();
-			
 			if(rs.next()) {
-				id=rs.getString("userId");
+				id = rs.getString("id");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -271,7 +270,29 @@ public class MemberDAO {
 			resClose();
 		}
 		
+		System.out.println(id);
 		return id;
+	}
+
+
+	public String findPw(String id, String name, String phone) {
+		
+		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
+		String pw = "";
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, name);
+			ps.setString(3, phone);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString("pw");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(pw);
+		return pw;
 	}
 
 	/*회원탈퇴*/
@@ -290,15 +311,30 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}return success;
-		
-	}
 
+	}
+	
 	/*가봤어요 리스트*/
 	public void visitedList(String loginId) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	public boolean chkManager(String loginId) {
+		boolean success = false;
+		String sql = "SELECT managerId FROM manager WHERE managerId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
 	
 
 }

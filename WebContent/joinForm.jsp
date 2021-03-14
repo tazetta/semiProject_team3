@@ -84,6 +84,7 @@
 	</body>
 	<script>
 		var overChk = false;//중복 체크 여부
+		var idChk = false;
 		var pwChk = false;
 		var emailChk = false;
 	
@@ -177,6 +178,8 @@
                 emailChk = true;
             }
         });
+                
+                
 	
 		$('button').click(function(){//버튼을 클릭하는 순간부터
 			

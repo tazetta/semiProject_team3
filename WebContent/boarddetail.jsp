@@ -3,6 +3,7 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%String loginId = (String)request.getSession().getAttribute("loginId"); %>
+<%String isManager = (String) request.getSession().getAttribute("isManager"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +63,7 @@
     <iframe id="navi" src="navi.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
     	
 		<div id="total">
-			<c:if test="${dto.id==loginId or 'admin'}">
+			<c:if test="${dto.id==loginId || isManager=='true'}">
 			<div id="btn1">
 				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>
@@ -100,7 +101,7 @@
 		</table>
 		<input id="comment" class="comment" type="text" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
-		<c:if test="${commentUpdatedto.content ne null}">
+		<c:if test="${commentUpdatedto.id ne null}">
 			<input id ="comm_up" class="comment" type="text" value="${commentUpdatedto.content}"/>
 			<button id="comm_update">수정</button>
 		</c:if>
@@ -108,15 +109,17 @@
 		<c:forEach items="${list}" var="comment">
 			<table class ="comm_table">
 			<tr>
-				<td>${comment.id}</td>
+				<td style="width:150px;">${comment.id}</td>
 				<td>
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
 						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+					</c:if>
+					<c:if test="${loginId==comment.id ||loginId=='admin'}">
 						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
-				<td>${comment.reg_date}</td>
+				<td style="width:150px;">${comment.reg_date}</td>
 			</tr>
 			</table>
 		</c:forEach>
@@ -133,7 +136,7 @@
 	});
 	$('#comm_update').click(function(){
 		var comment = $('#comm_up').val();
-		location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}';
+		location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}&reIdx=${commentUpdatedto.reIdx}&id=${commentUpdatedto.id}';
 	});
 	var msg="${msg}";
 	if(msg!=""){
