@@ -251,19 +251,54 @@ public class MemberService {
 
 	}
 
+	/*아이디 찾기*/
 	public void findId() throws ServletException, IOException {
-		MemberDAO dao = new MemberDAO();
+		
 		String name = req.getParameter("userName");
-		String email = req.getParameter("email");
-		System.out.println(name + "/" + email);
-
-		String id = dao.findId(name, email);
-		req.setAttribute(id, "id");
-
-		if (id == null) {
-
+		String phone = req.getParameter("userPhone");
+		System.out.println(name + "/" + phone);
+		
+		String id = dao.findId(name, phone);
+		
+		System.out.println("아이디찾기 : "+id);
+		
+		
+		if(id!="") {
+//			page = "findIdAfter.jsp";
+			page="login.jsp";
+			msg = name+" 님의 아이디는"+id+" 입니다.";
+		}else{
+			page = "findIdPw.jsp";
+			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+			
 		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 
+	}
+	
+	public void findPw() throws ServletException, IOException{
+		
+		String id = req.getParameter("userId");
+		String name = req.getParameter("userName");
+		String phone = req.getParameter("userPhone");
+		System.out.println(id+"/"+name+"/"+phone);
+		String pw = dao.findPw(id, name, phone);
+		
+		System.out.println("비밀번호찾기 : "+pw);
+		
+		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+		page = "findIdPw.jsp";
+		
+		if(pw!="") {
+			page = "login.jsp";
+			msg = id+" 님의 비밀번호는"+pw+" 입니다. 로그인후 비밀번호를 변경 해주세요.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		
 	}
 
 	/* 회원 탈퇴 */
@@ -291,7 +326,9 @@ public class MemberService {
 		} else {
 			resp.sendRedirect("index.jsp");
 		}
+
 	}
+
 
 	/* 가봤어요 리스트*/
 	public void visitedList() throws IOException {
@@ -307,7 +344,6 @@ public class MemberService {
 		
 		
 	}
-
 
 
 }

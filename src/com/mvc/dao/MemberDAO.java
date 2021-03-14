@@ -252,19 +252,17 @@ public class MemberDAO {
 		return success;
 	}
 
-	public String findId(String name, String email) {
+	public String findId(String name, String phone) {
 		
-		String id = null;
-		String sql = "SELECT id FROM member WHERE name=? AND email=?";
-		
+		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
+		String id = "";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
-			ps.setString(2, email);
+			ps.setString(2, phone);
 			rs = ps.executeQuery();
-			
 			if(rs.next()) {
-				id=rs.getString("userId");
+				id = rs.getString("id");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -272,7 +270,29 @@ public class MemberDAO {
 			resClose();
 		}
 		
+		System.out.println(id);
 		return id;
+	}
+
+
+	public String findPw(String id, String name, String phone) {
+		
+		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
+		String pw = "";
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, name);
+			ps.setString(3, phone);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString("pw");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(pw);
+		return pw;
 	}
 
 	/*회원탈퇴*/
@@ -291,7 +311,7 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}return success;
-		
+
 	}
 	
 	/*가봤어요 리스트*/
