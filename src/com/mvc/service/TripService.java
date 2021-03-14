@@ -9,15 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.mvc.dao.TripDAO;
 import com.mvc.dto.AreaDTO;
 import com.mvc.dto.CityDTO;
 import com.mvc.dto.ContentDTO;
-import com.mvc.dto.LargeDTO;
-import com.mvc.dto.MediumDTO;
-import com.mvc.dto.SmallDTO;
-import com.mvc.dto.TripDTO;
 
 public class TripService {
 	HttpServletRequest req = null;
@@ -32,16 +27,23 @@ public class TripService {
 
 	public void contentList() throws ServletException, IOException {
 		String nav = req.getParameter("nav");
-		ArrayList<ContentDTO> contentList = dao.contentList();
-		ArrayList<AreaDTO> areaList = dao.areaList();
-		dao.resClose();
+		ArrayList<ContentDTO> contentList = null;
+		ArrayList<AreaDTO> areaList = null;
+		try {
+			contentList = dao.contentList();
+			areaList = dao.areaList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
 
-		req.setAttribute("contentList", contentList);
-		req.setAttribute("areaList", areaList);
-		req.setAttribute("nav", nav);
-		
-		RequestDispatcher dis = req.getRequestDispatcher("contentList.jsp");
-		dis.forward(req, resp);
+			req.setAttribute("contentList", contentList);
+			req.setAttribute("areaList", areaList);
+			req.setAttribute("nav", nav);
+
+			RequestDispatcher dis = req.getRequestDispatcher("contentList.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void resultList() throws ServletException, IOException {
@@ -54,14 +56,23 @@ public class TripService {
 		System.out.println("page : " + pageParam);
 		System.out.println("nav : " + nav);
 
+		ArrayList<ContentDTO> contentList = null;
+		ArrayList<AreaDTO> areaList = null;
+		ArrayList<CityDTO> cityList = null;
 		if (localCode != null) {
-			ArrayList<ContentDTO> contentList = dao.contentList();
-			ArrayList<AreaDTO> areaList = dao.areaList();
-			if (type.equals("area")) {
-				ArrayList<CityDTO> cityList = dao.cityList(nav);
-				req.setAttribute("cityList", cityList);
+			try {
+				contentList = dao.contentList();
+				areaList = dao.areaList();
+				if (type.equals("area")) {
+					cityList = dao.cityList(nav);
+					req.setAttribute("cityList", cityList);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				dao.resClose();
 			}
-			
+
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
@@ -72,6 +83,7 @@ public class TripService {
 				url.append("&local=" + localCode[i]);
 			}
 
+			dao = new TripDAO();
 			HashMap<String, Object> map = dao.resultList(group, nav, localCode, type);
 			System.out.println("map.get(maxpage) : " + map.get("maxPage"));
 
@@ -87,7 +99,7 @@ public class TripService {
 			if (type.equals("area")) {
 				page = "areaContentResult.jsp";
 			}
-			
+
 			RequestDispatcher dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
@@ -105,19 +117,25 @@ public class TripService {
 		if (nav == null) { // 지역별 메뉴를 눌렀을 때 서울을 먼저 보여준다.
 			nav = "1";
 		}
-		
-		ArrayList<AreaDTO> areaList = dao.areaList();
-		ArrayList<CityDTO> cityList = dao.cityList(nav);
-		dao.resClose();
 
-		req.setAttribute("areaList", areaList);
-		req.setAttribute("cityList", cityList);
-		req.setAttribute("nav", nav);
-		
-		RequestDispatcher dis = req.getRequestDispatcher("areaContentList.jsp");
-		dis.forward(req, resp);
+		ArrayList<AreaDTO> areaList = null;
+		ArrayList<CityDTO> cityList = null;
+		try {
+			areaList = dao.areaList();
+			cityList = dao.cityList(nav);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+
+			req.setAttribute("areaList", areaList);
+			req.setAttribute("cityList", cityList);
+			req.setAttribute("nav", nav);
+
+			RequestDispatcher dis = req.getRequestDispatcher("areaContentList.jsp");
+			dis.forward(req, resp);
+		}
 	}
-
 
 	public void search() throws ServletException, IOException {
 		String keyword = req.getParameter("keyword");
@@ -128,22 +146,21 @@ public class TripService {
 		System.out.println("searchType : " + searchType);
 		System.out.println("page : " + pageParam);
 
-		if(alignType == null) {
+		if (alignType == null) {
 			alignType = "bookmarkCnt";
 		}
 		System.out.println("alignType : " + alignType);
-		
+
 		int group = 1;
 		if (pageParam != null) {
 			group = Integer.parseInt(pageParam);
 		}
 
-		String url = "keyword=" + keyword + "&searchType="+searchType + "&alignType="+alignType;
-		HashMap<String, Object> map = dao.search(group, keyword,searchType,alignType);
+		String url = "keyword=" + keyword + "&searchType=" + searchType + "&alignType=" + alignType;
+		HashMap<String, Object> map = dao.search(group, keyword, searchType, alignType);
 		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
-		
+
 		req.setAttribute("searchType", searchType);
-		req.setAttribute("keyword", keyword);
 		req.setAttribute("url", url);
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list", map.get("list"));

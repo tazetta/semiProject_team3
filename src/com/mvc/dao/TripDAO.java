@@ -104,8 +104,8 @@ public class TripDAO {
 					dto.setName(rs.getString("name"));
 					list.add(dto);
 				}
-			} else if (areaCode.equals("0")) {
-				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY citycode";
+			}	else if (areaCode.equals("0")) { // tripInsetrInformation으로 요청이 올 때
+				String sql = "SELECT c.cityCode, c.name, a.name FROM city c, area a WHERE c.areacode = a.areacode ORDER BY c.citycode";
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -250,6 +250,8 @@ public class TripDAO {
 			System.out.println("insert success : " + success);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 		return success;
 	}
@@ -264,6 +266,8 @@ public class TripDAO {
 			success = rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 
 		return !success;
@@ -292,7 +296,7 @@ public class TripDAO {
 	public ArrayList<MediumDTO> mediumList() {
 		ArrayList<MediumDTO> list = new ArrayList<MediumDTO>();
 		MediumDTO dto = null;
-		String sql = "SELECT mediumCode,name FROM medium";
+		String sql = "SELECT mediumCode,name FROM medium ORDER BY name";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -311,7 +315,7 @@ public class TripDAO {
 	public ArrayList<SmallDTO> smallList() {
 		ArrayList<SmallDTO> list = new ArrayList<SmallDTO>();
 		SmallDTO dto = null;
-		String sql = "SELECT smallCode,name FROM small";
+		String sql = "SELECT smallCode,name FROM small ORDER BY name";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -340,13 +344,9 @@ public class TripDAO {
 		
 		// 검색어
 		String addKeyword = "%"+keyword+"%";
-		String keywordType = "title"; // 타입이 제목으로 왔을 때
-		if(searchType.equals("overview")) { // 타입이 내용으로 왔을 때
-			keywordType = "overview";
-		}
 		String sql = "SELECT contentId,firstImage, title, bookmarkCnt, reg_date FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY "+alignType+" DESC) AS rnum, "
-				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+keywordType+" LIKE ?"
+				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+searchType+" LIKE ?"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -378,11 +378,122 @@ public class TripDAO {
 		int maxPage = 0;
 		try {
 			String addKeyword = "%"+keyword+"%";
-			String keywordType = "title"; // 타입이 제목으로 왔을 때
-			if(type.equals("overview")) { // 타입이 내용으로 왔을 때
-				keywordType = "overview";
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, addKeyword);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
 			}
-			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+keywordType+" LIKE ?";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maxPage;
+	}
+
+	public HashMap<String, Object> tripManage(int page) {
+		HashMap<String, Object> tripMap = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxPage = 0;
+		System.out.println("end : " + end + " / start : " + start);
+		
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		TripDTO tripDTO = null;
+		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY title) AS rnum, "
+				+ "contentId, title, reg_date, deactivate FROM trip"
+				+ ") WHERE rnum BETWEEN ? AND ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				tripDTO = new TripDTO();
+				tripDTO.setContentId(rs.getInt("contentId"));
+				tripDTO.setTitle(rs.getString("title"));
+				tripDTO.setReg_date(rs.getDate("reg_date"));
+				tripDTO.setDeactivate(rs.getString("deactivate"));
+				list.add(tripDTO);
+			}
+			maxPage = getTripListMaxPage(pagePerCnt);
+			System.out.println("max page : " + maxPage);
+			tripMap.put("tripList", list);
+			tripMap.put("maxPage", maxPage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return tripMap;
+	}
+
+	private int getTripListMaxPage(int pagePerCnt) {
+		int maxPage = 0;
+		try {
+			String sql = "SELECT COUNT(contentId) FROM trip";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maxPage;
+	}
+
+	public HashMap<String, Object> tripSearch(int page, String tripKeyword, String tripSearchType) {
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		TripDTO dto = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 페이징
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxPage = 0;
+		
+		// 검색어
+		String addKeyword = "%"+tripKeyword+"%";
+		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+				+ "contentId, title, reg_date, deactivate FROM trip WHERE "+tripSearchType+" LIKE ?"
+				+ ") WHERE rnum BETWEEN ? AND ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, addKeyword);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new TripDTO();
+				dto.setContentId(rs.getInt("contentId"));
+				dto.setTitle(rs.getString("title"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				list.add(dto);
+			}
+			maxPage = getSearchTripMaxPage(pagePerCnt, tripKeyword, tripSearchType);
+			map.put("maxPage", maxPage);
+			map.put("tripList", list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return map;
+	}
+	
+	private int getSearchTripMaxPage(int pagePerCnt, String keyword, String type) {
+		int maxPage = 0;
+		try {
+			String addKeyword = "%"+keyword+"%";
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, addKeyword);
 			rs = ps.executeQuery();

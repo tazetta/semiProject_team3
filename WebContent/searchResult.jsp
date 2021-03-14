@@ -139,7 +139,10 @@ button{
 			<c:if test="${currPage > 1}">
 				<a href="./search?${url}&page=${currPage-1}">이전</a>
 			</c:if>
-		</span> <span id="page">${currPage}</span> 
+		</span> 
+		<span id="page">
+			${currPage}
+		</span> 
 		<span> 
 			<c:if test="${currPage == maxPage}">다음</c:if> 
 			<c:if test="${currPage < maxPage}">
