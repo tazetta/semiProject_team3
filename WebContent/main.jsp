@@ -15,7 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
-body {
+ body {
 	min-width: 1500px;
 }
 /*top*/
@@ -104,7 +104,7 @@ a:link {
 
 a:visited {
 	color: black;
-}
+} 
 
 .popup {
 	background-color: gray;
@@ -120,9 +120,11 @@ a:visited {
 <body>
 
 	<jsp:include page="notice_pop.jsp" />
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
 
 
-	<section>
+	<!-- <section>
 		<span class="ci"> <a href="main.html" target="_parent"><img
 				alt="CI" src="koreaCI.png" width="200px" height="50px"></a>
 		</span>
@@ -160,7 +162,7 @@ a:visited {
 
 			</ul>
 		</div>
-	</section>
+	</section> -->
 
 	<section>
 		<form action="login" method="post">
@@ -193,6 +195,8 @@ a:visited {
 	if (msg != "") {
 		alert(msg);
 	}
+	
+	<%request.removeAttribute("msg");%>
 
 	$("#popupBtn").click(function() {
 		$(".popup").html("");

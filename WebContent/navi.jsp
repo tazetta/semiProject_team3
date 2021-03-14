@@ -11,17 +11,18 @@
         div.bar {
             display: flex;
             background-color: #faf9f9;
-            height: 60px;
+            height: 50px;
             border-radius: 5px;
             border: 1px solid lightgray;
             color: black;
-            margin-left: 30px;
-            margin-right: 30px;
+            /* margin-left: 30px;
+            margin-right: 30px; */
             justify-content: center;
             align-items: center;
+            margin:20px 5px;
         }
 
-        li {
+       .bar li {
             position: relative;
             float: left;
             padding: 20px 30px;
@@ -61,7 +62,7 @@
 
             <li><a href="#">고객센터</a></li>
 			<c:if test="${sessionScope.isManager ne true}">
-            	<li><a href="#">마이페이지</a></li>
+            	<li><a href="profile">마이페이지</a></li>
 			</c:if>
 			<c:if test="${sessionScope.isManager eq true}">
             	<li><a href="managerList">관리자 페이지</a></li>

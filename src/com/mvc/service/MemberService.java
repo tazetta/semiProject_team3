@@ -65,14 +65,20 @@ public class MemberService {
 		if (loginId != null) { // 로그인체크
 			MemberDTO dto = dao.profile(loginId);
 			System.out.println("dto:" + dto);
+			msg="회원정보가 존재하지 않습니다";
+			page="./";
 			if (dto != null) {
 				page = "profile.jsp";
+				msg="";
 				req.setAttribute("profile", dto);
 			}
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인 후 이용해주세요";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); //여기 index? main?어디로 보내야되지
 		}
 	}
 
@@ -163,16 +169,17 @@ public class MemberService {
 
 		int page = 1; // 기본은 1
 
-		if (pageParam != null) { // 페이지 요청하는 param이 있으면
-			page = Integer.parseInt(pageParam); // 페이지를 요청page 값으로 설정
+		if (pageParam != null) {
+			page = Integer.parseInt(pageParam); 
 		}
 		if (loginId != null) { // 로그인 체크
 			HashMap<String, Object> map = dao.wroteList(loginId, page);
 			req.setAttribute("maxPage", map.get("maxPage"));
 			req.setAttribute("list", map.get("list")); // req에 저장
 			req.setAttribute("currPage", page);
+			System.out.println("list: "+map.get("list"));
 			// 특정페이지로 보내기
-			RequestDispatcher dis = req.getRequestDispatcher("wroteList.jsp"); // 분기 없이 바로 list.jsp 로 보내기
+			RequestDispatcher dis = req.getRequestDispatcher("wroteList.jsp"); 
 			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
