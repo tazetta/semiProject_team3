@@ -121,7 +121,7 @@ a:visited {
 
 <body>
 
-	<jsp:include page="notice_pop.jsp" />
+	<jsp:include page="noticePop.jsp" />
 
 	<section>
 		<span class="ci">

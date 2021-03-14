@@ -9,10 +9,10 @@
 </head>
 <body>
 	<!--상단페이지-->
-	<jsp:include page="top.jsp" />
+	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
 	
 	<!--상단네비-->
-	<jsp:include page="admin_navbar.jsp" />
+	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
 	
    <div class="pop">
         <form action="popupUpdate" method="post">

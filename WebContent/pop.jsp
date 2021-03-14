@@ -6,14 +6,24 @@
 <meta charset="utf-8">
 <title>팝업 목록 페이지</title>
 <link rel="stylesheet" type="text/css" href="basic.css">
+<style>
+#button {
+	float: right;
+	margin-top: 50px;
+	margin-right: 200px;
+}
+</style>
 </head>
 <body>
 	<!--상단페이지-->
-	<jsp:include page="top.jsp" />
+	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
 	
 	<!--상단네비-->
-	<jsp:include page="admin_navbar.jsp" />
+	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	
+	<div id ="button"><button onclick="location.href='popWrite.jsp'">등록</button></div>
     <div class="pop">
+    
             <table >
                 <tr>
                     <th>등록일</th>
@@ -27,11 +37,12 @@
 	                <td>${popup.managerid}</td>
 					<td><a href="popupDetail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
 					<td>${popup.popupalert}</td>
+					<!-- <td><button onclick="location.href='popupDel?infoidx=${popup.infoidx}'">삭제</button></td> -->
 					<td><a href="popupDel?infoidx=${popup.infoidx}">삭제</a></td>
                 </tr>
                 </c:forEach>
             </table>
-             <button onclick="location.href='pop_write.jsp'">등록</button>
+             
         </div>
 </body>
 <script>
