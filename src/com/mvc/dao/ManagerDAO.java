@@ -45,10 +45,10 @@ public class ManagerDAO {
 	}
 
 	public ArrayList<ManagerDTO> managerList() {
+		
 		ArrayList<ManagerDTO> managerList = new ArrayList<ManagerDTO>();
-
-		String sql = "SELECT managerid, name, reg_date FROM manager ORDER BY reg_date DESC";
-
+		String sql = "SELECT managerid, name, reg_date FROM manager WHERE managerid NOT IN ('sysadmin') ORDER BY reg_date DESC";
+		
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -67,24 +67,45 @@ public class ManagerDAO {
 		return managerList;
 	}
 
-	public boolean adminDel(String managerid) {
+		public boolean managerDel(String managerid) {
+			
+			String sql="DELETE FROM manager WHERE managerid=?";
+			boolean success = false;
+			
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, managerid);
+				if(ps.executeUpdate()>0) {
+					success = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+					resClose();
+			}	
+			System.out.println("삭제여부 :"+success);
+			return success;
+	}
 
-		String sql = "DELETE FROM admin WHERE managerid=?";
-		boolean success = false;
-
+		public boolean managerRegist(ManagerDTO dto) {
+		String sql = "INSERT INTO manager( managerid, pw, name) VALUES (?,?,?)";
+		
+		boolean success = false;	
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, managerid);
-			if (ps.executeUpdate() > 0) {
+			ps.setString(1, dto.getManagerid());
+			ps.setString(2, dto.getPw());
+			ps.setString(3, dto.getName());
+			if(ps.executeUpdate()>0) {
 				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			resClose();
-		}
-		System.out.println("삭제여부 :" + success);
+		}		
+		System.out.println("관리자 등록 성공여부:"+success);
 		return success;
-	}
-	
+		}
+
 }

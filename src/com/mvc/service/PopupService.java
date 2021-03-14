@@ -45,7 +45,7 @@ public class PopupService {
 			dto.setSubject(subject);
 			dto.setContent(content);
 			
-			page = "/pop_write.jsp";
+			page = "/popWrite.jsp";
 			msg = "팝업 등록에 실패 하였습니다.";
 			
 			if(dao.popupWrite(dto)) {
@@ -69,7 +69,7 @@ public class PopupService {
 		
 		if(dto != null) {
 			dao = new PopupDAO();
-			page = "pop_detail.jsp";
+			page = "popDetail.jsp";
 			req.setAttribute("dto", dto);
 		}
 		dis = req.getRequestDispatcher(page);
@@ -86,7 +86,7 @@ public class PopupService {
 		page = "/popupList";
 		
 		if(dto!=null) {
-			page="pop_update.jsp";
+			page="popUpdate.jsp";
 			req.setAttribute("dto", dto);
 		}
 		dis = req.getRequestDispatcher(page);
