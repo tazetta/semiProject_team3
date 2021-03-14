@@ -69,7 +69,7 @@ table, th, td {
 				<c:forEach items="${tripList}" var="trip">
 					<tr>
 						<td>${trip.contentId}</td>
-						<td class='title'>${trip.title}</td>
+						<td class='title'><a href="#">${trip.title}</a></td>
 						<td class='regDate'>${trip.reg_date}</td>
 						<c:if test="${trip.deactivate eq true}">
 							<td>Y</td>

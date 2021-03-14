@@ -3,7 +3,14 @@ package com.mvc.dto;
 public class MediumDTO {
 	private String mediumCode;
 	private String name;
+	private String largeIdx;
 	
+	public String getLargeIdx() {
+		return largeIdx;
+	}
+	public void setLargeIdx(String largeIdx) {
+		this.largeIdx = largeIdx;
+	}
 	public String getMediumCode() {
 		return mediumCode;
 	}
