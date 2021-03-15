@@ -31,7 +31,7 @@
                 font-weight: 600;
                 font-size: 18px;
             }
-            #search_type{
+            #keyword{
                 width: 400px;
                 height: 45px;
                 font-size: 18px;
@@ -103,14 +103,14 @@
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./boardList?page=${currPage-1}'>이전</a>
+				<a href='./boardSearch?${url}&page=${currPage-1}'>이전</a>
 			</c:if>
 		</span>
 		<span id="page">${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./boardList?page=${currPage+1}">다음</a></c:if>
+         		<a href="./boardSearch?${url}&page=${currPage+1}">다음</a></c:if>
 		</span>
    	<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>   
 	</div>

@@ -297,9 +297,12 @@ public class BoardService {
 			group = Integer.parseInt(pageParam);
 		}
 		BoardDAO dao = new BoardDAO();
+		String url = "searchType=" + searchType + "&keyword=" + keyword;
+		
 		HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
 		System.out.println(map.get("maxPage"));
 		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("boardList.jsp");
