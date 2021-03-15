@@ -115,6 +115,7 @@ public class TestService {
 		BoardDAO dao = new BoardDAO();
 		String boardIdx = req.getParameter("boardIdx");
 		String bbsRepIdx = req.getParameter("bbsRepIdx");
+		int type =1;
 		System.out.println("boardIdx: " +boardIdx+"/"+bbsRepIdx);
 		BoardDTO dto = dao.detail(boardIdx);
 		
@@ -123,8 +124,8 @@ public class TestService {
 		System.out.println(dto +"/"+list);
 		
 		TestDAO dao1 = new TestDAO();
-		String reason = dao1.repReason(bbsRepIdx);
-		String repCnt = dao1.repCnt(boardIdx);
+		String reason = dao1.repReason(bbsRepIdx,type);
+		String repCnt = dao1.repCnt(boardIdx,type);
 		String page="/reportBBS";
 		
 		if(dto!=null) {	
@@ -186,6 +187,39 @@ public class TestService {
 		dao.resClose();
 		
 	}
+
+	public void repDetailCom() throws ServletException, IOException {
+		String reIdx = req.getParameter("reIdx");
+		String commentRepIdx = req.getParameter("commentRepIdx");
+		int type = 2;
+		System.out.println(reIdx+"/"+commentRepIdx);
+		BoardDAO dao = new BoardDAO();
+		BoardDTO dto = dao.detail(commentRepIdx);
+		
+		dao = new BoardDAO();		
+		ArrayList<CommentDTO> list = dao.comm_list(reIdx);
+		System.out.println(dto +"/"+list);
+		
+		TestDAO dao1 = new TestDAO();
+		String reason = dao1.repReason(commentRepIdx,type);
+		String repCnt = dao1.repCnt(reIdx,type);
+		String page="/reportBBS";
+		
+		if(dto!=null) {	
+			dao = new BoardDAO();
+			page="repDetail.jsp";
+			req.setAttribute("commentRepIdx", commentRepIdx);
+			req.setAttribute("repCnt", repCnt);
+			req.setAttribute("reason", reason);
+			req.setAttribute("dto", dto);
+			req.setAttribute("list", list);
+		}		
+		dao1.resClose();
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp); 
+		
+	}
+	
 
 	
 

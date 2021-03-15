@@ -204,7 +204,8 @@ public TestDAO() {
 				list.add(dto);
 			}
 			map = new HashMap<String, Object>();
-			int maxPage = getMaxPage(pagePerCnt,deactivate);
+			int type=1;
+			int maxPage = getMaxPage(pagePerCnt,deactivate,type);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -214,9 +215,12 @@ public TestDAO() {
 		return map;
 	}
 
-	private int getMaxPage(int pagePerCnt, String deactivate) {
+	private int getMaxPage(int pagePerCnt, String deactivate, int type) {
 		String sql = "SELECT count(r.bbsrepidx) FROM bbsrep r, bbs b WHERE r.boardidx=b.boardidx AND r.deactivate=? ";
 		int max = 0;
+		if (type==2) {
+			sql = "SELECT count(r.commentrepidx) FROM commentrep r, bbs_comment b WHERE r.reidx=b.reidx AND r.deactivate=? ";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, deactivate);
@@ -231,12 +235,15 @@ public TestDAO() {
 		return max;
 	}
 
-	public String repReason(String bbsRepIdx) {
+	public String repReason(String Idx, int type) {
 		String reason = "";
 		String sql = "SELECT reason FROM  bbsrep WHERE bbsrepidx=?";
+		if (type==2) {
+			sql = "SELECT reason FROM  commentrep WHERE commentrepidx=?";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, bbsRepIdx);
+			ps.setString(1, Idx);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				reason = rs.getString("reason");
@@ -247,10 +254,13 @@ public TestDAO() {
 		return reason;
 	}
 
-	public String repCnt(String boardIdx) {
+	public String repCnt(String boardIdx, int type) {
 		String repCnt = "";
 		String sql = "SELECT count(bbsrepidx) AS repCnt FROM bbsrep  WHERE boardIdx=?";
-
+		
+		if(type==2) {
+			sql="SELECT count(commentrepidx) AS repCnt FROM commentrep  WHERE reIdx=?";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
@@ -315,8 +325,9 @@ public TestDAO() {
 				System.out.println("처리자 : "+rs.getString("managerid"));
 				list.add(dto);
 			}
+			int type=2;
 			map = new HashMap<String, Object>();
-			int maxPage = getMaxPage(pagePerCnt,deactivate);
+			int maxPage = getMaxPage(pagePerCnt,deactivate,type);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -325,5 +336,6 @@ public TestDAO() {
 		}
 		return map;
 	}
+	
 
 }
