@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반 회원정보 상세보기</title>
+<title>탈퇴 회원정보 상세보기</title>
 <style>
 table, th, td {
 	border: 1px solid lightgray;
@@ -18,8 +18,7 @@ table, th, td {
 	margin: auto;
 }
 
-
-.black{
+.memberexist{
 	margin-top: 50px;
 	text-align: center;
 }
@@ -41,31 +40,33 @@ table, th, td {
 			<table class="memberList_main">
 			<tr>
                 <th>가입일</th>
+                <th>탈퇴여부</th>
                 <th>아이디</th>
                 <th>이름</th>
                 <th>핸드폰</th>
                 <th>이메일</th>
-                <th>탈퇴여부</th>
                 <th>수정일</th>
                 <th>글,댓글 신고수</th>
                 <th>블랙리스트</th>
             </tr>
             <tr>
                 <td>${dto.reg_date}</td>
+                <td>${dto.withdraw}</td>
                 <td>${dto.id}</td>
                 <td>${dto.name}</td>
                 <td>${dto.phone}</td>
                 <td>${dto.email}</td>
-                <td>${dto.withdraw}</td>
                 <td>${dto.update_date}</td>
                 <td>${dto.reportcnt}</td>
                 <td>${dto.blackcnt}</td>
             </tr>
 			</table>
-				<div class="black">
-                	<button onclick="location.href='#'">블랙리스트 추가</button>
+				<div class="memberexist">
+                	<button onclick="location.href='#'">회원 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                	<button onclick="location.href='./memberList'">닫기</button>
+                	<button onclick="location.href='#'">회원 복구</button>
+                	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<button onclick="location.href='./memberDelList'">닫기</button>
 				</div>
 		</div>
 </body>
