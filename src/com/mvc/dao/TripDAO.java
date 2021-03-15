@@ -558,4 +558,37 @@ public class TripDAO {
 		
 		return tripDTO;
 	}
+
+	public boolean tripManageUpdate(TripDTO tripDTO) {
+		boolean success = false;
+		
+		String sql = "UPDATE trip SET managerId = ?, firstImage = ?, latitude = ?, longitude = ?, address = ?, title = ?, largeIdx = ?, contentCode = ?, "
+				+ "mediumCode = ?, smallCode = ?, areaCode = ?, cityCode = ?, overview = ? WHERE contentId = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, tripDTO.getManagerId());
+			ps.setString(2, tripDTO.getFirstImage());
+			ps.setString(3, tripDTO.getLatitude());
+			ps.setString(4, tripDTO.getLongitude());
+			ps.setString(5, tripDTO.getAddress());
+			ps.setString(6, tripDTO.getTitle());
+			ps.setString(7, tripDTO.getLargeIdx());
+			ps.setString(8, tripDTO.getContentCode());
+			ps.setString(9, tripDTO.getMediumCode());
+			ps.setString(10, tripDTO.getSmallCode());
+			ps.setString(11, tripDTO.getAreaCode());
+			ps.setString(12, tripDTO.getCityCode());
+			ps.setString(13, tripDTO.getOverview());
+			ps.setInt(14, tripDTO.getContentId());
+			if(ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		
+		return success;
+	}
 }

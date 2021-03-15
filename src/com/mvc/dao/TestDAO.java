@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
-import com.mvc.dto.RepDTO;
+//import com.mvc.dto.RepDTO;
 import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
 
@@ -177,8 +177,8 @@ public TestDAO() {
 			ps= conn.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				RepDTO dto = new RepDTO();
-				dto.setBbsRepIdx(rs.getInt(""));
+//				RepDTO dto = new RepDTO();
+//				dto.setBbsRepIdx(rs.getInt(""));
 			
 			}
 		} catch (SQLException e) {
