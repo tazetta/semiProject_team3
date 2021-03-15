@@ -189,8 +189,6 @@ public class MemberDAO {
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setId(rs.getString("id"));
 				list.add(dto);
-				System.out.println(dto.getRnum());
-				System.out.println(dto.getBoardIdx());
 			}
 			
 			int maxPage = getMaxPage(pagePerCnt,loginId); 

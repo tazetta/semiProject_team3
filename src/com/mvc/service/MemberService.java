@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.dao.BoardDAO;
 import com.mvc.dao.MemberDAO;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.MemberDTO;
@@ -387,6 +388,32 @@ public class MemberService {
 		}else {
 			resp.sendRedirect("index.jsp");
 		}	
+	}
+
+	/*내가 쓴 글 삭제*/
+	public void wroteDel() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String boardIdx = (String) req.getParameter("boardIdx");
+		System.out.println(loginId+"의 "+boardIdx+"삭제");
+		
+		if(loginId!=null) { //로그인체크
+		FileService upload = new FileService(req);
+
+		BoardDAO dao = new BoardDAO();
+		String newFileName = dao.getFileName(boardIdx);//파일명추출
+
+		dao = new BoardDAO();
+		msg="삭제 실패했습니다.";
+		page="wroteList";
+		if(dao.del(boardIdx,newFileName)>0) {
+			msg="삭제가 완료되었습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		}else {
+			resp.sendRedirect("index.jsp");
+		}
 	}
 
 

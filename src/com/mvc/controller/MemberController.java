@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.MemberService;
 
-@WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
+@WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/wroteDel","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
 	,"/visitedList","/bookmarkList"})
 public class MemberController extends HttpServlet {
 
@@ -61,6 +61,13 @@ public class MemberController extends HttpServlet {
 			System.out.println("");
 			System.out.println("--내가 쓴 글 보기 요청--");
 			service.wroteList();
+			break;
+			
+		case "/wroteDel":
+			System.out.println("");
+			System.out.println("--내가 쓴 글 삭제 요청--");
+			service.wroteDel();
+			
 			break;
 		
 		case"/overlay":
