@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>탈퇴 회원정보 상세보기</title>
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 table, th, td {
 	border: 1px solid lightgray;
@@ -62,12 +63,20 @@ table, th, td {
             </tr>
 			</table>
 				<div class="memberexist">
-                	<button onclick="location.href='#'">회원 삭제</button>
+                	<button onclick="location.href='./memberDraw?id=${dto.id}'">회원 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                	<button onclick="location.href='#'">회원 복구</button>
+                	
+                	<button onclick="location.href='./memberRestore?id=${dto.id}'">회원 복구</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	
                 	<button onclick="location.href='./memberDelList'">닫기</button>
 				</div>
 		</div>
 </body>
+<script>
+	var msg = "${msg}";
+	if(msg!=""){
+		alert(msg);
+	}	
+</script>
 </html>

@@ -128,6 +128,26 @@ public class MemberListDAO {
 		return memberDelList;
 	}
 
+	public boolean memberDraw(String id) {
+		
+		String sql = "DELETE FROM member WHERE id=?";
+		boolean success = false;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+				resClose();
+		}	
+		System.out.println("회원 삭제여부 :"+success);
+		return success;
+	}
+
 	
 
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.service.ManagerService;
 import com.mvc.service.MemberListService;
 
-@WebServlet({ "/memberList","/memberDetail","/memberSearch","/memberDelList","/memberDelDetail" })
+@WebServlet({ "/memberList","/memberDetail","/memberSearch","/memberDelList","/memberDelDetail","/memberDraw" })
 public class MemberListController extends HttpServlet {
 
 	@Override
@@ -55,6 +55,11 @@ public class MemberListController extends HttpServlet {
 		case "/memberDelDetail":
 			System.out.println("탈퇴 회원 상세보기 요청");	
 			service.memberDelDetail();
+			break;
+			
+		case "/memberDraw":
+			System.out.println("탈퇴 회원 삭제 요청");
+			service.memberDraw();
 			break;
 		}
 	}

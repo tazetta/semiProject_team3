@@ -79,7 +79,23 @@ public class MemberListService {
 		}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);			
+	}
+
+	public void memberDraw() throws ServletException, IOException { //탈퇴 회원 삭제 
 		
+		String id = req.getParameter("id");
+		System.out.println("삭제할 탈퇴회원 id: "+id);
+		
+		msg = "";
+		page = "/memberDelList";
+		
+		MemberListDAO dao = new MemberListDAO();
+		if(dao.memberDraw(id)) {
+			msg = "해당 회원을 삭제하였습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 		
 	
