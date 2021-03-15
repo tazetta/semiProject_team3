@@ -116,7 +116,7 @@ a {
 					<td class="menu"><a href="visitedList">가봤어요</a></td>
 				</tr>
 				<tr>
-					<td class="menu"><a href="#">즐겨찾기</a></td>
+					<td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
 				</tr>
 			</table>
 		</div>

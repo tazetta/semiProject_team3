@@ -343,22 +343,23 @@ public class MemberDAO {
 
 	}
 	
-	/*가봤어요 리스트*/
-	public HashMap<String, Object> visitedList(String loginId, int group) {
+	/*가봤어요 / 즐겨찾기 리스트*/
+	public HashMap<String, Object> visitedList(String loginId, int group, int type) {
 		int pagePerCnt = 4; // 페이지 당 보여줄 갯수
 		
 		int end= group*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
 		String sql ="SELECT title, firstimage, overview, reg_date  FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, t.title, b.id, b.reg_date, t.firstimage, t.overview " + 
-				"FROM bookmark b JOIN trip t USING (contentid) WHERE b.deactivate='FALSE'AND b.id=? AND b.type='2') WHERE rnum BETWEEN ? AND ? ";
+				"FROM bookmark b JOIN trip t USING (contentid) WHERE b.deactivate='FALSE'AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps= conn.prepareStatement(sql);
 			ps.setString(1, loginId);
-			ps.setInt(2, start);
-			ps.setInt(3, end);
+			ps.setInt(2, type);
+			ps.setInt(3, start);
+			ps.setInt(4, end);
 			rs= ps.executeQuery();
 			while(rs.next()) {
 				TripDTO dto = new TripDTO();
