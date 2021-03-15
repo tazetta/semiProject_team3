@@ -148,9 +148,9 @@ a {
 						<td>${bbs.reg_date }</td>
 						<td>
 							<button
-								onclick="location.href='boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
+								onclick="location.href='./boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
 							<br />
-							<button onclick="location.href='boardDel'">삭제</button>
+							<button onclick="location.href='./wroteDel?boardIdx=${bbs.boardIdx}'">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -173,6 +173,12 @@ a {
 	</section>
 </body>
 <script>
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
+
+<%request.removeAttribute("msg");%>
 	
 </script>
 </html>

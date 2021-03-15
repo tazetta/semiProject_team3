@@ -160,6 +160,7 @@ public class TripService {
 		HashMap<String, Object> map = dao.search(group, keyword, searchType, alignType);
 		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
 
+		req.setAttribute("keyword", keyword);
 		req.setAttribute("searchType", searchType);
 		req.setAttribute("url", url);
 		req.setAttribute("maxPage", map.get("maxPage"));

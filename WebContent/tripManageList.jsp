@@ -69,7 +69,7 @@ div.deactivate{
 </style>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="navi_manager.jsp" />
+	<jsp:include page="admin_navbar.jsp" />
 	<div>
 		<div id='tripSearchBar'>
 			<form action="tripSearch" method="GET">
@@ -147,7 +147,6 @@ div.deactivate{
 				</c:if>
 			</span> 
 			<span>${currPage}/${maxPage}</span>
-			<span>${deactivate}</span>
 		</div>
 	</div>
 </body>
