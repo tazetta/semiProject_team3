@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.MemberService;
 
+
 @WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
-	,"/visitedList","/bookmarkList"})
+	,"/visitedList","/bookmarkList","/findpwUpdate"})
+
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -62,6 +64,13 @@ public class MemberController extends HttpServlet {
 			System.out.println("--내가 쓴 글 보기 요청--");
 			service.wroteList();
 			break;
+			
+		case "/wroteDel":
+			System.out.println("");
+			System.out.println("--내가 쓴 글 삭제 요청--");
+			service.wroteDel();
+			
+			break;
 		
 		case"/overlay":
 			System.out.println("중복체크요청");
@@ -89,6 +98,11 @@ public class MemberController extends HttpServlet {
 			service.findPw();
 			break;	
 			
+		case "/findpwUpdate":
+			System.out.println("비밀번호 찾기 후 수정 요청");
+			service.findpwUpdate();
+			break;
+			
 		case"/memberWithdraw":
 			System.out.println("");
 			System.out.println("--회원탈퇴 요청--");
@@ -105,6 +119,8 @@ public class MemberController extends HttpServlet {
 			System.out.println("");
 			System.out.println("--즐겨찾기 리스트 요청--");
 			service.bookmarkList();
+			
+			
 		
 		}
 		

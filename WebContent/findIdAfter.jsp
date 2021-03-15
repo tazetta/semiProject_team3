@@ -7,23 +7,39 @@
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	</head>
+	<style>
+		table,td,th{
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px 10px;
+        }
+		table{
+            	width:500px;
+        }
+		fieldset{
+                padding: 20px 30px;
+                width: 500px;
+                margin: auto;
+                margin-top: 10%;
+                border: 1px solid white;
+                background-color: whitesmoke;
+        }
+	</style>
 	<body>
-	<%
-		request.setCharacterEncoding("utf-8");
-		String id = (String)request.getAttribute("id");
-	%>
-		<form action="findId" method="POST">
-		<fieldset id="fieldset1">
-            <div id ="userName1"></div>
-            <h6>회원가입 시 사용한 아이디는 <b><%=id%></b> 입니다.</h6>
-            <div style="text-align: right;">
-                <button type="button" onclick="location.href='./login.jsp'">확인</button>
+		<fieldset>
+            <div>아이디 찾기</div>
+            <table>
+                <tr>
+                    <th>이름</th>
+                    <th>${findId}</th>
+                </tr>
+            </table>
+            <div style="text-align: right; margin-top: 10px;">
+                <input type="button" onclick="location.href='./login.jsp'" value="확인"/>
             </div>
         </fieldset>
-		</form>
-	
 	</body>
 	<script>
-	
+		
 	</script>
 </html>

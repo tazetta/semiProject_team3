@@ -128,13 +128,15 @@ a {
 
 				<c:forEach items="${list}" var="bm">
 					<tr>
-						<th style="width: 500px"  colspan="3">${bm.title }</th>
+						<th style="font-size: 150%"  colspan="3">${bm.title }</th>
 					</tr>
 					<tr>
-						<td><img src="${bm.firstImage}" width="200px"
-					height="200px" /></td>
-						<td class="overview">${bm.overview}</td>
-						<td>${bm.reg_date }</td>
+						<td rowspan="2"><img src="${bm.firstImage}" width="200px" height="200px" /></td>
+						<td class="overview" rowspan="2">${bm.overview}</td>
+						<td style="width:100px">${bm.reg_date }</td>
+						
+					</tr>
+					<tr>
 						<td>
 							<button onclick="location.href='#'">삭제</button>
 						</td>

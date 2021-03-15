@@ -42,20 +42,21 @@
             <div>아이디 찾기</div>
             <table>
                 <tr>
-                    <th>이름</th>
+                    <th style="background-color : blanchedalmond">이름</th>
                     <td>
-                        <input type="text" id="userName1" name="userName" placeholder="이름을 입력해주세요."/>
+                        <input type="text" id="userName" name="userName" placeholder="이름을 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
-                    <th>핸드폰 번호</th>
+                    <th style="background-color : blanchedalmond">핸드폰 번호</th>
                     <td>
-                        <input type="text" id="userPhone1" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
+                        <input type="text" id="userPhone" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
                     </td>
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
                 <button id="btn1" type="submit">찾기</button>
+                <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
             </div>
         </fieldset>
 	</form>
@@ -65,26 +66,27 @@
             <div>비밀번호 찾기</div>
             <table>
                 <tr>
-                    <th>아이디</th>
+                    <th style="background-color : blanchedalmond">아이디</th>
                     <td>
                         <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
-                    <th>이름</th>
+                    <th style="background-color : blanchedalmond">이름</th>
                     <td>
-                        <input type="text" id="userName2" name="userName" placeholder="이름을 입력해주세요."/>
+                        <input type="text" id="userName1" name="userName" placeholder="이름을 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
-                    <th>핸드폰 번호</th>
+                    <th style="background-color : blanchedalmond">핸드폰 번호</th>
                     <td>
-                        <input type="text" id="userPhone2" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
+                        <input type="text" id="userPhone1" name="userPhone" maxlength="13" placeholder="핸드폰번호를 입력해주세요."/>
                     </td>
                 </tr>
             </table>
-            <div style="text-align: right;">
+            <div style="text-align: right; margin-top: 10px;">
                 <button id="btn2">찾기</button>
+                <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
             </div>
         </fieldset>
 	</form>
@@ -94,7 +96,7 @@
 		var phoneChk = false;
 		var idChk = false;
 		
-        $('#userName1').focusout(function(){
+        $('#userName').focusout(function(){
             if($(this).val()==''){
                  alert('이름을 입력해주세요.');
                  $(this).focusin();
@@ -103,7 +105,7 @@
              }
          });
         
-        $('#userPhone1').focusout(function(){
+         $('#userPhone').focusout(function(){
             if($(this).val()==''){
                  alert('번호를 입력해주세요.');
                  $(this).focusin();
@@ -113,7 +115,7 @@
          });
 	
 	
-		$('#userPhone1').keydown(function(event) {
+		$('#userPhone').keydown(function(event) {
 	        var key = event.charCode || event.keyCode || 0;
 	        $text = $(this);
 	        if (key !== 8 && key !== 9) {
@@ -129,9 +131,9 @@
     	});
 	
 	
-		$("#btn1").click(function(){
-			var $name = $("#userName1");
-			var $phone = $("#userPhone1");
+		 $('#btn1').click(function(){
+			var $name = $("#userName");
+			var $phone = $("#userPhone");
 			
 			if(nameChk){
 				if($name.val()==''){
@@ -153,26 +155,26 @@
              }
          });
 		
-		$('#userName2').focusout(function(){
+		 $('#userName1').focusout(function(){
             if($(this).val()==''){
                  alert('이름을 입력해주세요.');
                  $(this).focusin();
              }else{
                  nameChk = true;
              }
-         });
+         }); 
         
-        $('#userPhone2').focusout(function(){
+         $('#userPhone1').focusout(function(){
             if($(this).val()==''){
                  alert('번호를 입력해주세요.');
                  $(this).focusin();
              }else{
                  phoneChk = true;
              }
-         });
+         }); 
 	
 	
-		$('#userPhone2').keydown(function(event) {
+		 $('#userPhone1').keydown(function(event) {
 	        var key = event.charCode || event.keyCode || 0;
 	        $text = $(this);
 	        if (key !== 8 && key !== 9) {
@@ -183,9 +185,12 @@
 	                $text.val($text.val() + '-');
 	            }
 	        }
+		     
+	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+    	});
 		
-		$("#btn2").click(function(){
+		/* $("#btn2").click(function(){
 			
-		});
+		}); */
 	</script>
 </html>

@@ -12,7 +12,7 @@ import com.mvc.service.ManagerService;
 
 @WebServlet({ "/managerList", "/managerDel", "/managerRegist", "/tripInsert", "/tripInsertOverlay",
 		"/tripInsertInformation", "/tripManageList", "/tripSearch", "/tripManageDetail","/tripManageUpdateForm",
-		"/tripManageUpdate"})
+		"/tripManageUpdate","/tripDeactivateFilter"})
 
 public class ManagerController extends HttpServlet {
 
@@ -89,6 +89,11 @@ public class ManagerController extends HttpServlet {
 			case "/tripManageUpdate":
 				System.out.println("tripManageUpdate 요청");
 				service.tripManageUpdate();
+				break;
+				
+			case "/tripDeactivateFilter":
+				System.out.println("tripDeactivateFilter 요청");
+				service.tripDeactivateFilter();
 				break;
 		}
 	}

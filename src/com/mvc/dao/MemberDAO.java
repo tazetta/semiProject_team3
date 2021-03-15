@@ -189,8 +189,6 @@ public class MemberDAO {
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setId(rs.getString("id"));
 				list.add(dto);
-				System.out.println(dto.getRnum());
-				System.out.println(dto.getBoardIdx());
 			}
 			
 			int maxPage = getMaxPage(pagePerCnt,loginId); 
@@ -304,10 +302,10 @@ public class MemberDAO {
 	}
 
 	/*비밀번호 찾기*/
-	public String findPw(String id, String name, String phone) {
+	public boolean findPw(String id, String name, String phone) {
 		
 		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
-		String pw = "";
+		boolean pw = false;
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, id);
@@ -315,7 +313,7 @@ public class MemberDAO {
 			ps.setString(3, phone);
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				pw = rs.getString("pw");
+				pw = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -413,6 +411,28 @@ public class MemberDAO {
 		} finally {
 			resClose();
 		}
+		return success;
+	}
+
+	/*비밀번호 찾기 후 수정*/
+	public boolean findpwUpdate(String newPw) {
+		
+		String sql = "UPDATE member SET pw WHERE pw=?";
+		boolean success = false;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, newPw);
+			if(ps.executeUpdate()>0) {
+				success=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		
 		return success;
 	}
 	
