@@ -101,13 +101,18 @@ a {
 button{
 	padding: 20px 20px;
 }
+#btn{
+	position: absolute;
+	top:20%;
+	right:25%;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 	
-	<div>
+	<div id="btn">
 		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
 		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
 	</div>
