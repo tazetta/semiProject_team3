@@ -15,6 +15,7 @@
 			}
 			#body{
 				width: 800px;
+				border: 1px solid black;
 			}
 			#page{
 				text-align: center;
@@ -25,6 +26,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="top.jsp" />
+		<jsp:include page="navi_manager.jsp"/>
 		<div>
 			<ol style="float: left; margin-right: 50px;">
 				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>

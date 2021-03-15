@@ -235,23 +235,25 @@ public TestDAO() {
 		return max;
 	}
 
-	public String repReason(String Idx, int type) {
-		String reason = "";
-		String sql = "SELECT reason FROM  bbsrep WHERE bbsrepidx=?";
+	public RepDTO repReason(String Idx, int type) {
+		RepDTO dto = null;
+		String sql = "SELECT reason, deactivate FROM  bbsrep WHERE bbsrepidx=?";
 		if (type==2) {
-			sql = "SELECT reason FROM  commentrep WHERE commentrepidx=?";
+			sql = "SELECT reason, deactivate FROM  commentrep WHERE commentrepidx=?";
 		}
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, Idx);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				reason = rs.getString("reason");
+				 dto = new RepDTO();
+				dto.setReason(rs.getString("reason"));
+				dto.setDeactivate(rs.getString("deactivate"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return reason;
+		return dto;
 	}
 
 	public String repCnt(String boardIdx, int type) {
@@ -274,15 +276,22 @@ public TestDAO() {
 		return repCnt;
 	}
 
-	public int updateYN(String updateYN, String boardIdx, String bbsRepIdx) {
-		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid='admin' WHERE bbsrepidx=?";
+	public int updateYN(String updateYN, String boardIdx, String bbsRepIdx, String type, String managerid) {
+		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid=? WHERE bbsrepidx=?";
 		int suc = 0;
 		try {
+			if(type.equals("2")) {
+				sql="UPDATE commentrep SET deactivate='TRUE' , managerid=? WHERE commentrepidx=?";
+			}
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, bbsRepIdx);
+			ps.setString(1, managerid);
+			ps.setString(2, bbsRepIdx);
 			suc = ps.executeUpdate();
 			if (suc > 0) {
 				sql = "UPDATE bbs SET deactivate=? WHERE boardidx=?";
+				if(type.equals("2")) {
+					sql = "UPDATE bbs_comment SET deactivate=? WHERE reidx=?";
+				}
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, updateYN);
 				ps.setString(2, boardIdx);
@@ -300,9 +309,9 @@ public TestDAO() {
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		String sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid FROM" + 
+		String sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid, boardIdx FROM" + 
 				"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx DESC) AS rnum " + 
-				",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid " + 
+				",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx " + 
 				"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<RepDTO> list = null;
 
@@ -322,6 +331,7 @@ public TestDAO() {
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setCommentRepIdx(rs.getInt("commentrepidx"));
 				dto.setManagerId(rs.getString("managerid"));
+				dto.setBoardIdx(rs.getInt("boardIdx"));
 				System.out.println("처리자 : "+rs.getString("managerid"));
 				list.add(dto);
 			}

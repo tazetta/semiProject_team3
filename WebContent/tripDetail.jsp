@@ -45,7 +45,7 @@
             <table>
                 <tr>
                     <th rowspan="2">${detail.title }</th>
-                    <th>등록일</th>
+                    <th>등록일${sessionScope.loginId }</th>
                     <th>즐겨찾기</th>
                     <th>즐겨찾기수</th>
                     <th>가봤어요</th>
@@ -73,7 +73,7 @@
 						☆
                     </c:if>
                     <c:if test="${visit.deactivate eq 'FALSE' }">
-						★
+						★ 
                     </c:if>
                     </td>
                 </tr>
@@ -90,10 +90,6 @@
                         <br/><br/><br/>
                         <div id="map" style="width:100%;height:350px;"></div>
 
-						
-						<script>
-						
-						</script>
                     </td>
                 </tr>
             </table>
@@ -103,13 +99,22 @@
     </body>
     <script>
         $('#fav').click(function(){
-			location.href='./bookmarkUpdate?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';
+        	if( ${sessionScope.loginId !=null }){
+				location.href='./bookmarkUpdate?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';        		
+        	}else{
+        		alert("로그인 후 가능한 서비스입니다.");
+        		location.href="./login.jsp";
+        	}
         });
         
         $('#vis').click(function(){
-
-			location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
-        });
+        	if( ${sessionScope.loginId !=null }){
+				location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
+        	}else{
+        		alert("로그인 후 가능한 서비스입니다.");
+        		location.href="./login.jsp";
+        	}
+        	});
         
         
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

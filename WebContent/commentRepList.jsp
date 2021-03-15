@@ -25,6 +25,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="top.jsp" />
+		<jsp:include page="navi_manager.jsp"/>
 		<div>
 			<ol style="float: left; margin-right: 50px;">
 				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
@@ -43,7 +45,7 @@
 			</tr>
 			<c:forEach items="${list }" var="rep">
 			<tr>
-				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}">${rep.reIdx }</a></td>
+				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }">${rep.reIdx }</a></td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>
 				<c:if test="${rep.deactivate eq 'FALSE' }">

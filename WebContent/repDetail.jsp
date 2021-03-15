@@ -30,50 +30,60 @@
 			#btn{
 				
 			}
+			#body{
+				width: 800px;
+				border: 1px solid black;
+			}
 				
 		</style>
 	</head>
 	<body>
-	<div>
-		<table>
-			<tr>
-				<th>제목</th>
-				<td>${dto.subject}</td>
-				<td>신고수 / <b>${repCnt }</b></td>
-				<td>
-					블라인드 					
-					<select id="YN">
-						<option  value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
-						<option value="FALSE" ${dto.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td colspan="3">${dto.content}</td>
-			</tr>
-			<tr>
-				<th>첨부파일</th>
-				<td colspan="3">
-					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
-				</td>
-			</tr>
-		</table>
-		<fieldset>
-			<p>
-				신고 사유 
-				<br/><br/>
-				<b>${reason }</b>
-			</p>
-		</fieldset>
-		<div #btn>
-			<input type="button"  onclick="location.href='./reportBBS'" value="목록"/>		
-			&nbsp;&nbsp;&nbsp;
-			<button id="btn"> 적용 </button>
+		<jsp:include page="top.jsp" />
+		<jsp:include page="navi_manager.jsp"/>
+		<div>
+			<ol style="float: left; margin-right: 50px;">
+				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
+				<ul><a href="./reportComment">댓글 신고 내역</a></ul>
+			</ol>
 		</div>
-	</div>
-	<input type="hidden" value="${dto.boardIdx}"/>
-	<input type="hidden" value="${bbsRepIdx }"/>
+		<div id="body">
+			<table>
+				<tr>
+					<th>제목</th>
+					<td>${dto.subject}</td>
+					<td>신고수 / <b>${repCnt }</b></td>
+					<td>
+						블라인드 					
+						<select id="YN">
+							<option  value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
+							<option value="FALSE" ${dto.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td colspan="3">${dto.content}</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td colspan="3">
+						<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
+					</td>
+				</tr>
+			</table>
+			<fieldset>
+				<p>
+					신고 사유 
+					<br/><br/>
+					<b>${reason.reason }</b>
+				</p>
+			</fieldset>
+			<div id=#btn>
+				<input type="button"  onclick="location.href='./reportBBS'" value="목록"/>		
+				&nbsp;&nbsp;&nbsp;
+				<button id="btn"> 적용 </button>
+			</div>
+		</div>
 	</body>
 	<script>
 		$("#btn").click(function () {
@@ -87,6 +97,7 @@
 					"updateYN":$("#YN").val()
 					,"boardIdx":bbsIdx
 					,"bbsRepIdx":bbsRepIdx
+					,"type":'1'
 				
 				}
 				,dataType:"json"
