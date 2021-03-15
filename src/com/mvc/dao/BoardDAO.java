@@ -466,6 +466,30 @@ public class BoardDAO {
 		
 	}
 
+	public boolean commReport(String reIdx, String loginId, String reason) {
+		String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
+		boolean success =false;
+		try {
+			ps = conn.prepareStatement(bbs_sql);
+			ps.setString(1, reIdx);
+			if(ps.executeUpdate()>0) {
+				String rep_sql = "INSERT INTO COMMENTREP (COMMENTREPIDX,REIDX,REASON,ID) VALUES(COMMENTREP_SEQ.NEXTVAL,?,?,?)";
+				ps = conn.prepareStatement(rep_sql);
+				ps.setString(1, reIdx);
+				ps.setString(2, reason);
+				ps.setString(3, loginId);
+				if(ps.executeUpdate()>0) {
+					success = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+	}
+
 	
 
 }

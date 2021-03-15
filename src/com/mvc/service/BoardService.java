@@ -334,4 +334,31 @@ public class BoardService {
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 	}
+
+	public void commReportForm() throws ServletException, IOException {
+		String reIdx = req.getParameter("reIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println("신고할 댓글번호: "+reIdx+"/"+loginId);
+		req.setAttribute("reIdx", reIdx);
+		dis = req.getRequestDispatcher("commReportForm.jsp");
+		dis.forward(req, resp);
+		
+	}
+
+	public void commReport() throws ServletException, IOException {
+		String reIdx = req.getParameter("reIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String reason = req.getParameter("reason");
+		System.out.println(reIdx+"/"+loginId+"/"+reason);
+		BoardDAO dao = new BoardDAO();
+		msg= "신고처리에 실패했습니다.";
+		page="commReportForm.jsp";
+		if(dao.commReport(reIdx,loginId,reason)) {
+			msg="신고처리가 완료되었습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		
+	}
 }
