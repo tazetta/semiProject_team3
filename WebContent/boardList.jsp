@@ -7,6 +7,7 @@
     	<meta name="viewport" content="width=device",initial-scale="1">
         <meta charset="utf-8">
         <title>커뮤니티</title>
+        <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
         <link rel="icon" href="south-korea.png">
         <style>
             table,th,td{
@@ -75,7 +76,7 @@
     <div id="field">
     <select id="comm_select" name="comm_select">
         <option value="subject">제목</option>
-        <option value="name">작성자</option>
+        <option value="id">작성자</option>
         <option value="content">내용</option>
     </select>
     <input type="text" id="search_type"/>
@@ -116,6 +117,19 @@
 	</div>
 </body>
 <script>
+	$('#search').click(function(){
+		if($('#comm_select').val()=="subject"){
+			console.log("제목으로 검색");
+			var subject_val = $('#search_type').val();
+			location.href="./boardSearch?subject_val="+subject_val;
+		}else if($('#comm_select').val()=="id"){
+			console.log("아이디로 검색");
+			location.href="./boardSearch?id_val="+id_val;
+		}else if($('#comm_select').val()=="content"){
+			console.log("내용으로 검색");
+			location.href="./boardSearch?content_val="+content_val;
+		}
+	});
 	var msg="${msg}";
 	if(msg!=""){
 		alert(msg);
