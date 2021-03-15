@@ -305,7 +305,7 @@ public class BoardService {
 		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
-		dis = req.getRequestDispatcher("boardList.jsp");
+		dis = req.getRequestDispatcher("boardSearchList.jsp");
 		dis.forward(req, resp);
 	}
 }

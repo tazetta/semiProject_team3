@@ -59,16 +59,18 @@
 </style>
 </head>
 <body>
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
-    <iframe id="navi" src="navi.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
     	
 		<div id="total">
-			<c:if test="${dto.id==loginId || isManager=='true'}">
 			<div id="btn1">
+				<c:if test="${dto.id==loginId}">
 				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
+				</c:if>
+				<c:if test="${dto.id==loginId || isManager=='true'}">
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>
+				</c:if>
 			</div>
-			</c:if>
 			<div id= "btn2">
 				<c:if test="${dto.id!=loginId}">
 				<button onclick="location.href='./report'">신고</button>
