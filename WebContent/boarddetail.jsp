@@ -122,6 +122,9 @@
 					</c:if>
 				</td>
 				<td style="width:150px;">${comment.reg_date}</td>
+				<td style="width:50px;">
+					<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
+				</td>
 			</tr>
 			</table>
 		</c:forEach>

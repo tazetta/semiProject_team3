@@ -39,21 +39,6 @@ div.areaList {
 	top: 15%;
 }
 
-.mainUl>li {
-	position: relative;
-	font-weight: 600;
-	font-size: 24;
-	left: 50%;
-	float: left;
-	border: 1px solid black;
-	padding: 10px 15px;
-	list-style-type: none;
-}
-
-.mainUl>li:hover {
-	background-color: darkkhaki;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
@@ -97,6 +82,16 @@ a {
 	font-weight: 600;
 	color: red;
 }
+div.chkBtn{
+	position: absolute;
+	top:25%;
+	right:0%;
+}
+.btn{
+	padding:5px 10px;
+	top:40%;
+	right:-20%;
+}
 </style>
 </head>
 <body>
@@ -125,49 +120,46 @@ a {
 					</div>
 				</c:if>
 			</c:forEach>
-			<input type="hidden" name="nav" value="${nav}" /> <input
-				type="hidden" name="type" value="theme" /> <input type="button"
-				onclick="maxChkBox()" value="검색" />
+			<input type="hidden" name="nav" value="${nav}" /> 
+			<input type="hidden" name="type" value="theme" /> 
+			<div class = "chkBtn">
+				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+			</div>
 		</div>
 	</form>
-	<table>
-		<tr>
-			<th>사진</th>
-			<th>제목</th>
-			<th>등록일</th>
-			<th>즐겨찾기 수</th>
-		</tr>
-		<c:forEach items="${list}" var="result" varStatus="status">
+		<table>
 			<tr>
-				<th><img src="${result.firstImage}" width="100px"
-					height="100px" /></th>
-
-				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
-					target=window.open()>${result.title}</a></th>
-				<th>${result.reg_date}</th>
-				<th>${result.bookmarkCnt}</th>
-
+				<th>사진</th>
+				<th>제목</th>
+				<th>등록일</th>
+				<th>즐겨찾기 수</th>
 			</tr>
-		</c:forEach>
-	</table>
-	<div class="pageArea">
-		<span> 
-			<c:if test="${currPage == 1}">이전</c:if> 
-			<c:if test="${currPage > 1}">
-				<a href="./resultList?${url}&page=${currPage-1}">이전</a>
-			</c:if>
-		</span> 
-		<span id="page">
-			${currPage}
-		</span> 
-		<span> 
-			<c:if test="${currPage == maxPage}">다음</c:if> 
-			<c:if test="${currPage < maxPage}">
-				<a href="./resultList?${url}&page=${currPage+1}">다음</a>
-			</c:if>
-		</span>
-		<span>${currPage}/${maxPage}</span>
-	</div>
+			<c:forEach items="${list}" var="result" varStatus="status">
+				<tr>
+					<th><img src="${result.firstImage}" width="100px"
+						height="100px" /></th>
+
+					<th class="title"><a
+						href="./tripDetail?contentId=${result.contentId}"
+						target=window.open()>${result.title}</a></th>
+					<th>${result.reg_date}</th>
+					<th>${result.bookmarkCnt}</th>
+
+				</tr>
+			</c:forEach>
+		</table>
+		<div class="pageArea">
+			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+					test="${currPage > 1}">
+					<a href="./resultList?${url}&page=${currPage-1}">이전</a>
+				</c:if>
+			</span> <span id="page"> ${currPage} </span> <span> <c:if
+					test="${currPage == maxPage}">다음</c:if> <c:if
+					test="${currPage < maxPage}">
+					<a href="./resultList?${url}&page=${currPage+1}">다음</a>
+				</c:if>
+			</span> <span>${currPage}/${maxPage}</span>
+		</div>
 </body>
 <script>
 	$(document).ready(function() {
@@ -184,6 +176,8 @@ a {
 		});
 		if(cnt > 3) {
 			alert('최대 3개까지 선택 가능합니다.');
+		} else if(cnt == 0){
+			alert('하나 이상을 선택해 주세요.');
 		} else{
 			$('form').submit();
 		}

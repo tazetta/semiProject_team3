@@ -7,8 +7,12 @@
 <meta charset="UTF-8">
 <title>관리자 페이지 - 메인</title>
 <link rel="stylesheet" type="text/css" href="basic.css">
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <style>
+table{
+	height:200px;
+}
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -18,11 +22,12 @@ table, th, td {
 	margin-right: auto;
 	margin-top: 30px;
 }
-
-.regDate {
-	width: 80px;
+.title{
+	width:200px;
 }
-
+.regDate{
+	width:100px;
+}
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -57,20 +62,29 @@ div.tripManageName {
 	height: 30px;
 	text-align: center;
 }
+div.deactivate{
+	position:absolute;
+	left:60%;
+}
 </style>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="navi_manager.jsp" />
+	<jsp:include page="admin_navbar.jsp" />
 	<div>
 		<div id='tripSearchBar'>
 			<form action="tripSearch" method="GET">
 				<select name="searchType">
 					<option value="title">여행지 이름</option>
 					<option value="address">여행지 위치</option>
-				</select> <input type="text" name="keyword"> <input type="submit"
-					value="검색">
+				</select> 
+				<input type="text" name="keyword"> 
+				<input type="submit" value="검색">
+			<input type="checkbox" name="deactivate" value="TRUE"/>비활성화 여부
 			</form>
+			<button onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
 		</div>
+		<!-- <div class="deactivate">
+		</div> -->
 		<div class="tripManageList">
 			<div class="tripManageName">
 				<a href="./tripManageList">여행지 목록</a>
@@ -86,7 +100,6 @@ div.tripManageName {
 					<th>여행지 이름</th>
 					<th>등록 날짜</th>
 					<th>비활성화 여부</th>
-					<th>비활성화 여부2</th>
 				</tr>
 				<c:forEach items="${tripList}" var="trip">
 					<tr>
@@ -94,13 +107,14 @@ div.tripManageName {
 						<td class='title'><a
 							href="./tripManageDetail?contentId=${trip.contentId}">${trip.title}</a></td>
 						<td class='regDate'>${trip.reg_date}</td>
+						<td>
 						<c:if test="${trip.deactivate eq true}">
-							<td>Y</td>
+							Y
 						</c:if>
 						<c:if test="${trip.deactivate eq false}">
-							<td>N</td>
+							N
 						</c:if>
-						<td>${trip.deactivate}</td>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -108,28 +122,34 @@ div.tripManageName {
 		<div class="pageArea">
 			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
 					test="${currPage > 1}">
-					<c:if test="${keyword eq null}">
+					<c:if test="${keyword eq null && deactivate eq 'FALSE'}">
 						<a href="./tripManageList?page=${currPage-1}">이전</a>
 					</c:if>
 					<c:if test="${keyword ne null}">
 						<a href="./tripSearch?${url}&page=${currPage-1}">이전</a>
 					</c:if>
+					<c:if test="${deactivate eq 'TRUE'}">
+						<a href="./tripDeactivateFilter?page=${currPage-1}">이전</a>
+					</c:if>
 				</c:if>
 			</span> <span id="page"> ${currPage} </span> <span> <c:if
 					test="${currPage == maxPage}">다음</c:if> <c:if
 					test="${currPage < maxPage}">
-					<c:if test="${keyword  eq null}">
+					<c:if test="${keyword eq null && deactivate eq 'FALSE'}">
 						<a href="./tripManageList?page=${currPage+1}">다음</a>
 					</c:if>
 					<c:if test="${keyword  ne null}">
 						<a href="./tripSearch?${url}&page=${currPage+1}">다음</a>
 					</c:if>
+					<c:if test="${deactivate eq 'TRUE'}">
+						<a href="./tripDeactivateFilter?page=${currPage+1}">이전</a>
+					</c:if>
 				</c:if>
-			</span> <span>${currPage}/${maxPage}</span>
+			</span> 
+			<span>${currPage}/${maxPage}</span>
 		</div>
 	</div>
 </body>
 <script>
-	
 </script>
 </html>
