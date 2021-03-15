@@ -287,10 +287,9 @@ public class BoardService {
 	}
 
 	public void boardSearch() throws ServletException, IOException {
-		String subject_val= req.getParameter("subject_val");
-		String content_val = req.getParameter("content_val");
-		String id_val = req.getParameter("id_val");
-		System.out.println(subject_val+"/"+content_val+"/"+id_val);
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		System.out.println(searchType+"/"+keyword);
 		String pageParam =  req.getParameter("page");
 		System.out.println("page:"+pageParam);
 		int group =1;
@@ -298,14 +297,7 @@ public class BoardService {
 			group = Integer.parseInt(pageParam);
 		}
 		BoardDAO dao = new BoardDAO();
-		HashMap<String, Object> map = null;
-		if(subject_val!=null) {
-			map = dao.subjectSearch(group,subject_val);
-		}else if(content_val!=null) {
-			map = dao.contentSearch(group,content_val);
-		}else if(id_val!=null) {
-			map = dao.idSearch(group,id_val);
-		}
+		HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
 		System.out.println(map.get("maxPage"));
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list",map.get("list"));

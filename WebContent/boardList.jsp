@@ -79,7 +79,7 @@
         <option value="id">작성자</option>
         <option value="content">내용</option>
     </select>
-    <input type="text" id="search_type"/>
+    <input type="text" id="keyword"/>
     <button id="search">검색</button>
     <table>
 		<tr>
@@ -118,17 +118,9 @@
 </body>
 <script>
 	$('#search').click(function(){
-		if($('#comm_select').val()=="subject"){
-			console.log("제목으로 검색");
-			var subject_val = $('#search_type').val();
-			location.href="./boardSearch?subject_val="+subject_val;
-		}else if($('#comm_select').val()=="id"){
-			console.log("아이디로 검색");
-			location.href="./boardSearch?id_val="+id_val;
-		}else if($('#comm_select').val()=="content"){
-			console.log("내용으로 검색");
-			location.href="./boardSearch?content_val="+content_val;
-		}
+		var searchType = $('#comm_select').val()
+		var keyword = $('#keyword').val()
+		location.href="./boardSearch?searchType="+searchType+"&keyword="+keyword;
 	});
 	var msg="${msg}";
 	if(msg!=""){

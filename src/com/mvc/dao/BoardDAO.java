@@ -381,23 +381,41 @@ public class BoardDAO {
 		return success;
 	}
 
-	public HashMap<String, Object> subjectSearch(int page, String subject_val) {
-		
+	private int search_getMaxPage(int pagePerCnt, String subject_val) {
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND subject LIKE ?";
+		int max=0;
+		subject_val = "%"+subject_val+"%";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, subject_val);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
+	}
+
+
+	public HashMap<String, Object> boardSearch(int page, String searchType, String keyword) {
 		HashMap<String,Object> map= new HashMap<String, Object>();
 		int pagePerCnt = 10;
 		int end = page*pagePerCnt;
 		int start = end-(pagePerCnt-1);
 		String sql = "SELECT boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
-				"        FROM bbs WHERE DEACTIVATE='FALSE' AND subject LIKE ?" + 
+				"        FROM bbs WHERE DEACTIVATE='FALSE' AND"+ searchType +"LIKE ?" + 
 				") WHERE rnum BETWEEN ? AND ? ";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		subject_val = "'%"+subject_val+"%'";
-		System.out.println("subject_val:"+subject_val);
+		searchType = "%"+keyword+"%";
+		System.out.println("keyword:"+keyword);
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, subject_val);
+			ps.setString(1, keyword);
 			ps.setInt(2, start);
 			ps.setInt(3, end);
 			rs = ps.executeQuery();
@@ -410,7 +428,7 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				list.add(dto);
 			}
-			int maxPage= subject_getMaxPage(pagePerCnt,subject_val);
+			int maxPage= search_getMaxPage(pagePerCnt,keyword);
 			map.put("list",list);
 			map.put("maxPage",maxPage);
 			System.out.println("maxPage: "+ maxPage);
@@ -420,35 +438,6 @@ public class BoardDAO {
 			resClose();
 		}
 		return map;
-		
-		
-	}
-
-	private int subject_getMaxPage(int pagePerCnt, String subject_val) {
-		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND subject LIKE ?";
-		int max=0;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "'%"+subject_val+"'%");
-			rs = ps.executeQuery();
-			if(rs.next()) {
-				int cnt = rs.getInt(1);
-				max = (int) Math.ceil(cnt/(double)pagePerCnt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return max;
-	}
-
-	public HashMap<String, Object> contentSearch(int group, String content_val) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public HashMap<String, Object> idSearch(int group, String id_val) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	
