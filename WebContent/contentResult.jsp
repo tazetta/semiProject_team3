@@ -54,9 +54,8 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 200px;
+	margin-left: 25%;
+	margin-top: 15%;
 }
 .title{
 	width:50%;
@@ -82,14 +81,15 @@ a {
 	font-weight: 600;
 	color: red;
 }
+
 div.chkBtn{
 	position: absolute;
-	top:27%;
-	right:28%;
-	border: none;
+	top:30%;
+	right:53%;
 }
+
 .btn{
-	padding:5px 10px;
+	padding:20px 40px;
 }
 </style>
 </head>

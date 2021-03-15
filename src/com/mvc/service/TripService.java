@@ -27,6 +27,9 @@ public class TripService {
 
 	public void contentList() throws ServletException, IOException {
 		String nav = req.getParameter("nav");
+		if (nav == null) { // 지역별 메뉴를 눌렀을 때 관광지를 제일 먼저 보여준다.
+			nav = "12";
+		}
 		ArrayList<ContentDTO> contentList = null;
 		ArrayList<AreaDTO> areaList = null;
 		try {

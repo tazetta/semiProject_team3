@@ -51,11 +51,11 @@ a:visited {
 
 div.chkBtn{
 	position: absolute;
-	top:27%;
-	right:28%;
+	top:30%;
+	right:53%;
 }
 .btn{
-	padding:5px 10px;
+	padding:20px 40px;
 }
 </style>
 </head>
