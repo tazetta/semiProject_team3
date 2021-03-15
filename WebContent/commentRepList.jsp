@@ -25,6 +25,8 @@
 		</style>
 	</head>
 	<body>
+		<jsp:include page="top.jsp" />
+		<jsp:include page="navi_manager.jsp"/>
 		<div>
 			<ol style="float: left; margin-right: 50px;">
 				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
@@ -32,10 +34,10 @@
 			</ol>
 		</div>
 		<div id="body">
-		<a href="./reportBBS">미처리 내역 </a> / <a href="./reportBBS?deactivate=TRUE">처리 내역 </a>
+		<a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a>
 		<table>
 			<tr>
-				<th>신고게시물 no.</th>
+				<th>신고댓글 no.</th>
 				<th>신고 당한 ID</th>
 				<th>신고 사유</th>
 				<th>블라인드 여부</th>
@@ -43,7 +45,7 @@
 			</tr>
 			<c:forEach items="${list }" var="rep">
 			<tr>
-				<td><a href="./repDetail?boardIdx=${rep.boardIdx }&bbsRepIdx=${rep.bbsRepIdx}">${rep.boardIdx }</a></td>
+				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }">${rep.reIdx }</a></td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>
 				<c:if test="${rep.deactivate eq 'FALSE' }">
@@ -60,14 +62,14 @@
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./reportBBS?page=${currPage-1}'>이전</a>
+				<a href='./reportComment?page=${currPage-1}'>이전</a>
 			</c:if>
 		</span>
 		<span>${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./reportBBS?page=${currPage+1}">다음</a></c:if>
+         		<a href="./reportComment?page=${currPage+1}">다음</a></c:if>
 		</span>		
 		</div>
 		</div>

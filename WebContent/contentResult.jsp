@@ -54,9 +54,8 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 200px;
+	margin-left: 25%;
+	margin-top: 15%;
 }
 .title{
 	width:50%;
@@ -82,15 +81,15 @@ a {
 	font-weight: 600;
 	color: red;
 }
+
 div.chkBtn{
 	position: absolute;
-	top:25%;
-	right:0%;
+	top:30%;
+	right:53%;
 }
+
 .btn{
-	padding:5px 10px;
-	top:40%;
-	right:-20%;
+	padding:20px 40px;
 }
 </style>
 </head>
@@ -122,10 +121,10 @@ div.chkBtn{
 			</c:forEach>
 			<input type="hidden" name="nav" value="${nav}" /> 
 			<input type="hidden" name="type" value="theme" /> 
+		</div>
 			<div class = "chkBtn">
 				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
 			</div>
-		</div>
 	</form>
 		<table>
 			<tr>
@@ -136,15 +135,14 @@ div.chkBtn{
 			</tr>
 			<c:forEach items="${list}" var="result" varStatus="status">
 				<tr>
-					<th><img src="${result.firstImage}" width="100px"
-						height="100px" /></th>
-
+					<th>
+						<img src="${result.firstImage}" width="100px" height="100px" />
+					</th>
 					<th class="title"><a
 						href="./tripDetail?contentId=${result.contentId}"
 						target=window.open()>${result.title}</a></th>
 					<th>${result.reg_date}</th>
 					<th>${result.bookmarkCnt}</th>
-
 				</tr>
 			</c:forEach>
 		</table>

@@ -204,7 +204,8 @@ public TestDAO() {
 				list.add(dto);
 			}
 			map = new HashMap<String, Object>();
-			int maxPage = getMaxPage(pagePerCnt,deactivate);
+			int type=1;
+			int maxPage = getMaxPage(pagePerCnt,deactivate,type);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -214,9 +215,12 @@ public TestDAO() {
 		return map;
 	}
 
-	private int getMaxPage(int pagePerCnt, String deactivate) {
+	private int getMaxPage(int pagePerCnt, String deactivate, int type) {
 		String sql = "SELECT count(r.bbsrepidx) FROM bbsrep r, bbs b WHERE r.boardidx=b.boardidx AND r.deactivate=? ";
 		int max = 0;
+		if (type==2) {
+			sql = "SELECT count(r.commentrepidx) FROM commentrep r, bbs_comment b WHERE r.reidx=b.reidx AND r.deactivate=? ";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, deactivate);
@@ -231,26 +235,34 @@ public TestDAO() {
 		return max;
 	}
 
-	public String repReason(String bbsRepIdx) {
-		String reason = "";
-		String sql = "SELECT reason FROM  bbsrep WHERE bbsrepidx=?";
+	public RepDTO repReason(String Idx, int type) {
+		RepDTO dto = null;
+		String sql = "SELECT reason, deactivate FROM  bbsrep WHERE bbsrepidx=?";
+		if (type==2) {
+			sql = "SELECT reason, deactivate FROM  commentrep WHERE commentrepidx=?";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, bbsRepIdx);
+			ps.setString(1, Idx);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				reason = rs.getString("reason");
+				 dto = new RepDTO();
+				dto.setReason(rs.getString("reason"));
+				dto.setDeactivate(rs.getString("deactivate"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return reason;
+		return dto;
 	}
 
-	public String repCnt(String boardIdx) {
+	public String repCnt(String boardIdx, int type) {
 		String repCnt = "";
 		String sql = "SELECT count(bbsrepidx) AS repCnt FROM bbsrep  WHERE boardIdx=?";
-
+		
+		if(type==2) {
+			sql="SELECT count(commentrepidx) AS repCnt FROM commentrep  WHERE reIdx=?";
+		}
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
@@ -264,15 +276,22 @@ public TestDAO() {
 		return repCnt;
 	}
 
-	public int updateYN(String updateYN, String boardIdx, String bbsRepIdx) {
-		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid='admin' WHERE bbsrepidx=?";
+	public int updateYN(String updateYN, String boardIdx, String bbsRepIdx, String type, String managerid) {
+		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid=? WHERE bbsrepidx=?";
 		int suc = 0;
 		try {
+			if(type.equals("2")) {
+				sql="UPDATE commentrep SET deactivate='TRUE' , managerid=? WHERE commentrepidx=?";
+			}
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, bbsRepIdx);
+			ps.setString(1, managerid);
+			ps.setString(2, bbsRepIdx);
 			suc = ps.executeUpdate();
 			if (suc > 0) {
 				sql = "UPDATE bbs SET deactivate=? WHERE boardidx=?";
+				if(type.equals("2")) {
+					sql = "UPDATE bbs_comment SET deactivate=? WHERE reidx=?";
+				}
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, updateYN);
 				ps.setString(2, boardIdx);
@@ -290,9 +309,9 @@ public TestDAO() {
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		String sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid FROM" + 
+		String sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid, boardIdx FROM" + 
 				"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx DESC) AS rnum " + 
-				",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid " + 
+				",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx " + 
 				"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<RepDTO> list = null;
 
@@ -312,11 +331,13 @@ public TestDAO() {
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setCommentRepIdx(rs.getInt("commentrepidx"));
 				dto.setManagerId(rs.getString("managerid"));
+				dto.setBoardIdx(rs.getInt("boardIdx"));
 				System.out.println("처리자 : "+rs.getString("managerid"));
 				list.add(dto);
 			}
+			int type=2;
 			map = new HashMap<String, Object>();
-			int maxPage = getMaxPage(pagePerCnt,deactivate);
+			int maxPage = getMaxPage(pagePerCnt,deactivate,type);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -325,5 +346,6 @@ public TestDAO() {
 		}
 		return map;
 	}
+	
 
 }
