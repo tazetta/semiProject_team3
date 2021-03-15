@@ -37,9 +37,7 @@ public class TestService {
 	public void tripDetail() throws ServletException, IOException {
 		String conIdx =req.getParameter("contentId");
 		System.out.println("dddd : "+conIdx);
-//		String conIdx ="745873";
-		//id 가져와야함
-		String id = "test";
+		String id = (String) req.getSession().getAttribute("loginId");
 		TestDAO dao = new TestDAO();		
 		TripDTO detail = dao.tripDetail(conIdx);
 		if(detail!=null) {
@@ -182,7 +180,7 @@ public class TestService {
 			req.setAttribute("maxPage", map.get("maxPage"));
 			req.setAttribute("list", map.get("list"));
 			req.setAttribute("currPage", group);
-			dis = req.getRequestDispatcher("bbsRepList.jsp");
+			dis = req.getRequestDispatcher("commentRepList.jsp");
 			dis.forward(req, resp);
 		}
 		dao.resClose();
