@@ -22,8 +22,52 @@ public class TripDTO {
 	private int bookmarkCnt;
 	private String deactivate;
 	private String overview;
+	private String contentName;
+	private String largeName;
+	private String mediumName;
+	private String smallName;
+	private String areaName;
+	private String cityName;
+	
 	/////
 	private int bookmark;
+	
+	public String getContentName() {
+		return contentName;
+	}
+	public void setContentName(String contentName) {
+		this.contentName = contentName;
+	}
+	public String getLargeName() {
+		return largeName;
+	}
+	public void setLargeName(String largeName) {
+		this.largeName = largeName;
+	}
+	public String getMediumName() {
+		return mediumName;
+	}
+	public void setMediumName(String mediumName) {
+		this.mediumName = mediumName;
+	}
+	public String getSmallName() {
+		return smallName;
+	}
+	public void setSmallName(String smallName) {
+		this.smallName = smallName;
+	}
+	public String getAreaName() {
+		return areaName;
+	}
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	private String area;
 	
 	public String getArea() {

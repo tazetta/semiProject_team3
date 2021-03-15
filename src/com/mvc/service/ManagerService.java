@@ -190,7 +190,7 @@ public class ManagerService {
 
 	}
 
-	public void tripManage() throws ServletException, IOException {
+	public void tripManageList() throws ServletException, IOException {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
 			int group = 1;
@@ -198,12 +198,12 @@ public class ManagerService {
 				group = Integer.parseInt(pageParam);
 			}
 			TripDAO dao = new TripDAO();
-			HashMap<String, Object> tripMap = dao.tripManage(group);
+			HashMap<String, Object> tripMap = dao.tripManageList(group);
 
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
-			RequestDispatcher dis = req.getRequestDispatcher("tripManage.jsp");
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
@@ -231,8 +231,68 @@ public class ManagerService {
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
-			RequestDispatcher dis = req.getRequestDispatcher("tripManage.jsp");
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
+	}
+
+	public void tripManageDetail() throws ServletException, IOException {
+		if (isManager()) {
+
+			String contentId = req.getParameter("contentId");
+			System.out.println("contentId : " + contentId);
+
+			TripDAO tripDAO = new TripDAO();
+			TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+
+			req.setAttribute("tripDTO", tripDTO);
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageDetail.jsp");
+			dis.forward(req, resp);
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
+	}
+
+	public void tripManageUpdateForm() throws ServletException, IOException {
+		if (isManager()) {
+			String contentId = req.getParameter("contentId");
+			System.out.println("contentId : " + contentId);
+
+			ArrayList<ContentDTO> contentList = null;
+			ArrayList<LargeDTO> largeList = null;
+			ArrayList<MediumDTO> mediumList = null;
+			ArrayList<SmallDTO> smallList = null;
+			ArrayList<AreaDTO> areaList = null;
+			ArrayList<CityDTO> cityList = null;
+			TripDAO tripDAO = new TripDAO();
+			try {
+				contentList = tripDAO.contentList();
+				largeList = tripDAO.largeList();
+				mediumList = tripDAO.mediumList();
+				smallList = tripDAO.smallList();
+				areaList = tripDAO.areaList();
+				cityList = tripDAO.cityList("0");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				tripDAO.resClose();
+
+				tripDAO = new TripDAO();
+				TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+				
+				req.setAttribute("contentList", contentList);
+				req.setAttribute("largeList", largeList);
+				req.setAttribute("mediumList", mediumList);
+				req.setAttribute("smallList", smallList);
+				req.setAttribute("areaList", areaList);
+				req.setAttribute("cityList", cityList);
+
+				req.setAttribute("tripDTO", tripDTO);
+				RequestDispatcher dis = req.getRequestDispatcher("tripManageUpdateForm.jsp");
+				dis.forward(req, resp);
+			}
 		} else {
 			resp.sendRedirect("index.jsp");
 		}

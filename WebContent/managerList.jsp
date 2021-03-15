@@ -9,12 +9,9 @@
 
 </head>
 <body>
-	<!--상단페이지-->
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
-	
-	<!--상단네비-->
-	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
 
+	 <jsp:include page="top.jsp" />
+	<jsp:include page="admin_navbar.jsp" />
     <div id="manager_main">
         <table>
             <tr>
