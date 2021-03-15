@@ -154,13 +154,24 @@ textarea {
 				</tr>
 				<tr>
 					<th>시군구</th>
-					<td><select id="city" name="cityType">
-							<option value="${tripDTO.cityCode}">${tripDTO.cityName}</option>
-					</select></td>
+					<td>
+						<select id="city" name="cityType">
+								<option value="${tripDTO.cityCode}">${tripDTO.cityName}</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>상세설명</th>
 					<td><textarea id="overview">${tripDTO.overview}</textarea></td>
+				</tr>
+				<tr>
+					<th>비활성화 여부</th>
+					<td>
+						<select id="deactivate" name="deactivate">
+								<option value="FALSE">활성화</option>
+								<option value="TRUE">비활성화</option>
+						</select>
+					</td>
 				</tr>
 			</table>
 		</form>
@@ -267,7 +278,8 @@ textarea {
 		var $area = $("#area");
 		var $city = $("#city");
 		var $overview = $("#overview");
-
+		var $deactivate = $("#deactivate");
+		
 		if ($contentId.val() == '') {
 			alert('Content ID를 입력해 주세요.');
 			$contentId.focus();
@@ -323,7 +335,7 @@ textarea {
 			params.area = $area.val();
 			params.city = $city.val();
 			params.overview = $overview.val();
-
+			params.deactivate = $deactivate.val();
 			$.ajax({
 				type : 'GET',
 				url : 'tripManageUpdate',
@@ -331,7 +343,7 @@ textarea {
 				dataType : 'JSON',
 				success : function(data) {
 					if (data.success == true) {
-						alert('여행지를 추가했습니다.');
+						alert('여행지를 수정했습니다.');
 						location.href = "./tripManageDetail?contentId=${tripDTO.contentId}";
 					} else {
 						alert('잠시 후 다시 시도해 주세요.');

@@ -4,7 +4,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>마이페이지 - 가봤어요</title>
+	<title>마이페이지 - 즐겨찾기</title>
  	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
  	<style>
  		body {
@@ -118,10 +118,10 @@ a {
 	
 	<section id=background>
 		<div id="content">
-			<span>내가 가 본 여행지</span>
+			<span>가보고 싶은 여행지</span>
 			<c:if test="${list eq '[]'}">
 				<div class="noneList">
-					<p>가봤어요에 등록된 여행지가 없습니다</p>
+					<p>즐겨찾기에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
 			<table id="visitedList">

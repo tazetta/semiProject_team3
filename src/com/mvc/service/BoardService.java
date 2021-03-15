@@ -305,7 +305,60 @@ public class BoardService {
 		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
-		dis = req.getRequestDispatcher("boardList.jsp");
+		dis = req.getRequestDispatcher("boardSearchList.jsp");
 		dis.forward(req, resp);
+	}
+
+
+	public void boardReportForm() throws ServletException, IOException {
+		String boardIdx = req.getParameter("boardIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println("신고할 게시글번호: "+boardIdx+"/"+loginId);
+		req.setAttribute("boardIdx", boardIdx);
+		dis = req.getRequestDispatcher("boardReportForm.jsp");
+		dis.forward(req, resp);
+	}
+	
+	public void boardReport() throws ServletException, IOException {
+		String boardIdx = req.getParameter("boardIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String reason = req.getParameter("reason");
+		System.out.println(boardIdx+"/"+loginId+"/"+reason);
+		BoardDAO dao = new BoardDAO();
+		msg= "이미 신고한 게시글입니다.";
+		page="boardReportForm.jsp";
+		if(dao.boardReport(boardIdx,loginId,reason)) {
+			msg="신고처리가 완료되었습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	}
+
+	public void commReportForm() throws ServletException, IOException {
+		String reIdx = req.getParameter("reIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println("신고할 댓글번호: "+reIdx+"/"+loginId);
+		req.setAttribute("reIdx", reIdx);
+		dis = req.getRequestDispatcher("commReportForm.jsp");
+		dis.forward(req, resp);
+		
+	}
+
+	public void commReport() throws ServletException, IOException {
+		String reIdx = req.getParameter("reIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String reason = req.getParameter("reason");
+		System.out.println(reIdx+"/"+loginId+"/"+reason);
+		BoardDAO dao = new BoardDAO();
+		msg= "이미 신고한 댓글입니다.";
+		page="commReportForm.jsp";
+		if(dao.commReport(reIdx,loginId,reason)) {
+			msg="신고처리가 완료되었습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		
 	}
 }
