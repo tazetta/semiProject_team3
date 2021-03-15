@@ -441,6 +441,31 @@ public class BoardDAO {
 		return map;
 	}
 
+	public boolean boardReport(String boardIdx, String loginId, String reason) {
+		String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
+		boolean success =false;
+		try {
+			ps = conn.prepareStatement(bbs_sql);
+			ps.setString(1, boardIdx);
+			if(ps.executeUpdate()>0) {
+				String rep_sql = "INSERT INTO BBSREP (BBSREPIDX,BOARDIDX,REASON,ID) VALUES(BBSREP_SEQ.NEXTVAL,?,?,?)";
+				ps = conn.prepareStatement(rep_sql);
+				ps.setString(1, boardIdx);
+				ps.setString(2, reason);
+				ps.setString(3, loginId);
+				if(ps.executeUpdate()>0) {
+					success = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+		
+	}
+
 	
 
 }

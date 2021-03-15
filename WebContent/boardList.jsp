@@ -71,8 +71,8 @@
         </style>
     </head>
 	<body>
-    	<%-- <jsp:include page="top.jsp" />
-		<jsp:include page="navi.jsp" /> --%>
+    	<jsp:include page="top.jsp" />
+		<jsp:include page="navi.jsp" />
 	
     	<div id="field">
     	<select id="comm_select" name="comm_select">
@@ -81,7 +81,7 @@
         	<option value="content">내용</option>
     	</select>
     	<input type="text" id="keyword"/>
-    	<button id="search">검색</button>
+    	<button id="boardSearch">검색</button>
     	<table>
 		<tr>
 			<th>글 번호</th>
@@ -118,7 +118,7 @@
 		</div>
 	</body>
 <script>
-	$('#search').click(function(){
+	$('#boardSearch').click(function(){
 		console.log("검색요청");
 		var searchType = $('#comm_select').val()
 		var keyword = $('#keyword').val()

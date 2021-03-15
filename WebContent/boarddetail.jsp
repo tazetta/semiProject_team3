@@ -73,7 +73,7 @@
 			</div>
 			<div id= "btn2">
 				<c:if test="${dto.id!=loginId}">
-				<button onclick="location.href='./boardReport?boardIdx=${dto.boardIdx}'">신고</button>
+				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
 				<button onclick="location.href='./boardList'">목록</button>
 			</div>

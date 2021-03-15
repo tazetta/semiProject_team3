@@ -41,7 +41,7 @@
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
     
-	<form id="regist" action="boardWrite" enctype="multipart/form-data" method="post">
+	<form action="boardWrite" enctype="multipart/form-data" method="post">
 		<table>
 			<tr>
 				<th>작성자</th>
