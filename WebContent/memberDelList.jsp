@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반 회원정보 리스트</title>
-
+<title>탈퇴 회원정보 리스트</title>
+</head>
 <style>
 table, th,td {
 	border: 1px solid lightgray;
@@ -15,8 +15,6 @@ table, th,td {
 	padding: 20px;
 }
 </style>
-
-</head>
 <body>
 	<!--상단페이지-->
 	<jsp:include page="top.jsp" />
@@ -32,20 +30,22 @@ table, th,td {
 			<table>
 				<tr>
 					<th>가입일</th>
+					<th>탈퇴여부</th>
 					<th>아이디</th>
 					<th>이름</th>
 					<th>핸드폰 번호</th>
 					<th>이메일</th>
 					<th></th>
 				</tr>
-				<c:forEach items="${memberList}" var="member">
+				<c:forEach items="${memberDelList}" var="member">
 					<tr>
 						<td>${member.reg_date}</td>
+						<td>${member.withdraw}</td>
 						<td>${member.id}</td>
 						<td>${member.name}</td>
 						<td>${member.phone}</td>
 						<td>${member.email}</td>
-						<td><a href="memberDetail?id=${member.id}">상세보기</a></td>
+						<td><a href="memberDelDetail?id=${member.id}">상세보기</a></td>
 					</tr>
 				</c:forEach>
 			</table>
