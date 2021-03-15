@@ -40,21 +40,6 @@ div.areaList {
 	top: 15%;
 }
 
-.mainUl>li {
-	position: relative;
-	font-weight: 600;
-	font-size: 24;
-	left: 50%;
-	float: left;
-	border: 1px solid black;
-	padding: 10px 15px;
-	list-style-type: none;
-}
-
-.mainUl>li:hover {
-	background-color: darkkhaki;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
@@ -66,8 +51,8 @@ a:visited {
 }
 div.chkBtn{
 	position: absolute;
-	top:25%;
-	right:30%;
+	top:27%;
+	right:28%;
 }
 .btn{
 	padding:5px 10px;

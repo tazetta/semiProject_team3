@@ -39,21 +39,6 @@ div.cityList {
 	top: 15%;
 }
 
-.mainUl>li {
-	position: relative;
-	font-weight: 600;
-	font-size: 24;
-	left: 50%;
-	float: left;
-	border: 1px solid black;
-	padding: 10px 15px;
-	list-style-type: none;
-}
-
-.mainUl>li:hover {
-	background-color: darkkhaki;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
@@ -98,6 +83,15 @@ a {
 	font-weight: 600;
 	color: red;
 }
+div.chkBtn{
+	position: absolute;
+	top:27%;
+	right:28%;
+	border: none;
+}
+.btn{
+	padding:5px 10px;
+}
 </style>
 </head>
 <body>
@@ -128,8 +122,10 @@ a {
 			</c:forEach>
 			<input type="hidden" name="nav" value="${nav}" /> 
 			<input type="hidden" name="type" value="area" /> 
-			<input type="button" onclick="maxChkBox()" value="검색" />
 		</div>
+			<div class = "chkBtn">
+				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+			</div>
 	</form>
 	<table>
 		<tr>
