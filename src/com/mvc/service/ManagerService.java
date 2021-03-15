@@ -179,10 +179,12 @@ public class ManagerService {
 		if (dao.managerRegist(dto)) {
 			// page = "/managerList"; //페이지 닫기..?
 			msg = "관리자 등록에 성공 하였습니다.";
-		}
+			
+		}		
 		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
+		dis = req.getRequestDispatcher("managerRegistClose.jsp");
 		dis.forward(req, resp);
+		 
 	}
 
 	private boolean isManager() {
