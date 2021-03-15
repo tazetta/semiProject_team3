@@ -64,6 +64,13 @@ public class MemberController extends HttpServlet {
 			System.out.println("--내가 쓴 글 보기 요청--");
 			service.wroteList();
 			break;
+			
+		case "/wroteDel":
+			System.out.println("");
+			System.out.println("--내가 쓴 글 삭제 요청--");
+			service.wroteDel();
+			
+			break;
 		
 		case"/overlay":
 			System.out.println("중복체크요청");
@@ -112,6 +119,8 @@ public class MemberController extends HttpServlet {
 			System.out.println("");
 			System.out.println("--즐겨찾기 리스트 요청--");
 			service.bookmarkList();
+			
+			
 		
 		}
 		

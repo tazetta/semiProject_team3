@@ -209,7 +209,7 @@ public class TripDAO {
 			if (type.equals("area")) { // type이 area일 때
 				insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
 			}
-			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL;
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL + " AND deactivate = 'FALSE'";
 			ps = conn.prepareStatement(sql);
 			chkCheckBox(localCode);
 			ps.setString(localCode.length + 1, nav);
