@@ -3,6 +3,9 @@ package com.mvc.dto;
 import java.sql.Date;
 
 public class RepDTO {
+	//보드게시물
+	
+	
 	/// 보드용
 	private int bbsRepIdx;
 	private int boardIdx;

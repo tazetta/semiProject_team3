@@ -20,7 +20,7 @@ table, th, td {
 }
 
 .regDate {
-	width:80px;
+	width: 80px;
 }
 
 .pageArea {
@@ -40,7 +40,21 @@ table, th, td {
 	font-weight: 600;
 	color: red;
 }
-#tripSearchBar{
+
+#tripSearchBar {
+	text-align: center;
+}
+
+div.tripManageList {
+	position: absolute;
+	top: 20%;
+}
+
+div.tripManageName {
+	padding: 5px 15px;
+	border: 1px solid black;
+	width: 120px;
+	height: 30px;
 	text-align: center;
 }
 </style>
@@ -53,9 +67,17 @@ table, th, td {
 				<select name="searchType">
 					<option value="title">여행지 이름</option>
 					<option value="address">여행지 위치</option>
-				</select> <input type="text" name="keyword"> 
-				<input type="submit" value="검색">
+				</select> <input type="text" name="keyword"> <input type="submit"
+					value="검색">
 			</form>
+		</div>
+		<div class="tripManageList">
+			<div class="tripManageName">
+				<a href="./tripManageList">여행지 목록</a>
+			</div>
+			<div class="tripManageName">
+				<a href="./tripInsertInformation">여행지 저장</a> 
+			</div>
 		</div>
 		<div>
 			<table>
@@ -69,7 +91,8 @@ table, th, td {
 				<c:forEach items="${tripList}" var="trip">
 					<tr>
 						<td>${trip.contentId}</td>
-						<td class='title'><a href="#">${trip.title}</a></td>
+						<td class='title'><a
+							href="./tripManageDetail?contentId=${trip.contentId}">${trip.title}</a></td>
 						<td class='regDate'>${trip.reg_date}</td>
 						<c:if test="${trip.deactivate eq true}">
 							<td>Y</td>
@@ -83,31 +106,26 @@ table, th, td {
 			</table>
 		</div>
 		<div class="pageArea">
-			<span> <c:if test="${currPage == 1}">이전</c:if>
-			<c:if test="${currPage > 1}">
-				<c:if test="${keyword eq null}">
-					<a href="./tripManage?page=${currPage-1}">이전</a>
+			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+					test="${currPage > 1}">
+					<c:if test="${keyword eq null}">
+						<a href="./tripManageList?page=${currPage-1}">이전</a>
+					</c:if>
+					<c:if test="${keyword ne null}">
+						<a href="./tripSearch?${url}&page=${currPage-1}">이전</a>
+					</c:if>
 				</c:if>
-				<c:if test="${keyword ne null}">
-					<a href="./tripSearch?${url}&page=${currPage-1}">이전</a>
-				</c:if>
-			</c:if>
-			</span> 
-			<span id="page">
-				${currPage}
-			</span> 
-			<span> 
-				<c:if test="${currPage == maxPage}">다음</c:if>
-				<c:if test="${currPage < maxPage}">
+			</span> <span id="page"> ${currPage} </span> <span> <c:if
+					test="${currPage == maxPage}">다음</c:if> <c:if
+					test="${currPage < maxPage}">
 					<c:if test="${keyword  eq null}">
-						<a href="./tripManage?page=${currPage+1}">다음</a>
+						<a href="./tripManageList?page=${currPage+1}">다음</a>
 					</c:if>
 					<c:if test="${keyword  ne null}">
 						<a href="./tripSearch?${url}&page=${currPage+1}">다음</a>
 					</c:if>
 				</c:if>
-			</span>
-			<span>${currPage}/${maxPage}</span>
+			</span> <span>${currPage}/${maxPage}</span>
 		</div>
 	</div>
 </body>

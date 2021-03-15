@@ -10,10 +10,10 @@
 <body>
 <body>
 	<!--상단페이지-->
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="top.jsp" />
 	
 	<!--상단네비-->
-	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="navi_manager.jsp" />
 	
 		<table>
 			<tr>

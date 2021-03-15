@@ -60,11 +60,12 @@ div.tripManageName {
 	height: 30px;
 	text-align: center;
 }
-	textarea{
-		width: 100%;
-		height: 150px;
-		resize: none;
-	}	
+
+textarea {
+	width: 100%;
+	height: 150px;
+	resize: none;
+}
 </style>
 </head>
 <body>
@@ -84,43 +85,38 @@ div.tripManageName {
 			<table>
 				<tr>
 					<th>관리자 아이디</th>
-					<td><input type="text" id="managerId"
-						value="${sessionScope.loginId}" readonly /></td>
+					<td><input type="text" id="managerId" value="${sessionScope.loginId}" readonly /></td>
 				</tr>
 				<tr>
 					<th>contentId</th>
-					<td><input type="number" id="contentId" min="1"
-						placeholder="1 이상의 숫자" /> <input type="button" id="overlay"
-						value="contentId 체크" /></td>
+					<td><input type="text" id="contentId" value="${tripDTO.contentId}" readonly />
 				</tr>
 				<tr>
 					<th>이미지 경로</th>
 					<td><input type="text" id="firstImage"
-						placeholder="주소 또는 사진 경로" /></td>
+						value="${tripDTO.firstImage}" /></td>
 				</tr>
 				<tr>
 					<th>위도</th>
-					<td><input type="text" id="latitude"
-						placeholder="37.123456789" /></td>
+					<td><input type="text" id="latitude" value="${tripDTO.latitude}" /></td>
 				</tr>
 				<tr>
 					<th>경도</th>
-					<td><input type="text" id="longitude"
-						placeholder="127.123456789" /></td>
+					<td><input type="text" id="longitude" value="${tripDTO.longitude}" /></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" id="address" placeholder="상세주소" />
+					<td><input type="text" id="address" value="${tripDTO.address}" />
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" id="title" placeholder="여행지 이름" /></td>
+					<td><input type="text" id="title" value="${tripDTO.title}" /></td>
 				</tr>
 				<tr>
 					<th>콘텐츠 타입</th>
 					<td><select id="contentType" name="contentType"
 						onchange='largeList(value)'>
-							<option value="">선택</option>
+							<option value="${tripDTO.contentCode}">${tripDTO.contentName}</option>
 							<c:forEach items="${contentList}" var="content">
 								<option value="${content.contentCode}">${content.name}(${content.contentCode})</option>
 							</c:forEach>
@@ -130,27 +126,27 @@ div.tripManageName {
 					<th>대분류</th>
 					<td><select id="large" name="largeType"
 						onchange='mediumList(value)'>
-							<option value="">대분류</option>
+							<option value="${tripDTO.largeIdx}">${tripDTO.largeName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>중분류</th>
 					<td><select id="medium" name="mediumType"
 						onchange='smallList(value)'>
-							<option value="">중분류</option>
+							<option value="${tripDTO.mediumCode}">${tripDTO.mediumName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>소분류</th>
 					<td><select id="small" name="smallType">
-							<option value="">소분류</option>
+							<option value="${tripDTO.smallCode}">${tripDTO.smallName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>지역</th>
 					<td><select id="area" name="areaType"
 						onchange='cityList(value)'>
-							<option value="">지역</option>
+							<option value="${tripDTO.areaCode}">${tripDTO.areaName}</option>
 							<c:forEach items="${areaList}" var="area">
 								<option value="${area.areaCode}">${area.name}</option>
 							</c:forEach>
@@ -159,18 +155,18 @@ div.tripManageName {
 				<tr>
 					<th>시군구</th>
 					<td><select id="city" name="cityType">
-							<option value="">시/군/구</option>
+							<option value="${tripDTO.cityCode}">${tripDTO.cityName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>상세설명</th>
-					<td><textarea id="overview"></textarea></td>
+					<td><textarea id="overview">${tripDTO.overview}</textarea></td>
 				</tr>
 			</table>
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManage'">목록보기</button>
+			<button onclick="location.href='./tripManageList'">목록보기</button>
 		</div>
 	</div>
 </body>
@@ -184,9 +180,6 @@ div.tripManageName {
 			value = new Array('${large.largeIdx}');
 		}
 		</c:forEach>
-		console.log("text : " + text);
-		console.log("value : " + value);
-
 		for (var i = 0; i < form.largeType.length; i++) {
 			form.largeType.options[i] = null;
 		}
@@ -214,9 +207,6 @@ div.tripManageName {
 			value.push('${medium.mediumCode}');
 		}
 		</c:forEach>
-		console.log("text : " + text);
-		console.log("value : " + value);
-
 		for (var i = 0; i < form.mediumType.length; i++) {
 			form.mediumType.options[i] = null;
 		}
@@ -240,8 +230,6 @@ div.tripManageName {
 			value.push('${small.smallCode}');
 		}
 		</c:forEach>
-		console.log("smalltext : " + text);
-		console.log("smallvalue : " + value);
 
 		form.smallType.options[0] = new Option("소분류", "");
 		for (var i = 0; i < text.length; i++) {
@@ -258,39 +246,11 @@ div.tripManageName {
 			value.push('${city.cityCode}');
 		}
 		</c:forEach>
-		console.log("smalltext : " + text);
-		console.log("smallvalue : " + value);
 
 		for (var i = 0; i < text.length; i++) {
 			form.cityType.options[i] = new Option(text[i], value[i]);
 		}
 	};
-
-	var overChk = false;
-	$("#overlay").click(function() {
-		var $contentId = $("#contentId");
-		$.ajax({
-			type : 'get',
-			url : 'tripInsertOverlay',
-			data : {
-				"contentId" : $contentId.val()
-			},
-			dataType : 'JSON',
-			success : function(obj) {
-				console.log(obj);
-				if (obj.use) {
-					alert('추가할 수 있는 ContentId입니다.');
-					overChk = true;
-				} else {
-					alert('이미 존재하는 ContentId입니다.');
-					$contentId.val('');
-				}
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	});
 
 	$('#btn').click(function() {
 		var $managerId = $("#managerId");
@@ -308,86 +268,80 @@ div.tripManageName {
 		var $city = $("#city");
 		var $overview = $("#overview");
 
-		if (overChk) {
-			if ($contentId.val() == '') {
-				alert('Content ID를 입력해 주세요.');
-				$contentId.focus();
-			} else if ($firstImage.val() == '') {
-				alert('firstImage 를 입력해 주세요.');
-				$firstImage.focus();
-			} else if ($latitude.val() == '') {
-				alert('latitude를 입력해 주세요.');
-				$latitude.focus();
-			} else if ($longitude.val() == '') {
-				alert('longitude를 입력해 주세요.');
-				$longitude.focus();
-			} else if ($address.val() == '') {
-				alert('주소를 입력해 주세요.');
-				$address.focus();
-			} else if ($title.val() == '') {
-				alert('제목을 입력해 주세요.');
-				$title.focus();
-			} else if ($contentType.val() == '') {
-				alert('콘텐츠 타입을 선택해 주세요.');
-				$contentType.focus();
-			} else if ($large.val() == '') {
-				alert('대분류를 선택해 주세요.');
-				$large.focus();
-			} else if ($medium.val() == '') {
-				alert('중분류를 선택해 주세요.');
-				$medium.focus();
-			} else if ($small.val() == '') {
-				alert('소분류를 선택해 주세요.');
-				$small.focus();
-			} else if ($area.val() == '') {
-				alert('지역을 선택해 주세요.');
-				$area.focus();
-			} else if ($city.val() == '') {
-				alert('군/구를 선택해 주세요.');
-				$city.focus();
-			} else if ($overview.val() == '') {
-				alert('상세설명을 입력해 주세요.');
-				$overview.focus();
-			} else {
-				var params = {};
-				params.managerId = $managerId.val();
-				params.contentId = $contentId.val();
-				params.firstImage = $firstImage.val();
-				params.latitude = $latitude.val();
-				params.longitude = $longitude.val();
-				params.address = $address.val();
-				params.title = $title.val();
-				params.contentType = $contentType.val();
-				params.large = $large.val();
-				params.medium = $medium.val();
-				params.small = $small.val();
-				params.area = $area.val();
-				params.city = $city.val();
-				params.overview = $overview.val();
-
-				$.ajax({
-					type : 'GET',
-					url : 'tripInsert',
-					data : params,
-					dataType : 'JSON',
-					success : function(data) {
-						if (data.success == true) {
-							alert('여행지를 추가했습니다.');
-							location.href = "tripInsertInformation";
-						} else {
-							alert('잠시 후 다시 시도해 주세요.');
-						}
-					},
-					error : function(e) {
-						console.log(e);
-					}
-				});
-			}
-		} else {
-			alert('contentID 중복체크를 해주세요.');
+		if ($contentId.val() == '') {
+			alert('Content ID를 입력해 주세요.');
 			$contentId.focus();
-		}
+		} else if ($firstImage.val() == '') {
+			alert('firstImage 를 입력해 주세요.');
+			$firstImage.focus();
+		} else if ($latitude.val() == '') {
+			alert('latitude를 입력해 주세요.');
+			$latitude.focus();
+		} else if ($longitude.val() == '') {
+			alert('longitude를 입력해 주세요.');
+			$longitude.focus();
+		} else if ($address.val() == '') {
+			alert('주소를 입력해 주세요.');
+			$address.focus();
+		} else if ($title.val() == '') {
+			alert('제목을 입력해 주세요.');
+			$title.focus();
+		} else if ($contentType.val() == '') {
+			alert('콘텐츠 타입을 선택해 주세요.');
+			$contentType.focus();
+		} else if ($large.val() == '') {
+			alert('대분류를 선택해 주세요.');
+			$large.focus();
+		} else if ($medium.val() == '') {
+			alert('중분류를 선택해 주세요.');
+			$medium.focus();
+		} else if ($small.val() == '') {
+			alert('소분류를 선택해 주세요.');
+			$small.focus();
+		} else if ($area.val() == '') {
+			alert('지역을 선택해 주세요.');
+			$area.focus();
+		} else if ($city.val() == '') {
+			alert('군/구를 선택해 주세요.');
+			$city.focus();
+		} else if ($overview.val() == '') {
+			alert('상세설명을 입력해 주세요.');
+			$overview.focus();
+		} else {
+			var params = {};
+			params.managerId = $managerId.val();
+			params.contentId = $contentId.val();
+			params.firstImage = $firstImage.val();
+			params.latitude = $latitude.val();
+			params.longitude = $longitude.val();
+			params.address = $address.val();
+			params.title = $title.val();
+			params.contentType = $contentType.val();
+			params.large = $large.val();
+			params.medium = $medium.val();
+			params.small = $small.val();
+			params.area = $area.val();
+			params.city = $city.val();
+			params.overview = $overview.val();
 
+			$.ajax({
+				type : 'GET',
+				url : 'tripManageUpdate',
+				data : params,
+				dataType : 'JSON',
+				success : function(data) {
+					if (data.success == true) {
+						alert('여행지를 추가했습니다.');
+						location.href = "./tripManageDetail?contentId=${tripDTO.contentId}";
+					} else {
+						alert('잠시 후 다시 시도해 주세요.');
+					}
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
+		}
 	});
 </script>
 </html>

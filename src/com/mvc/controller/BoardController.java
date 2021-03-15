@@ -12,7 +12,7 @@ import com.mvc.service.BoardService;
 
 
 
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel"})
+@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel","/boardSearch"})
 
 public class BoardController  extends HttpServlet{
 	
@@ -86,6 +86,11 @@ public class BoardController  extends HttpServlet{
 			case "/commentDel":
 				System.out.println("댓글 삭제 요청");
 				service.commentDel();
+				break;
+			
+			case "/boardSearch":
+				System.out.println("커뮤니티 검색요청");
+				service.boardSearch();
 				break;
 			}
 		}
