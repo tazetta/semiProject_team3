@@ -10,6 +10,8 @@
 </head>
 <body>
 
+	 <jsp:include page="top.jsp" />
+	<jsp:include page="admin_navbar.jsp" />
     <div id="manager_main">
         <table>
             <tr>
