@@ -243,9 +243,6 @@ div.tripManageName {
 		console.log("smalltext : " + text);
 		console.log("smallvalue : " + value);
 
-		for (var i = 0; i < form.smallType.length; i++) {
-			form.smallType.options[i] = null;
-		}
 		form.smallType.options[0] = new Option("소분류", "");
 		for (var i = 0; i < text.length; i++) {
 			form.smallType.options[i + 1] = new Option(text[i], value[i]);
@@ -264,9 +261,6 @@ div.tripManageName {
 		console.log("smalltext : " + text);
 		console.log("smallvalue : " + value);
 
-		for (var i = 0; i < form.cityType.length; i++) {
-			form.smallType.options[i] = null;
-		}
 		for (var i = 0; i < text.length; i++) {
 			form.cityType.options[i] = new Option(text[i], value[i]);
 		}
@@ -301,7 +295,6 @@ div.tripManageName {
 	$('#btn').click(function() {
 		var $managerId = $("#managerId");
 		var $contentId = $("#contentId");
-		;
 		var $firstImage = $("#firstImage");
 		var $latitude = $("#latitude");
 		var $longitude = $("#longitude");

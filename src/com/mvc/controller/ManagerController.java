@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.service.ManagerService;
 
 @WebServlet({ "/managerList", "/managerDel", "/managerRegist", "/tripInsert", "/tripInsertOverlay",
-		"/tripInsertInformation", "/tripManageList", "/tripSearch", "/tripManageDetail","/tripManageUpdateForm" })
+		"/tripInsertInformation", "/tripManageList", "/tripSearch", "/tripManageDetail","/tripManageUpdateForm",
+		"/tripManageUpdate"})
 
 public class ManagerController extends HttpServlet {
 
@@ -83,6 +84,11 @@ public class ManagerController extends HttpServlet {
 			case "/tripManageUpdateForm":
 				System.out.println("tripManageUpdateForm 요청");
 				service.tripManageUpdateForm();
+				break;
+				
+			case "/tripManageUpdate":
+				System.out.println("tripManageUpdate 요청");
+				service.tripManageUpdate();
 				break;
 		}
 	}

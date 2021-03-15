@@ -179,7 +179,7 @@ public class MemberService {
 			req.setAttribute("currPage", page);
 			System.out.println("list: "+map.get("list"));
 			// 특정페이지로 보내기
-			RequestDispatcher dis = req.getRequestDispatcher("wroteList.jsp"); 
+			dis = req.getRequestDispatcher("wroteList.jsp"); 
 			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
@@ -331,18 +331,62 @@ public class MemberService {
 
 
 	/* 가봤어요 리스트*/
-	public void visitedList() throws IOException {
+	public void visitedList() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		System.out.println(loginId+"의 가봤어요 리스트");
 		
 		if (loginId != null) {// 로그인 체크
-			boolean success= false;
-			dao.visitedList(loginId);
+			String pageParam = req.getParameter("page"); // 이전|다음 링크로 들어온 param 받기
+			System.out.println("page:" + pageParam);
+
+			int group = 1; // 기본은 1
+
+			if (pageParam != null) {
+				group = Integer.parseInt(pageParam); 
+			}
+			int type=2;
+			HashMap<String, Object> map =dao.visitedList(loginId,group,type);
+			if(map !=null) {
+				req.setAttribute("maxPage", map.get("maxPage"));
+				req.setAttribute("list", map.get("list")); // req에 저장
+				req.setAttribute("currPage", group);
+				System.out.println("list: "+map.get("list"));
+			}
+			dis = req.getRequestDispatcher("myVisited.jsp"); 
+			dis.forward(req, resp);
 		}else {
 			resp.sendRedirect("index.jsp");
-		}
+		}	
+	}
+
+	/* 즐겨찾기 리스트*/
+	public void bookmarkList() throws IOException, ServletException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println(loginId+"의 즐겨찾기 리스트");
 		
-		
+		if (loginId != null) {// 로그인 체크
+			String pageParam = req.getParameter("page"); // 이전|다음 링크로 들어온 param 받기
+			System.out.println("page:" + pageParam);
+
+			int group = 1; // 기본은 1
+
+			if (pageParam != null) {
+				group = Integer.parseInt(pageParam); 
+			}
+			int type=1;
+			
+			HashMap<String, Object> map =dao.visitedList(loginId,group,type);
+			if(map !=null) {
+				req.setAttribute("maxPage", map.get("maxPage"));
+				req.setAttribute("list", map.get("list")); // req에 저장
+				req.setAttribute("currPage", group);
+				System.out.println("list: "+map.get("list"));
+			}
+			dis = req.getRequestDispatcher("myBookmark.jsp"); 
+			dis.forward(req, resp);
+		}else {
+			resp.sendRedirect("index.jsp");
+		}	
 	}
 
 

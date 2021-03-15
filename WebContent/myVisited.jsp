@@ -1,19 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String loginId = (String) request.getSession().getAttribute("loginId");
-%>
-<!-- c태그 사용위해 불러옴 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<!-- JQuery사용 위해 불러옴 -->
-<style>
-body {
+	<head>
+	<meta charset="UTF-8">
+	<title>마이페이지 - 가봤어요</title>
+ 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
+ 	<style>
+ 		body {
 	min-width: 1400px;
 }
 
@@ -56,7 +50,7 @@ span {
 	font-weight: 600;
 }
 
-table#wroteList {
+table#visitedList {
 	background-color: white;
 	text-align: center;
 	position: relative;
@@ -97,9 +91,9 @@ a {
 	border: none;
 	background-color: transparent;
 }
-</style>
-</head>
-<body>
+ 	</style>
+	</head>
+	<body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
@@ -121,36 +115,28 @@ a {
 			</table>
 		</div>
 	</section>
-
+	
 	<section id=background>
 		<div id="content">
-			<span>커뮤니티 - 내가 쓴 글</span>
+			<span>내가 가 본 여행지</span>
 			<c:if test="${list eq '[]'}">
 				<div class="noneList">
-					<p>작성한 글이 존재하지 않습니다</p>
+					<p>가봤어요에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-			<table id="wroteList">
+			<table id="visitedList">
 
-				<c:forEach items="${list}" var="bbs">
-					<%-- 	<c:if test="${bbs.deactivate eq 'TRUE'}">
-						<tr>
-				
-						<td >${bbs.rnum}</td>
-							<th >"${bbs.subject }" 해당 게시물은 신고처리되어 검토중입니다.</th>
-							<td colspan="2">${bbs.reg_date }</td>
-							
-					</c:if> --%>
+				<c:forEach items="${list}" var="bm">
 					<tr>
-						<td>${bbs.rnum }</td>
-						<th style="width: 500px"><a
-							href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
-						<td>${bbs.reg_date }</td>
+						<th style="width: 500px"  colspan="3">${bm.title }</th>
+					</tr>
+					<tr>
+						<td><img src="${bm.firstImage}" width="200px"
+					height="200px" /></td>
+						<td class="overview">${bm.overview}</td>
+						<td>${bm.reg_date }</td>
 						<td>
-							<button
-								onclick="location.href='boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
-							<br />
-							<button onclick="location.href='boardDel'">삭제</button>
+							<button onclick="location.href='#'">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -171,8 +157,15 @@ a {
 			</c:if>
 		</div>
 	</section>
-</body>
-<script>
-	
-</script>
+	</body>
+	<script>
+	// 말줄임 기능
+	$('.overview').each(function(){
+	    var lentgh = 20; //글자수
+	      if($(this).text().length >= length){
+	        $(this).html($(this).text().substr(0,length)+'...');
+				console.log($(this).text().length);
+	      }
+	  });
+	</script>
 </html>
