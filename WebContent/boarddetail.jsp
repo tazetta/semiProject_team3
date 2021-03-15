@@ -117,14 +117,16 @@
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
 						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
 					</c:if>
-					<c:if test="${loginId==comment.id ||loginId=='admin'}">
+					<c:if test="${comment.id==loginId || isManager=='true'}">
 						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
 				<td style="width:150px;">${comment.reg_date}</td>
+				<c:if test="${comment.id!=loginId}">
 				<td style="width:50px;">
 					<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
 				</td>
+				</c:if>
 			</tr>
 			</table>
 		</c:forEach>
