@@ -10,8 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mvc.dto.BoardDTO;
-//import com.mvc.dto.RepDTO;
+import com.mvc.dto.RepDTO;
 import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
 
@@ -168,24 +167,79 @@ public TestDAO() {
 				return suc;
 	}
 
-	public void reportBBS() {
+	public ArrayList<RepDTO> reportBBS() {
 //		String sql="SELECT boardidx,id,deactivate FROM bbs WHERE reportcnt>0 AND deactivate='FALSE'";
-		String sql = "SELECT boardidx,reason FROM bbsrep";
-		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		String sql = "SELECT b.boardidx,b.id,r.reason,b.deactivate, r.bbsrepidx FROM bbsrep r, bbs b "
+				+ "WHERE r.boardidx=b.boardidx ORDER BY r.reg_date DESC";
+		ArrayList<RepDTO> list = null;
 		
 		try {
 			ps= conn.prepareStatement(sql);
 			rs=ps.executeQuery();
+			 list = new ArrayList<RepDTO>();
 			while(rs.next()) {
-//				RepDTO dto = new RepDTO();
-//				dto.setBbsRepIdx(rs.getInt(""));
-			
+
+				RepDTO dto = new RepDTO();
+				dto.setBoardIdx(rs.getInt("boardIdx"));
+				dto.setId(rs.getString("id"));
+				dto.setReason(rs.getString("reason"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setBbsRepIdx(rs.getInt("bbsrepidx"));
+				list.add(dto);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		return list;
 	}
 
+	public String repReason(String bbsRepIdx) {
+		String reason="";
+		String sql = "SELECT reason FROM  bbsrep WHERE bbsrepidx=?";
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, bbsRepIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				reason=rs.getString("reason");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reason;
+	}
+
+	public String repCnt(String boardIdx) {
+		String repCnt = "";
+		String sql = "SELECT count(bbsrepidx) AS repCnt FROM bbsrep  WHERE boardIdx=?";
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				repCnt = rs.getString("repCnt");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return repCnt;
+	}
+
+	public int updateYN(String updateYN, String boardIdx) {
+		String sql = "UPDATE bbs SET deactivate=? WHERE boardidx=?";
+		int suc=0;
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, updateYN);
+			ps.setString(2, boardIdx);
+			suc=ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("블라인드 처리 확인 : "+suc);
+		return suc;
+	}
 
 }
