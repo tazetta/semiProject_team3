@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
+import com.mvc.dto.RepDTO;
 import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
 
@@ -168,15 +169,17 @@ public class TestDAO {
 	}
 
 	public void reportBBS() {
-		String sql="SELECT * FROM bbs WHERE reportcnt>0 AND deactivate='FALSE'";
+//		String sql="SELECT boardidx,id,deactivate FROM bbs WHERE reportcnt>0 AND deactivate='FALSE'";
+		String sql = "SELECT boardidx,reason FROM bbsrep";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		try {
 			ps= conn.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				BoardDTO dto = new BoardDTO();
-				//////////////////
+				RepDTO dto = new RepDTO();
+				dto.setBbsRepIdx(rs.getInt(""));
+			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
