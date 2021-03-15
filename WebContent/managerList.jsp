@@ -9,6 +9,7 @@
 
 </head>
 <body>
+	<!-- 이 페이지는 총 관리자만 접근 가능 -->
 	<!--상단페이지-->
 	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
 	

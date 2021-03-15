@@ -46,7 +46,7 @@ table, th, td {
 </style>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="admin_navbar.jsp" />
+	<jsp:include page="navi_manager.jsp" />
 	<div>
 		<div id='tripSearchBar'>
 			<form action="tripSearch" method="GET">
