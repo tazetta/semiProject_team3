@@ -73,17 +73,21 @@
 		</div>
 	</div>
 	<input type="hidden" value="${dto.boardIdx}"/>
+	<input type="hidden" value="${bbsRepIdx }"/>
 	</body>
 	<script>
 		$("#btn").click(function () {
-			
+			var bbsIdx ="${dto.boardIdx}";
+			var bbsRepIdx="${bbsRepIdx }";
 			console.log($("#YN").val());
 			$.ajax({
 				type:"get"
 				,url:"updateYN"
 				,data:{
 					"updateYN":$("#YN").val()
-					,"boardIdx":$('input[type="hidden"]').val()
+					,"boardIdx":bbsIdx
+					,"bbsRepIdx":bbsRepIdx
+				
 				}
 				,dataType:"json"
 				,success: function(data) {
