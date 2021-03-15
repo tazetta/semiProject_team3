@@ -23,7 +23,7 @@ public class TestDAO {
 	ResultSet rs = null;
 	PreparedStatement ps  = null;
 
-	public TestDAO() {		
+public TestDAO() {		
 		
 		try {
 			Context ctx = new InitialContext();

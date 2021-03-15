@@ -41,7 +41,7 @@ public class BoardService {
 		}
 		BoardDAO dao = new BoardDAO();
 		HashMap<String, Object> map = dao.list(group);
-		BoardDTO dto = new BoardDTO();
+		
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
@@ -283,6 +283,29 @@ public class BoardService {
 		}
 		req.setAttribute("msg",msg);
 		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	}
+
+	public void boardSearch() throws ServletException, IOException {
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		System.out.println(searchType+"/"+keyword);
+		String pageParam =  req.getParameter("page");
+		System.out.println("page:"+pageParam);
+		int group =1;
+		if(pageParam!=null) {
+			group = Integer.parseInt(pageParam);
+		}
+		BoardDAO dao = new BoardDAO();
+		String url = "searchType=" + searchType + "&keyword=" + keyword;
+		
+		HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
+		System.out.println(map.get("maxPage"));
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("url", url);
+		req.setAttribute("list",map.get("list"));
+		req.setAttribute("currPage", group);
+		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
 	}
 }

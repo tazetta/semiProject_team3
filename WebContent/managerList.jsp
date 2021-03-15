@@ -6,12 +6,22 @@
 <meta charset="UTF-8">
 <title>관리자 페이지 - 메인</title>
 <link rel="stylesheet" type="text/css" href="basic.css">
-
+<Style>
+table {
+	margin-left: 600px;
+	margin-top: 30px;
+}
+</Style>
 </head>
 <body>
+<<<<<<< HEAD
+	<!-- 이 페이지는 총 관리자만 접근 가능 -->
+	<!--상단페이지-->
+	<jsp:include page="top.jsp" />
+	
+	<!--상단네비-->
+	<jsp:include page="navi_manager.jsp" />
 
-	 <jsp:include page="top.jsp" />
-	<jsp:include page="admin_navbar.jsp" />
     <div id="manager_main">
         <table>
             <tr>
@@ -27,7 +37,7 @@
                 <td><a href="managerDel?managerid=${manager.managerid}">삭제</a></td>
             </tr>
             </c:forEach>
-            <div style="text-align: right; margin-right:300px; margin-top: 50px;">
+            <div style="text-align: right; margin-right:500px; margin-top: 50px;">
             <!-- <button onclick="location.href='manager_regist.jsp'">신규 관리자 등록</button>  -->
             <input type="button" value="신규 관리자 등록" onclick="show();" />
             </div>
@@ -35,7 +45,6 @@
     </div>
 </body>
 <script>
-
 function show(){
 	window.open(
 			"managerRegist.jsp","신규관리자등록",

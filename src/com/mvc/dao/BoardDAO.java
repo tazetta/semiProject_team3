@@ -76,7 +76,6 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				list.add(dto);
 			}
-			BoardDTO dto = new BoardDTO();
 			int maxPage= getMaxPage(pagePerCnt);
 			map.put("list",list);
 			map.put("maxPage",maxPage);
@@ -380,6 +379,66 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return success;
+	}
+
+	private int search_getMaxPage(int pagePerCnt, String searchType, String keyword) {
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND "+ searchType + " LIKE ?";
+		String serarchkeyword = "%"+keyword+"%";
+		int max=0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, serarchkeyword);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
+	}
+
+
+	public HashMap<String, Object> boardSearch(int page, String searchType, String keyword) {
+		HashMap<String,Object> map= new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int end = page*pagePerCnt;
+		int start = end-(pagePerCnt-1);
+		System.out.println(searchType);
+		String sql ="SELECT boardIdx,subject,bHit,reg_date,id FROM (" + 
+				"SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id" + 
+				" FROM bbs WHERE DEACTIVATE='FALSE' AND "+ searchType +" LIKE ?" + 
+				") WHERE rnum BETWEEN ? AND ?";
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		String searchkeyword = "%"+keyword+"%";
+		System.out.println("keyword:"+searchkeyword);
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, searchkeyword);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setBoardIdx(rs.getInt("boardIdx"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setbHit(rs.getInt("bHit"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				list.add(dto);
+			}
+			int maxPage= search_getMaxPage(pagePerCnt,searchType,keyword);
+			map.put("list",list);
+			map.put("maxPage",maxPage);
+			System.out.println("maxPage: "+ maxPage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return map;
 	}
 
 	
