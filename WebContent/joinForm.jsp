@@ -59,6 +59,7 @@
                        <th>비밀번호 확인</th>
                        <td>
                            <input type="password" id="pwConfirm" placeholder="비밀번호를 한번 더 입력해주세요."/>
+                           <br/>
                            <span></span>
                        </td>
                    </tr>
