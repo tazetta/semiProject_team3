@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.MemberService;
 
+
 @WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
-	,"/visitedList","/bookmarkList"})
+	,"/visitedList","/bookmarkList","/findpwUpdate"})
+
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -88,6 +90,11 @@ public class MemberController extends HttpServlet {
 			System.out.println("비밀번호 찾기 요청");
 			service.findPw();
 			break;	
+			
+		case "/findpwUpdate":
+			System.out.println("비밀번호 찾기 후 수정 요청");
+			service.findpwUpdate();
+			break;
 			
 		case"/memberWithdraw":
 			System.out.println("");
