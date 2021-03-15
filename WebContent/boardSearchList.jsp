@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<!-- <meta name="viewport" content="width=device",initial-scale="1"> -->
+    	<meta name="viewport" content="width=device",initial-scale="1">
         <meta charset="utf-8">
         <title>커뮤니티</title>
         <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -69,20 +69,21 @@
 				width:1200px;			
 			}
         </style>
+
     </head>
-	<body>
-    	<jsp:include page="top.jsp" />
-		<jsp:include page="navi.jsp" />
+    <body>
+    <jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
 	
-    	<div id="field">
-    	<select id="comm_select" name="comm_select">
-        	<option value="subject">제목</option>
-       		<option value="id">작성자</option>
-        	<option value="content">내용</option>
-    	</select>
-    	<input type="text" id="keyword"/>
-    	<button id="boardSearch">검색</button>
-    	<table>
+    <div id="field">
+    <select id="comm_select" name="comm_select">
+        <option value="subject">제목</option>
+        <option value="id">작성자</option>
+        <option value="content">내용</option>
+    </select>
+    <input type="text" id="keyword"/>
+    <button id="search">검색</button>
+    <table>
 		<tr>
 			<th>글 번호</th>
 			<th>제목</th>
@@ -99,27 +100,26 @@
 				<td>${bbs.reg_date}</td>
 			</tr>
 		</c:forEach>
-		</table>
-		<div class="pageArea">
+	</table>
+	<div class="pageArea">
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./boardList?page=${currPage-1}'>이전</a>
+				<a href='./boardSearch?${url}&page=${currPage-1}'>이전</a>
 			</c:if>
 		</span>
 		<span id="page">${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./boardList?page=${currPage+1}">다음</a></c:if>
+         		<a href="./boardSearch?${url}&page=${currPage+1}">다음</a></c:if>
 		</span>
-   		<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>   
+   	<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>   
 	</div>
-		</div>
-	</body>
+	</div>
+</body>
 <script>
-	$('#boardSearch').click(function(){
-		console.log("검색요청");
+	$('#search').click(function(){
 		var searchType = $('#comm_select').val()
 		var keyword = $('#keyword').val()
 		location.href="./boardSearch?searchType="+searchType+"&keyword="+keyword;

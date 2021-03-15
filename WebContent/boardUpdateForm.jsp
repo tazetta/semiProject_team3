@@ -35,8 +35,8 @@
 </style>
 </head>
 <body>
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
-    <iframe id="navi" src="navi.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="top.jsp" />
+	<jsp:include page="navi.jsp" />
     
 	<form action="boardUpdate?boardIdx=${dto.boardIdx}" method="post" enctype="multipart/form-data">
 		<table>
