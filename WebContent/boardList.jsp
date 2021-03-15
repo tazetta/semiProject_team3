@@ -31,13 +31,13 @@
                 font-weight: 600;
                 font-size: 18px;
             }
-            #keyword{
+            #boardkeyword{
                 width: 400px;
                 height: 45px;
                 font-size: 18px;
                 font-weight: 600;
             }
-            #search{
+            #boardSearch{
                 width: 100px;
                 height: 50px;
                 
@@ -80,7 +80,7 @@
        		<option value="id">작성자</option>
         	<option value="content">내용</option>
     	</select>
-    	<input type="text" id="keyword"/>
+    	<input type="text" id="boardkeyword"/>
     	<button id="boardSearch">검색</button>
     	<table>
 		<tr>
@@ -121,8 +121,8 @@
 	$('#boardSearch').click(function(){
 		console.log("검색요청");
 		var searchType = $('#comm_select').val()
-		var keyword = $('#keyword').val()
-		location.href="./boardSearch?searchType="+searchType+"&keyword="+keyword;
+		var keyword = $('#boardkeyword').val()
+		location.href="./boardSearch?searchType="+searchType+"&boardkeyword="+keyword;
 	});
 	var msg="${msg}";
 	if(msg!=""){
