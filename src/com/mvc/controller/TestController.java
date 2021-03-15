@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.TestService;
 
-@WebServlet({"/tripDetail","/bookmarkUpdate","/reportBBS","/repDetail","/updateYN"})
+@WebServlet({"/tripDetail","/bookmarkUpdate","/reportBBS","/repDetail","/updateYN","/reportComment"})
 public class TestController extends HttpServlet {
 
 	@Override
@@ -53,6 +53,11 @@ public class TestController extends HttpServlet {
 		case "/updateYN":
 			System.out.println("신고 처리 요청");
 			service.updateYN();
+			break;			
+
+		case "/reportComment":
+			System.out.println("신고댓글 리스트");
+			service.reportComment();
 			break;
 		}
 		

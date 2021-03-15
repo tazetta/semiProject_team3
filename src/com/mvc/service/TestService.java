@@ -68,7 +68,7 @@ public class TestService {
 		String conIdx = req.getParameter("conIdx");
 		String type = req.getParameter("type");
 		//아이디 받아와야함
-		String id = "test";
+		String id = (String) req.getSession().getAttribute("loginId");
 		System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx+"/"+type+"/"+id);
 		TestBookDTO bdto= new TestBookDTO();
 		if(myidx!="") {
@@ -90,7 +90,11 @@ public class TestService {
 
 	public void reportBBS() throws ServletException, IOException {
 		String pageParam =  req.getParameter("page");
-		System.out.println("page:"+pageParam);
+		String deactivate = "FALSE";
+		if(req.getParameter("deactivate")!=null) {
+			deactivate = req.getParameter("deactivate");
+		}
+		System.out.println("page:"+pageParam+deactivate);
 		//한페이지 그룹 -> 1~10번
 		int group =1;
 		if(pageParam!=null) {
@@ -98,7 +102,7 @@ public class TestService {
 		}
 		TestDAO dao = new TestDAO();	
 		
-		HashMap<String, Object> map =dao.reportBBS(group);
+		HashMap<String, Object> map =dao.reportBBS(group,deactivate);
 		if(map!=null) {
 			req.setAttribute("maxPage", map.get("maxPage"));
 			req.setAttribute("list", map.get("list"));
@@ -156,6 +160,32 @@ public class TestService {
 		String json = gson.toJson(map);
 		resp.setHeader("Access-Control-Allow-origin", "*");
 		resp.getWriter().println(json);
+		
+	}
+
+	public void reportComment() throws ServletException, IOException {
+		String pageParam =  req.getParameter("page");
+		String deactivate = "FALSE";
+		if(req.getParameter("deactivate")!=null) {
+			deactivate = req.getParameter("deactivate");
+		}
+		System.out.println("page:"+pageParam+deactivate);
+		//한페이지 그룹 -> 1~10번
+		int group =1;
+		if(pageParam!=null) {
+			group = Integer.parseInt(pageParam);
+		}
+		TestDAO dao = new TestDAO();	
+		
+		HashMap<String, Object> map =dao.reportComment(group,deactivate);
+		if(map!=null) {
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("list", map.get("list"));
+			req.setAttribute("currPage", group);
+			dis = req.getRequestDispatcher("bbsRepList.jsp");
+			dis.forward(req, resp);
+		}
+		dao.resClose();
 		
 	}
 

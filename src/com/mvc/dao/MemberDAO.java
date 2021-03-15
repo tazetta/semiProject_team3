@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.MemberDTO;
+import com.mvc.dto.TripDTO;
 
 
 public class MemberDAO {
@@ -172,7 +173,6 @@ public class MemberDAO {
 				+ "FROM ( SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id "
 				+ "FROM bbs WHERE DEACTIVATE='FALSE') WHERE rnum BETWEEN ? AND ? AND id=?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -343,11 +343,62 @@ public class MemberDAO {
 
 	}
 	
-	/*가봤어요 리스트*/
-	public void visitedList(String loginId) {
-		// TODO Auto-generated method stub
+	/*가봤어요 / 즐겨찾기 리스트*/
+	public HashMap<String, Object> visitedList(String loginId, int group, int type) {
+		int pagePerCnt = 4; // 페이지 당 보여줄 갯수
 		
+		int end= group*pagePerCnt; //페이지 끝 rnum
+		int start = end-(pagePerCnt-1); //페이지 시작 rnum
+		
+		String sql ="SELECT title, firstimage, overview, reg_date  FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, t.title, b.id, b.reg_date, t.firstimage, t.overview " + 
+				"FROM bookmark b JOIN trip t USING (contentid) WHERE b.deactivate='FALSE'AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			ps= conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			ps.setInt(2, type);
+			ps.setInt(3, start);
+			ps.setInt(4, end);
+			rs= ps.executeQuery();
+			while(rs.next()) {
+				TripDTO dto = new TripDTO();
+				dto.setTitle(rs.getString("title"));
+				dto.setFirstImage(rs.getString("firstimage"));
+				dto.setOverview(rs.getString("overview"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				list.add(dto);
+			}
+				int maxPage = getVisitedMaxPage(pagePerCnt,loginId); 
+				System.out.println("maxPage:"+maxPage);
+				map.put("list", list); 
+				map.put("maxPage", maxPage); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
+	
+	/*가봤어요 마지막 페이지*/
+	private int getVisitedMaxPage(int pagePerCnt, String loginId) {
+		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type='2'";
+		int max = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1); 
+				max = (int)Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
+	}
+
+	
 
 	public boolean chkManager(String loginId) {
 		boolean success = false;

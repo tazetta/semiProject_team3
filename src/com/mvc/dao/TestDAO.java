@@ -21,7 +21,10 @@ public class TestDAO {
 	ResultSet rs = null;
 	PreparedStatement ps = null;
 
-	public TestDAO() {
+
+
+public TestDAO() {		
+		
 
 		try {
 			Context ctx = new InitialContext();
@@ -170,21 +173,22 @@ public class TestDAO {
 		return suc;
 	}
 
-	public HashMap<String, Object> reportBBS(int page) {
+	public HashMap<String, Object> reportBBS(int page, String deactivate) {
 		HashMap<String, Object> map = null;
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		String sql = "SELECT boardidx,id,reason,deactivate, bbsrepidx  FROM"
+		String sql = "SELECT boardidx,id,reason,deactivate, bbsrepidx ,managerid FROM"
 				+ "(SELECT ROW_NUMBER() OVER(ORDER BY bbsrepidx DESC) AS rnum "
-				+ ",b.boardidx,b.id,r.reason,b.deactivate, r.bbsrepidx "
-				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE='FALSE') WHERE rnum BETWEEN ? AND ?";
+				+ ",b.boardidx,b.id,r.reason,b.deactivate, r.bbsrepidx,r.managerid "
+				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<RepDTO> list = null;
 
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, start);
-			ps.setInt(2, end);
+			ps.setString(1, deactivate);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
 			rs = ps.executeQuery();
 			list = new ArrayList<RepDTO>();
 			while (rs.next()) {
@@ -195,10 +199,12 @@ public class TestDAO {
 				dto.setReason(rs.getString("reason"));
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setBbsRepIdx(rs.getInt("bbsrepidx"));
+				dto.setManagerId(rs.getString("managerid"));
+				System.out.println("처리자 : "+rs.getString("managerid"));
 				list.add(dto);
 			}
 			map = new HashMap<String, Object>();
-			int maxPage = getMaxPage(pagePerCnt);
+			int maxPage = getMaxPage(pagePerCnt,deactivate);
 			map.put("list", list);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -208,11 +214,12 @@ public class TestDAO {
 		return map;
 	}
 
-	private int getMaxPage(int pagePerCnt) {
-		String sql = "SELECT count(r.bbsrepidx) FROM bbsrep r, bbs b WHERE r.boardidx=b.boardidx AND r.deactivate='FALSE' ";
+	private int getMaxPage(int pagePerCnt, String deactivate) {
+		String sql = "SELECT count(r.bbsrepidx) FROM bbsrep r, bbs b WHERE r.boardidx=b.boardidx AND r.deactivate=? ";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, deactivate);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				int cnt = rs.getInt(1);
@@ -258,7 +265,7 @@ public class TestDAO {
 	}
 
 	public int updateYN(String updateYN, String boardIdx, String bbsRepIdx) {
-		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid='청룡인' WHERE bbsrepidx=?";
+		String sql = "UPDATE bbsrep SET deactivate='TRUE' , managerid='admin' WHERE bbsrepidx=?";
 		int suc = 0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -276,6 +283,47 @@ public class TestDAO {
 		}
 		System.out.println("블라인드 처리 확인 : " + suc);
 		return suc;
+	}
+
+	public HashMap<String, Object> reportComment(int page, String deactivate) {
+		HashMap<String, Object> map = null;
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		String sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid FROM" + 
+				"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx DESC) AS rnum " + 
+				",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid " + 
+				"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
+		ArrayList<RepDTO> list = null;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, deactivate);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			rs = ps.executeQuery();
+			list = new ArrayList<RepDTO>();
+			while (rs.next()) {
+
+				RepDTO dto = new RepDTO();
+				dto.setReIdx(rs.getInt("reidx"));
+				dto.setId(rs.getString("id"));
+				dto.setReason(rs.getString("reason"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setCommentRepIdx(rs.getInt("commentrepidx"));
+				dto.setManagerId(rs.getString("managerid"));
+				System.out.println("처리자 : "+rs.getString("managerid"));
+				list.add(dto);
+			}
+			map = new HashMap<String, Object>();
+			int maxPage = getMaxPage(pagePerCnt,deactivate);
+			map.put("list", list);
+			map.put("maxPage", maxPage);
+			System.out.println("maxPage: " + maxPage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 
 }

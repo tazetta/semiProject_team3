@@ -305,7 +305,33 @@ public class BoardService {
 		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
-		dis = req.getRequestDispatcher("boardList.jsp");
+		dis = req.getRequestDispatcher("boardSearchList.jsp");
+		dis.forward(req, resp);
+	}
+
+
+	public void boardReportForm() throws ServletException, IOException {
+		String boardIdx = req.getParameter("boardIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println("신고할 게시글번호: "+boardIdx+"/"+loginId);
+		req.setAttribute("boardIdx", boardIdx);
+		dis = req.getRequestDispatcher("boardReportForm.jsp");
+		dis.forward(req, resp);
+	}
+	
+	public void boardReport() throws ServletException, IOException {
+		String boardIdx = req.getParameter("boardIdx");
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String reason = req.getParameter("reason");
+		System.out.println(boardIdx+"/"+loginId+"/"+reason);
+		BoardDAO dao = new BoardDAO();
+		msg= "신고처리에 실패했습니다.";
+		page="boardReportForm.jsp";
+		if(dao.boardReport(boardIdx,loginId,reason)) {
+			msg="신고처리가 완료되었습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 	}
 }

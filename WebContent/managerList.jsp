@@ -14,7 +14,6 @@ table {
 </Style>
 </head>
 <body>
-<<<<<<< HEAD
 	<!-- 이 페이지는 총 관리자만 접근 가능 -->
 	<!--상단페이지-->
 	<jsp:include page="top.jsp" />
