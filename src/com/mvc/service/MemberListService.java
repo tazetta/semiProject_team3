@@ -52,6 +52,35 @@ public class MemberListService {
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);			
 	}
+
+	public void memberDelList() throws ServletException, IOException {
+		MemberListDAO dao = new MemberListDAO();
+		ArrayList<MemberListDTO> memberDelList = dao.memberDelList();
+		req.setAttribute("memberDelList", memberDelList);
+		dis = req.getRequestDispatcher("memberDelList.jsp");
+		dis.forward(req, resp);
+	}
+
+	public void memberDelDetail() throws ServletException, IOException {
+		
+		String id = req.getParameter("id");
+		System.out.println("탈퇴회원 상세보기 id: "+id);
+		
+		String memberDelDetail = "/memberDetail";
+		String page = memberDelDetail;
+		
+		MemberListDAO dao = new MemberListDAO();
+		MemberListDTO dto = dao.memberDetail(id);
+		
+		if(dto != null) {
+			dao = new MemberListDAO();
+			page = "memberDelDetail.jsp";
+			req.setAttribute("dto", dto);
+		}
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);			
+		
+	}
 		
 	
 
