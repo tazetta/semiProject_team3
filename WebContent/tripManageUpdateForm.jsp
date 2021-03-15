@@ -84,93 +84,94 @@ div.tripManageName {
 			<table>
 				<tr>
 					<th>관리자 아이디</th>
-					<td><input type="text" id="managerId"
-						value="${sessionScope.loginId}" readonly /></td>
+					<td><input type="text" id="managerId" value="${sessionScope.loginId}" readonly /></td>
 				</tr>
 				<tr>
 					<th>contentId</th>
-					<td><input type="number" id="contentId" min="1"
-						placeholder="1 이상의 숫자" /> <input type="button" id="overlay"
-						value="contentId 체크" /></td>
+					<td><input type="number" id="contentId" min="1" value="${tripDTO.contentId}" /> 
+					<input type="button" id="overlay" value="contentId 체크" /></td>
 				</tr>
 				<tr>
 					<th>이미지 경로</th>
-					<td><input type="text" id="firstImage"
-						placeholder="주소 또는 사진 경로" /></td>
+					<td><input type="text" id="firstImage" value="${tripDTO.firstImage}"/></td>
 				</tr>
 				<tr>
 					<th>위도</th>
-					<td><input type="text" id="latitude"
-						placeholder="37.123456789" /></td>
+					<td><input type="text" id="latitude" value="${tripDTO.latitude}"/></td>
 				</tr>
 				<tr>
 					<th>경도</th>
-					<td><input type="text" id="longitude"
-						placeholder="127.123456789" /></td>
+					<td><input type="text" id="longitude" value="${tripDTO.longitude}" /></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" id="address" placeholder="상세주소" />
+					<td><input type="text" id="address" value="${tripDTO.address}" />
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" id="title" placeholder="여행지 이름" /></td>
+					<td><input type="text" id="title" value="${tripDTO.title}" /></td>
 				</tr>
 				<tr>
 					<th>콘텐츠 타입</th>
-					<td><select id="contentType" name="contentType"
-						onchange='largeList(value)'>
-							<option value="">선택</option>
+					<td>
+						<select id="contentType" name="contentType" onchange='largeList(value)'>
+							<option value="${tripDTO.contentCode}">${tripDTO.contentName}</option>
 							<c:forEach items="${contentList}" var="content">
 								<option value="${content.contentCode}">${content.name}(${content.contentCode})</option>
 							</c:forEach>
-					</select></td>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>대분류</th>
-					<td><select id="large" name="largeType"
-						onchange='mediumList(value)'>
-							<option value="">대분류</option>
-					</select></td>
+					<td>
+						<select id="large" name="largeType" onchange='mediumList(value)'>
+							<option value="${tripDTO.largeIdx}">${tripDTO.largeName}</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>중분류</th>
-					<td><select id="medium" name="mediumType"
-						onchange='smallList(value)'>
-							<option value="">중분류</option>
-					</select></td>
+					<td>
+						<select id="medium" name="mediumType" onchange='smallList(value)'>
+							<option value="${tripDTO.mediumCode}">${tripDTO.mediumName}</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>소분류</th>
-					<td><select id="small" name="smallType">
-							<option value="">소분류</option>
-					</select></td>
+					<td>
+						<select id="small" name="smallType">
+							<option value="${tripDTO.smallCode}">${tripDTO.smallName}</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td><select id="area" name="areaType"
-						onchange='cityList(value)'>
-							<option value="">지역</option>
+					<td>
+						<select id="area" name="areaType" onchange='cityList(value)'>
+							<option value="${tripDTO.areaCode}">${tripDTO.areaName}</option>
 							<c:forEach items="${areaList}" var="area">
 								<option value="${area.areaCode}">${area.name}</option>
 							</c:forEach>
-					</select></td>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>시군구</th>
 					<td><select id="city" name="cityType">
-							<option value="">시/군/구</option>
+							<option value="${tripDTO.cityCode}">${tripDTO.cityName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>상세설명</th>
-					<td><textarea id="overview"></textarea></td>
+					<td><textarea id="overview" >${tripDTO.overview}</textarea></td>
 				</tr>
 			</table>
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManage'">목록보기</button>
+			<button onclick="location.href='./tripManageUpdate'">목록보기</button>
 		</div>
 	</div>
 </body>
@@ -261,8 +262,6 @@ div.tripManageName {
 			value.push('${city.cityCode}');
 		}
 		</c:forEach>
-		console.log("smalltext : " + text);
-		console.log("smallvalue : " + value);
 
 		for (var i = 0; i < form.cityType.length; i++) {
 			form.smallType.options[i] = null;
