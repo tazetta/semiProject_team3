@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.mvc.dao.BoardDAO;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.CommentDTO;
@@ -63,11 +64,18 @@ public class BoardService {
 			//DB저장(작성자,제목,내용 + 파일 이름)
 			BoardDAO dao = new BoardDAO();
 			
-			String page = "boardwriteForm.jsp";
-			String msg = "글 등록에 실패하였습니다.";
+			page = "boardwriteForm.jsp";
+			msg = "글 등록에 실패하였습니다.";
 			
 			long boardIdx = dao.write(dto);
-			
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			map.put("boardIdx",boardIdx);
+//			Gson gson = new Gson();
+//			String json = gson.toJson(map);
+//			System.out.println(json);
+//			resp.setContentType("text/html; charset=UTF-8");
+//			resp.setHeader("Access-Control-Allow-origin", "*");
+//			resp.getWriter().print(json);
 			if(boardIdx>0) {
 				page = "boardDetail?boardIdx="+boardIdx;
 				msg = "글 등록에 성공하였습니다.";

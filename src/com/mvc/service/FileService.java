@@ -29,14 +29,22 @@ public class FileService {
 			String subject = multi.getParameter("subject");
 			String content = multi.getParameter("content");
 			String id = multi.getParameter("userId");
-			System.out.println(boardIdx+"/"+subject+"/"+content+"/"+id);
+			System.out.println("글등록: "+boardIdx+"/"+subject+"/"+content+"/"+id);
 			
 			
 			if(boardIdx!=null) {
 				dto.setBoardIdx(Integer.parseInt(boardIdx));
 			}
-			dto.setSubject(subject);
-			dto.setContent(content);
+			if(subject.equals("")) {
+				dto.setSubject("제목을 입력하세요");
+			}else {
+				dto.setSubject(subject);				
+			}
+			if(content.equals("")) {
+				dto.setContent("내용을 입력하세요");
+			}else {
+				dto.setContent(content);				
+			}
 			dto.setId(id);
 			
 			String oriFileName = multi.getFilesystemName("photo");//4. 원본파일명 추출
