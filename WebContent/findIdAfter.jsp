@@ -31,7 +31,7 @@
             <table>
                 <tr>
                     <th>이름</th>
-                    <th></th>
+                    <th>${findId}</th>
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">

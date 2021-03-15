@@ -234,7 +234,7 @@
 							console.log(data);
 							if(data.success == true){
 								alert('회원가입을 축하 드립니다.');
-								location.href="./index.jsp";
+								location.href="main.jsp";
 							}else{
 								alert('잠시후 다시 시도해 주세요.');
 							}
