@@ -278,6 +278,7 @@ public class MemberService {
 
 	}
 	
+	/*비밀번호 찾기*/
 	public void findPw() throws ServletException, IOException{
 		
 		String id = req.getParameter("userId");
