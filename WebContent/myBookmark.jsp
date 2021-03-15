@@ -50,13 +50,13 @@ span {
 	font-weight: 600;
 }
 
-table#visitedList {
+table#bookmarkList {
 	background-color: white;
 	text-align: center;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 900px;
+	width: 1200px;
 }
 
 .noneList {
@@ -124,20 +124,19 @@ a {
 					<p>즐겨찾기에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-			<table id="visitedList">
+			<table id="bookmarkList">
 
 				<c:forEach items="${list}" var="bm">
 					<tr>
-						<th style="width: 500px"  colspan="3">${bm.title }</th>
+						<th style="font-size: 150%"  colspan="3">${bm.title }</th>
 					</tr>
 					<tr>
-						<td><img src="${bm.firstImage}" width="200px"
-					height="200px" /></td>
-						<td class="overview">${bm.overview}</td>
-						<td>${bm.reg_date }</td>
-						<td>
-							<button onclick="location.href='#'">삭제</button>
-						</td>
+						<td rowspan="2"><img src="${bm.firstImage}" width="400px" height="200px" /></td>
+						<td class="overview" rowspan="2">${bm.overview}</td>
+						<td style="width:100px">${bm.reg_date }</td>
+					</tr>
+					<tr>
+						<td><button onclick="location.href='#'">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -160,12 +159,12 @@ a {
 	</body>
 	<script>
 	// 말줄임 기능
-	$('.overview').each(function(){
+	/* $('.overview').each(function(){
 	    var lentgh = 20; //글자수
 	      if($(this).text().length >= length){
 	        $(this).html($(this).text().substr(0,length)+'...');
 				console.log($(this).text().length);
 	      }
-	  });
+	  }); */
 	</script>
 </html>

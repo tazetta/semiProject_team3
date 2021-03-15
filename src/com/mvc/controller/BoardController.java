@@ -12,7 +12,7 @@ import com.mvc.service.BoardService;
 
 
 
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel","/boardSearch","/boardReportForm","/boardReport"})
+@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel","/boardSearch","/boardReportForm","/boardReport","/commReportForm","/commReport"})
 
 public class BoardController  extends HttpServlet{
 	
@@ -99,8 +99,18 @@ public class BoardController  extends HttpServlet{
 				break;
 				
 			case "/boardReport":
-				System.out.println("신고요청");
+				System.out.println("글신고요청");
 				service.boardReport();
+				break;
+			
+			case "/commReportForm":
+				System.out.println("댓글 신고창요청");
+				service.commReportForm();
+				break;
+			
+			case "/commReport":
+				System.out.println("댓글 신고 요청");
+				service.commReport();
 				break;
 			}
 		}

@@ -89,6 +89,17 @@
 		var emailChk = false;
 	
 		$("#overlay").click(function(){
+			//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+	        $('#userId').focusout(function(){
+	           if($(this).val().length<5){
+	                alert('아이디를 5자 이상 입력해주세요.');
+	                setTimeout(function(){
+		                $(this).focus();	                	
+	                });
+	            }else{
+	                idChk = true;
+	            }
+	        });
 			
 			$.ajax({
 				type:'get'
@@ -113,11 +124,11 @@
 			});
 			
 		});
-		//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+  		//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
            if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
-                $(this).focus();
+                $(this).focusin();
             }else{
                 idChk = true;
             }
@@ -126,7 +137,7 @@
         $('#userPw').focusout(function(){
             if($(this).val().length<5){
                 alert('비밀번호를  5자 이상 입력해주세요.');
-                $(this).focus();
+                $(this).focusin();
             }else if($(this).val()!==$('#pwConfirm').val()){
                 $('span').html('비밀번호가 일치하지 않습니다.');
                 $('span').css('color','red');
@@ -170,10 +181,10 @@
             var val = $(this).val();
             if(val.indexOf('@')<0){
                 alert('이메일의 형식을 맞춰 주세요(@ 추가)');
-                $(this).focus();
+                $(this).focusin();
             }else if(val.indexOf('.')<0){
                 alert('이메일의 형식을 맞춰주세요(. 추가');
-                $(this).focus();
+                $(this).focusin();
             }else{
                 emailChk = true;
             }
@@ -223,7 +234,7 @@
 							console.log(data);
 							if(data.success == true){
 								alert('회원가입을 축하 드립니다.');
-								location.href="./index.jsp";
+								location.href="main.jsp";
 							}else{
 								alert('잠시후 다시 시도해 주세요.');
 							}
