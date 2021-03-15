@@ -7,6 +7,7 @@
     	<meta name="viewport" content="width=device",initial-scale="1">
         <meta charset="utf-8">
         <title>커뮤니티</title>
+        <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
         <link rel="icon" href="south-korea.png">
         <style>
             table,th,td{
@@ -30,7 +31,7 @@
                 font-weight: 600;
                 font-size: 18px;
             }
-            #search_type{
+            #keyword{
                 width: 400px;
                 height: 45px;
                 font-size: 18px;
@@ -75,10 +76,10 @@
     <div id="field">
     <select id="comm_select" name="comm_select">
         <option value="subject">제목</option>
-        <option value="name">작성자</option>
+        <option value="id">작성자</option>
         <option value="content">내용</option>
     </select>
-    <input type="text" id="search_type"/>
+    <input type="text" id="keyword"/>
     <button id="search">검색</button>
     <table>
 		<tr>
@@ -102,20 +103,25 @@
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./boardList?page=${currPage-1}'>이전</a>
+				<a href='./boardSearch?${url}&page=${currPage-1}'>이전</a>
 			</c:if>
 		</span>
 		<span id="page">${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./boardList?page=${currPage+1}">다음</a></c:if>
+         		<a href="./boardSearch?${url}&page=${currPage+1}">다음</a></c:if>
 		</span>
    	<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>   
 	</div>
 	</div>
 </body>
 <script>
+	$('#search').click(function(){
+		var searchType = $('#comm_select').val()
+		var keyword = $('#keyword').val()
+		location.href="./boardSearch?searchType="+searchType+"&keyword="+keyword;
+	});
 	var msg="${msg}";
 	if(msg!=""){
 		alert(msg);

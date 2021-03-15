@@ -10,7 +10,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mvc.dto.BoardDTO;
 import com.mvc.dto.RepDTO;
 import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
@@ -23,7 +22,7 @@ public class TestDAO {
 	ResultSet rs = null;
 	PreparedStatement ps  = null;
 
-	public TestDAO() {		
+public TestDAO() {		
 		
 		try {
 			Context ctx = new InitialContext();
@@ -179,6 +178,7 @@ public class TestDAO {
 			rs=ps.executeQuery();
 			 list = new ArrayList<RepDTO>();
 			while(rs.next()) {
+
 				RepDTO dto = new RepDTO();
 				dto.setBoardIdx(rs.getInt("boardIdx"));
 				dto.setId(rs.getString("id"));
@@ -186,6 +186,7 @@ public class TestDAO {
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setBbsRepIdx(rs.getInt("bbsrepidx"));
 				list.add(dto);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

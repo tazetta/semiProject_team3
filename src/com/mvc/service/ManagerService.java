@@ -179,10 +179,12 @@ public class ManagerService {
 		if (dao.managerRegist(dto)) {
 			// page = "/managerList"; //페이지 닫기..?
 			msg = "관리자 등록에 성공 하였습니다.";
-		}
+			
+		}		
 		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
+		dis = req.getRequestDispatcher("managerRegistClose.jsp");
 		dis.forward(req, resp);
+		 
 	}
 
 	private boolean isManager() {
@@ -190,7 +192,7 @@ public class ManagerService {
 
 	}
 
-	public void tripManage() throws ServletException, IOException {
+	public void tripManageList() throws ServletException, IOException {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
 			int group = 1;
@@ -198,12 +200,12 @@ public class ManagerService {
 				group = Integer.parseInt(pageParam);
 			}
 			TripDAO dao = new TripDAO();
-			HashMap<String, Object> tripMap = dao.tripManage(group);
+			HashMap<String, Object> tripMap = dao.tripManageList(group);
 
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
-			RequestDispatcher dis = req.getRequestDispatcher("tripManage.jsp");
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
@@ -231,10 +233,117 @@ public class ManagerService {
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
-			RequestDispatcher dis = req.getRequestDispatcher("tripManage.jsp");
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
 		}
+	}
+
+	public void tripManageDetail() throws ServletException, IOException {
+		if (isManager()) {
+
+			String contentId = req.getParameter("contentId");
+			System.out.println("contentId : " + contentId);
+
+			TripDAO tripDAO = new TripDAO();
+			TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+
+			req.setAttribute("tripDTO", tripDTO);
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageDetail.jsp");
+			dis.forward(req, resp);
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
+	}
+
+	public void tripManageUpdateForm() throws ServletException, IOException {
+		if (isManager()) {
+			String contentId = req.getParameter("contentId");
+			System.out.println("contentId : " + contentId);
+
+			ArrayList<ContentDTO> contentList = null;
+			ArrayList<LargeDTO> largeList = null;
+			ArrayList<MediumDTO> mediumList = null;
+			ArrayList<SmallDTO> smallList = null;
+			ArrayList<AreaDTO> areaList = null;
+			ArrayList<CityDTO> cityList = null;
+			TripDAO tripDAO = new TripDAO();
+			try {
+				contentList = tripDAO.contentList();
+				largeList = tripDAO.largeList();
+				mediumList = tripDAO.mediumList();
+				smallList = tripDAO.smallList();
+				areaList = tripDAO.areaList();
+				cityList = tripDAO.cityList("0");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				tripDAO.resClose();
+
+				tripDAO = new TripDAO();
+				TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+				
+				req.setAttribute("contentList", contentList);
+				req.setAttribute("largeList", largeList);
+				req.setAttribute("mediumList", mediumList);
+				req.setAttribute("smallList", smallList);
+				req.setAttribute("areaList", areaList);
+				req.setAttribute("cityList", cityList);
+
+				req.setAttribute("tripDTO", tripDTO);
+				RequestDispatcher dis = req.getRequestDispatcher("tripManageUpdateForm.jsp");
+				dis.forward(req, resp);
+			}
+		} else {
+			resp.sendRedirect("index.jsp");
+		}
+	}
+
+	public void tripManageUpdate() throws ServletException, IOException {
+		String managerId = req.getParameter("managerId");
+		String contentId = req.getParameter("contentId");
+		String firstImage = req.getParameter("firstImage");
+		String latitude = req.getParameter("latitude");
+		String longitude = req.getParameter("longitude");
+		String address = req.getParameter("address");
+		String title = req.getParameter("title");
+		String contentType = req.getParameter("contentType");
+		String large = req.getParameter("large");
+		String medium = req.getParameter("medium");
+		String small = req.getParameter("small");
+		String area = req.getParameter("area");
+		String city = req.getParameter("city");
+		String overview = req.getParameter("overview");
+		System.out.println(managerId + " / " + contentId + " / " + firstImage + " / " + latitude + " / " + longitude
+				+ " / " + address + " / " + title);
+		System.out.println(contentType + " / " + medium + " / " + small + " / " + area + " / " + city + " / "
+				+ large + " / " + overview);
+		System.out.println(contentId + " / contentId.length" + contentId.length());
+		TripDAO tripDAO = new TripDAO();
+		TripDTO tripDTO = new TripDTO();
+		tripDTO.setManagerId(managerId);
+		tripDTO.setContentId(Integer.parseInt(contentId));
+		tripDTO.setFirstImage(firstImage);
+		tripDTO.setLatitude(latitude);
+		tripDTO.setLongitude(longitude);
+		tripDTO.setAddress(address);
+		tripDTO.setTitle(title);
+		tripDTO.setLargeIdx(large);
+		tripDTO.setContentCode(contentType);
+		tripDTO.setMediumCode(medium);
+		tripDTO.setSmallCode(small);
+		tripDTO.setAreaCode(area);
+		tripDTO.setCityCode(city);
+		tripDTO.setOverview(overview);
+	
+		boolean success = tripDAO.tripManageUpdate(tripDTO);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("success", success);
+		Gson gson = new Gson();
+		String json = gson.toJson(map);
+		resp.getWriter().print(json);
+		
 	}
 }
