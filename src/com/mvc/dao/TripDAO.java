@@ -162,7 +162,7 @@ public class TripDAO {
 		}
 		String sql = "SELECT contentId,areaCode,contentCode,firstImage,bookmarkCnt, title, reg_date FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY bookmarkCnt DESC) AS rnum, "
-				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL
+				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE " + insertSQL + " AND deactivate = 'FALSE'"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -349,7 +349,7 @@ public class TripDAO {
 		String addKeyword = "%"+keyword+"%";
 		String sql = "SELECT contentId,firstImage, title, bookmarkCnt, reg_date FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY "+alignType+" DESC) AS rnum, "
-				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+searchType+" LIKE ?"
+				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+searchType+" LIKE ? AND deactivate='FALSE'"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -381,7 +381,7 @@ public class TripDAO {
 		int maxPage = 0;
 		try {
 			String addKeyword = "%"+keyword+"%";
-			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ?";
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ? AND deactivate='FALSE'";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, addKeyword);
 			rs = ps.executeQuery();
@@ -450,7 +450,7 @@ public class TripDAO {
 		return maxPage;
 	}
 
-	public HashMap<String, Object> tripSearch(int page, String tripKeyword, String tripSearchType) {
+	public HashMap<String, Object> tripSearch(int page, String tripKeyword, String tripSearchType, String isDeactivate) {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		TripDTO dto = null;
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -465,13 +465,14 @@ public class TripDAO {
 		String addKeyword = "%"+tripKeyword+"%";
 		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
-				+ "contentId, title, reg_date, deactivate FROM trip WHERE "+tripSearchType+" LIKE ?"
+				+ "contentId, title, reg_date, deactivate FROM trip WHERE "+tripSearchType+" LIKE ? AND deactivate = ?"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, addKeyword);
-			ps.setInt(2, start);
-			ps.setInt(3, end);
+			ps.setString(2, isDeactivate);
+			ps.setInt(3, start);
+			ps.setInt(4, end);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				dto = new TripDTO();
@@ -514,7 +515,7 @@ public class TripDAO {
 		TripDTO tripDTO = null;
 		
 		String sql="SELECT contentId, firstImage, t.latitude, t.longitude, t.address, t.title, t.contentCode, t.largeIdx, t.mediumCode, t.smallCode, "
-				+ "t.areaCode, t.cityCode, t.managerId, t.overview, "
+				+ "t.areaCode, t.cityCode, t.managerId, t.overview, t.deactivate,"
 				+ "ct.Name AS contentName, l.name AS largeName, m.name AS mediumName, s.name AS smallName, a.name AS areaName, c.name as cityName "
 				+ "FROM trip t JOIN large l ON t.largeIdx = l.largeIdx "
 				+ "JOIN contenttype ct ON t.contentCode = ct.contentCode "
@@ -542,6 +543,7 @@ public class TripDAO {
 				tripDTO.setAreaCode(rs.getString("areaCode"));
 				tripDTO.setCityCode(rs.getString("cityCode"));
 				tripDTO.setOverview(rs.getString("overview"));
+				tripDTO.setDeactivate(rs.getString("deactivate"));
 				tripDTO.setManagerId(rs.getString("managerId"));
 				tripDTO.setContentName(rs.getString("contentName"));
 				tripDTO.setLargeName(rs.getString("largeName"));
@@ -563,7 +565,7 @@ public class TripDAO {
 		boolean success = false;
 		
 		String sql = "UPDATE trip SET managerId = ?, firstImage = ?, latitude = ?, longitude = ?, address = ?, title = ?, largeIdx = ?, contentCode = ?, "
-				+ "mediumCode = ?, smallCode = ?, areaCode = ?, cityCode = ?, overview = ? WHERE contentId = ?";
+				+ "mediumCode = ?, smallCode = ?, areaCode = ?, cityCode = ?, overview = ?, deactivate = ? WHERE contentId = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, tripDTO.getManagerId());
@@ -579,7 +581,8 @@ public class TripDAO {
 			ps.setString(11, tripDTO.getAreaCode());
 			ps.setString(12, tripDTO.getCityCode());
 			ps.setString(13, tripDTO.getOverview());
-			ps.setInt(14, tripDTO.getContentId());
+			ps.setString(14, tripDTO.getDeactivate());
+			ps.setInt(15, tripDTO.getContentId());
 			if(ps.executeUpdate() > 0) {
 				success = true;
 			}
@@ -590,5 +593,61 @@ public class TripDAO {
 		}
 		
 		return success;
+	}
+
+	public HashMap<String, Object> tripDeactivateFilter(int page) {
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		TripDTO dto = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 페이징
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxPage = 0;
+		
+		// 검색어
+		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+				+ "contentId, title, reg_date, deactivate FROM trip WHERE  deactivate = 'TRUE'"
+				+ ") WHERE rnum BETWEEN ? AND ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new TripDTO();
+				dto.setContentId(rs.getInt("contentId"));
+				dto.setTitle(rs.getString("title"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				list.add(dto);
+			}
+			maxPage = getTripDeactivateMaxPage(pagePerCnt);
+			map.put("maxPage", maxPage);
+			map.put("tripList", list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return map;
+	}
+
+	private int getTripDeactivateMaxPage(int pagePerCnt) {
+		int maxPage = 0;
+		try {
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE deactivate = 'TRUE'";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				maxPage += (int) Math.ceil(cnt / (double) pagePerCnt);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maxPage;
 	}
 }
