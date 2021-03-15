@@ -43,7 +43,7 @@ public class MemberService {
 
 		System.out.println("로그인:" + success);
 		msg = "아이디와 비밀번호를 확인해주세요";
-		page = "index.jsp";
+		page = "login.jsp";
 		if (success) { // 로그인 성공시 (true 반환시)
 			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
 			msg = id + "님 로그인 되었습니다";
@@ -265,9 +265,11 @@ public class MemberService {
 		
 		
 		if(id!="") {
-//			page = "findIdAfter.jsp";
-			page="login.jsp";
+			page = "findIdAfter.jsp";
+//			page="login.jsp";
 			msg = name+" 님의 아이디는"+id+" 입니다.";
+			
+			req.getSession().setAttribute("findId", id); // "findId"라는 이름으로 session에 저장
 		}else{
 			page = "findIdPw.jsp";
 			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
@@ -279,25 +281,47 @@ public class MemberService {
 
 	}
 	
+	/*비밀번호 찾기*/
 	public void findPw() throws ServletException, IOException{
 		
 		String id = req.getParameter("userId");
 		String name = req.getParameter("userName");
 		String phone = req.getParameter("userPhone");
 		System.out.println(id+"/"+name+"/"+phone);
-		String pw = dao.findPw(id, name, phone);
 		
-		System.out.println("비밀번호찾기 : "+pw);
 		
 		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
 		page = "findIdPw.jsp";
 		
-		if(pw!="") {
-			page = "login.jsp";
-			msg = id+" 님의 비밀번호는"+pw+" 입니다. 로그인후 비밀번호를 변경 해주세요.";
+		if(dao.findPw(id, name, phone)) {
+			page = "findpwUpdate.jsp";
+			msg = "비밀번호를 수정해주세요.";
+			req.setAttribute("id", id);
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		
+	}
+	
+	/*비밀번호 찾기 후 수정*/
+	public void findpwUpdate() throws ServletException, IOException {
+		
+		boolean success = false;
+		String newPw = req.getParameter("newPw");
+		System.out.println(newPw);
+		
+		msg="비밀번호를 다시 확인해주세요.";
+		page = "findpwUpdate.jsp";
+		
+		success = dao.findpwUpdate(newPw);
+		System.out.println("비밀번호 수정 : " + success);
+		if(success) {
+			msg="비밀번호가 수정 되었습니다.";
+			page="login.jsp";
+		}
+		req.setAttribute("msg", msg);
+		dis=req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		
 	}
@@ -415,6 +439,7 @@ public class MemberService {
 			resp.sendRedirect("index.jsp");
 		}
 	}
+
 
 
 }

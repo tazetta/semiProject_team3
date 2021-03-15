@@ -185,6 +185,8 @@ a {
 		});
 		if(cnt > 3) {
 			alert('최대 3개까지 선택 가능합니다.');
+		} else if(cnt == 0){
+			alert('하나 이상을 선택해 주세요.');
 		} else{
 			$('form').submit();
 		}

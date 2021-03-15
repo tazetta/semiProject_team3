@@ -109,6 +109,17 @@ table, th, td {
 					<th>상세설명</th>
 					<td>${tripDTO.overview}</td>
 				</tr>
+				<tr>
+					<th>비활성화 여부</th>
+					<td>
+					<c:if test="${tripDTO.deactivate eq 'TRUE'}">
+					비활성화
+					</c:if>
+					<c:if test="${tripDTO.deactivate eq 'FALSE'}">
+					활성화
+					</c:if>
+					</td>
+				</tr>
 			</table>
 		</form>
 		<div class="button">

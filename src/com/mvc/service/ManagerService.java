@@ -195,6 +195,7 @@ public class ManagerService {
 	public void tripManageList() throws ServletException, IOException {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
+			String isDeactivate = "FALSE";
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
@@ -202,6 +203,7 @@ public class ManagerService {
 			TripDAO dao = new TripDAO();
 			HashMap<String, Object> tripMap = dao.tripManageList(group);
 
+			req.setAttribute("deactivate", "FALSE");
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
@@ -218,6 +220,11 @@ public class ManagerService {
 			String pageParam = req.getParameter("page");
 			String searchType = req.getParameter("searchType");
 			String keyword = req.getParameter("keyword");
+			String isDeactivate = req.getParameter("deactivate");
+			if(isDeactivate == null) {
+				isDeactivate = "FALSE";
+			}
+			System.out.println("isDeactivate : " + isDeactivate);
 			System.out.println("pageParam : " + pageParam + " / tripSearchType : " + searchType);
 			System.out.println("tripKeyword : " + keyword);
 			int group = 1;
@@ -225,7 +232,7 @@ public class ManagerService {
 				group = Integer.parseInt(pageParam);
 			}
 			TripDAO dao = new TripDAO();
-			HashMap<String, Object> tripMap = dao.tripSearch(group, keyword, searchType);
+			HashMap<String, Object> tripMap = dao.tripSearch(group, keyword, searchType, isDeactivate);
 			String url = "keyword=" + keyword + "&searchType=" + searchType;
 
 			req.setAttribute("keyword", keyword);
@@ -315,10 +322,11 @@ public class ManagerService {
 		String area = req.getParameter("area");
 		String city = req.getParameter("city");
 		String overview = req.getParameter("overview");
+		String deactivate = req.getParameter("deactivate");
 		System.out.println(managerId + " / " + contentId + " / " + firstImage + " / " + latitude + " / " + longitude
 				+ " / " + address + " / " + title);
 		System.out.println(contentType + " / " + medium + " / " + small + " / " + area + " / " + city + " / "
-				+ large + " / " + overview);
+				+ large + " / " + overview + " / " + deactivate);
 		System.out.println(contentId + " / contentId.length" + contentId.length());
 		TripDAO tripDAO = new TripDAO();
 		TripDTO tripDTO = new TripDTO();
@@ -336,7 +344,7 @@ public class ManagerService {
 		tripDTO.setAreaCode(area);
 		tripDTO.setCityCode(city);
 		tripDTO.setOverview(overview);
-	
+		tripDTO.setDeactivate(deactivate);
 		boolean success = tripDAO.tripManageUpdate(tripDTO);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -345,5 +353,24 @@ public class ManagerService {
 		String json = gson.toJson(map);
 		resp.getWriter().print(json);
 		
+	}
+
+	public void tripDeactivateFilter() throws ServletException, IOException {
+		String pageParam = req.getParameter("page");
+		int group = 1;
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam);
+		}
+		TripDAO tripDAO = new TripDAO();
+		HashMap<String, Object> tripMap = tripDAO.tripDeactivateFilter(group);
+		String url = "deactivate=TRUE";
+
+		req.setAttribute("url", url);
+		req.setAttribute("deactivate", "TRUE");
+		req.setAttribute("tripList", tripMap.get("tripList"));
+		req.setAttribute("maxPage", tripMap.get("maxPage"));
+		req.setAttribute("currPage", group);
+		RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
+		dis.forward(req, resp);
 	}
 }
