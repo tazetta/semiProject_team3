@@ -162,12 +162,12 @@ a {
 	</body>
 	<script>
 	// 말줄임 기능
-	$('.overview').each(function(){
+	/* $('.overview').each(function(){
 	    var lentgh = 20; //글자수
 	      if($(this).text().length >= length){
 	        $(this).html($(this).text().substr(0,length)+'...');
 				console.log($(this).text().length);
 	      }
-	  });
+	  }); */
 	</script>
 </html>
