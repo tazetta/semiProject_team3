@@ -39,21 +39,6 @@ div.cityList {
 	top: 15%;
 }
 
-.mainUl>li {
-	position: relative;
-	font-weight: 600;
-	font-size: 24;
-	left: 50%;
-	float: left;
-	border: 1px solid black;
-	padding: 10px 15px;
-	list-style-type: none;
-}
-
-.mainUl>li:hover {
-	background-color: darkkhaki;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
@@ -63,12 +48,20 @@ a:visited {
 	color: black;
 	text-decoration: none;
 }
+
+div.chkBtn{
+	position: absolute;
+	top:27%;
+	right:28%;
+}
+.btn{
+	padding:5px 10px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
 	<div class="areaList">
 		<c:forEach items="${areaList}" var="area">
 			<div class="area" id="${area.areaCode}">
@@ -92,11 +85,12 @@ a:visited {
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="nav" value="${nav}" /> <input type="hidden"
-			name="type" value="area" /> <input type="button"
-			onclick="maxChkBox()" value="검색" />
+		<input type="hidden" name="nav" value="${nav}" /> 
+		<input type="hidden" name="type" value="area" /> 
+		<div class = "chkBtn">
+			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+		</div>
 	</form>
-
 </body>
 <script>
 	$(document).ready(function() {
