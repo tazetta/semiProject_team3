@@ -35,8 +35,16 @@ public class FileService {
 			if(boardIdx!=null) {
 				dto.setBoardIdx(Integer.parseInt(boardIdx));
 			}
-			dto.setSubject(subject);
-			dto.setContent(content);
+			if(subject.equals("")) {
+				dto.setSubject("제목을 입력하세요");
+			}else {
+				dto.setSubject(subject);				
+			}
+			if(content.equals("")) {
+				dto.setContent("내용을 입력하세요");
+			}else {
+				dto.setContent(content);				
+			}
 			dto.setId(id);
 			
 			String oriFileName = multi.getFilesystemName("photo");//4. 원본파일명 추출

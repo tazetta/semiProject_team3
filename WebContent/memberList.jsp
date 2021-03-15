@@ -5,59 +5,98 @@
 <head>
 <meta charset="UTF-8">
 <title>일반 회원정보 리스트</title>
+
+
+<style>
+#side {
+	position: relative;
+	float: left;
+	margin-left: 100px;
+	padding: 10px;
+}
+
+table, tr, td {
+	border: 1px solid lightgray;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 20px;
+}
+
+a {
+	text-decoration: none;
+	font-size: 90%;
+	color: black;
+}
+
+a:hover {
+	font-weight: 600;
+}
+
+.search {
+	padding: 30px;
+}
+
+#content {
+	
+	margin-left: 300px;
+	margin-right: 300px;
+}
+</style>
+
 </head>
 <body>
 	<!--상단페이지-->
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
-	
-	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
-	
-			<div id ="side">
-			<table>
-				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="#">즐겨찾기</a></td>
-				</tr>
-			</table>
-		</div>
-	<div id="search">
-		<form>
-			<select name="filter">
-				<option value="id">아이디</option>
-				<option value="name">이름</option>
-			</select> 
-			<input type="text"name="search" /> 
-			<input type="submit" value="검색" />
-		</form>
-	</div>
+	<iframe src="top.jsp" width="100%" height="90px" frameborder="0"
+		scrolling="no"></iframe>
 
-	<div id="memberList_main">
+	<iframe src="navi_manager.jsp" width="100%" height="90px"
+		frameborder="0" scrolling="no"></iframe>
+
+	<div id="side">
 		<table>
 			<tr>
-				<th>가입일</th>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>핸드폰 번호</th>
-				<th>이메일</th>
-				<th></th>
+				<td><a href="#">일반 회원</a></td>
 			</tr>
-<%-- 			<c:forEach items="${memberList}" var="member">
+			<tr>
+				<td><a href="#">블랙리스트 회원</a></td>
+			</tr>
+			<tr>
+				<td><a href="#">탈퇴 회원</a></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="content">
+		<div class="search">
+			<form>
+				<select name="filter">
+					<option value="id">아이디</option>
+					<option value="name">이름</option>
+				</select> <input type="text" name="search" /> <input type="submit"
+					value="검색" />
+			</form>
+		</div>
+
+		<div class="memberList_main">
+			<table>
+				<tr>
+					<th>가입일</th>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>핸드폰 번호</th>
+					<th>이메일</th>
+					<th></th>
+				</tr>
+				<c:forEach items="${memberList}" var="member">
 				<tr>
 					<td>${memberList.managerid}</td>
 					<td>${memberList.reg_date}</td>
 					<td>${memberList.name}</td>
 					<td><a href="memberDetail?userid=${member.userid}">상세보기</a></td>
 				</tr>
-			</c:forEach> --%>
-		</table>
+			</c:forEach>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

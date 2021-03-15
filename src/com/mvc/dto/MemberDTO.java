@@ -6,6 +6,7 @@ public class MemberDTO {
 	private String name;
 	private String phone;
 	private String email;
+	private String managerid;
 	public String getId() {
 		return id;
 	}
@@ -35,6 +36,12 @@ public class MemberDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getManagerid() {
+		return managerid;
+	}
+	public void setManagerid(String managerid) {
+		this.managerid = managerid;
 	}
 	
 	

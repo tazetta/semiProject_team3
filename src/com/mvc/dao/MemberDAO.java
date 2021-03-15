@@ -54,13 +54,30 @@ public class MemberDAO {
 	public boolean login(String id, String pw) {
 		
 		boolean success = false;
-		String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
 		try {
+			String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, pw);
 			rs = ps.executeQuery();
-			success = rs.next();
+			
+//			ResultSet rs2 = ps.executeQuery();
+			
+//			success = rs.next();
+//			success = rs2.next();
+			if(rs.next()) {
+				success=true;
+			}else {
+				sql = "SELECT managerId FROM manager WHERE managerId=? AND pw=?";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ps.setString(2, pw);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					success = true;
+				}
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -204,7 +221,8 @@ public class MemberDAO {
 		}
 		return max;
 	}
-
+	
+	/*중복체크*/
 	public boolean overlay(String id) throws SQLException {
 		
 		boolean success = false;
@@ -240,7 +258,8 @@ public class MemberDAO {
 		}
 		return list;//list 반환
 	}
-
+	
+	/*회원가입*/
 	public int join(MemberDTO dto) {
 		
 		String sql="INSERT INTO member(id,name,pw,phone,email)VALUES(?,?,?,?,?)";
@@ -260,7 +279,8 @@ public class MemberDAO {
 		}	
 		return success;
 	}
-
+	
+	/*아이디찾기*/
 	public String findId(String name, String phone) {
 		
 		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
@@ -283,7 +303,7 @@ public class MemberDAO {
 		return id;
 	}
 
-
+	/*비밀번호 찾기*/
 	public String findPw(String id, String name, String phone) {
 		
 		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
