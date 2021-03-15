@@ -107,10 +107,9 @@ button{
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 	
-	
 	<div>
-		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt'">인기순</button>
-		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date'">최신순</button>
+		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
+		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
 	</div>
 
 	<table>

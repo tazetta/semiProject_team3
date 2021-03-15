@@ -64,6 +64,14 @@ a:visited {
 	color: black;
 	text-decoration: none;
 }
+div.chkBtn{
+	position: absolute;
+	top:25%;
+	right:30%;
+}
+.btn{
+	padding:5px 10px;
+}
 </style>
 </head>
 <body>
@@ -92,9 +100,11 @@ a:visited {
 				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="nav" value="${nav}" /> <input
-			type="hidden" name="type" value="theme" />
-		<input type="button" onclick="maxChkBox()" value="검색" />
+		<input type="hidden" name="nav" value="${nav}" />
+		<input type="hidden" name="type" value="theme" />
+		<div class = "chkBtn">
+			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+		</div>
 	</form>
 </body>
 <script>
