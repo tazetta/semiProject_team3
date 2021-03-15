@@ -35,7 +35,6 @@ public class TestController extends HttpServlet {
 			service.tripDetail();
 			break;
 
-
 		case "/bookmarkUpdate":
 			System.out.println("북마크추가");
 			service.addDel();

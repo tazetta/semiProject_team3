@@ -89,12 +89,20 @@ public class TestService {
 	}
 
 	public void reportBBS() throws ServletException, IOException {
-		
+		String pageParam =  req.getParameter("page");
+		System.out.println("page:"+pageParam);
+		//한페이지 그룹 -> 1~10번
+		int group =1;
+		if(pageParam!=null) {
+			group = Integer.parseInt(pageParam);
+		}
 		TestDAO dao = new TestDAO();	
 		
-		ArrayList<RepDTO> list =dao.reportBBS();
-		if(list!=null) {
-			req.setAttribute("list", list);
+		HashMap<String, Object> map =dao.reportBBS(group);
+		if(map!=null) {
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("list", map.get("list"));
+			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("bbsRepList.jsp");
 			dis.forward(req, resp);
 		}
@@ -120,7 +128,7 @@ public class TestService {
 		if(dto!=null) {	
 			dao = new BoardDAO();
 			page="repDetail.jsp";
-
+			req.setAttribute("bbsRepIdx", bbsRepIdx);
 			req.setAttribute("repCnt", repCnt);
 			req.setAttribute("reason", reason);
 			req.setAttribute("dto", dto);
@@ -135,10 +143,11 @@ public class TestService {
 	public void updateYN() throws IOException ,ServletException {
 		String updateYN = req.getParameter("updateYN");
 		String boardIdx = req.getParameter("boardIdx");
-		System.out.println(updateYN+"/"+boardIdx);
+		String bbsRepIdx = req.getParameter("bbsRepIdx");
+		System.out.println(updateYN+"/"+boardIdx+"/"+bbsRepIdx);
 		
 		TestDAO dao = new TestDAO();
-		int suc=(dao.updateYN(updateYN,boardIdx));
+		int suc=(dao.updateYN(updateYN,boardIdx,bbsRepIdx));
 		dao.resClose();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
