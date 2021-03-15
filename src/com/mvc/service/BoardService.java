@@ -325,7 +325,7 @@ public class BoardService {
 		String reason = req.getParameter("reason");
 		System.out.println(boardIdx+"/"+loginId+"/"+reason);
 		BoardDAO dao = new BoardDAO();
-		msg= "신고처리에 실패했습니다.";
+		msg= "이미 신고한 게시글입니다.";
 		page="boardReportForm.jsp";
 		if(dao.boardReport(boardIdx,loginId,reason)) {
 			msg="신고처리가 완료되었습니다.";
@@ -351,7 +351,7 @@ public class BoardService {
 		String reason = req.getParameter("reason");
 		System.out.println(reIdx+"/"+loginId+"/"+reason);
 		BoardDAO dao = new BoardDAO();
-		msg= "신고처리에 실패했습니다.";
+		msg= "이미 신고한 댓글입니다.";
 		page="commReportForm.jsp";
 		if(dao.commReport(reIdx,loginId,reason)) {
 			msg="신고처리가 완료되었습니다.";

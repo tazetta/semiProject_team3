@@ -442,19 +442,25 @@ public class BoardDAO {
 	}
 
 	public boolean boardReport(String boardIdx, String loginId, String reason) {
-		String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
+		String sql ="SELECT id FROM BBSREP WHERE boardIdx=?";
+		String rep_sql = "INSERT INTO BBSREP (BBSREPIDX,BOARDIDX,REASON,ID) VALUES(BBSREP_SEQ.NEXTVAL,?,?,?)";
 		boolean success =false;
 		try {
-			ps = conn.prepareStatement(bbs_sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
-			if(ps.executeUpdate()>0) {
-				String rep_sql = "INSERT INTO BBSREP (BBSREPIDX,BOARDIDX,REASON,ID) VALUES(BBSREP_SEQ.NEXTVAL,?,?,?)";
+			rs = ps.executeQuery();
+			if(!rs.next()) {	//한번 신고한사람 못하게			
 				ps = conn.prepareStatement(rep_sql);
 				ps.setString(1, boardIdx);
 				ps.setString(2, reason);
 				ps.setString(3, loginId);
-				if(ps.executeUpdate()>0) {
-					success = true;
+				if(ps.executeUpdate()>0) {				
+					String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
+					ps = conn.prepareStatement(bbs_sql);
+					ps.setString(1, boardIdx);		
+					if(ps.executeUpdate()>0) {
+						success = true;
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -467,19 +473,25 @@ public class BoardDAO {
 	}
 
 	public boolean commReport(String reIdx, String loginId, String reason) {
-		String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
+		String sql ="SELECT id FROM COMMENTREP WHERE reIdx=?";
+		String rep_sql = "INSERT INTO COMMENTREP (COMMENTREPIDX,REIDX,REASON,ID) VALUES(COMMENTREP_SEQ.NEXTVAL,?,?,?)";
 		boolean success =false;
 		try {
-			ps = conn.prepareStatement(bbs_sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, reIdx);
-			if(ps.executeUpdate()>0) {
-				String rep_sql = "INSERT INTO COMMENTREP (COMMENTREPIDX,REIDX,REASON,ID) VALUES(COMMENTREP_SEQ.NEXTVAL,?,?,?)";
+			rs = ps.executeQuery();
+			if(!rs.next()) { //한번 신고한사람 못하게	
 				ps = conn.prepareStatement(rep_sql);
 				ps.setString(1, reIdx);
 				ps.setString(2, reason);
 				ps.setString(3, loginId);
 				if(ps.executeUpdate()>0) {
-					success = true;
+					String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
+					ps = conn.prepareStatement(bbs_sql);
+					ps.setString(1, reIdx);
+					if(ps.executeUpdate()>0) {
+						success = true;
+					}
 				}
 			}
 		} catch (SQLException e) {
