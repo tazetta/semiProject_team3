@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%String loginId = (String)request.getSession().getAttribute("loginId"); %>
 <%String isManager = (String) request.getSession().getAttribute("isManager"); %>
@@ -9,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 	table{
 		margin-left:18%;

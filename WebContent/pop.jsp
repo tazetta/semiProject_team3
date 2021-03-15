@@ -10,20 +10,24 @@
 #button {
 	float: right;
 	margin-top: 50px;
-	margin-right: 200px;
+	margin-right: 500px;
+}
+
+table {
+	margin-left: 600px;
+	margin-top: 100px;
 }
 </style>
 </head>
 <body>
 	<!--상단페이지-->
-	<iframe src="top.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="top.jsp" />
 	
 	<!--상단네비-->
-	<iframe src="navi_manager.jsp" width="100%" height="90px" frameborder="0" scrolling="no"></iframe>
+	<jsp:include page="navi_manager.jsp" />
 	
 	<div id ="button"><button onclick="location.href='popWrite.jsp'">등록</button></div>
     <div class="pop">
-    
             <table >
                 <tr>
                     <th>등록일</th>

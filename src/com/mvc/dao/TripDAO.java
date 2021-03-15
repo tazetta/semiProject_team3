@@ -123,7 +123,7 @@ public class TripDAO {
 		return list;
 	}
 
-	private void varSQL(String[] localCode) throws SQLException {
+	private void chkCheckBox(String[] localCode) throws SQLException {
 		if (localCode.length == 1) {
 			ps.setString(1, localCode[0]);
 		} else if (localCode.length == 2) {
@@ -166,7 +166,7 @@ public class TripDAO {
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
-			varSQL(localCode);
+			chkCheckBox(localCode);
 			ps.setString(localCode.length + 1, nav);
 			ps.setInt(localCode.length + 2, start);
 			ps.setInt(localCode.length + 3, end);
@@ -211,7 +211,7 @@ public class TripDAO {
 			}
 			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL;
 			ps = conn.prepareStatement(sql);
-			varSQL(localCode);
+			chkCheckBox(localCode);
 			ps.setString(localCode.length + 1, nav);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -395,7 +395,7 @@ public class TripDAO {
 		return maxPage;
 	}
 
-	public HashMap<String, Object> tripManage(int page) {
+	public HashMap<String, Object> tripManageList(int page) {
 		HashMap<String, Object> tripMap = new HashMap<String, Object>();
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
@@ -508,5 +508,87 @@ public class TripDAO {
 			e.printStackTrace();
 		}
 		return maxPage;
+	}
+
+	public TripDTO tripManageDetail(String contentId) {
+		TripDTO tripDTO = null;
+		
+		String sql="SELECT contentId, firstImage, t.latitude, t.longitude, t.address, t.title, t.contentCode, t.largeIdx, t.mediumCode, t.smallCode, "
+				+ "t.areaCode, t.cityCode, t.managerId, t.overview, "
+				+ "ct.Name AS contentName, l.name AS largeName, m.name AS mediumName, s.name AS smallName, a.name AS areaName, c.name as cityName "
+				+ "FROM trip t JOIN large l ON t.largeIdx = l.largeIdx "
+				+ "JOIN contenttype ct ON t.contentCode = ct.contentCode "
+				+ "JOIN medium m ON t.mediumcode = m.mediumcode " 
+				+ "JOIN small s ON t.smallcode = s.smallcode "
+				+ "JOIN area a ON t.areacode = a.areacode "
+				+ "JOIN city c ON t.citycode = c.citycode " 
+				+ "AND contentId=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, contentId);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				tripDTO = new TripDTO();
+				tripDTO.setContentId(rs.getInt("contentId"));
+				tripDTO.setFirstImage(rs.getString("firstImage"));
+				tripDTO.setLatitude(rs.getString("latitude"));
+				tripDTO.setLongitude(rs.getString("longitude"));
+				tripDTO.setAddress(rs.getString("address"));
+				tripDTO.setTitle(rs.getString("title"));
+				tripDTO.setContentCode(rs.getString("contentCode"));
+				tripDTO.setLargeIdx(rs.getString("largeIdx"));
+				tripDTO.setMediumCode(rs.getString("mediumCode"));
+				tripDTO.setSmallCode(rs.getString("smallCode"));
+				tripDTO.setAreaCode(rs.getString("areaCode"));
+				tripDTO.setCityCode(rs.getString("cityCode"));
+				tripDTO.setOverview(rs.getString("overview"));
+				tripDTO.setManagerId(rs.getString("managerId"));
+				tripDTO.setContentName(rs.getString("contentName"));
+				tripDTO.setLargeName(rs.getString("largeName"));
+				tripDTO.setMediumName(rs.getString("mediumName"));
+				tripDTO.setSmallName(rs.getString("smallName"));
+				tripDTO.setAreaName(rs.getString("areaName"));
+				tripDTO.setCityName(rs.getString("cityName"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		
+		return tripDTO;
+	}
+
+	public boolean tripManageUpdate(TripDTO tripDTO) {
+		boolean success = false;
+		
+		String sql = "UPDATE trip SET managerId = ?, firstImage = ?, latitude = ?, longitude = ?, address = ?, title = ?, largeIdx = ?, contentCode = ?, "
+				+ "mediumCode = ?, smallCode = ?, areaCode = ?, cityCode = ?, overview = ? WHERE contentId = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, tripDTO.getManagerId());
+			ps.setString(2, tripDTO.getFirstImage());
+			ps.setString(3, tripDTO.getLatitude());
+			ps.setString(4, tripDTO.getLongitude());
+			ps.setString(5, tripDTO.getAddress());
+			ps.setString(6, tripDTO.getTitle());
+			ps.setString(7, tripDTO.getLargeIdx());
+			ps.setString(8, tripDTO.getContentCode());
+			ps.setString(9, tripDTO.getMediumCode());
+			ps.setString(10, tripDTO.getSmallCode());
+			ps.setString(11, tripDTO.getAreaCode());
+			ps.setString(12, tripDTO.getCityCode());
+			ps.setString(13, tripDTO.getOverview());
+			ps.setInt(14, tripDTO.getContentId());
+			if(ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		
+		return success;
 	}
 }

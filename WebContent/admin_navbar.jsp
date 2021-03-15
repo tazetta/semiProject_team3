@@ -7,16 +7,12 @@
 <title></title>
 <style>
 .navbar {
-    display: flex;
-    background-color: #faf9f9;
-    height: 50px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    color: black;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    
+	display: flex;
+	background-color: #faf9f9;
+	height: 60px;
+	color: black;
+	justify-content: center;
+	align-items: center;
 }
 
 li {
@@ -25,22 +21,21 @@ li {
 }
 
 li:hover {
-	font-weight: 600;
+	background-color: burlywood;
 }
 
 a {
 	text-decoration: none;
-	font-size: 90%;
 	color: black;
 }
 </style>
 </head>
 <body>
 <div class="navbar">
-			<li><a href="./managerList" target="_parent">관리자정보</a></li>
+			<li><a href="./adminList" target="_parent">관리자정보</a></li>
 			<li><a href="./tripManageList">여행지 관리</a></li>
-			<li><a href="#">신고내역 관리</a></li>
-			<li><a href="./memberList" target="_parent">회원정보 관리</a></li>
+			<li><a href="">신고내역 관리</a></li>
+			<li><a href="info_General.jsp" target="_parent">회원정보 관리</a></li>
 			<li><a href="./popupList" target="_parent">팝업 관리</a></li>
 	</div>
 </body>
