@@ -145,9 +145,15 @@ public class MemberDAO {
 		int end= page*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql ="SELECT boardIdx,rnum, subject, reg_date,deactivate FROM "
-				+ "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date,deactivate, id FROM bbs)" 
-				+"WHERE rnum BETWEEN ? AND ? AND id=?"; 
+		/*
+		 * String sql ="SELECT boardIdx,rnum, subject, reg_date,deactivate FROM " +
+		 * "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date,deactivate, id FROM bbs)"
+		 * +"WHERE rnum BETWEEN ? AND ? AND id=? AND deactivate='FALSE'";
+		 */
+		
+		String sql ="SELECT rnum, boardIdx,subject,bHit,reg_date,id "
+				+ "FROM ( SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id "
+				+ "FROM bbs WHERE DEACTIVATE='FALSE') WHERE rnum BETWEEN ? AND ? AND id=?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -159,12 +165,15 @@ public class MemberDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
-				dto.setSubject(rs.getString("subject"));
-				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setRnum(rs.getInt("rnum"));
 				dto.setBoardIdx(rs.getInt("boardIdx"));
-				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setbHit(rs.getInt("bHit"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
 				list.add(dto);
+				System.out.println(dto.getRnum());
+				System.out.println(dto.getBoardIdx());
 			}
 			
 			int maxPage = getMaxPage(pagePerCnt,loginId); 
@@ -180,7 +189,7 @@ public class MemberDAO {
 	
 	/*마지막 페이지*/
 	private int getMaxPage(int pagePerCnt, String loginId) {
-		String sql =  "SELECT COUNT(boardidx) FROM bbs WHERE id=?";
+		String sql =  "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND id=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);

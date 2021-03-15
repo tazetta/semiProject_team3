@@ -55,7 +55,7 @@ public class BoardDAO {
 		int pagePerCnt = 10;
 		int end = page*pagePerCnt;
 		int start = end-(pagePerCnt-1);
-		String sql ="SELECT boardIdx,subject,bHit,reg_date,id FROM (" + 
+		String sql ="SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
 				"        FROM bbs WHERE DEACTIVATE='FALSE'" + 
 				") WHERE rnum BETWEEN ? AND ?";
@@ -68,6 +68,7 @@ public class BoardDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
+				
 				dto.setBoardIdx(rs.getInt("boardIdx"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setbHit(rs.getInt("bHit"));
