@@ -14,16 +14,7 @@ import com.mvc.service.WeatherCastService;
 public class WeatherCastController extends HttpServlet {
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		dual(req, resp);
-	}
-
-	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		dual(req, resp);
-	}
-
-	private void dual(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String subAddr = req.getRequestURI().substring(req.getContextPath().length());
 
 		WeatherCastService service = new WeatherCastService(req, resp);
