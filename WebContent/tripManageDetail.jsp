@@ -124,7 +124,16 @@ table, th, td {
 		</form>
 		<div class="button">
 			<button onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}'">수정</button>
-			<button onclick="location.href='./tripManageList'">닫기</button>
+			
+			<c:if test="${sessionScope.type eq 'manageList'}">
+				<button onclick="location.href='./tripManageList?page=${currPage}'">닫기</button>
+			</c:if>
+			<c:if test="${sessionScope.type eq 'filter'}">
+				<button onclick="location.href='./tripDeactivateFilter?${sessionScope.url}&page=${currPage}'">닫기</button>
+			</c:if>
+			<c:if test="${sessionScope.type eq 'search'}">
+				<button onclick="location.href='./tripSearch?${sessionScope.url}&page=${currPage}'">닫기</button>
+			</c:if>
 		</div>
 	</div>
 </body>
