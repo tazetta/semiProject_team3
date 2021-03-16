@@ -18,7 +18,7 @@
 				width: 150px;
 			}
 			fieldset,p{			
-				margin-top : 10px;
+				margin : 10px;
 				box-sizing : 100%;
 				text-align: left;
 			}
@@ -88,14 +88,18 @@
 									</select>
 								</td>
 						</tr>
-					</table>
-						<fieldset>
-							<p>
-								신고 사유 
-								<br/><br/>
-							<b>${reason.reason }</b>
-						</fieldset>
+						<tr>
+							<td colspan="5" style="border: 1px solid white;">
+								<fieldset>
+									<p>
+										신고 사유 
+										<br/><br/>
+									<b>${reason.reason }</b>
+								</fieldset>
+							</td>
+						</tr>
 						</c:if>
+					</table>
 				</c:forEach>
 			</div>
 			<div id=#btn>

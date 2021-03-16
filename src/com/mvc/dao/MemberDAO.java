@@ -162,13 +162,7 @@ public class MemberDAO {
 		
 		int end= page*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
-		
-		/*
-		 * String sql ="SELECT boardIdx,rnum, subject, reg_date,deactivate FROM " +
-		 * "(SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum, boardIdx, subject, reg_date,deactivate, id FROM bbs)"
-		 * +"WHERE rnum BETWEEN ? AND ? AND id=? AND deactivate='FALSE'";
-		 */
-		
+
 		String sql ="SELECT rnum, boardIdx,subject,bHit,reg_date,id "
 				+ "FROM ( SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id "
 				+ "FROM bbs WHERE DEACTIVATE='FALSE') WHERE rnum BETWEEN ? AND ? AND id=?";
@@ -374,6 +368,8 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			resClose();
 		}
 		return map;
 	}
