@@ -36,6 +36,9 @@ table, th,td {
 
 	<!-- 사이드 네비&검색필터 -->
 	<jsp:include page="side_manager.jsp" />
+	
+	<!-- 검색필터 -->
+	<!--<jsp:include page="search_member.jsp" />-->
 
 
 		<div class="memberList_main">

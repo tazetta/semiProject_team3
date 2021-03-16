@@ -26,6 +26,10 @@ table, th,td {
 	padding: 2px 10px;
 	margin:2px
 }
+p{
+	position: relative;
+	left:18%;
+}
 </style>
 
 </head>
@@ -36,11 +40,15 @@ table, th,td {
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 
-	<!-- 사이드 네비&검색필터 -->
+	<!-- 사이드 네비 -->
 	<jsp:include page="side_manager.jsp" />
+	
+	<!-- 검색필터 -->
+	<jsp:include page="search_member.jsp"/>
 
 
 		<div class="memberList_main">
+			<c:if test="${not empty memberSearchList}">
 			<table>
 				<tr>
 					<th>가입일</th>
@@ -61,6 +69,10 @@ table, th,td {
 					</tr>
 				</c:forEach>
 			</table>
+			</c:if>
+			<c:if test="${empty memberSearchList}">
+				<p>해당 회원이 없습니다.</p>
+			</c:if>
 		</div>
 		
 		<div id="page">
