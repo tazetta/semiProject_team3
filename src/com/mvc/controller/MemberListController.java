@@ -45,10 +45,12 @@ public class MemberListController extends HttpServlet {
 			break;
 			
 		case "/memberSearch":
-			System.out.println("일반 회원 검색 결과 요청");	
+			System.out.println("회원 검색 결과 요청");	
+			service.memberSearch();
+			break;
 		
 		case "/memberDelList":
-			System.out.println("탈퇴 회원 검색 결과 요청");	
+			System.out.println("탈퇴 회원 목록 요청");	
 			service.memberDelList();
 			break;
 		
