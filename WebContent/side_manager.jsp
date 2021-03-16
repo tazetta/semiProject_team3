@@ -48,7 +48,7 @@ a:hover {
 				<td><a href="./memberList" target="_parent">일반 회원</a></td>
 			</tr>
 			<tr>
-				<td><a href="#" target="_parent">블랙리스트 회원</a></td>
+				<td><a href="./memberBlackList" target="_parent">블랙리스트 회원</a></td>
 			</tr>
 			<tr>
 				<td><a href="./memberDelList" target="_parent">탈퇴 회원</a></td>
@@ -56,20 +56,20 @@ a:hover {
 		</table>
 	</div>
 
-<!-- 	<div class="search">
+	<div class="search">
 			<select id="filter" name="filter">
 				<option value="id">아이디</option>
 				<option value="name">이름</option>
 			</select> 
-			<input type="text" id="memberKeyword"/> 
+			<input type="text" id="keyword"/> 
 			<button id="memberSearch">검색</button>
-	</div> -->
+	</div>
 </body>
 <script>
-/* $('#memberSearch').click(function(){
+$('#memberSearch').click(function(){
 	var searchType = $('#filter').val()
-	var memberKeyword = $('#memberKeyword').val()
-	location.href="./memberSearch?searchType="+searchType+"&memberKeyword="+memberKeyword;
-}); */
+	var keyword = $('#keyword').val()
+	location.href="./memberSearch?searchType="+searchType+"&keyword="+keyword;
+});
 </script>
 </html>

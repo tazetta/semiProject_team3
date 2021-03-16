@@ -18,12 +18,12 @@ import com.mvc.dto.TripDTO;
 
 
 public class MemberDAO {
-	Connection conn = null; 
-	PreparedStatement ps = null; 
-	ResultSet rs = null; 
+	Connection conn = null; // DB연결시 사용될 변수
+	PreparedStatement ps = null; // DB재사용시 사용될 변수
+	ResultSet rs = null; // SELECT문 실행시 사용될 변수
 
 	/* DB연결 메서드 */
-	public MemberDAO() { 
+	public MemberDAO() { // 클래스 객체화시 호출되는 생성자
 		Context ctx;
 		try {
 			ctx = new InitialContext();
@@ -420,16 +420,14 @@ public class MemberDAO {
 	}
 
 	/*비밀번호 찾기 후 수정*/
-	public boolean findpwUpdate(String id, String newPw, String userPw) {
+	public boolean findpwUpdate(String newPw) {
 		
-		String sql = "UPDATE member SET pw=? WHERE id=? AND pw=?";
+		String sql = "UPDATE member SET pw WHERE pw=?";
 		boolean success = false;
 		
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, newPw);
-			ps.setString(2, id);
-			ps.setString(3, userPw);
 			if(ps.executeUpdate()>0) {
 				success=true;
 			}

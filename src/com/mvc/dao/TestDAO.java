@@ -52,40 +52,6 @@ public TestDAO() {
 		}
 	}
 
-//	public TripDTO tripDetail(String conIdx) {
-//		TripDTO dto = null;
-//		// 지역코드 가져와야함.
-//
-//		try {
-//
-//			String sql = "SELECT title,reg_date,firstimage,deactivate,overview,LATITUDE,LONGITUDE"
-//					+ "    ,(SELECT name FROM area WHERE areacode=(SELECT areacode FROM trip WHERE contentid=?)) AS area"
-//					+ "    ,(SELECT COUNT(myidx) FROM bookmark WHERE contentid=? AND deactivate='FALSE' AND type=1) AS bookmark"
-//					+ "    FROM trip WHERE contentid=? AND deactivate='FALSE'";
-//			ps = conn.prepareStatement(sql);
-//			ps.setString(1, conIdx);
-//			ps.setString(2, conIdx);
-//			ps.setString(3, conIdx);
-//			rs = ps.executeQuery();
-//			if (rs.next()) {
-//				System.out.println(rs.getString("firstimage"));
-//				dto = new TripDTO();
-//				dto.setTitle(rs.getString("title"));
-//				dto.setReg_date(rs.getDate("reg_date"));
-//				dto.setFirstImage(rs.getString("firstimage"));
-//				dto.setDeactivate(rs.getString("deactivate"));
-//				dto.setArea(rs.getString("area"));
-//				dto.setBookmark(rs.getInt("bookmark"));
-//				dto.setOverview(rs.getString("overview"));
-//				dto.setLatitude(rs.getString("LATITUDE"));
-//				dto.setLongitude(rs.getString("LONGITUDE"));
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return dto;
-//	}
 	public TripDTO tripDetail(String conIdx) {
 		TripDTO dto = null;
 		// 지역코드 가져와야함.
@@ -94,11 +60,12 @@ public TestDAO() {
 
 			String sql = "SELECT title,reg_date,firstimage,deactivate,overview,LATITUDE,LONGITUDE"
 					+ "    ,(SELECT name FROM area WHERE areacode=(SELECT areacode FROM trip WHERE contentid=?)) AS area"
-					+ "    ,bookmarkCnt"
+					+ "    ,(SELECT COUNT(myidx) FROM bookmark WHERE contentid=? AND deactivate='FALSE' AND type=1) AS bookmark"
 					+ "    FROM trip WHERE contentid=? AND deactivate='FALSE'";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, conIdx);
 			ps.setString(2, conIdx);
+			ps.setString(3, conIdx);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				System.out.println(rs.getString("firstimage"));
@@ -108,7 +75,7 @@ public TestDAO() {
 				dto.setFirstImage(rs.getString("firstimage"));
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setArea(rs.getString("area"));
-				dto.setBookmark(rs.getInt("bookmarkCnt"));
+				dto.setBookmark(rs.getInt("bookmark"));
 				dto.setOverview(rs.getString("overview"));
 				dto.setLatitude(rs.getString("LATITUDE"));
 				dto.setLongitude(rs.getString("LONGITUDE"));
@@ -190,25 +157,14 @@ public TestDAO() {
 			} else {
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, bdto.getContentid());
+				;
 				ps.setString(2, bdto.getId());
+				;
 				ps.setInt(3, bdto.getType());
-				
 			}
 			suc = ps.executeUpdate();
+
 			System.out.println("추가,수정 : " + suc);
-			
-			if(bdto.getType()==1) {
-				sql="UPDATE trip set bookmarkcnt= bookmarkcnt+1 WHERE contentid=?";
-				
-				if (bdto.getDeactivate().equals("FALSE")) {
-					sql="UPDATE trip set bookmarkcnt= bookmarkcnt-1 WHERE contentid=?";				
-				}
-				ps=conn.prepareStatement(sql);
-				ps.setInt(1, bdto.getContentid());				
-				ps.executeUpdate();
-				
-			}
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,49 +249,9 @@ public TestDAO() {
 			midSql="'FALSE'";
 			dto.setUpdateYN("FALSE");
 		}
+		String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 		int suc = 0;
 		try {
-			if( dto.getUpdateYN().equals("FALSE")) {//허위 신고 처리 시 cnt 0으로 초기화
-				String sql="UPDATE bbs SET reportcnt=0 WHERE boardidx=?";
-				if(dto.getType().equals("2")) {
-					sql = "UPDATE bbs_comment SET reportcnt=0 WHERE reidx=?";
-				}
-				System.out.println(dto.getBoardIdx());
-				ps=conn.prepareStatement(sql);
-				ps.setInt(1, dto.getBoardIdx());
-				ps.executeUpdate();
-				//멤버도 
-				sql="SELECT id, (SELECT count(boardidx) FROM bbsrep WHERE boardidx=?) AS cnt FROM bbsrep WHERE boardidx=? AND deactivate='FALSE'";
-				ps= conn.prepareStatement(sql);
-				ps.setInt(1, dto.getBoardIdx());
-				ps.setInt(2, dto.getBoardIdx());
-				rs = ps.executeQuery();
-				int total = 0;
-				String id = "";
-				if(rs.next()) {
-					id = rs.getString("id");
-					total=rs.getInt("cnt");
-					System.out.println("아이디 : "+id+"/"+total);
-				}
-				sql="SELECT count(reIdx) AS cnt FROM commentrep WHERE id=?  AND reidx=? AND deactivate='FALSE'";
-				ps=conn.prepareStatement(sql);
-				ps.setString(1, id);
-				ps.setInt(2, dto.getBbsRepIdx());
-				rs=ps.executeQuery();
-				if(rs.next()) {
-					total+=rs.getInt(1);
-					
-				}
-				System.out.println("토탈 : "+total);
-				
-				sql="UPDATE member SET reportcnt=reportcnt-? WHERE id=?";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, total);
-				ps.setString(2, id);
-				int aa =ps.executeUpdate();
-				System.out.println("멤버 까임 ? :" + aa);
-			}
-			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 			if(dto.getType().equals("2")) {
 				sql="UPDATE commentrep SET deactivate="+midSql+" , managerid=? WHERE commentrepidx=?";
 			}
@@ -353,9 +269,6 @@ public TestDAO() {
 				ps.setString(1, dto.getUpdateYN());
 				ps.setInt(2, dto.getBoardIdx());
 				suc = ps.executeUpdate();
-				
-				
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -61,7 +61,7 @@
         </fieldset>
 	</form>
 	
-	<form action="findpwUpdate" method="POST">
+	<form action="findPw" method="POST">
         <fieldset id="fieldset2">
             <div>비밀번호 찾기</div>
             <table>
