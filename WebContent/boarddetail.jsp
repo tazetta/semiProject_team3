@@ -75,7 +75,7 @@
 				<c:if test="${dto.id!=loginId}">
 				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
-				<button onclick="location.href='./boardList'">목록</button>
+				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
 			</div>
 		<table>
 			<tr>
@@ -117,14 +117,16 @@
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
 						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
 					</c:if>
-					<c:if test="${loginId==comment.id ||loginId=='admin'}">
+					<c:if test="${comment.id==loginId || isManager=='true'}">
 						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
 					</c:if>
 				</td>
 				<td style="width:150px;">${comment.reg_date}</td>
+				<c:if test="${comment.id!=loginId}">
 				<td style="width:50px;">
 					<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
 				</td>
+				</c:if>
 			</tr>
 			</table>
 		</c:forEach>
@@ -135,6 +137,7 @@
 		</div>
 </body>
 <script>
+	console.log("${currPage}");
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
 		location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}';

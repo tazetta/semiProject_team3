@@ -36,10 +36,10 @@ a {
 </style>
 </head>
 <body>
-<div class="navbar">
+	<div class="navbar">
 			<li><a href="./managerList" target="_parent">관리자정보</a></li>
 			<li><a href="./tripManageList">여행지 관리</a></li>
-			<li><a href="#">신고내역 관리</a></li>
+			<li><a href="./reportBBS">신고내역 관리</a></li>
 			<li><a href="./memberList" target="_parent">회원정보 관리</a></li>
 			<li><a href="./popupList" target="_parent">팝업 관리</a></li>
 	</div>
