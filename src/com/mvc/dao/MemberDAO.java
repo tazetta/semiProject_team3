@@ -420,14 +420,16 @@ public class MemberDAO {
 	}
 
 	/*비밀번호 찾기 후 수정*/
-	public boolean findpwUpdate(String newPw) {
+	public boolean findpwUpdate(String id, String newPw, String userPw) {
 		
-		String sql = "UPDATE member SET pw WHERE pw=?";
+		String sql = "UPDATE member SET pw=? WHERE id=? AND pw=?";
 		boolean success = false;
 		
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, newPw);
+			ps.setString(2, id);
+			ps.setString(3, userPw);
 			if(ps.executeUpdate()>0) {
 				success=true;
 			}
