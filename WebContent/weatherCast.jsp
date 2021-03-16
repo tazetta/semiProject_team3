@@ -49,7 +49,7 @@
 	<h4>today tomorrow 이런건 날짜 비교해서 데이터 다르게 보여주려고 하는데 Javascript에서는 날짜 포맷변환이 귀찮아서 걍 서버에서 보냈어요</h4>
 	</div>
 <div>
-<p>오늘</p>
+<h3>오늘</h3>
 	<p id="POP"></p>
 	<p id="PTY"></p>
 	<p id="R06"></p>
@@ -96,11 +96,11 @@
 				console.log('today : ' + obj.today);
 				console.log('tomorrow : ' + obj.tomorrow);
 				console.log('afterTomorrow : ' + obj.afterTomorrow);
-				$('#POP').html(obj.list[0].POP);
-				$('#PTY').html(obj.list[1].PTY);
-				$('#REH').html(obj.list[2].REH);
-				$('#SKY').html(obj.list[3].SKY);
-				$('#TMX').html(obj.list[5].TMX);
+				$('#POP').html("강수 확률 : " + obj.list[0].POP);
+				$('#PTY').html("강수 형태 : " + obj.list[1].PTY);
+				$('#REH').html("습도 : " + obj.list[2].REH);
+				$('#SKY').html("하늘 상태 : " + obj.list[3].SKY);
+				$('#TMX').html("낮 최고기온 : " + obj.list[5].TMX);
 			},
 			error : function(e) {
 				console.log(e);
