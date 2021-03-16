@@ -32,8 +32,6 @@
 
 <div>
 	<h2>설명</h2>
-	<h4>main 오기전에 /mainWeatherCast 들려서 다시 와야되는데 그냥 바로 weatherCast.jsp로
-		와서 시작값이 서울이 아님</h4>
 	<h4>css는 못하겠으니 아무나 해주세요.. ㅜㅜ</h4>
 	<h4>필요 없는값이 여러개 있는 것 같으니 F12눌러서 넘어오는 값 확인해주세요.</h4>
 	<h4>WeatherCastDTO에 무슨값인지 적어놨어요. 그냥 여기에 적어둘게요</h4>
@@ -80,6 +78,33 @@
 </div> -->
 
 <script>
+$(document).ready(function() {
+	$("select option[value='서울']").attr("selected",true);
+	var $area = $("#area");
+	$.ajax({
+		type : 'GET',
+		url : 'mainWeatherCast',
+		data : {
+			"area" : $area.val()
+		},
+		dataType : 'JSON',
+		success : function(obj) {
+			console.log(obj.list);
+			console.log(obj.list[0].POP);
+			console.log('today : ' + obj.today);
+			console.log('tomorrow : ' + obj.tomorrow);
+			console.log('afterTomorrow : ' + obj.afterTomorrow);
+			$('#POP').html("강수 확률 : " + obj.list[0].POP);
+			$('#PTY').html("강수 형태 : " + obj.list[1].PTY);
+			$('#REH').html("습도 : " + obj.list[2].REH);
+			$('#SKY').html("하늘 상태 : " + obj.list[3].SKY);
+			$('#TMX').html("낮 최고기온 : " + obj.list[5].TMX);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	})
+});
 	function areaList(value) {
 		var $area = $("#area");
 
