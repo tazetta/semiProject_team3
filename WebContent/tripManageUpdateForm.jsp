@@ -177,7 +177,7 @@ textarea {
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManageList'">목록보기</button>
+			<button onclick="location.href='./tripManageDetail?contentId=${tripDTO.contentId}'">취소</button>
 		</div>
 	</div>
 </body>
