@@ -18,7 +18,29 @@ public class RepDTO {
 	private Date reg_date;
 	private String deactivate;
 	private String managerId;
+	//// 기타
+	private String updateYN;
+	private String type;
+	private int repCnt;
 	
+	public int getRepCnt() {
+		return repCnt;
+	}
+	public void setRepCnt(int repCnt) {
+		this.repCnt = repCnt;
+	}
+	public String getUpdateYN() {
+		return updateYN;
+	}
+	public void setUpdateYN(String updateYN) {
+		this.updateYN = updateYN;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getReason() {
 		return reason;
 	}
