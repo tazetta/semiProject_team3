@@ -56,20 +56,20 @@ a:hover {
 		</table>
 	</div>
 
-	<div class="search">
+	<!-- <div class="search">
 			<select id="filter" name="filter">
 				<option value="id">아이디</option>
 				<option value="name">이름</option>
 			</select> 
-			<input type="text" id="keyword"/> 
+			<input type="text" id="memberKeyword"/> 
 			<button id="memberSearch">검색</button>
-	</div>
+	</div> -->
 </body>
 <script>
-$('#memberSearch').click(function(){
+/* $('#memberSearch').click(function(){
 	var searchType = $('#filter').val()
-	var keyword = $('#keyword').val()
-	location.href="./memberSearch?searchType="+searchType+"&keyword="+keyword;
-});
+	var memberKeyword = $('#memberKeyword').val()
+    location.href="./memberSearch?searchType="+searchType+"&memberKeyword="+memberKeyword;
+}); */
 </script>
 </html>

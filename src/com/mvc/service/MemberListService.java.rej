@@ -1,0 +1,33 @@
+diff a/src/com/mvc/service/MemberListService.java b/src/com/mvc/service/MemberListService.java	(rejected hunks)
+@@ -190,13 +190,25 @@
+ 	public void memberSearch() throws ServletException, IOException {
+ 		
+ 		String loginId = (String) req.getSession().getAttribute("loginId");
+-		
++		String searchType = req.getParameter("searchType");
++		String memberKeyword = req.getParameter("memberKeyword");
++		System.out.println("검색회원정보 : "+searchType+"/"+memberKeyword);
+ 		if(loginId!=null) {
+-		MemberListDAO dao = new MemberListDAO();
+-		ArrayList<MemberListDTO> memberSearch = dao.memberSearch();
+-		req.setAttribute("memberSearch", memberSearch);
+-		dis = req.getRequestDispatcher("memberList.jsp");
+-		dis.forward(req, resp);
++			String pageParam =  req.getParameter("page");
++			System.out.println("page:"+pageParam);
++			int group =1;
++			if(pageParam!=null) {
++				group = Integer.parseInt(pageParam);
++			}				
++			MemberListDAO dao = new MemberListDAO();
++			String url = "searchType=" + searchType + "&memberKeyword=" + memberKeyword;
++			HashMap<String, Object> map = dao.memberSearch(group,searchType,memberKeyword);
++			req.setAttribute("maxPage", map.get("maxPage"));
++			req.setAttribute("memberSearchList", map.get("memberSearchList"));
++			req.setAttribute("url", url);
++			req.setAttribute("currPage", group);
++			dis = req.getRequestDispatcher("memberSearchList.jsp");
++			dis.forward(req, resp);
+ 		}else {
+ 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+ 			dis = req.getRequestDispatcher("login.jsp");
