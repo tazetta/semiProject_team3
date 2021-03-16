@@ -305,35 +305,26 @@ public TestDAO() {
 				ps.setInt(1, dto.getBoardIdx());
 				ps.executeUpdate();
 				//멤버도 
-				sql="SELECT id, (SELECT count(boardidx) FROM bbsrep WHERE boardidx=?) AS cnt FROM bbsrep WHERE boardidx=? AND deactivate='FALSE'";
+				sql="SELECT id FROM bbs WHERE boardidx=?";
+				if(dto.getType().equals("2")) {// 댓글일 때
+					sql = "SELECT id FROM bbs_comment WHERE reidx=?";
+				}
 				ps= conn.prepareStatement(sql);
 				ps.setInt(1, dto.getBoardIdx());
-				ps.setInt(2, dto.getBoardIdx());
 				rs = ps.executeQuery();
-				int total = 0;
 				String id = "";
 				if(rs.next()) {
 					id = rs.getString("id");
-					total=rs.getInt("cnt");
-					System.out.println("아이디 : "+id+"/"+total);
+					System.out.println("아이디 : "+id);
 				}
-				sql="SELECT count(reIdx) AS cnt FROM commentrep WHERE id=?  AND reidx=? AND deactivate='FALSE'";
-				ps=conn.prepareStatement(sql);
-				ps.setString(1, id);
-				ps.setInt(2, dto.getBbsRepIdx());
-				rs=ps.executeQuery();
-				if(rs.next()) {
-					total+=rs.getInt(1);
-					
-				}
-				System.out.println("토탈 : "+total);
 				
-				sql="UPDATE member SET reportcnt=reportcnt-? WHERE id=?";
+				// 멤버 cnt 까기 
+				sql="UPDATE member SET reportcnt=reportcnt-1 WHERE id=?";
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, total);
-				ps.setString(2, id);
+				ps.setString(1, id);
 				int aa =ps.executeUpdate();
-				System.out.println("멤버 까임 ? :" + aa);
+				System.out.println(id+"멤버 까임 ? :" + aa);
+				////////
 			}
 			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 			if(dto.getType().equals("2")) {

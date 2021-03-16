@@ -40,7 +40,6 @@
 			}
 			#body{
 				width: 800px;
-				border: 1px solid black;
 			}
 		</style>
 	</head>

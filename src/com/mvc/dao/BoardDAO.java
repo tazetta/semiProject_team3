@@ -550,7 +550,7 @@ public class BoardDAO {
 						userId=rs.getString("id");
 						bbs_sql="UPDATE member SET reportCnt=reportCnt+1 WHERE id=?";
 						ps = conn.prepareStatement(bbs_sql);
-						ps.setString(1, loginId);							
+						ps.setString(1, userId);							
 					}
 					
 					if(ps.executeUpdate()>0) {

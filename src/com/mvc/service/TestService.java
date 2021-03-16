@@ -93,54 +93,13 @@ public class TestService {
 	}
 
 
-	public void repDetail() throws ServletException, IOException {
-		if(req.getSession().getAttribute("isManager")=="true") {
-			BoardDAO dao = new BoardDAO();
-			String reIdx = req.getParameter("reIdx");
-			String parampage = req.getParameter("page");
-			String boardIdx = req.getParameter("boardIdx");
-			String bbsRepIdx = req.getParameter("bbsRepIdx");
-			int type =1;
-			System.out.println("boardIdx: " +boardIdx+"/"+bbsRepIdx+"/"+parampage);
-			
-			
-			BoardDTO dto = dao.detail(boardIdx);
-			
-			dao = new BoardDAO();		
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println(dto +"/"+list);
-			
-			TestDAO dao1 = new TestDAO();
-			RepDTO reason = dao1.repReason(bbsRepIdx,type,boardIdx);
-//			String repCnt = dao1.repCnt(boardIdx,type);
-			String page="/reportBBS";
-			
-			if(dto!=null) {	
-				dao = new BoardDAO();
-				page="repDetail.jsp";
-				req.setAttribute("currPage", parampage);
-//				req.setAttribute("bbsRepIdx", bbsRepIdx);
-//				req.setAttribute("repCnt", repCnt);
-				req.setAttribute("reason", reason);
-				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
-			}		
-			dao1.resClose();
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp); 			
-		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
-			dis = req.getRequestDispatcher("/login.jsp");
-			dis.forward(req, resp);
-		}
-		
-	}
+	
 
 	public void updateYN() throws IOException ,ServletException {
 		if(req.getSession().getAttribute("isManager")=="true") {
 			String updateYN = req.getParameter("updateYN");			
-			String boardIdx = req.getParameter("boardIdx");
-			String bbsRepIdx = req.getParameter("bbsRepIdx");
+			String boardIdx = req.getParameter("boardIdx");// 게시 번호
+			String bbsRepIdx = req.getParameter("bbsRepIdx"); // 신고 번호 
 			String type = req.getParameter("type"); //타입 1 게시물, 2 댓글
 			String managerid = (String) req.getSession().getAttribute("loginId");
 			System.out.println(updateYN+"/"+boardIdx+"/"+bbsRepIdx+"/"+type);
@@ -234,7 +193,9 @@ public class TestService {
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}
+		
 	}
+	
 	public void repDetailCom() throws ServletException, IOException {
 		if(req.getSession().getAttribute("isManager")=="true") {
 			String reIdx = req.getParameter("reIdx");
@@ -256,7 +217,7 @@ public class TestService {
 			String page="/reportComment";
 			System.out.println(list.size());
 			if(dto!=null) {	
-				dao = new BoardDAO();
+				
 				page="repDetailCom.jsp";
 				req.setAttribute("currPage", parampage);
 //				req.setAttribute("commentRepIdx", commentRepIdx);
@@ -278,7 +239,47 @@ public class TestService {
 		
 	}
 
-
+	public void repDetail() throws ServletException, IOException {
+		if(req.getSession().getAttribute("isManager")=="true") {
+			BoardDAO dao = new BoardDAO();
+			String reIdx = req.getParameter("reIdx");
+			String parampage = req.getParameter("page");
+			String boardIdx = req.getParameter("boardIdx");
+			String bbsRepIdx = req.getParameter("bbsRepIdx");
+			int type =1;
+			System.out.println("boardIdx: " +boardIdx+"/"+bbsRepIdx+"/"+parampage);
+			
+			
+			BoardDTO dto = dao.detail(boardIdx);
+			
+			dao = new BoardDAO();		
+			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
+			System.out.println(dto +"/"+list);
+			
+			TestDAO dao1 = new TestDAO();
+			RepDTO reason = dao1.repReason(bbsRepIdx,type,boardIdx);
+//			String repCnt = dao1.repCnt(boardIdx,type);
+			String page="/reportBBS";
+			
+			if(dto!=null) {	
+				page="repDetail.jsp";
+				req.setAttribute("currPage", parampage);
+//				req.setAttribute("bbsRepIdx", bbsRepIdx);
+//				req.setAttribute("repCnt", repCnt);
+				req.setAttribute("reason", reason);
+				req.setAttribute("dto", dto);
+				req.setAttribute("list", list);
+			}		
+			dao1.resClose();
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp); 			
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("/login.jsp");
+			dis.forward(req, resp);
+		}
+		
+	}
 	
 
 }

@@ -32,7 +32,6 @@
 			}
 			#body{
 				width: 800px;
-				border: 1px solid black;
 			}
 				
 		</style>
@@ -52,7 +51,7 @@
 					<th>제목</th>
 					<td>${dto.subject}</td>
 					<td>신고수 / <b>${reason.repCnt }</b></td>
-					<td>
+					<td style="background-color: coral;">
 						블라인드 					
 						<select id="YN">
 							<option  value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
