@@ -1,13 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- c태그 사용위해 불러옴 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
-	<title>마이페이지 - 가봤어요</title>
- 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
- 	<style>
- 		body {
+<head>
+<meta charset="UTF-8">
+<title>마이페이지 - 가봤어요</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- JQuery사용 위해 불러옴 -->
+<style>
+body {
 	min-width: 1400px;
 }
 
@@ -39,8 +42,8 @@ section#left {
 	left: 20px;
 	float: left;
 	margin: 10px;
-	width: 1200px;
-	height: 1200px;
+	width: 80%;
+	height: 80%;
 	/* flex-direction:column; */
 }
 
@@ -50,14 +53,14 @@ span {
 	font-weight: 600;
 }
 
-table#visitedList {
+/* table#visitedList {
 	background-color: white;
 	text-align: center;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
 	width: 900px;
-}
+} */
 
 .noneList {
 	position: relative;
@@ -66,6 +69,36 @@ table#visitedList {
 	text-align: center;
 	align-items: stretch;
 	background-color: transParent;
+}
+
+.text {
+	text-align: left;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 95%;
+    height: auto; 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.bottom{
+float:right;
+}
+
+#list{
+    margin-top: 1%;
+    margin-right: 1%;
+    width: 80%;
+    float: left;
+    overflow: hidden;
+}
+
+#list table{
+background-color: white;
+	text-align: center;
+
 }
 /*페이징*/
 .pageArea {
@@ -91,9 +124,9 @@ a {
 	border: none;
 	background-color: transparent;
 }
- 	</style>
-	</head>
-	<body>
+</style>
+</head>
+<body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
@@ -115,7 +148,7 @@ a {
 			</table>
 		</div>
 	</section>
-	
+
 	<section id=background>
 		<div id="content">
 			<span>내가 가 본 여행지</span>
@@ -124,17 +157,18 @@ a {
 					<p>가봤어요에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-			<table id="visitedList">
+		<%-- 	<table id="visitedList">
 
 				<c:forEach items="${list}" var="bm">
 					<tr>
-						<th style="font-size: 150%"  colspan="3">${bm.title }</th>
+						<th style="font-size: 150%" colspan="3">${bm.title }</th>
 					</tr>
 					<tr>
-						<td rowspan="2"><img src="${bm.firstImage}" width="200px" height="200px" /></td>
+						<td rowspan="2"><img src="${bm.firstImage}" width="300px"
+							height="200px" /></td>
 						<td class="overview" rowspan="2">${bm.overview}</td>
-						<td style="width:100px">${bm.reg_date }</td>
-						
+						<td style="width: 100px">${bm.reg_date }<br /></td>
+
 					</tr>
 					<tr>
 						<td>
@@ -142,7 +176,38 @@ a {
 						</td>
 					</tr>
 				</c:forEach>
-			</table>
+			</table> --%>
+			
+			<!-- ---------------------------------------- -->
+				<c:forEach items="${list}" var="bm">
+				<div id="list">
+					<table >
+						<tr>
+							<th colspan="3" style="font-size:150%">${bm.title }</th>
+						</tr>
+						<tr>
+							<td id="user" rowspan="2">
+								<div>
+									<img src="${bm.firstImage}" width="300px" height="200px">
+								</div>
+							</td>
+							<td colspan="2" id="text">
+								<div class="ellipsis">
+								${bm.overview}
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="bottom"><button onclick="location.href='#'">삭제</button></td>
+							<td class="bottom" colspan="2">${bm.reg_date }</td>
+						</tr>
+				
+					</table>
+				</div>
+					</c:forEach>
+				
+			<!-- ---------------------------------------- -->
+			
 			<c:if test="${list ne '[]'}">
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
@@ -159,15 +224,18 @@ a {
 			</c:if>
 		</div>
 	</section>
-	</body>
-	<script>
+</body>
+<script>
 	// 말줄임 기능
-	/* $('.overview').each(function(){
-	    var lentgh = 20; //글자수
+ 	$('.ellipsis').each(function(){
+	    var length = 200; //글자수
+	    $(this).each(function(){
+	    	
 	      if($(this).text().length >= length){
-	        $(this).html($(this).text().substr(0,length)+'...');
-				console.log($(this).text().length);
+	        $(this).text($(this).text().substr(0,length)+'...');
 	      }
-	  }); */
+	    	
+	    });
+	  }); 
 	</script>
 </html>

@@ -39,8 +39,8 @@ section#left {
 	left: 20px;
 	float: left;
 	margin: 10px;
-	width: 1200px;
-	height: 1200px;
+	width: 80%;
+	height: 80%;
 	/* flex-direction:column; */
 }
 
@@ -66,6 +66,31 @@ table#bookmarkList {
 	text-align: center;
 	align-items: stretch;
 	background-color: transParent;
+}
+
+.text {
+	text-align: left;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 95%;
+    height: auto; 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+.bottom{
+float:right;
+}
+
+#list{
+   background-color: #FFFFFF;
+    margin-top: 1%;
+    margin-right: 1%;
+    width: 80%;
+    float: left;
+    overflow: hidden;
 }
 /*페이징*/
 .pageArea {
@@ -124,7 +149,7 @@ a {
 					<p>즐겨찾기에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-			<table id="bookmarkList">
+		<%-- 	<table id="bookmarkList">
 
 				<c:forEach items="${list}" var="bm">
 					<tr>
@@ -138,7 +163,34 @@ a {
 					<tr>
 						<td><button onclick="location.href='#'">삭제</button></td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
+				
+					<c:forEach items="${list}" var="bm">
+				<div id="list">
+					<table >
+						<tr>
+							<th colspan="3" style="font-size:150%">${bm.title }</th>
+						</tr>
+						<tr>
+							<td id="user" rowspan="2">
+								<div>
+									<img src="${bm.firstImage}" width="300px" height="200px">
+								</div>
+							</td>
+							<td colspan="2" id="text">
+								<div class="ellipsis">${bm.overview}</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="bottom"><button onclick="location.href='#'">삭제</button></td>
+							<td class="bottom" colspan="2">${bm.reg_date }</td>
+						</tr>
+				
+					</table>
+				</div>
+					</c:forEach>
+					
+					
 			</table>
 			<c:if test="${list ne '[]'}">
 				<div class="pageArea">
@@ -159,12 +211,15 @@ a {
 	</body>
 	<script>
 	// 말줄임 기능
-	/* $('.overview').each(function(){
-	    var lentgh = 20; //글자수
+	$('.ellipsis').each(function(){
+	    var length = 200; //글자수
+	    $(this).each(function(){
+	    	
 	      if($(this).text().length >= length){
-	        $(this).html($(this).text().substr(0,length)+'...');
-				console.log($(this).text().length);
+	        $(this).text($(this).text().substr(0,length)+'...');
 	      }
-	  }); */
+	    	
+	    });
+	  }); 
 	</script>
 </html>

@@ -368,6 +368,8 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			resClose();
 		}
 		return map;
 	}
