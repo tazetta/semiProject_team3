@@ -89,18 +89,15 @@
 		var pwChk = false;
 		var emailChk = false;
 	
-		$("#overlay").click(function(){
+ 		$("#overlay").click(function(){
 			//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
 	        $('#userId').focusout(function(){
 	           if($(this).val().length<5){
 	                alert('아이디를 5자 이상 입력해주세요.');
-	                setTimeout(function(){
-		                $(this).focus();	                	
-	                });
 	            }else{
 	                idChk = true;
 	            }
-	        });
+	        }); 
 			
 			$.ajax({
 				type:'get'
@@ -125,20 +122,20 @@
 			});
 			
 		});
-  		//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+   		 //1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
            if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
-                $(this).focusin();
+                
             }else{
                 idChk = true;
             }
-        });
+        });  
         //2. pw가 5자 이상인가?
         $('#userPw').focusout(function(){
             if($(this).val().length<5){
                 alert('비밀번호를  5자 이상 입력해주세요.');
-                $(this).focusin();
+                
             }else if($(this).val()!==$('#pwConfirm').val()){
                 $('span').html('비밀번호가 일치하지 않습니다.');
                 $('span').css('color','red');
@@ -182,10 +179,10 @@
             var val = $(this).val();
             if(val.indexOf('@')<0){
                 alert('이메일의 형식을 맞춰 주세요(@ 추가)');
-                $(this).focusin();
+                
             }else if(val.indexOf('.')<0){
                 alert('이메일의 형식을 맞춰주세요(. 추가');
-                $(this).focusin();
+                
             }else{
                 emailChk = true;
             }
@@ -198,6 +195,7 @@
 			var $id = $("#userId");//selector 값을 변수에 담는다.(나중에 간편하게 사용하기 위해)
 			var $name = $("#userName");
 			var $pw = $("#userPw");
+			var $Cpw = $("#pwConfirm");
 			var $phone = $("#userPhone");
 			var $email = $("#email");
 			//유효성 체크
@@ -205,19 +203,18 @@
 				
 				if($id.val()==''){
 					alert('아이디를 입력해 주세요!');
-					$id.focus();
+				}else if($id.val().length<5){
+					alert('아이디를 5자 이상 입력해 주세요!');
 				}else if($name.val()==''){
 					alert('이름을 입력해 주세요!');
-					$name.focus();
 				}else if($pw.val()==''){
 					alert('비밀번호를 입력해 주세요!');
-					$pw.focus();
+				}else if(pwChk==false){
+					alert('비밀번호와 비밀번호확인을 똑같이 입력해주세요!');
 				}else if($phone.val()==''){
 					alert('핸드폰번호를 입력해 주세요!');
-					$phone.focus();
 				}else if($email.val()==''){
 					alert('이메일을 입력해 주세요!');
-					$email.focus();
 				}else{
 					var params = {};
 					params.id = $id.val();
