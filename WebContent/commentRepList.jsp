@@ -45,7 +45,7 @@
 			</tr>
 			<c:forEach items="${list }" var="rep">
 			<tr>
-				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }">${rep.reIdx }</a></td>
+				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.reIdx }</a></td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>
 				<c:if test="${rep.deactivate eq 'FALSE' }">

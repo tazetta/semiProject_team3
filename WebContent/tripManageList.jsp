@@ -25,9 +25,6 @@ table, th, td {
 .title{
 	width:200px;
 }
-.regDate{
-	width:100px;
-}
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -104,7 +101,7 @@ div.deactivate{
 						<td>${trip.contentId}</td>
 						<td class='title'><a
 							href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
-						<td class='regDate'>${trip.reg_date}</td>
+						<td>${trip.reg_date}</td>
 						<td>
 						<c:if test="${trip.deactivate eq true}">
 							Y

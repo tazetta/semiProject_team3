@@ -19,9 +19,6 @@ table, th, td {
 table{
 	width:50%;
 }
-.regDate {
-	width:80px;
-}
 
 .pageArea {
 	width: 100%;

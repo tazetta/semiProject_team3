@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -44,13 +45,22 @@ public class MemberListDAO {
 		}
 	}
 
-	public ArrayList<MemberListDTO> memberList() {
+	public HashMap<String, Object> memberList(int page) {
+		
+		HashMap<String,Object> map= new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int end = page*pagePerCnt;
+		int start = end-(pagePerCnt-1);
+		String sql = "SELECT reg_date, id, name, phone, email FROM (" +
+					 "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " +
+					 "AS rnum, reg_date, id, name, phone, email "+
+					 "FROM member WHERE id NOT IN ('admin')) WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<MemberListDTO> memberList = new ArrayList<MemberListDTO>();
-		String sql = "SELECT reg_date, id, name, phone, email FROM member WHERE id NOT IN ('admin') ORDER BY reg_date DESC";
-		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				MemberListDTO dto = new MemberListDTO();
@@ -61,12 +71,36 @@ public class MemberListDAO {
 				dto.setEmail(rs.getString("email"));
 				memberList.add(dto);
 			}
+			int type=1;
+			int maxPage= getMaxPage(pagePerCnt,type);
+			map.put("memberList",memberList);
+			map.put("maxPage",maxPage);
+			System.out.println("maxPage: "+ maxPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
-		return memberList;
+		return map;
+	}
+
+	private int getMaxPage(int pagePerCnt,int type) {
+		String sql = "SELECT COUNT(id) FROM member WHERE id NOT IN ('admin')";
+		int max=0;
+		if(type==2) {
+			sql = "SELECT COUNT(id) FROM member WHERE withdraw='TRUE'";
+		}
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
 	}
 
 	public MemberListDTO memberDetail(String id) {
@@ -101,13 +135,24 @@ public class MemberListDAO {
 		return dto;
 	}
 
-	public ArrayList<MemberListDTO> memberDelList() {
+	public HashMap<String, Object> memberDelList(int page) {
+		
+		HashMap<String,Object> map= new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int end = page*pagePerCnt;
+		int start = end-(pagePerCnt-1);
+		
+		String sql = "SELECT reg_date, withdraw, id, name, phone, email FROM (" +
+				 "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " +
+				 "AS rnum, reg_date, withdraw,  id, name, phone, email "+
+				 "FROM member WHERE withdraw='TRUE'"
+				 + ") WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<MemberListDTO> memberDelList = new ArrayList<MemberListDTO>();
-		String sql = "SELECT reg_date, withdraw, id, name, phone, email FROM member WHERE withdraw='TRUE' ORDER BY reg_date DESC";
-		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				MemberListDTO dto = new MemberListDTO();
@@ -119,12 +164,17 @@ public class MemberListDAO {
 				dto.setEmail(rs.getString("email"));
 				memberDelList.add(dto);
 			}
+			int type=2;
+			int maxPage= getMaxPage(pagePerCnt,type);
+			map.put("memberDelList",memberDelList);
+			map.put("maxPage",maxPage);
+			System.out.println("maxPage: "+ maxPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
-		return memberDelList;
+		return map;
 	}
 
 	public boolean memberDraw(String id) {
@@ -165,6 +215,11 @@ public class MemberListDAO {
 		}	
 		System.out.println("회원 복구 성공여부 :"+success);
 		return success;
+	}
+
+	public ArrayList<MemberListDTO> memberSearch() {
+		
+		return null;
 	}
 
 	

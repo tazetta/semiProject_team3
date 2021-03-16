@@ -20,6 +20,7 @@ import com.mvc.dto.ManagerDTO;
 import com.mvc.dto.MediumDTO;
 import com.mvc.dto.SmallDTO;
 import com.mvc.dto.TripDTO;
+import com.mvc.dto.TripDetailDTO;
 
 public class ManagerService {
 
@@ -255,7 +256,7 @@ public class ManagerService {
 			System.out.println("contentId : " + contentId);
 
 			TripDAO tripDAO = new TripDAO();
-			TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+			TripDetailDTO tripDTO = tripDAO.tripManageDetail(contentId);
 			
 			req.setAttribute("currPage", page);
 			req.setAttribute("tripDTO", tripDTO);
@@ -293,7 +294,7 @@ public class ManagerService {
 				tripDAO.resClose();
 
 				tripDAO = new TripDAO();
-				TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
+				TripDetailDTO tripDTO = tripDAO.tripManageDetail(contentId);
 
 				req.setAttribute("currPage", page);
 				

@@ -51,7 +51,7 @@
 				<tr>
 					<th>제목</th>
 					<td>${dto.subject}</td>
-					<td>신고수 / <b>${repCnt }</b></td>
+					<td>신고수 / <b>${reason.repCnt }</b></td>
 					<td>
 						블라인드 					
 						<select id="YN">
@@ -79,7 +79,7 @@
 				</p>
 			</fieldset>
 			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportBBS'" value="목록"/>		
+				<input type="button"  onclick="location.href='./reportBBS?page=${currPage}'" value="목록"/>		
 				&nbsp;&nbsp;&nbsp;
 				<button id="btn"> 적용 </button>
 			</div>
@@ -88,7 +88,7 @@
 	<script>
 		$("#btn").click(function () {
 			var bbsIdx ="${dto.boardIdx}";
-			var bbsRepIdx="${bbsRepIdx }";
+			var bbsRepIdx="${reason.commentRepIdx }";
 			console.log($("#YN").val());
 			$.ajax({
 				type:"get"

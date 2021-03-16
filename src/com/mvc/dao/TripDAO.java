@@ -18,6 +18,7 @@ import com.mvc.dto.LargeDTO;
 import com.mvc.dto.MediumDTO;
 import com.mvc.dto.SmallDTO;
 import com.mvc.dto.TripDTO;
+import com.mvc.dto.TripDetailDTO;
 
 public class TripDAO {
 
@@ -363,7 +364,7 @@ public class TripDAO {
 				dto.setFirstImage(rs.getString("firstImage"));
 				dto.setTitle(rs.getString("title"));
 				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
-				dto.setRegDate(rs.getTimestamp("reg_date"));
+				dto.setReg_date(rs.getDate("reg_date"));
 				list.add(dto);
 			}
 			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);
@@ -512,8 +513,8 @@ public class TripDAO {
 		return maxPage;
 	}
 
-	public TripDTO tripManageDetail(String contentId) {
-		TripDTO tripDTO = null;
+	public TripDetailDTO tripManageDetail(String contentId) {
+		TripDetailDTO tripDTO = null;
 		
 		String sql="SELECT contentId, firstImage, t.latitude, t.longitude, t.address, t.title, t.contentCode, t.largeIdx, t.mediumCode, t.smallCode, "
 				+ "t.areaCode, t.cityCode, t.managerId, t.overview, t.deactivate,"
@@ -530,7 +531,7 @@ public class TripDAO {
 			ps.setString(1, contentId);
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				tripDTO = new TripDTO();
+				tripDTO = new TripDetailDTO();
 				tripDTO.setContentId(rs.getInt("contentId"));
 				tripDTO.setFirstImage(rs.getString("firstImage"));
 				tripDTO.setLatitude(rs.getString("latitude"));
