@@ -65,10 +65,10 @@
 		<div id="total">
 			<div id="btn1">
 				<c:if test="${dto.id==loginId}">
-				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}'">수정</button>
+				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">수정</button>
 				</c:if>
 				<c:if test="${dto.id==loginId || isManager=='true'}">
-				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}'">삭제</button>
+				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">삭제</button>
 				</c:if>
 			</div>
 			<div id= "btn2">
@@ -115,10 +115,10 @@
 				<td>
 					${comment.content}
 					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">수정</a>
+						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
 					</c:if>
 					<c:if test="${comment.id==loginId || isManager=='true'}">
-						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}">삭제</a>
+						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
 					</c:if>
 				</td>
 				<td style="width:150px;">${comment.reg_date}</td>
@@ -137,14 +137,23 @@
 		</div>
 </body>
 <script>
-	console.log("${currPage}");
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
-		location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}';
+		if(comment==""){
+			alert("댓글내용을 입력해주세요");
+			$('#comment').focus();
+		}else{
+			location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}&page=${currPage}';			
+		}
 	});
 	$('#comm_update').click(function(){
 		var comment = $('#comm_up').val();
-		location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}&reIdx=${commentUpdatedto.reIdx}&id=${commentUpdatedto.id}';
+		if(comment==""){
+			alert("댓글내용을 입력해주세요");
+			$('#comm_up').focus();
+		}else{
+			location.href='./commentUpdate?comment='+comment+'&boardIdx=${dto.boardIdx}&reIdx=${commentUpdatedto.reIdx}&id=${commentUpdatedto.id}&page=${currPage}';			
+		}
 	});
 	var msg="${msg}";
 	if(msg!=""){
