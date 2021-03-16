@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.MemberDTO;
+import com.mvc.dto.TestBookDTO;
 import com.mvc.dto.TripDTO;
 
 
@@ -342,9 +343,10 @@ public class MemberDAO {
 		int end= group*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql ="SELECT title, firstimage, overview, reg_date  FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, t.title, b.id, b.reg_date, t.firstimage, t.overview " + 
-				"FROM bookmark b JOIN trip t USING (contentid) WHERE b.deactivate='FALSE'AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
-		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		String sql ="SELECT myidx,deactivate, contentid, type,title, firstimage, overview, reg_date  "
+				+ "FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, b.contentid,b.myidx,b.type, b.reg_date,b.deactivate,t.title, t.firstimage, t.overview " + 
+				" FROM bookmark b, trip t WHERE b.contentid=t.contentid AND b.deactivate='FALSE' AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
+		ArrayList<TestBookDTO> list = new ArrayList<TestBookDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps= conn.prepareStatement(sql);
@@ -353,18 +355,25 @@ public class MemberDAO {
 			ps.setInt(3, start);
 			ps.setInt(4, end);
 			rs= ps.executeQuery();
+
 			while(rs.next()) {
-				TripDTO dto = new TripDTO();
+				TestBookDTO dto = new TestBookDTO();
+				dto.setMyidx(rs.getInt("myidx"));
+				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setContentid(rs.getInt("contentid"));
+				dto.setType(rs.getInt("type"));
 				dto.setTitle(rs.getString("title"));
-				dto.setFirstImage(rs.getString("firstimage"));
+				dto.setFirstimage(rs.getString("firstimage"));
 				dto.setOverview(rs.getString("overview"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				list.add(dto);
+
 			}
 				int maxPage = getVisitedMaxPage(pagePerCnt,loginId); 
 				System.out.println("maxPage:"+maxPage);
 				map.put("list", list); 
 				map.put("maxPage", maxPage); 
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
