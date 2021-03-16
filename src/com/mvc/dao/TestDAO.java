@@ -293,9 +293,49 @@ public TestDAO() {
 			midSql="'FALSE'";
 			dto.setUpdateYN("FALSE");
 		}
-		String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 		int suc = 0;
 		try {
+			if( dto.getUpdateYN().equals("FALSE")) {//허위 신고 처리 시 cnt 0으로 초기화
+				String sql="UPDATE bbs SET reportcnt=0 WHERE boardidx=?";
+				if(dto.getType().equals("2")) {
+					sql = "UPDATE bbs_comment SET reportcnt=0 WHERE reidx=?";
+				}
+				System.out.println(dto.getBoardIdx());
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, dto.getBoardIdx());
+				ps.executeUpdate();
+				//멤버도 
+				sql="SELECT id, (SELECT count(boardidx) FROM bbsrep WHERE boardidx=?) AS cnt FROM bbsrep WHERE boardidx=? AND deactivate='FALSE'";
+				ps= conn.prepareStatement(sql);
+				ps.setInt(1, dto.getBoardIdx());
+				ps.setInt(2, dto.getBoardIdx());
+				rs = ps.executeQuery();
+				int total = 0;
+				String id = "";
+				if(rs.next()) {
+					id = rs.getString("id");
+					total=rs.getInt("cnt");
+					System.out.println("아이디 : "+id+"/"+total);
+				}
+				sql="SELECT count(reIdx) AS cnt FROM commentrep WHERE id=?  AND reidx=? AND deactivate='FALSE'";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ps.setInt(2, dto.getBbsRepIdx());
+				rs=ps.executeQuery();
+				if(rs.next()) {
+					total+=rs.getInt(1);
+					
+				}
+				System.out.println("토탈 : "+total);
+				
+				sql="UPDATE member SET reportcnt=reportcnt-? WHERE id=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, total);
+				ps.setString(2, id);
+				int aa =ps.executeUpdate();
+				System.out.println("멤버 까임 ? :" + aa);
+			}
+			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 			if(dto.getType().equals("2")) {
 				sql="UPDATE commentrep SET deactivate="+midSql+" , managerid=? WHERE commentrepidx=?";
 			}
@@ -313,6 +353,9 @@ public TestDAO() {
 				ps.setString(1, dto.getUpdateYN());
 				ps.setInt(2, dto.getBoardIdx());
 				suc = ps.executeUpdate();
+				
+				
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
