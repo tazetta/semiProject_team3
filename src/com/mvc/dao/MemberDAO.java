@@ -312,6 +312,8 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			resClose();
 		}
 		System.out.println(pw);
 		return pw;

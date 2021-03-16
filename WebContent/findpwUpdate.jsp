@@ -46,15 +46,18 @@
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
-                <td>
+                
                 	<input type="button" value="확인" id="btn"/>
-                </td>
+               
             </div>
         </fieldset>
 		</form>
 	</body>
 	<script>
-	
+	var msg="${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
 	var $newPw = $("#newPw");
 	var $pwConfirm = $("#pwConfirm");
 	var pwChk = false;
