@@ -84,10 +84,13 @@ span {
     -webkit-line-clamp: 2;
 }
 .bottom{
+position:relative;
+bottom:0px;
 float:right;
 }
 
 #list{
+background-color: #FFFFFF;
     margin-top: 1%;
     margin-right: 1%;
     width: 80%;
@@ -95,11 +98,6 @@ float:right;
     overflow: hidden;
 }
 
-#list table{
-background-color: white;
-	text-align: center;
-
-}
 /*페이징*/
 .pageArea {
 	text-align: center;
@@ -188,7 +186,8 @@ a {
 						<tr>
 							<td id="user" rowspan="2">
 								<div>
-									<img src="${bm.firstImage}" width="300px" height="200px">
+									<a href="tripDetail?contentId=${bm.contentid}" target=window.open()>
+									<img src="${bm.firstimage}" width="300px" height="200px"></a>
 								</div>
 							</td>
 							<td colspan="2" id="text">
@@ -198,7 +197,8 @@ a {
 							</td>
 						</tr>
 						<tr>
-							<td class="bottom"><button onclick="location.href='#'">삭제</button></td>
+							<td class="bottom">
+							<a href="./bookmarkUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 				

@@ -131,7 +131,7 @@ button{
 
 				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
 					target=window.open()>${result.title}</a></th>
-				<th>${result.regDate}</th>
+				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>
 			</tr>
 		</c:forEach>

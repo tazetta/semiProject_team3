@@ -14,6 +14,18 @@ table, th,td {
 	text-align: center;
 	padding: 20px;
 }
+
+#page{
+     margin-top:10px;
+     text-align:center;           
+}
+
+#page span{
+	font-size : 16px;
+	border:1px solid lightgray;
+	padding: 2px 10px;
+	margin:2px
+}
 </style>
 
 </head>
@@ -50,5 +62,26 @@ table, th,td {
 				</c:forEach>
 			</table>
 		</div>
+		
+		<div id="page">
+			<span>
+				<c:if test="${currPage==1}">이전</c:if>
+				<c:if test="${currPage>1}">
+					<a href='./memberList?page=${currPage-1}'>이전</a>
+				</c:if>
+			</span>
+			<span>${currPage}</span>
+			<span>
+				<c:if test="${currPage == maxPage}">다음</c:if>
+         		<c:if test="${currPage < maxPage}">
+         			<a href="./memberList?page=${currPage+1}">다음</a></c:if>
+			</span>		
+		</div>
 </body>
+<script>
+	var msg = "${msg}";
+	if(msg!=""){
+		alert(msg);
+	}	
+</script>
 </html>
