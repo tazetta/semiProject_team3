@@ -41,10 +41,13 @@ table, th,td {
 		<div class="memberList_main">
 			<table>
 				<tr>
-					<th>가입일</th>
-					<th>탈퇴여부</th>
+					<th>블랙리스트 번호</th>
 					<th>아이디</th>
-					<th>이름</th>
+					<th>블랙리스트 등록일</th>
+					<th>등록사유</th>
+					<th>등록 관리자</th>
+
+					
 					<th>핸드폰 번호</th>
 					<th>이메일</th>
 					<th></th>
@@ -52,7 +55,7 @@ table, th,td {
 				<c:forEach items="${memberBlackList}" var="member">
 					<tr>
 						<td>${member.reg_date}</td>
-						<td>${member.withdraw}</td>
+						<td>${member.managerid}</td>
 						<td>${member.id}</td>
 						<td>${member.name}</td>
 						<td>${member.phone}</td>

@@ -442,17 +442,14 @@ public class BoardDAO {
 	}
 
 	public boolean boardReport(String boardIdx, String loginId, String reason) {
-		String sql ="SELECT id  FROM BBSREP WHERE boardIdx=? AND id = ?";
+		String sql ="SELECT id FROM BBSREP WHERE boardIdx=? AND id = ?";
 		String rep_sql = "INSERT INTO BBSREP (BBSREPIDX,BOARDIDX,REASON,ID) VALUES(BBSREP_SEQ.NEXTVAL,?,?,?)";
 		boolean success =false;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
 			ps.setString(2, loginId);
-			System.out.println(sql);
 			rs = ps.executeQuery();
-			
-
 			if(!rs.next()) {	//한번 신고한사람 못하게			
 				ps = conn.prepareStatement(rep_sql);
 				ps.setString(1, boardIdx);
@@ -462,51 +459,11 @@ public class BoardDAO {
 					String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
 					ps = conn.prepareStatement(bbs_sql);
 					ps.setString(1, boardIdx);		
-					
-					int suc = 0;
 					if(ps.executeUpdate()>0) {
-						suc+=1;
-					}
-					sql="SELECT id FROM bbs WHERE boardidx=?";
-					ps=conn.prepareStatement(sql);
-					ps.setString(1, boardIdx);
-					rs=ps.executeQuery();
-					
-					String userId = "";
-					if(rs.next()) {
-						userId=rs.getString("id");
-						bbs_sql="UPDATE member SET reportCnt=reportCnt+1 WHERE id=?";
-						ps = conn.prepareStatement(bbs_sql);
-						ps.setString(1, userId);	
-					}					
-					
-					if(ps.executeUpdate()>0) {
-						suc+=1;
-					}
-					if(suc>1) {
-						success = true;						
+						success = true;
 					}
 				}
-				
 			}
-			sql="SELECT count(bbsrepidx) AS repCnt FROM  BBSREP WHERE boardIdx=? AND deactivate='FALSE' ";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, boardIdx);
-			rs=ps.executeQuery();
-			if(rs.next()) {
-				int repCnt = rs.getInt("repCnt");
-				System.out.println("카운팅 : "+repCnt);
-				
-				if(repCnt>=3) {// 3이상 일 때 블라인드
-					sql="UPDATE bbs SET deactivate='TRUE' WHERE boardIdx=?";
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, boardIdx);
-					System.out.println("sql : "+ sql);
-					int suc =ps.executeUpdate();
-					System.out.println("suc : "+suc);
-				}				
-			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -517,68 +474,47 @@ public class BoardDAO {
 	}
 
 	public boolean commReport(String reIdx, String loginId, String reason) {
-		String sql ="SELECT id FROM COMMENTREP WHERE reIdx=? AND id = ?";
+		String sql ="SELECT id,(SELECT count(commentrepidx) FROM  commentrep WHERE reidx=? AND deactivate='FALSE') AS repCnt "
+				+ "FROM COMMENTREP WHERE reIdx=? AND id = ?";
 		String rep_sql = "INSERT INTO COMMENTREP (COMMENTREPIDX,REIDX,REASON,ID) VALUES(COMMENTREP_SEQ.NEXTVAL,?,?,?)";
 		boolean success =false;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, reIdx);
-			ps.setString(2, loginId);
+			ps.setString(2, reIdx); // 카운팅
+			ps.setString(3, loginId);
 			rs = ps.executeQuery();
-			if(!rs.next()) { //한번 신고한사람 못하게				
+			boolean suc = rs.next();
+			int repCnt = 0; //카운팅 된 갯수
+			if(rs.getString("repCnt")!=null) {//변환 해야하니까
+				repCnt =Integer.parseInt(rs.getString("repCnt"));
+				System.out.println("카운팅 : "+repCnt);
+				if(repCnt>=2) {// 신고 되면 3이니까 2이상일 때 신고 들어오면 블라인드 처리
+					sql="UPDATE BBS_COMMENT SET deactivate='TRUE' WHERE reIdx=?";
+					ps.setString(1, reIdx);
+					ps.executeUpdate();
+				}
+			}		
+			if(!suc) { //한번 신고한사람 못하게				
 				
 				ps = conn.prepareStatement(rep_sql);
 				ps.setString(1, reIdx);
 				ps.setString(2, reason);
 				ps.setString(3, loginId);
-				if(ps.executeUpdate()>0) {				
-					String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
-					ps = conn.prepareStatement(bbs_sql);
-					ps.setString(1, reIdx);		
-					
-					int suc = 0;
-					if(ps.executeUpdate()>0) {
-						suc+=1;
-					}
-					sql="SELECT id FROM BBS_COMMENT WHERE reIdx=?";
-					ps=conn.prepareStatement(sql);
-					ps.setString(1, reIdx);
-					rs=ps.executeQuery();
-					
-					String userId = "";
-					if(rs.next()) {
-						userId=rs.getString("id");
-						bbs_sql="UPDATE member SET reportCnt=reportCnt+1 WHERE id=?";
-						ps = conn.prepareStatement(bbs_sql);
-						ps.setString(1, loginId);							
-					}
-					
-					if(ps.executeUpdate()>0) {
-						suc+=1;
-					}
-					if(suc>1) {
-						success = true;						
-					}
-				}			
+				int suc1 = ps.executeUpdate();
+				System.out.println("suc : "+ suc1);
+				if(suc1>0) {
+//					String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
+//					ps = conn.prepareStatement(bbs_sql);
+//					ps.setString(1, reIdx);
+//					if(ps.executeUpdate()>0) {
+//						success = true;
+//					}
+					success = true;
+				}
 				
 			}
-			sql="SELECT count(commentrepidx) AS repCnt FROM  commentrep WHERE reidx=? AND deactivate='FALSE' ";
-			ps=conn.prepareStatement(sql);
-			ps.setString(1, reIdx);
-			rs=ps.executeQuery();
-			if(rs.next()) {
-				int repCnt = rs.getInt("repCnt");
-				System.out.println("카운팅 : "+repCnt);
-				if(repCnt>=3) {
-					sql="UPDATE BBS_COMMENT SET deactivate='TRUE' WHERE reIdx=?";
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, reIdx);
-					System.out.println("sql : "+ sql);
-					int suc =ps.executeUpdate();
-					System.out.println("suc : "+suc);
-				}				
-			}
-				
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
