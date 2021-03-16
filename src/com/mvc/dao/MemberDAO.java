@@ -312,6 +312,8 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			resClose();
 		}
 		System.out.println(pw);
 		return pw;
@@ -420,14 +422,15 @@ public class MemberDAO {
 	}
 
 	/*비밀번호 찾기 후 수정*/
-	public boolean findpwUpdate(String newPw) {
+	public boolean findpwUpdate(String id, String newPw) {
 		
-		String sql = "UPDATE member SET pw WHERE pw=?";
+		String sql = "UPDATE member SET pw=? WHERE id=?";
 		boolean success = false;
 		
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, newPw);
+			ps.setString(2, id);
 			if(ps.executeUpdate()>0) {
 				success=true;
 			}
@@ -436,8 +439,7 @@ public class MemberDAO {
 		}finally {
 			resClose();
 		}
-		
-		
+
 		return success;
 	}
 	
