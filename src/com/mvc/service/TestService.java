@@ -36,7 +36,7 @@ public class TestService {
 	
 	public void tripDetail() throws ServletException, IOException {
 		String conIdx =req.getParameter("contentId");
-		System.out.println("dddd : "+conIdx);
+		System.out.println("conIdx : "+conIdx);
 		String id = (String) req.getSession().getAttribute("loginId");
 		TestDAO dao = new TestDAO();		
 		TripDTO detail = dao.tripDetail(conIdx);
@@ -141,7 +141,7 @@ public class TestService {
 			String updateYN = req.getParameter("updateYN");			
 			String boardIdx = req.getParameter("boardIdx");
 			String bbsRepIdx = req.getParameter("bbsRepIdx");
-			String type = req.getParameter("type");
+			String type = req.getParameter("type"); //타입 1 게시물, 2 댓글
 			String managerid = (String) req.getSession().getAttribute("loginId");
 			System.out.println(updateYN+"/"+boardIdx+"/"+bbsRepIdx+"/"+type);
 			
