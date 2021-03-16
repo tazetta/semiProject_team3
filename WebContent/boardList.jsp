@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%String loginId = (String)request.getSession().getAttribute("loginId"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -113,7 +114,9 @@
          	<c:if test="${currPage < maxPage}">
          		<a href="./boardList?page=${currPage+1}">다음</a></c:if>
 		</span>
-   		<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>   
+		<c:if test="${loginId ne null}">
+   		<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>
+   		</c:if>
 	</div>
 		</div>
 	</body>

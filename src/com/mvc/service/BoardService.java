@@ -29,9 +29,9 @@ public class BoardService {
 
 	public void list() throws ServletException, IOException {
 		
-		String loginId = (String) req.getSession().getAttribute("loginId");
+		//String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		if(loginId!=null) {
+		//if(loginId!=null) {
 		String pageParam =  req.getParameter("page");
 		System.out.println("page:"+pageParam);
 		//한페이지 그룹 -> 1~10번
@@ -47,9 +47,11 @@ public class BoardService {
 		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
-		}else {
-			resp.sendRedirect("index.jsp");
-		}
+		//}else {
+			//msg = "로그인이 필요한 서비스입니다.";
+			//dis = req.getRequestDispatcher("index.jsp");
+			//dis.forward(req, resp);	
+		//}
 	}
 
 	public void write() throws ServletException, IOException {
@@ -84,7 +86,9 @@ public class BoardService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);		
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
 		
 	}
@@ -117,8 +121,10 @@ public class BoardService {
 			}		
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 
-		}else{
-			resp.sendRedirect("index.jsp");
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
 	}
 
@@ -155,23 +161,30 @@ public class BoardService {
 	public void updateForm() throws ServletException, IOException {
 		
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		String boardIdx = req.getParameter("boardIdx");
-		String id = req.getParameter("id");
-		String currPage = req.getParameter("page");
-		BoardDAO dao = new BoardDAO();
-		BoardDTO dto = dao.detail(boardIdx);
-		page = "/boardList?page="+currPage;
-		if(loginId.equals(id) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
-			page="boardUpdateForm.jsp";
-			req.setAttribute("page", currPage);
-			req.setAttribute("dto", dto);
+		
+		if(loginId!=null) {
+			String boardIdx = req.getParameter("boardIdx");
+			String id = req.getParameter("id");
+			String currPage = req.getParameter("page");
+			BoardDAO dao = new BoardDAO();
+			BoardDTO dto = dao.detail(boardIdx);
+			page = "/boardList?page="+currPage;
+			if(loginId.equals(id) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
+				page="boardUpdateForm.jsp";
+				req.setAttribute("page", currPage);
+				req.setAttribute("dto", dto);
+			}		
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);			
+		} else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
 		
 	}
 
-	public void update() throws IOException {
+	public void update() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		
 		if(loginId!=null) {
@@ -194,11 +207,12 @@ public class BoardService {
 				if(delFileName!=null) {
 					upload.delete(delFileName);				
 				}
-			}
-			
+			}			
 			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx()+"&page="+currPage);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
 	}
 
@@ -225,7 +239,9 @@ public class BoardService {
 			dis.forward(req, resp);
 			
 		}else {
-			resp.sendRedirect("index.jsp");
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
 		
 	}
@@ -324,9 +340,15 @@ public class BoardService {
 		String boardIdx = req.getParameter("boardIdx");
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		System.out.println("신고할 게시글번호: "+boardIdx+"/"+loginId);
-		req.setAttribute("boardIdx", boardIdx);
-		dis = req.getRequestDispatcher("boardReportForm.jsp");
-		dis.forward(req, resp);
+		if(loginId!=null) {
+			req.setAttribute("boardIdx", boardIdx);
+			dis = req.getRequestDispatcher("boardReportForm.jsp");
+			dis.forward(req, resp);			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
+		}
 	}
 	
 	public void boardReport() throws ServletException, IOException {
@@ -334,24 +356,37 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String reason = req.getParameter("reason");
 		System.out.println(boardIdx+"/"+loginId+"/"+reason);
-		BoardDAO dao = new BoardDAO();
-		msg= "이미 신고한 게시글입니다.";
-		page="boardReportForm.jsp";
-		if(dao.boardReport(boardIdx,loginId,reason)) {
-			msg="신고처리가 완료되었습니다.";
+		if(loginId!=null) {
+			BoardDAO dao = new BoardDAO();
+			
+			msg= "이미 신고한 게시글입니다.";
+			page="boardReportForm.jsp";
+			if(dao.boardReport(boardIdx,loginId,reason)) {
+				msg="신고처리가 완료되었습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
 	}
 
 	public void commReportForm() throws ServletException, IOException {
 		String reIdx = req.getParameter("reIdx");
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		System.out.println("신고할 댓글번호: "+reIdx+"/"+loginId);
-		req.setAttribute("reIdx", reIdx);
-		dis = req.getRequestDispatcher("commReportForm.jsp");
-		dis.forward(req, resp);
+		if(loginId!=null) {
+			req.setAttribute("reIdx", reIdx);
+			dis = req.getRequestDispatcher("commReportForm.jsp");
+			dis.forward(req, resp);			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
+		}
 		
 	}
 
@@ -360,15 +395,21 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String reason = req.getParameter("reason");
 		System.out.println(reIdx+"/"+loginId+"/"+reason);
-		BoardDAO dao = new BoardDAO();
-		msg= "이미 신고한 댓글입니다.";
-		page="commReportForm.jsp";
-		if(dao.commReport(reIdx,loginId,reason)) {
-			msg="신고처리가 완료되었습니다.";
+		if(loginId!=null) {
+			BoardDAO dao = new BoardDAO();
+			msg= "이미 신고한 댓글입니다.";
+			page="commReportForm.jsp";
+			if(dao.commReport(reIdx,loginId,reason)) {
+				msg="신고처리가 완료되었습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
 		
 	}
 }
