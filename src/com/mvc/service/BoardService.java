@@ -96,6 +96,8 @@ public class BoardService {
 		if(loginId!=null) {
 			BoardDAO dao = new BoardDAO();
 			String boardIdx = req.getParameter("boardIdx");
+			String currPage = req.getParameter("page");
+			System.out.println("현재페이지: "+currPage);
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println("oriFileName"+dto.getOriFileName());
@@ -103,12 +105,13 @@ public class BoardService {
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
 			System.out.println("댓글리스트 사이즈: "+list.size());
 			System.out.println("비활성화상태:"+dto.getDeactivate());
-			String page="/boardList";
+			String page="/boardList?page="+currPage;
 			
 			if(dto!=null && dto.getDeactivate().equals("FALSE")) {	
 				dao = new BoardDAO();
 				dao.upHit(boardIdx);
 				page="boarddetail.jsp";
+				req.setAttribute("currPage", currPage);
 				req.setAttribute("dto", dto);
 				req.setAttribute("list", list);
 			}		
