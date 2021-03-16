@@ -308,13 +308,16 @@ public class MemberService {
 	public void findpwUpdate() throws ServletException, IOException {
 		
 		boolean success = false;
+		req.getAttribute("id");
+		String id = req.getParameter("userId");
+		String userPw = req.getParameter("userPw");
 		String newPw = req.getParameter("newPw");
-		System.out.println(newPw);
+		System.out.println(id+"/"+newPw);
 		
 		msg="비밀번호를 다시 확인해주세요.";
 		page = "findpwUpdate.jsp";
 		
-		success = dao.findpwUpdate(newPw);
+		success = dao.findpwUpdate(id, userPw, newPw);
 		System.out.println("비밀번호 수정 : " + success);
 		if(success) {
 			msg="비밀번호가 수정 되었습니다.";
