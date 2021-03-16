@@ -19,7 +19,7 @@ public class MemberListService {
 	RequestDispatcher dis = null;
 	String page = "";
 	String msg = "";
-	
+
 	public MemberListService(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
@@ -34,23 +34,23 @@ public class MemberListService {
 	}
 
 	public void memberDetail() throws ServletException, IOException {
-		
+
 		String id = req.getParameter("id");
-		System.out.println("상세보기 id: "+id);
-		
+		System.out.println("상세보기 id: " + id);
+
 		String memberDetail = "/memberList";
 		String page = memberDetail;
-		
+
 		MemberListDAO dao = new MemberListDAO();
 		MemberListDTO dto = dao.memberDetail(id);
-		
-		if(dto != null) {
+
+		if (dto != null) {
 			dao = new MemberListDAO();
 			page = "memberDetail.jsp";
 			req.setAttribute("dto", dto);
 		}
 		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);			
+		dis.forward(req, resp);
 	}
 
 	public void memberDelList() throws ServletException, IOException {
@@ -62,42 +62,57 @@ public class MemberListService {
 	}
 
 	public void memberDelDetail() throws ServletException, IOException {
-		
+
 		String id = req.getParameter("id");
-		System.out.println("탈퇴회원 상세보기 id: "+id);
-		
+		System.out.println("탈퇴회원 상세보기 id: " + id);
+
 		String memberDelDetail = "/memberDetail";
 		String page = memberDelDetail;
-		
+
 		MemberListDAO dao = new MemberListDAO();
 		MemberListDTO dto = dao.memberDetail(id);
-		
-		if(dto != null) {
+
+		if (dto != null) {
 			dao = new MemberListDAO();
 			page = "memberDelDetail.jsp";
 			req.setAttribute("dto", dto);
 		}
 		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);			
+		dis.forward(req, resp);
 	}
 
-	public void memberDraw() throws ServletException, IOException { //탈퇴 회원 삭제 
-		
+	public void memberDraw() throws ServletException, IOException { // 탈퇴 회원 삭제
+
 		String id = req.getParameter("id");
-		System.out.println("삭제할 탈퇴회원 id: "+id);
-		
+		System.out.println("삭제할 탈퇴회원 id: " + id);
+
 		msg = "";
 		page = "/memberDelList";
-		
+
 		MemberListDAO dao = new MemberListDAO();
-		if(dao.memberDraw(id)) {
+		if (dao.memberDraw(id)) {
 			msg = "해당 회원을 삭제하였습니다.";
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 	}
-		
-	
+
+	public void memberRestore() throws ServletException, IOException {
+
+		String id = req.getParameter("id");
+		System.out.println("복구할 탈퇴회원 id: " + id);
+
+		msg = "";
+		page = "/memberDelList";
+
+		MemberListDAO dao = new MemberListDAO();
+		if (dao.memberRestore(id)) {
+			msg = "해당 회원을 복구하였습니다.";
+		}
+		req.setAttribute("msg", msg);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	}
 
 }

@@ -11,7 +11,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.MemberListDTO;
-import com.mvc.dto.PopupDTO;
 
 public class MemberListDAO {
 
@@ -145,6 +144,26 @@ public class MemberListDAO {
 				resClose();
 		}	
 		System.out.println("회원 삭제여부 :"+success);
+		return success;
+	}
+
+	public boolean memberRestore(String id) {
+		
+		String sql = "UPDATE member SET withdraw='FALSE' WHERE id=?";
+		boolean success = false;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+				resClose();
+		}	
+		System.out.println("회원 복구 성공여부 :"+success);
 		return success;
 	}
 
