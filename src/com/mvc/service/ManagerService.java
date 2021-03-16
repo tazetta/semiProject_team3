@@ -232,7 +232,7 @@ public class ManagerService {
 			}
 			TripDAO dao = new TripDAO();
 			HashMap<String, Object> tripMap = dao.tripSearch(group, keyword, searchType, isDeactivate);
-			String url = "keyword=" + keyword + "&searchType=" + searchType;
+			String url = "keyword=" + keyword + "&searchType=" + searchType + "&deactivate="+isDeactivate;
 
 			req.getSession().setAttribute("type", "search");
 			req.getSession().setAttribute("url", url);
@@ -269,6 +269,8 @@ public class ManagerService {
 	public void tripManageUpdateForm() throws ServletException, IOException {
 		if (isManager()) {
 			String contentId = req.getParameter("contentId");
+			String page = req.getParameter("page");
+			System.out.println("currPage : " + page);
 			System.out.println("contentId : " + contentId);
 
 			ArrayList<ContentDTO> contentList = null;
@@ -293,13 +295,14 @@ public class ManagerService {
 				tripDAO = new TripDAO();
 				TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
 
+				req.setAttribute("currPage", page);
+				
 				req.setAttribute("contentList", contentList);
 				req.setAttribute("largeList", largeList);
 				req.setAttribute("mediumList", mediumList);
 				req.setAttribute("smallList", smallList);
 				req.setAttribute("areaList", areaList);
 				req.setAttribute("cityList", cityList);
-
 				req.setAttribute("tripDTO", tripDTO);
 				RequestDispatcher dis = req.getRequestDispatcher("tripManageUpdateForm.jsp");
 				dis.forward(req, resp);

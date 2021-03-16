@@ -13,11 +13,12 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 30px;
+	margin-left: 25%;
+	margin-top: 20px;
 }
-
+table{
+	width:50%;
+}
 .regDate {
 	width:80px;
 }
@@ -45,11 +46,38 @@ table, th, td {
 .button {
 	text-align: center;
 }
+button{
+	padding: 10px 10px;
+}
+#overview{
+	width:80%;
+}
+div.tripManageList {
+	position: absolute;
+	top: 20%;
+	left: 3%;
+}
+
+div.tripManageName {
+	padding: 5px 15px;
+	border: 1px solid black;
+	width: 120px;
+	height: 30px;
+	text-align: center;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="admin_navbar.jsp" />
+	<div class="tripManageList">
+		<div class="tripManageName">
+			<a href="./tripManageList">여행지 목록</a>
+		</div>
+		<div class="tripManageName">
+			<a href="./tripInsertInformation">여행지 저장</a>
+		</div>
+	</div>
 	<div>
 		<form name="form">
 			<table>
@@ -107,7 +135,7 @@ table, th, td {
 				</tr>
 				<tr>
 					<th>상세설명</th>
-					<td>${tripDTO.overview}</td>
+					<td id="overview">${tripDTO.overview}</td>
 				</tr>
 				<tr>
 					<th>비활성화 여부</th>
@@ -123,8 +151,7 @@ table, th, td {
 			</table>
 		</form>
 		<div class="button">
-			<button onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}'">수정</button>
-			
+			<button onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}&page=${currPage}'">수정</button>
 			<c:if test="${sessionScope.type eq 'manageList'}">
 				<button onclick="location.href='./tripManageList?page=${currPage}'">닫기</button>
 			</c:if>
