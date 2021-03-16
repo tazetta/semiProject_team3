@@ -31,6 +31,24 @@
 </body>
 
 <div>
+	<h2>설명</h2>
+	<h4>main 오기전에 /mainWeatherCast 들려서 다시 와야되는데 그냥 바로 weatherCast.jsp로
+		와서 시작값이 서울이 아님</h4>
+	<h4>css는 못하겠으니 아무나 해주세요.. ㅜㅜ</h4>
+	<h4>필요 없는값이 여러개 있는 것 같으니 F12눌러서 넘어오는 값 확인해주세요.</h4>
+	<h4>WeatherCastDTO에 무슨값인지 적어놨어요. 그냥 여기에 적어둘게요</h4>
+	<p>POP; // 강수 확률 %</p>
+	<p>PTY; // 강수 형태 코드값</p>
+	<p>R06; // 6시간 강수량 범주 (1mm)</p>
+	<p>REH; // 습도 %</p>
+	<p>SKY; // 하늘상태 코드값</p>
+	<p>TMN; // 아침 최저기온 섭씨</p>
+	<p>TMX; // 낮 최고기온 섭씨</p>
+	<p>UUU; // 풍속(동서성분) m/s</p>
+	<p>VVV; // 풍속(남북성분) m/s</p>
+	<h4>today tomorrow 이런건 날짜 비교해서 데이터 다르게 보여주려고 하는데 Javascript에서는 날짜 포맷변환이 귀찮아서 걍 서버에서 보냈어요</h4>
+	</div>
+<div>
 <p>오늘</p>
 	<p id="POP"></p>
 	<p id="PTY"></p>
@@ -40,7 +58,7 @@
 	<p id="TMN"></p>
 	<p id="TMX"></p>
 </div>
-<div>
+<!-- <div>
 <p>내일</p>
 	<p id="POP"></p>
 	<p id="PTY"></p>
@@ -59,16 +77,18 @@
 	<p id="SKY"></p>
 	<p id="TMN"></p>
 	<p id="TMX"></p>
-</div>
+</div> -->
 
 <script>
 	function areaList(value) {
 		var $area = $("#area");
-		
+
 		$.ajax({
 			type : 'GET',
 			url : 'mainWeatherCast',
-			data : {"area" : $area.val() },
+			data : {
+				"area" : $area.val()
+			},
 			dataType : 'JSON',
 			success : function(obj) {
 				console.log(obj.list);
@@ -86,6 +106,6 @@
 				console.log(e);
 			}
 		})
-	}	
+	}
 </script>
 </html>
