@@ -308,7 +308,7 @@ public class MemberService {
 	public void findpwUpdate() throws ServletException, IOException {
 		
 		boolean success = false;
-		req.getAttribute("id");
+//		req.getAttribute("id");
 		String id = req.getParameter("userId");
 		String userPw = req.getParameter("userPw");
 		String newPw = req.getParameter("newPw");
