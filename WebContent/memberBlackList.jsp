@@ -34,7 +34,7 @@ table, th,td {
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 
-	<!-- 사이드 네비&검색필터 -->
+	<!-- 사이드 네비 -->
 	<jsp:include page="side_manager.jsp" />
 
 
@@ -44,23 +44,18 @@ table, th,td {
 					<th>블랙리스트 번호</th>
 					<th>아이디</th>
 					<th>블랙리스트 등록일</th>
-					<th>등록사유</th>
+					<th>블랙리스트 등록사유</th>
 					<th>등록 관리자</th>
-
-					
-					<th>핸드폰 번호</th>
-					<th>이메일</th>
 					<th></th>
 				</tr>
-				<c:forEach items="${memberBlackList}" var="member">
+				<c:forEach items="${memberBlackList}" var="black">
 					<tr>
-						<td>${member.reg_date}</td>
-						<td>${member.managerid}</td>
-						<td>${member.id}</td>
-						<td>${member.name}</td>
-						<td>${member.phone}</td>
-						<td>${member.email}</td>
-						<td><a href="memberBlackDetail?id=${member.id}">상세보기</a></td>
+						<td>${black.blackidx}</td>
+						<td>${black.id}</td>
+						<td>${black.reg_date}</td>
+						<td>${black.reason}</td>
+						<td>${black.managerid}</td>
+						<td><a href="memberBlackDetail?id=${black.id}">상세보기</a></td>
 					</tr>
 				</c:forEach>
 			</table>

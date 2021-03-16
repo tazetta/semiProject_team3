@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.BlackListService;
 
-@WebServlet({"/memberBlackList","/memberBlackAdd"})
+@WebServlet({"/memberBlackList","/memberBlackAdd","/memberBlackDetail"})
 public class BlackListController extends HttpServlet {
 
 	@Override
@@ -41,6 +41,11 @@ public class BlackListController extends HttpServlet {
 		case "/memberBlackAdd":
 			System.out.println("블랙리스트 추가 요청");
 			service.memberBlackAdd();
+			break;
+			
+		case "/memberBlackDetail":
+			System.out.println("블랙리스트 회원 상세보기");
+			service.memberBlackDetail();
 			break;
 		}
 	}
