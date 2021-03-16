@@ -75,7 +75,7 @@
 				<c:if test="${dto.id!=loginId}">
 				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
-				<button onclick="location.href='./boardList'">목록</button>
+				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
 			</div>
 		<table>
 			<tr>
@@ -137,6 +137,7 @@
 		</div>
 </body>
 <script>
+	console.log("${currPage}");
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
 		location.href='./commentWrite?comment='+comment+'&boardIdx=${dto.boardIdx}';
