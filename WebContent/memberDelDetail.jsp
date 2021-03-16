@@ -48,7 +48,7 @@ table, th, td {
                 <th>이메일</th>
                 <th>수정일</th>
                 <th>글,댓글 신고수</th>
-                <th>블랙리스트</th>
+                <th>블랙리스트로 등록된 횟수</th>
             </tr>
             <tr>
                 <td>${dto.reg_date}</td>
