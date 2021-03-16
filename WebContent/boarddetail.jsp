@@ -109,26 +109,30 @@
 		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
-			<table class ="comm_table">
-			<tr>
-				<td style="width:150px;">${comment.id}</td>
-				<td>
-					${comment.content}
-					<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-						<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
-					</c:if>
-					<c:if test="${comment.id==loginId || isManager=='true'}">
-						<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
-					</c:if>
-				</td>
-				<td style="width:150px;">${comment.reg_date}</td>
-				<c:if test="${comment.id!=loginId}">
-				<td style="width:50px;">
-					<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
-				</td>
-				</c:if>
-			</tr>
-			</table>
+			<c:if test="${comment.deactivate eq 'TRUE' }">
+			</c:if>
+			<c:if test="${comment.deactivate eq 'FALSE' }">
+				<table class ="comm_table">
+					<tr>
+						<td style="width:150px;">${comment.id}</td>
+						<td>
+							${comment.content}
+							<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
+								<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
+							</c:if>
+							<c:if test="${comment.id==loginId || isManager=='true'}">
+								<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
+							</c:if>
+						</td>
+						<td style="width:150px;">${comment.reg_date}</td>
+						<c:if test="${comment.id!=loginId}">
+						<td style="width:50px;">
+							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
+						</td>
+						</c:if>
+					</tr>
+				</table>			
+			</c:if>
 		</c:forEach>
 		</c:if>
 		<c:if test="${empty list}"><!-- 댓글이 없는경우 -->

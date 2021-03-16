@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,7 +32,6 @@
 			}
 			#body{
 				width: 800px;
-				border: 1px solid black;
 			}
 				
 		</style>
@@ -52,13 +51,15 @@
 					<th>제목</th>
 					<td>${dto.subject}</td>
 					<td>신고수 / <b>${reason.repCnt }</b></td>
-					<td>
-						블라인드 					
-						<select id="YN">
-							<option  value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
-							<option value="FALSE" ${dto.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
-						</select>
-					</td>
+					<c:if test="${reason.deactivate eq 'FALSE' }">
+						<td style="background-color: coral;">
+							블라인드 				
+							<select id="YN">
+								<option value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
+								<option value="FALSE" ${dto.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
+							</select>
+						</td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>내용</th>
@@ -73,44 +74,55 @@
 			</table>
 			<fieldset>
 				<p>
-					신고 사유 
+					신고 사유 ${reason.deactivate}
 					<br/><br/>
 					<b>${reason.reason }</b>
 				</p>
 			</fieldset>
 			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportBBS?page=${currPage}'" value="목록"/>		
+				<input type="button"  onclick="location.href='./reportBBS?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
 				&nbsp;&nbsp;&nbsp;
-				<button id="btn"> 적용 </button>
+				<c:if test="${reason.deactivate eq 'FALSE' }">
+					<button id="btn"> 적용 </button>
+				</c:if>
 			</div>
 		</div>
 	</body>
 	<script>
 		$("#btn").click(function () {
+			var deactivate = "${reason.deactivate}";
 			var bbsIdx ="${dto.boardIdx}";
 			var bbsRepIdx="${reason.commentRepIdx }";
-			console.log($("#YN").val());
-			$.ajax({
-				type:"get"
-				,url:"updateYN"
-				,data:{
-					"updateYN":$("#YN").val()
-					,"boardIdx":bbsIdx
-					,"bbsRepIdx":bbsRepIdx
-					,"type":'1'
-				
-				}
-				,dataType:"json"
-				,success: function(data) {
-					console.log(data.suc);
-					if(data.suc>0){
-						location.href="./reportBBS";
+			var YN =$("#YN").val();
+			var chkMsg ="Y";
+			if(YN=="FALSE"){
+				chkMsg="N";
+			}
+			
+			var chk = confirm('선택 하신 값이 맞습니까? '+ chkMsg);
+			if(chk){
+				$.ajax({
+					type:"get"
+					,url:"updateYN"
+					,data:{
+						"updateYN":YN
+						,"boardIdx":bbsIdx
+						,"bbsRepIdx":bbsRepIdx
+						,"type":'1'
+						,"deactivate":deactivate
 					}
-				}
-				,error: function(e) {
-					console.log(e);
-				}
-			});
+					,dataType:"json"
+					,success: function(data) {
+						console.log(data.suc);
+						if(data.suc>0){
+							location.href="./reportBBS?page=${currPage}&deactivate=${reason.deactivate}";
+						}
+					}
+					,error: function(e) {
+						console.log(e);
+					}
+				});				
+			}
 		});	
 	
 	
