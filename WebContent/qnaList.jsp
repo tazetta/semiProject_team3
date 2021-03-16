@@ -111,7 +111,14 @@ a {
 				</c:forEach>
 				 </c:if> 
 			</table>
-			<button id="wd" onclick="location.href='qnaWriteForm.jsp'">글쓰기</button>
+			<c:if test="${qna.id eq loginId}"> 
+			<button id="wd" onclick="location.href='writeFormQ.jsp'">글쓰기</button>
+			
+			</c:if>
+			
+			 <c:if test="${isManager eq true}">
+			 <button id="wd" onclick="location.href='writeFormA.jsp'">글쓰기</button> 
+			 </c:if> 
 		</div>
 
 		<div class="pageArea">

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.QnaSerivce;
 
-@WebServlet({"/qnaList","/writeQNA"})
+@WebServlet({"/qnaList","/writeQue","/writeAns"})
 public class QNAController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,10 +45,15 @@ public class QNAController extends HttpServlet {
 			
 			break;
 
-		case "/writeQNA":
+		case "/writeQue":
 			System.out.println("");
 			System.out.println("--고객센터 글쓰기 요청(user)--");
 			service.writeQNA();
+			break;
+			
+		case "/writeAns":
+			System.out.println("");
+			System.out.println("--고객센터  글쓰기 요청(admin)--");
 			break;
 		}
 		
