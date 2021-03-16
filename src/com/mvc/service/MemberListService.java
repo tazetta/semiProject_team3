@@ -2,6 +2,7 @@ package com.mvc.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,15 +27,38 @@ public class MemberListService {
 	}
 
 	public void memberList() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			
+		String pageParam =  req.getParameter("page");
+		System.out.println("page:"+pageParam);
+		//한페이지 그룹 -> 1~10번
+		int group =1;
+		if(pageParam!=null) {
+			group = Integer.parseInt(pageParam);
+		}		
 		MemberListDAO dao = new MemberListDAO();
-		ArrayList<MemberListDTO> memberList = dao.memberList();
-		req.setAttribute("memberList", memberList);
+		HashMap<String, Object> map = dao.memberList(group);
+		
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("memberList", map.get("memberList"));
+		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("memberList.jsp");
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void memberDetail() throws ServletException, IOException {
 
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
 		String id = req.getParameter("id");
 		System.out.println("상세보기 id: " + id);
 
@@ -51,18 +75,45 @@ public class MemberListService {
 		}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void memberDelList() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			String pageParam =  req.getParameter("page");
+			System.out.println("page:"+pageParam);
+			//한페이지 그룹 -> 1~10번
+			int group =1;
+			if(pageParam!=null) {
+				group = Integer.parseInt(pageParam);
+		}				
 		MemberListDAO dao = new MemberListDAO();
-		ArrayList<MemberListDTO> memberDelList = dao.memberDelList();
-		req.setAttribute("memberDelList", memberDelList);
+		HashMap<String, Object> map  = dao.memberDelList(group);
+		
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("memberDelList", map.get("memberDelList"));
+		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("memberDelList.jsp");
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void memberDelDetail() throws ServletException, IOException {
 
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
 		String id = req.getParameter("id");
 		System.out.println("탈퇴회원 상세보기 id: " + id);
 
@@ -79,10 +130,18 @@ public class MemberListService {
 		}
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void memberDraw() throws ServletException, IOException { // 탈퇴 회원 삭제
 
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
 		String id = req.getParameter("id");
 		System.out.println("삭제할 탈퇴회원 id: " + id);
 
@@ -96,10 +155,18 @@ public class MemberListService {
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void memberRestore() throws ServletException, IOException {
 
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
 		String id = req.getParameter("id");
 		System.out.println("복구할 탈퇴회원 id: " + id);
 
@@ -113,6 +180,28 @@ public class MemberListService {
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
+	}
+
+	public void memberSearch() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+		MemberListDAO dao = new MemberListDAO();
+		ArrayList<MemberListDTO> memberSearch = dao.memberSearch();
+		req.setAttribute("memberSearch", memberSearch);
+		dis = req.getRequestDispatcher("memberList.jsp");
+		dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 }
