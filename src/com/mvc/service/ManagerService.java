@@ -195,14 +195,14 @@ public class ManagerService {
 	public void tripManageList() throws ServletException, IOException {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
-			String isDeactivate = "FALSE";
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
 			}
 			TripDAO dao = new TripDAO();
 			HashMap<String, Object> tripMap = dao.tripManageList(group);
-
+			
+			req.getSession().setAttribute("type", "manageList");
 			req.setAttribute("deactivate", "FALSE");
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
@@ -212,7 +212,6 @@ public class ManagerService {
 		} else {
 			resp.sendRedirect("index.jsp");
 		}
-
 	}
 
 	public void tripSearch() throws ServletException, IOException {
@@ -235,6 +234,8 @@ public class ManagerService {
 			HashMap<String, Object> tripMap = dao.tripSearch(group, keyword, searchType, isDeactivate);
 			String url = "keyword=" + keyword + "&searchType=" + searchType;
 
+			req.getSession().setAttribute("type", "search");
+			req.getSession().setAttribute("url", url);
 			req.setAttribute("keyword", keyword);
 			req.setAttribute("url", url);
 			req.setAttribute("tripList", tripMap.get("tripList"));
@@ -249,13 +250,14 @@ public class ManagerService {
 
 	public void tripManageDetail() throws ServletException, IOException {
 		if (isManager()) {
-
 			String contentId = req.getParameter("contentId");
+			String page = req.getParameter("page");
 			System.out.println("contentId : " + contentId);
 
 			TripDAO tripDAO = new TripDAO();
 			TripDTO tripDTO = tripDAO.tripManageDetail(contentId);
-
+			
+			req.setAttribute("currPage", page);
 			req.setAttribute("tripDTO", tripDTO);
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageDetail.jsp");
 			dis.forward(req, resp);
@@ -308,7 +310,6 @@ public class ManagerService {
 	}
 
 	public void tripManageUpdate() throws ServletException, IOException {
-
 		if (isManager()) {
 			String managerId = req.getParameter("managerId");
 			String contentId = req.getParameter("contentId");
@@ -371,7 +372,8 @@ public class ManagerService {
 		TripDAO tripDAO = new TripDAO();
 		HashMap<String, Object> tripMap = tripDAO.tripDeactivateFilter(group);
 		String url = "deactivate=TRUE";
-
+		req.getSession().setAttribute("type", "filter");
+		req.getSession().setAttribute("url", url);
 		req.setAttribute("url", url);
 		req.setAttribute("deactivate", "TRUE");
 		req.setAttribute("tripList", tripMap.get("tripList"));
