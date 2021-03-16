@@ -88,8 +88,19 @@ a {
 					<th>작성자</th>
 					<th>답변</th>
 				</tr>
-
 				<c:forEach items="${list}" var="qna">
+				 <c:if test="${qna.id eq loginId}"> 
+					<tr>
+						<td>${qna.rnum}</td>
+						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
+						<td>${qna.reg_date}</td>
+						<td>${qna.id}</td>
+						<td>y/n</td>
+					</tr>
+				 </c:if> 
+				</c:forEach>
+				 <c:if test="${isManager eq true}">
+				 <c:forEach items="${list}" var="qna">
 					<tr>
 						<td>${qna.rnum}</td>
 						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
@@ -98,6 +109,7 @@ a {
 						<td>y/n</td>
 					</tr>
 				</c:forEach>
+				 </c:if> 
 			</table>
 			<button id="wd" onclick="location.href='qnaWriteForm.jsp'">글쓰기</button>
 		</div>
