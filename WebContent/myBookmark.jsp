@@ -50,14 +50,14 @@ span {
 	font-weight: 600;
 }
 
-table#bookmarkList {
+/* table#bookmarkList {
 	background-color: white;
 	text-align: center;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
 	width: 1200px;
-}
+} */
 
 .noneList {
 	position: relative;
@@ -174,7 +174,8 @@ a {
 						<tr>
 							<td id="user" rowspan="2">
 								<div>
-									<img src="${bm.firstImage}" width="300px" height="200px">
+									<a href="./tripDetail?contentId=${bm.contentid}" target=window.open()><img src="${bm.firstimage}" width="300px" height="200px">
+									</a>
 								</div>
 							</td>
 							<td colspan="2" id="text">
@@ -182,7 +183,8 @@ a {
 							</td>
 						</tr>
 						<tr>
-							<td class="bottom"><button onclick="location.href='#'">삭제</button></td>
+							<td class="bottom">
+							<a href="./bookmarkUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 				
@@ -191,7 +193,7 @@ a {
 					</c:forEach>
 					
 					
-			</table>
+			
 			<c:if test="${list ne '[]'}">
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if

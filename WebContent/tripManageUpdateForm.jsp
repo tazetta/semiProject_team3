@@ -13,13 +13,17 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 30px;
+	margin-left: 25%;
+	margin-top: 20px;
 }
-
-.regDate {
-	width: 80px;
+table{
+	width:50%;
+}
+button{
+	padding: 10px 10px;
+}
+input{
+	width:100%;
 }
 
 .pageArea {
@@ -51,6 +55,7 @@ table, th, td {
 div.tripManageList {
 	position: absolute;
 	top: 20%;
+	left: 3%;
 }
 
 div.tripManageName {
@@ -177,7 +182,7 @@ textarea {
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManageList'">목록보기</button>
+			<button onclick="location.href='./tripManageDetail?contentId=${tripDTO.contentId}&page=${currPage}'">취소</button>
 		</div>
 	</div>
 </body>

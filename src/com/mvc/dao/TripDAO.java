@@ -18,6 +18,7 @@ import com.mvc.dto.LargeDTO;
 import com.mvc.dto.MediumDTO;
 import com.mvc.dto.SmallDTO;
 import com.mvc.dto.TripDTO;
+import com.mvc.dto.TripDetailDTO;
 
 public class TripDAO {
 
@@ -363,7 +364,7 @@ public class TripDAO {
 				dto.setFirstImage(rs.getString("firstImage"));
 				dto.setTitle(rs.getString("title"));
 				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
-				dto.setRegDate(rs.getTimestamp("reg_date"));
+				dto.setReg_date(rs.getDate("reg_date"));
 				list.add(dto);
 			}
 			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);
@@ -464,7 +465,7 @@ public class TripDAO {
 		// 검색어
 		String addKeyword = "%"+tripKeyword+"%";
 		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
-				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY contentId DESC) AS rnum, "
 				+ "contentId, title, reg_date, deactivate FROM trip WHERE "+tripSearchType+" LIKE ? AND deactivate = ?"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
@@ -482,7 +483,7 @@ public class TripDAO {
 				dto.setDeactivate(rs.getString("deactivate"));
 				list.add(dto);
 			}
-			maxPage = getSearchTripMaxPage(pagePerCnt, tripKeyword, tripSearchType);
+			maxPage = getSearchTripMaxPage(pagePerCnt, tripKeyword, tripSearchType, isDeactivate);
 			map.put("maxPage", maxPage);
 			map.put("tripList", list);
 		} catch (SQLException e) {
@@ -493,13 +494,14 @@ public class TripDAO {
 		return map;
 	}
 	
-	private int getSearchTripMaxPage(int pagePerCnt, String keyword, String type) {
+	private int getSearchTripMaxPage(int pagePerCnt, String keyword, String type, String isDeactivate) {
 		int maxPage = 0;
 		try {
 			String addKeyword = "%"+keyword+"%";
-			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ?";
+			String sql = "SELECT COUNT(contentId) FROM trip WHERE "+type+" LIKE ? AND deactivate = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, addKeyword);
+			ps.setString(2, isDeactivate);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				int cnt = rs.getInt(1);
@@ -511,8 +513,8 @@ public class TripDAO {
 		return maxPage;
 	}
 
-	public TripDTO tripManageDetail(String contentId) {
-		TripDTO tripDTO = null;
+	public TripDetailDTO tripManageDetail(String contentId) {
+		TripDetailDTO tripDTO = null;
 		
 		String sql="SELECT contentId, firstImage, t.latitude, t.longitude, t.address, t.title, t.contentCode, t.largeIdx, t.mediumCode, t.smallCode, "
 				+ "t.areaCode, t.cityCode, t.managerId, t.overview, t.deactivate,"
@@ -529,7 +531,7 @@ public class TripDAO {
 			ps.setString(1, contentId);
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				tripDTO = new TripDTO();
+				tripDTO = new TripDetailDTO();
 				tripDTO.setContentId(rs.getInt("contentId"));
 				tripDTO.setFirstImage(rs.getString("firstImage"));
 				tripDTO.setLatitude(rs.getString("latitude"));

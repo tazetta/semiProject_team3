@@ -25,9 +25,6 @@ table, th, td {
 .title{
 	width:200px;
 }
-.regDate{
-	width:100px;
-}
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -83,8 +80,6 @@ div.deactivate{
 			</form>
 			<button onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
 		</div>
-		<!-- <div class="deactivate">
-		</div> -->
 		<div class="tripManageList">
 			<div class="tripManageName">
 				<a href="./tripManageList">여행지 목록</a>
@@ -105,8 +100,8 @@ div.deactivate{
 					<tr>
 						<td>${trip.contentId}</td>
 						<td class='title'><a
-							href="./tripManageDetail?contentId=${trip.contentId}">${trip.title}</a></td>
-						<td class='regDate'>${trip.reg_date}</td>
+							href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
+						<td>${trip.reg_date}</td>
 						<td>
 						<c:if test="${trip.deactivate eq true}">
 							Y

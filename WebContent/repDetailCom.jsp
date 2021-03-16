@@ -73,13 +73,22 @@
 			</table>
 			<div id="comment">
 				<c:forEach items="${list }" var="com">
+					<c:if test="${com.reIdx ne reason.reIdx}">
 					<table>
 						<tr>
 							<th>${com.id }</th>
 							<td>${com.content }</td>
 							<td>${com.reg_date }</td>
-							<c:if test="${com.reIdx eq reIdx}">
-								<td>신고수 / ${repCnt }</td>
+						</tr>
+					</table>	
+					</c:if>
+					<c:if test="${com.reIdx eq reason.reIdx}">							
+						<table>
+							<tr style="background-color: coral;">
+								<th>${com.id }</th>
+								<td>${com.content }</td>
+								<td>${com.reg_date }</td>
+								<td>신고수 / ${reason.repCnt }</td>
 								<td>
 									블라인드 					
 									<select id="YN">
@@ -87,23 +96,23 @@
 										<option value="FALSE" ${reason.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
 									</select>
 								</td>
-						</tr>
-						<tr>
-							<td colspan="5" style="border: 1px solid white;">
-								<fieldset>
-									<p>
-										신고 사유 
-										<br/><br/>
-									<b>${reason.reason }</b>
-								</fieldset>
-							</td>
-						</tr>
-						</c:if>
-					</table>
+							</tr>
+							<tr>
+								<td colspan="5" style="border: 1px solid white;">
+									<fieldset>
+										<p>
+											신고 사유 
+											<br/><br/>
+										<b>${reason.reason }</b>
+									</fieldset>
+								</td>
+							</tr>
+						</table>
+					</c:if>
 				</c:forEach>
 			</div>
 			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportComment'" value="목록"/>		
+				<input type="button"  onclick="location.href='./reportComment?page=${currPage}'" value="목록"/>		
 				&nbsp;&nbsp;&nbsp;
 				<button id="btn"> 적용 </button>
 			</div>
@@ -111,8 +120,8 @@
 	</body>
 	<script>
 		$("#btn").click(function () {
-			var reIdx ="${reIdx}";
-			var commentRepIdx="${commentRepIdx }";
+			var reIdx ="${reason.reIdx}";
+			var commentRepIdx="${reason.commentRepIdx }";
 			console.log($("#YN").val());
 			$.ajax({
 				type:"get"
