@@ -18,12 +18,12 @@ import com.mvc.dto.TripDTO;
 
 
 public class MemberDAO {
-	Connection conn = null; // DB연결시 사용될 변수
-	PreparedStatement ps = null; // DB재사용시 사용될 변수
-	ResultSet rs = null; // SELECT문 실행시 사용될 변수
+	Connection conn = null; 
+	PreparedStatement ps = null; 
+	ResultSet rs = null; 
 
 	/* DB연결 메서드 */
-	public MemberDAO() { // 클래스 객체화시 호출되는 생성자
+	public MemberDAO() { 
 		Context ctx;
 		try {
 			ctx = new InitialContext();
