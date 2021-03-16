@@ -26,7 +26,7 @@
         }
 	</style>
 	<body>
-		<form action="findpwUpdate" method="POST">
+		<form action="findpwUpdate?id=${id}" method="POST">
 		<fieldset>
             <div>비밀번호 재설정</div>
             <table>
@@ -46,9 +46,8 @@
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
-                
-                	<input type="button" value="확인" id="btn"/>
-               
+            <button id="btn">확인</button>
+                	<!-- <input type="button" value="확인" id="btn"/> -->
             </div>
         </fieldset>
 		</form>
@@ -98,10 +97,10 @@
     		alert("비밀번호는 5자 이상 입력해주세요.");
     	}else if(pwChk==false){
     		alert("비밀번호가 일치하지 않습니다.");
-    	}else{
+    	}/* else{
     		alert("비밀번호가 변경되었습니다.");
     		location.href="login.jsp";
-    	}
+    	} */
     });
 	</script>
 </html>
