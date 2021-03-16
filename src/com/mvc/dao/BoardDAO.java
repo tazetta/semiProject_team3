@@ -459,14 +459,35 @@ public class BoardDAO {
 				ps.setString(2, reason);
 				ps.setString(3, loginId);
 				if(ps.executeUpdate()>0) {				
-//					String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
-//					ps = conn.prepareStatement(bbs_sql);
-//					ps.setString(1, boardIdx);		
-//					if(ps.executeUpdate()>0) {
-//						success = true;
-//					}
-					success = true;
+					String bbs_sql = "UPDATE BBS SET reportCnt=reportCnt+1 WHERE boardIdx=?";
+					ps = conn.prepareStatement(bbs_sql);
+					ps.setString(1, boardIdx);		
+					
+					int suc = 0;
+					if(ps.executeUpdate()>0) {
+						suc+=1;
+					}
+					sql="SELECT id FROM bbs WHERE boardidx=?";
+					ps=conn.prepareStatement(sql);
+					ps.setString(1, boardIdx);
+					rs=ps.executeQuery();
+					
+					String userId = "";
+					if(rs.next()) {
+						userId=rs.getString("id");
+						bbs_sql="UPDATE member SET reportCnt=reportCnt+1 WHERE id=?";
+						ps = conn.prepareStatement(bbs_sql);
+						ps.setString(1, userId);	
+					}					
+					
+					if(ps.executeUpdate()>0) {
+						suc+=1;
+					}
+					if(suc>1) {
+						success = true;						
+					}
 				}
+				
 			}
 			sql="SELECT count(bbsrepidx) AS repCnt FROM  BBSREP WHERE boardIdx=? AND deactivate='FALSE' ";
 			ps=conn.prepareStatement(sql);
@@ -510,17 +531,35 @@ public class BoardDAO {
 				ps.setString(1, reIdx);
 				ps.setString(2, reason);
 				ps.setString(3, loginId);
-				int suc = ps.executeUpdate();
-				System.out.println("suc : "+ suc);
-				if(suc>0) {
-//					String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
-//					ps = conn.prepareStatement(bbs_sql);
-//					ps.setString(1, reIdx);
-//					if(ps.executeUpdate()>0) {
-//						success = true;
-//					}
-					success = true;
-				}
+				if(ps.executeUpdate()>0) {				
+					String bbs_sql = "UPDATE BBS_COMMENT SET reportCnt=reportCnt+1 WHERE reIdx=?";
+					ps = conn.prepareStatement(bbs_sql);
+					ps.setString(1, reIdx);		
+					
+					int suc = 0;
+					if(ps.executeUpdate()>0) {
+						suc+=1;
+					}
+					sql="SELECT id FROM BBS_COMMENT WHERE reIdx=?";
+					ps=conn.prepareStatement(sql);
+					ps.setString(1, reIdx);
+					rs=ps.executeQuery();
+					
+					String userId = "";
+					if(rs.next()) {
+						userId=rs.getString("id");
+						bbs_sql="UPDATE member SET reportCnt=reportCnt+1 WHERE id=?";
+						ps = conn.prepareStatement(bbs_sql);
+						ps.setString(1, loginId);							
+					}
+					
+					if(ps.executeUpdate()>0) {
+						suc+=1;
+					}
+					if(suc>1) {
+						success = true;						
+					}
+				}			
 				
 			}
 			sql="SELECT count(commentrepidx) AS repCnt FROM  commentrep WHERE reidx=? AND deactivate='FALSE' ";
