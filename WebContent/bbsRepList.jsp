@@ -58,18 +58,19 @@
 			</tr>			
 			</c:forEach>
 		</table>
+			<c:if test="${list eq '[]'}"><p style="text-align: center;">신고 된 게시글이 없습니다.</p></c:if>
 		<div id="page">
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./reportBBS?page=${currPage-1}'>이전</a>
+				<a href='./reportBBS?page=${currPage-1}&deactivate=${deactivate}'>이전</a>
 			</c:if>
 		</span>
 		<span>${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./reportBBS?page=${currPage+1}">다음</a></c:if>
+         		<a href="./reportBBS?page=${currPage+1}&deactivate=${deactivate}">다음</a></c:if>
 		</span>		
 		</div>
 		</div>

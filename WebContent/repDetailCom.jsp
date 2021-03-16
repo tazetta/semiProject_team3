@@ -81,26 +81,28 @@
 						</tr>
 					</table>	
 					</c:if>
-					<c:if test="${com.reIdx eq reason.reIdx}">							
+					<c:if test="${com.reIdx eq reason.reIdx}">						
 						<table>
 							<tr style="background-color: coral;">
 								<th>${com.id }</th>
 								<td>${com.content }</td>
 								<td>${com.reg_date }</td>
 								<td>신고수 / ${reason.repCnt }</td>
-								<td>
-									블라인드 					
-									<select id="YN">
-										<option  value="TRUE" ${reason.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
-										<option value="FALSE" ${reason.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
-									</select>
-								</td>
+								<c:if test="${reason.deactivate eq 'FALSE' }">
+									<td>
+										블라인드 				
+										<select id="YN">
+											<option value="TRUE" ${com.deactivate eq 'TRUE' ? 'selected="selected"' : ""}>Y</option>
+											<option value="FALSE" ${com.deactivate eq 'FALSE' ? 'selected="selected"' : ""}>N</option>
+										</select>
+									</td>
+								</c:if>
 							</tr>
 							<tr>
 								<td colspan="5" style="border: 1px solid white;">
 									<fieldset>
 										<p>
-											신고 사유 
+											신고 사유 ${reason.deactivate}
 											<br/><br/>
 										<b>${reason.reason }</b>
 									</fieldset>
@@ -111,37 +113,49 @@
 				</c:forEach>
 			</div>
 			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportComment?page=${currPage}'" value="목록"/>		
+				<input type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
 				&nbsp;&nbsp;&nbsp;
-				<button id="btn"> 적용 </button>
+				<c:if test="${reason.deactivate eq 'FALSE' }">
+					<button id="btn"> 적용 </button>
+				</c:if>
 			</div>
 		</div>
 	</body>
 	<script>
 		$("#btn").click(function () {
+			var deactivate = "${reason.deactivate}";
 			var reIdx ="${reason.reIdx}";
 			var commentRepIdx="${reason.commentRepIdx }";
-			console.log($("#YN").val());
-			$.ajax({
-				type:"get"
-				,url:"updateYN"
-				,data:{
-					"updateYN":$("#YN").val()
-					,"boardIdx":reIdx
-					,"bbsRepIdx":commentRepIdx
-					,"type":'2'
-				}
-				,dataType:"json"
-				,success: function(data) {
-					console.log(data.suc);
-					if(data.suc>0){
-						location.href="./reportComment";
+			var YN =$("#YN").val();
+			var chkMsg ="Y";
+			if(YN=="FALSE"){
+				chkMsg="N";
+			}
+			var chk = confirm('선택 하신 값이 맞습니까? '+ chkMsg);
+			if(chk){
+				$.ajax({
+					type:"get"
+					,url:"updateYN"
+					,data:{
+						"updateYN":YN
+						,"boardIdx":reIdx
+						,"bbsRepIdx":commentRepIdx
+						,"type":'2'
+						,"deactivate":deactivate
 					}
-				}
-				,error: function(e) {
-					console.log(e);
-				}
-			});
+					,dataType:"json"
+					,success: function(data) {
+						console.log(data.suc);
+						if(data.suc>0){
+							location.href="./reportComment?page=${currPage}&deactivate=${reason.deactivate}";
+						}
+					}
+					,error: function(e) {
+						console.log(e);
+					}
+				});
+				
+			}
 		});	
 	
 	

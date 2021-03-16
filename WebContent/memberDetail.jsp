@@ -48,7 +48,7 @@ table, th, td {
                 <th>탈퇴여부</th>
                 <th>수정일</th>
                 <th>글,댓글 신고수</th>
-                <th>블랙리스트</th>
+                <th>블랙리스트로 등록된 횟수</th>
             </tr>
             <tr>
                 <td>${dto.reg_date}</td>
@@ -63,7 +63,7 @@ table, th, td {
             </tr>
 			</table>
 				<div class="black">
-                	<button onclick="location.href='#'">블랙리스트 추가</button>
+                	<button onclick="location.href='./memberBlackAdd?id=${dto.id}'">블랙리스트 추가</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 	<button onclick="location.href='./memberList'">닫기</button>
 				</div>

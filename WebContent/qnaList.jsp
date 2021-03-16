@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- c태그 사용위해 불러옴 -->
+<%
+	String loginId = (String) request.getSession().getAttribute("loginId");
+	String isManager =  (String) request.getSession().getAttribute("isManager");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,13 +38,37 @@ table#qna {
 	top: 80px;
 	margin: 0 auto;
 	width: 60%;
-	clear: both;
 }
 
 #wd {
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
+}
+
+/*페이징*/
+.pageArea {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	padding: 2px 10px;
+}
+
+a {
+	text-decoration: none;
+}
+
+#page {
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
 }
 </style>
 </head>
@@ -60,17 +88,48 @@ table#qna {
 					<th>작성자</th>
 					<th>답변</th>
 				</tr>
-				<c:forEach items="${list}" var="qna"> 
-				<tr>
-					<td>${qna.rnum}</td>
-					<td><a href="#">${qna.subject}</a></td>
-					<td>${qna.reg_date}</td>
-					<td>${qna.id}</td>
-					<td>y/n</td>
-				</tr>
-				 </c:forEach>
+				<c:forEach items="${list}" var="qna">
+				 <c:if test="${qna.id eq loginId}"> 
+					<tr>
+						<td>${qna.rnum}</td>
+						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
+						<td>${qna.reg_date}</td>
+						<td>${qna.id}</td>
+						<td>y/n</td>
+					</tr>
+				 </c:if> 
+				</c:forEach>
+				 <c:if test="${isManager eq true}">
+				 <c:forEach items="${list}" var="qna">
+					<tr>
+						<td>${qna.rnum}</td>
+						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
+						<td>${qna.reg_date}</td>
+						<td>${qna.id}</td>
+						<td>y/n</td>
+					</tr>
+				</c:forEach>
+				 </c:if> 
 			</table>
-			<button id="wd" onclick="location.href='qnaWriteForm.jsp'">글쓰기</button>
+			<c:if test="${qna.id eq loginId}"> 
+			<button id="wd" onclick="location.href='writeFormQ.jsp'">글쓰기</button>
+			
+			</c:if>
+			
+			 <c:if test="${isManager eq true}">
+			 <button id="wd" onclick="location.href='writeFormA.jsp'">글쓰기</button> 
+			 </c:if> 
+		</div>
+
+		<div class="pageArea">
+			<span> 
+				<c:if test="${currPage==1}">이전</c:if> 
+				<c:if test="${currPage>1}"><a href="?page=${currPage-1}">이전</a></c:if>
+			</span> 
+			<span id="page">${currPage}</span> 
+			<span> <c:if test="${currPage==maxPage}">다음</c:if> 
+			<c:if test="${currPage<maxPage}"> <a href="?page=${currPage+1}">다음</a> </c:if>
+			</span>
 		</div>
 
 
@@ -82,6 +141,8 @@ var msg = "${msg}";
 if (msg != "") {  
 	alert(msg); 
 }
+
+<%request.removeAttribute("msg");%>
 	
 	
 	</script>

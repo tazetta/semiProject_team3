@@ -101,17 +101,19 @@ public class TestService {
 			String boardIdx = req.getParameter("boardIdx");// 게시 번호
 			String bbsRepIdx = req.getParameter("bbsRepIdx"); // 신고 번호 
 			String type = req.getParameter("type"); //타입 1 게시물, 2 댓글
+			String deactivate = req.getParameter("deactivate"); // 신고 글의 처리 여부
 			String managerid = (String) req.getSession().getAttribute("loginId");
-			System.out.println(updateYN+"/"+boardIdx+"/"+bbsRepIdx+"/"+type);
+			System.out.println(updateYN+"/"+boardIdx+"/"+bbsRepIdx+"/"+type+"/"+deactivate);
 			
 			RepDTO dto = new RepDTO();
 			dto.setUpdateYN(updateYN);
 			dto.setBoardIdx(Integer.parseInt(boardIdx));
 			dto.setBbsRepIdx(Integer.parseInt(bbsRepIdx));
 			dto.setType(type);
+			dto.setDeactivate(deactivate);
 			
 			TestDAO dao = new TestDAO();
-			int suc=(dao.updateYN(dto,managerid));
+			int suc=dao.updateYN(dto,managerid);
 			dao.resClose();
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -136,6 +138,7 @@ public class TestService {
 			String type ="2";
 			if(req.getParameter("deactivate")!=null) {
 				deactivate = req.getParameter("deactivate");
+				System.out.println("deactivate : "+deactivate);
 			}
 			System.out.println("page:"+pageParam+deactivate);
 			//한페이지 그룹 -> 1~10번
@@ -147,6 +150,7 @@ public class TestService {
 			
 			HashMap<String, Object> map =dao.reportComment(group,deactivate,type);
 			if(map!=null) {
+				req.setAttribute("deactivate", deactivate);
 				req.setAttribute("maxPage", map.get("maxPage"));
 				req.setAttribute("list", map.get("list"));
 				req.setAttribute("currPage", group);
@@ -181,6 +185,7 @@ public class TestService {
 			
 			HashMap<String, Object> map =dao.reportComment(group,deactivate,type);
 			if(map!=null) {
+				req.setAttribute("deactivate", deactivate);
 				req.setAttribute("maxPage", map.get("maxPage"));
 				req.setAttribute("list", map.get("list"));
 				req.setAttribute("currPage", group);
@@ -215,7 +220,7 @@ public class TestService {
 			RepDTO reason = dao1.repReason(commentRepIdx,type,reIdx);
 //			String repCnt = dao1.repCnt(reIdx,type);
 			String page="/reportComment";
-			System.out.println(list.size());
+			System.out.println("YN : "+reason.getDeactivate());
 			if(dto!=null) {	
 				
 				page="repDetailCom.jsp";

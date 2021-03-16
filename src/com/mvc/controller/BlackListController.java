@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mvc.service.ManagerService;
+import com.mvc.service.BlackListService;
 
-@WebServlet({ "/managerList", "/managerDel", "/managerRegist"})
-
-public class ManagerController extends HttpServlet {
+@WebServlet({"/memberBlackList","/memberBlackAdd"})
+public class BlackListController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,24 +30,18 @@ public class ManagerController extends HttpServlet {
 		String ctx = req.getContextPath();
 		String sub = uri.substring(ctx.length());
 
-		ManagerService service = new ManagerService(req, resp);
-
+		BlackListService service = new BlackListService(req,resp);
+		
 		switch (sub) {
-			case "/managerList":
-				System.out.println("관리자 목록 요청");
-				service.managerList();
-				break;
-	
-			case "/managerDel":
-				System.out.println("관리자 목록 요청");
-				service.managerDel();
-				break;
-	
-			case "/managerRegist":
-				System.out.println("관리자 등록 요청");
-				service.managerRegist();
-				break;
+		case "/memberBlackList":
+			System.out.println("블랙리스트 회원 목록 요청");
+			service.memberBlackList();
+		break;
+		
+		case "/memberBlackAdd":
+			System.out.println("블랙리스트 추가 요청");
+			service.memberBlackAdd();
+			break;
 		}
 	}
-
 }

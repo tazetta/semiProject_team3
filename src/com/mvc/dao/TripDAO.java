@@ -525,7 +525,7 @@ public class TripDAO {
 				+ "JOIN small s ON t.smallcode = s.smallcode "
 				+ "JOIN area a ON t.areacode = a.areacode "
 				+ "JOIN city c ON t.citycode = c.citycode " 
-				+ "AND contentId=?";
+				+ "WHERE contentId=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, contentId);

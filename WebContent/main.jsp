@@ -114,6 +114,11 @@ a:visited {
 	z-index: 10;
 	opacity: 0.8;
 }
+
+#weatherCast{
+	padding: 10px 10px;
+	width:100px;
+}
 </style>
 </head>
 
@@ -185,6 +190,10 @@ a:visited {
 		</form>
 	</section>
 
+<form action="weatherCast.jsp" method="GET">
+
+	<input type="submit" id="weatherCast" value="날씨 테스트"/>
+</form>
 </body>
 <script>
 	$("li").hover(function() {

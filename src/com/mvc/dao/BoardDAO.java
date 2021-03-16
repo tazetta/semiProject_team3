@@ -303,7 +303,7 @@ public class BoardDAO {
 	}
 
 	public ArrayList<CommentDTO> comm_list(String boardIdx) {
-		String sql = "SELECT reIdx,id,content,reg_date FROM BBS_COMMENT WHERE boardIdx=? AND deactivate='FALSE' ORDER BY reIdx DESC";
+		String sql = "SELECT reIdx,id,content,reg_date,deactivate FROM BBS_COMMENT WHERE boardIdx=?  ORDER BY reIdx DESC";
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -315,6 +315,7 @@ public class BoardDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setReIdx(rs.getInt("reIdx"));
+				dto.setDeactivate(rs.getString("deactivate"));
 				list.add(dto);			
 			}
 		} catch (SQLException e) {

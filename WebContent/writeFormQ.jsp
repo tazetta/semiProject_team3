@@ -58,7 +58,7 @@ textarea {
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
-	<form action="writeQNA" method="post">
+	<form action="writeQue" method="post">
 			<div id="content">
 				<table id="qna">
 					<tr>

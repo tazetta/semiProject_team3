@@ -317,15 +317,18 @@ public TestDAO() {
 					id = rs.getString("id");
 					System.out.println("아이디 : "+id);
 				}
-				
-				// 멤버 cnt 까기 
-				sql="UPDATE member SET reportcnt=reportcnt-1 WHERE id=?";
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, id);
-				int aa =ps.executeUpdate();
-				System.out.println(id+"멤버 까임 ? :" + aa);
-				////////
+				if(dto.getDeactivate().equals("FALSE")) {
+					// 멤버 cnt 까기 
+					sql="UPDATE member SET reportcnt=reportcnt-1 WHERE id=?";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, id);
+					int aa =ps.executeUpdate();
+					System.out.println(id+"멤버 까임 ? :" + aa);
+					////////
+					
+				}
 			}
+			//신고 내역 부터 처리
 			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
 			if(dto.getType().equals("2")) {
 				sql="UPDATE commentrep SET deactivate="+midSql+" , managerid=? WHERE commentrepidx=?";
@@ -336,6 +339,7 @@ public TestDAO() {
 			System.out.println(sql);
 			suc = ps.executeUpdate();
 			if (suc > 0) {
+				//그리고 실제 게시물, 댓글 처리 
 				sql = "UPDATE bbs SET deactivate=? WHERE boardidx=?";
 				if(dto.getType().equals("2")) {
 					sql = "UPDATE bbs_comment SET deactivate=? WHERE reidx=?";
