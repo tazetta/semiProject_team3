@@ -38,7 +38,7 @@
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
     
-	<form action="boardUpdate?boardIdx=${dto.boardIdx}" method="post" enctype="multipart/form-data">
+	<form action="boardUpdate?boardIdx=${dto.boardIdx}&page=${page}" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>작성자</th>

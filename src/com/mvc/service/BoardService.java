@@ -157,11 +157,13 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String boardIdx = req.getParameter("boardIdx");
 		String id = req.getParameter("id");
+		String currPage = req.getParameter("page");
 		BoardDAO dao = new BoardDAO();
 		BoardDTO dto = dao.detail(boardIdx);
-		page = "/boardList";
+		page = "/boardList?page="+currPage;
 		if(loginId.equals(id) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
 			page="boardUpdateForm.jsp";
+			req.setAttribute("page", currPage);
 			req.setAttribute("dto", dto);
 		}
 		dis = req.getRequestDispatcher(page);
@@ -173,6 +175,8 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		
 		if(loginId!=null) {
+			String currPage = req.getParameter("page");
+			System.out.println("수정후페이지:"+currPage);
 			FileService upload = new FileService(req);
 			BoardDTO dto = upload.regist();
 			BoardDAO dao = new BoardDAO();
@@ -192,7 +196,7 @@ public class BoardService {
 				}
 			}
 			
-			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx());
+			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx()+"&page="+currPage);
 		} else {
 			resp.sendRedirect("index.jsp");
 		}
@@ -201,6 +205,7 @@ public class BoardService {
 	public void commentWrite() throws ServletException, IOException {
 		String comment = req.getParameter("comment");
 		String boardIdx = req.getParameter("boardIdx");
+		String currPage = req.getParameter("page");
 		System.out.println("댓글내용:"+comment);
 		System.out.println("boardIdx:"+boardIdx);
 		
@@ -209,7 +214,7 @@ public class BoardService {
 		if(loginId!=null) {
 			BoardDAO dao = new BoardDAO();
 			dao.upDown(boardIdx); //댓글등록할때도 조회수가 올라가버려서
-			page="boardDetail";
+			page="boardDetail?page="+currPage;
 			msg="댓글등록에 실패하였습니다.";
 			dao = new BoardDAO();
 			if(dao.commentWrite(boardIdx,comment,loginId)) {
@@ -230,12 +235,13 @@ public class BoardService {
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
+		String currPage = req.getParameter("page");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		BoardDAO dao = new BoardDAO();
 		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
 		dao = new BoardDAO();
 		dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
-		page = "/boardDetail?boardIdx="+boardIdx;
+		page = "/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면
 			req.setAttribute("commentUpdatedto", commentUpdatedto);
 		}
@@ -250,12 +256,13 @@ public class BoardService {
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
 		String comment = req.getParameter("comment");
+		String currPage = req.getParameter("page");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		
 		if(loginId.equals(id)) {
 			BoardDAO dao = new BoardDAO();
 			dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
-			page="/boardDetail?boardIdx="+boardIdx;
+			page="/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 			msg="댓글 수정에 실패하였습니다.";
 			dao = new BoardDAO();
 			if(dao.commentUpdate(reIdx, comment)) {
