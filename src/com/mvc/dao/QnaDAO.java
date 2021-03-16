@@ -67,15 +67,22 @@ public class QnaDAO {
 	}
 	
 	/*고객센터 리스트*/
-	public HashMap<String, Object> qnaList(String loginId) {
-		String sql = " SELECT rnum, qnaidx, subject, reg_date, id "
-				+ "FROM (SELECT  ROW_NUMBER() OVER(ORDER BY qnaidx DESC) AS rnum, qnaidx ,subject , reg_date,id FROM question)" + 
-				" WHERE id=?";
+	public HashMap<String, Object> qnaList(String loginId, int group) {
+		
+		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
+		
+		int end= group*pagePerCnt; //페이지 끝 rnum
+		int start = end-(pagePerCnt-1); //페이지 시작 rnum
+		
+		String sql = "SELECT rnum, qnaidx, subject, reg_date, id  "
+				+ "FROM (SELECT  ROW_NUMBER() OVER(ORDER BY qnaidx DESC) AS rnum, qnaidx ,subject ,reg_date,id FROM question)"
+				+ "WHERE rnum BETWEEN ? AND ?";
 		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, loginId);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				QnaDTO dto = new QnaDTO();
@@ -86,12 +93,33 @@ public class QnaDAO {
 				dto.setId(rs.getString("id"));
 				list.add(dto);
 			}
+			int maxPage = getMaxPage(pagePerCnt); 
+			System.out.println("maxPage:"+maxPage);
+
 			map.put("list",list);
+			map.put("maxPage", maxPage); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}return map;
+	}
+	
+	/* 마지막 페이지*/
+	private int getMaxPage(int pagePerCnt) {
+		 String sql= "SELECT COUNT(qnaidx) FROM question";
+		 int max = 0;
+		 try {
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					int cnt = rs.getInt(1); 
+					max = (int)Math.ceil(cnt/(double)pagePerCnt);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return max;
 	}
 
 }

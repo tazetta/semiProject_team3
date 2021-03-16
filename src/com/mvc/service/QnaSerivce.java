@@ -35,17 +35,29 @@ public class QnaSerivce {
 	public void qnaList() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		System.out.println(loginId + "의 고객센터 게시글");
+		
+		String pageParam = req.getParameter("page"); 
+		System.out.println("pageParam:" + pageParam);
+
+		int group = 1; 
+
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam); 
+		}
+		
 		if (loginId != null) { // 로그인체크
-			HashMap<String, Object> map = dao.qnaList(loginId);
-			req.setAttribute("list", map.get("list")); // req에 저장
-			System.out.println("map:"+map);
+			HashMap<String, Object> map = dao.qnaList(loginId,group);
+			req.setAttribute("list", map.get("list")); 
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("currPage", group);
+			System.out.println("currPage:"+group);
 			System.out.println("list:"+map.get("list"));
 
 			dis = req.getRequestDispatcher("qnaList.jsp");
 			dis.forward(req, resp);
 		} else {
 			msg="로그인 후 이용해주세요";
-			req.getSession().setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg); 
 			resp.sendRedirect("index.jsp");
 		}
 	}
@@ -68,12 +80,11 @@ public class QnaSerivce {
 			if(success) {
 				msg="글 등록에 성공 했습니다";
 			}
-			req.setAttribute("msg", msg);
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
+			req.getSession().setAttribute("msg", msg); 
+			resp.sendRedirect(page);
 		}else {
 			msg="로그인 후 이용해주세요";
-			req.getSession().setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg); 
 			resp.sendRedirect("index.jsp");
 		}
 	}

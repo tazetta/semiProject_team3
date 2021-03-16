@@ -26,8 +26,17 @@ public class QNAController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String sub = req.getRequestURI().substring(req.getContextPath().length());
 		
-		QnaSerivce service = new QnaSerivce(req,resp);
+		String msg = (String) req.getSession().getAttribute("msg");
 		
+		System.out.println("session msg:"+msg);
+		
+		if(msg != null) { 
+			req.setAttribute("msg", msg);  
+			req.getSession().removeAttribute("msg");
+		}
+		
+		QnaSerivce service = new QnaSerivce(req,resp);
+
 		switch (sub) {
 		case "/qnaList":
 			System.out.println("");
