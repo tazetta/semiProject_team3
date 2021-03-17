@@ -41,10 +41,13 @@ public class BoardService {
 		}
 		BoardDAO dao = new BoardDAO();
 		HashMap<String, Object> map = dao.list(group);
+		dao = new BoardDAO();
+		ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
 		
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
+		req.setAttribute("managerbbsList", managerbbsList);
 		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
 		//}else {
@@ -104,6 +107,7 @@ public class BoardService {
 			System.out.println("현재페이지: "+currPage);
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
+			System.out.println("관리자인가? : "+dto.getIsManager());
 			System.out.println("oriFileName"+dto.getOriFileName());
 			dao = new BoardDAO();
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);

@@ -104,6 +104,9 @@ public class TripManageService {
 	
 	public void tripInsetrInformation() throws ServletException, IOException {
 		if (isManager()) {
+			String tripNav = req.getParameter("tripNav");
+			System.out.println("tripNav : " + tripNav);
+			
 			ArrayList<ContentDTO> contentList = null;
 			ArrayList<LargeDTO> largeList = null;
 			ArrayList<MediumDTO> mediumList = null;
@@ -123,7 +126,7 @@ public class TripManageService {
 			} finally {
 				tripDAO.resClose();
 				tripManageDAO.resClose();
-				
+				req.setAttribute("tripNav", tripNav);
 				req.setAttribute("contentList", contentList);
 				req.setAttribute("largeList", largeList);
 				req.setAttribute("mediumList", mediumList);
@@ -140,13 +143,19 @@ public class TripManageService {
 	public void tripManageList() throws ServletException, IOException {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
+			String tripNav = req.getParameter("tripNav");
+			if(tripNav == null) {
+				tripNav = "99";
+			}
+			System.out.println("tripNav : " + tripNav );
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
 			}
 			HashMap<String, Object> tripMap = tripManageDAO.tripManageList(group);
-			
+		
 			req.getSession().setAttribute("type", "manageList");
+			req.setAttribute("tripNav", tripNav);
 			req.setAttribute("deactivate", "FALSE");
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));

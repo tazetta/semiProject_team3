@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.CommentDTO;
 
+
 public class BoardDAO {
 	
 	
@@ -48,6 +49,29 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
+	public ArrayList<BoardDTO> managerbbsList() {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		String sql = "SELECT boardIdx,subject,bHit,reg_date,id FROM bbs WHERE isManager='true' AND DEACTIVATE='FALSE' ";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setBoardIdx(rs.getInt("boardIdx"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setbHit(rs.getInt("bHit"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}		
+		return list;
+	}
+
 
 	public HashMap<String, Object> list(int page) {
 		
@@ -57,7 +81,7 @@ public class BoardDAO {
 		int start = end-(pagePerCnt-1);
 		String sql ="SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
-				"        FROM bbs WHERE DEACTIVATE='FALSE'" + 
+				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='FALSE' OR ISMANAGER IS NULL)" + 
 				") WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -106,15 +130,28 @@ public class BoardDAO {
 	
 	
 	public long write(BoardDTO dto) {
-		String sql = "INSERT INTO bbs (boardIdx,subject,content,id)VALUES (bbs_seq.NEXTVAL,?,?,?)";
+		String admin_sql = "SELECT id FROM member WHERE id=?";
+		String sql = "INSERT INTO bbs (boardIdx,subject,content,id,isManager)VALUES (bbs_seq.NEXTVAL,?,?,?,?)";
 		long pk = 0;
 		try {
-			ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
-			ps.setString(1, dto.getSubject());
-			ps.setString(2, dto.getContent());
-			ps.setString(3, dto.getId());
-			ps.executeUpdate();
-			
+			ps = conn.prepareStatement(admin_sql);
+			ps.setString(1, dto.getId());
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
+				ps.setString(1, dto.getSubject());
+				ps.setString(2, dto.getContent());
+				ps.setString(3, dto.getId());
+				ps.setString(4, "false");				
+				ps.executeUpdate();				
+			}else {
+				ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
+				ps.setString(1, dto.getSubject());
+				ps.setString(2, dto.getContent());
+				ps.setString(3, "관리자");
+				ps.setString(4, "true");				
+				ps.executeUpdate();	
+			}
 			rs = ps.getGeneratedKeys();
 			if(rs.next()) {
 				pk = rs.getLong(1);
@@ -127,7 +164,7 @@ public class BoardDAO {
 					ps.setLong(3, pk);
 					ps.executeUpdate();					
 				}
-			}
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -139,7 +176,7 @@ public class BoardDAO {
 
 
 	public BoardDTO detail(String boardIdx) {
-		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id,b.deactivate, p.oriFileName, p.newFileName "+ 
+		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id,b.deactivate,b.isManager, p.oriFileName, p.newFileName "+ 
 				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ?";		
 		BoardDTO dto = null;
 		
@@ -155,6 +192,7 @@ public class BoardDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setbHit(rs.getInt("bHit"));
 				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setIsManager(rs.getString("isManager"));
 				dto.setOriFileName(rs.getString("oriFileName"));
 				dto.setNewFileName(rs.getString("newFileName"));
 			}
@@ -173,7 +211,7 @@ public class BoardDAO {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
-			int success = ps.executeUpdate();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -187,7 +225,7 @@ public class BoardDAO {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
-			int success = ps.executeUpdate();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -589,6 +627,7 @@ public class BoardDAO {
 		return success;
 	}
 
+	
 	
 
 }

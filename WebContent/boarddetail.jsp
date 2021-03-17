@@ -64,7 +64,7 @@
     	
 		<div id="total">
 			<div id="btn1">
-				<c:if test="${dto.id==loginId}">
+				<c:if test="${dto.id==loginId || (isManager=='true'&& dto.id=='관리자')}">
 				<button onclick="location.href='./boardUpdateForm?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">수정</button>
 				</c:if>
 				<c:if test="${dto.id==loginId || isManager=='true'}">
@@ -72,7 +72,7 @@
 				</c:if>
 			</div>
 			<div id= "btn2">
-				<c:if test="${dto.id!=loginId}">
+				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
 				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
 				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
