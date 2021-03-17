@@ -162,6 +162,12 @@ div.tripManageName {
 	</div>
 </body>
 <script>
+$('a').hover(function(){
+	   $(this).css({'font-weight':'600'});
+},function(){
+	    $(this).css({'font-weight':'1'});
+});
+
 	var msg = "${msg}";
 	if(msg!=""){
 		alert(msg);

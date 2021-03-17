@@ -60,11 +60,12 @@ div.tripManageName {
 	height: 30px;
 	text-align: center;
 }
-	textarea{
-		width: 100%;
-		height: 150px;
-		resize: none;
-	}	
+
+textarea {
+	width: 100%;
+	height: 150px;
+	resize: none;
+}
 </style>
 </head>
 <body>
@@ -72,11 +73,11 @@ div.tripManageName {
 	<jsp:include page="admin_navbar.jsp" />
 
 	<div class="tripManageList">
-		<div class="tripManageName">
-			<a href="./tripManageList">여행지 목록</a>
+		<div class="tripManageName" id="99">
+			<a href="./tripManageList?tripNav=99">여행지 목록</a>
 		</div>
-		<div class="tripManageName">
-			<a href="./tripInsertInformation">여행지 저장</a>
+		<div class="tripManageName" id="100">
+			<a href="./tripInsertInformation?tripNav=100">여행지 저장</a>
 		</div>
 	</div>
 	<div>
@@ -175,6 +176,17 @@ div.tripManageName {
 	</div>
 </body>
 <script>
+	$(document).ready(function() {
+		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
+		console.log("tripNav : " + ${tripNav});
+	});
+	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
+	});
+	
 	function largeList(type) {
 		var text;
 		var value;
