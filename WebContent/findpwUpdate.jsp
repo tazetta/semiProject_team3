@@ -24,6 +24,9 @@
                 border: 1px solid white;
                 background-color: whitesmoke;
         }
+        input[type='text'],input[type='password']{
+                width: 90%;
+        }
 	</style>
 	<body>
 		<form action="findpwUpdate?id=${id}" method="POST">
