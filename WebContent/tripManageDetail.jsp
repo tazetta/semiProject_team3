@@ -66,7 +66,7 @@ div.tripManageName {
 </head>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="admin_navbar.jsp" />
+	<jsp:include page="navi_manager.jsp" />
 	<div class="tripManageList">
 		<div class="tripManageName">
 			<a href="./tripManageList">여행지 목록</a>

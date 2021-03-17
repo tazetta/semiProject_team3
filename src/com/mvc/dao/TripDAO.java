@@ -221,6 +221,49 @@ public class TripDAO {
 		return maxPage;
 	}
 	
+//	public HashMap<String, Object> search(int page, String keyword, String searchType, String alignType) {
+//		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+//		TripDTO dto = null;
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		
+//		// 페이징
+//		int pagePerCnt = 10;
+//		int end = page * pagePerCnt;
+//		int start = end - (pagePerCnt - 1);
+//		int maxPage = 0;
+//		
+//		// 검색어
+//		String addKeyword = "%"+keyword+"%";
+//		String sql = "SELECT contentId,firstImage, title, bookmarkCnt, reg_date FROM ("
+//				+ "SELECT ROW_NUMBER() OVER(ORDER BY "+alignType+" DESC) AS rnum, "
+//				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+searchType+" LIKE ? AND deactivate='FALSE'"
+//				+ ") WHERE rnum BETWEEN ? AND ?";
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			ps.setString(1, addKeyword);
+//			ps.setInt(2, start);
+//			ps.setInt(3, end);
+//			rs = ps.executeQuery();
+//			while (rs.next()) {
+//				dto = new TripDTO();
+//				dto.setContentId(rs.getInt("contentId"));
+//				dto.setFirstImage(rs.getString("firstImage"));
+//				dto.setTitle(rs.getString("title"));
+//				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
+//				dto.setReg_date(rs.getDate("reg_date"));
+//				list.add(dto);
+//			}
+//			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);
+//			map.put("maxPage", maxPage);
+//			map.put("list", list);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			resClose();
+//		}
+//		return map;
+//	}
+	
 	public HashMap<String, Object> search(int page, String keyword, String searchType, String alignType) {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		TripDTO dto = null;
@@ -234,9 +277,9 @@ public class TripDAO {
 		
 		// 검색어
 		String addKeyword = "%"+keyword+"%";
-		String sql = "SELECT contentId,firstImage, title, bookmarkCnt, reg_date FROM ("
+		String sql = "SELECT contentId, firstImage, title, overview, address FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY "+alignType+" DESC) AS rnum, "
-				+ "contentId,areaCode,contentCode,bookmarkCnt,firstImage,title,reg_date FROM trip WHERE "+searchType+" LIKE ? AND deactivate='FALSE'"
+				+ "contentId,firstImage,title, overview, address FROM trip WHERE "+searchType+" LIKE ? AND deactivate='FALSE'"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -249,8 +292,8 @@ public class TripDAO {
 				dto.setContentId(rs.getInt("contentId"));
 				dto.setFirstImage(rs.getString("firstImage"));
 				dto.setTitle(rs.getString("title"));
-				dto.setBookmarkCnt(rs.getInt("bookmarkCnt"));
-				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setOverview(rs.getString("overview"));
+				dto.setAddress(rs.getString("address"));
 				list.add(dto);
 			}
 			maxPage = getSearchMaxPage(pagePerCnt, keyword, searchType);
