@@ -26,7 +26,9 @@
         padding: 5px 10px;
         width: 300px;
 	}
-	
+	#div1,#div2,#div3{
+		float:left;
+	}
 	img {
 		width: 50px;
 		height: 50px;
@@ -34,51 +36,54 @@
 </style>
 </head>
 <body>
-	<select id="area" name="area" onchange='areaList(value)'>
-		<option value="서울">서울</option>
-		<option value="부산">부산</option>
-		<option value="대구">대구</option>
-		<option value="인천">인천</option>
-		<option value="광주">광주</option>
-		<option value="대전">대전</option>
-		<option value="울산">울산</option>
-		<option value="세종특별자치시">세종특별자치시</option>
-		<option value="경기도">경기도</option>
-		<option value="강원도">강원도</option>
-		<option value="충청북도">충청북도</option>
-		<option value="충청남도">충청남도</option>
-		<option value="전라북도">전라북도</option>
-		<option value="전라남도">전라남도</option>
-		<option value="경상북도">경상북도</option>
-		<option value="경상남도">경상남도</option>
-		<option value="제주도">제주도</option>
-	</select>
-</body>
-<div id="div1">
-<h3>오늘</h3>
-	<p id="POP0"></p>
-	<p id="PTY0"></p>
-	<p id="REH0"></p>
-	<p id="SKY0"></p>
-	<p id="TMX0"></p>
-</div>
-<div id="div2">
-<h3>내일</h3>
-	<p id="POP1"></p>
-	<p id="PTY1"></p>
-	<p id="REH1"></p>
-	<p id="SKY1"></p>
-	<p id="TMX1"></p>
-</div>
-<div id="div3">
-<h3>모레</h3>
-	<p id="POP2"></p>
-	<p id="PTY2"></p>
-	<p id="REH2"></p>
-	<p id="SKY2"></p>
-	<p id="TMX2"></p>
-</div>
+	<div>
+		<select id="area" name="area" onchange='areaList(value)'>
+			<option value="서울">서울</option>
+			<option value="부산">부산</option>
+			<option value="대구">대구</option>
+			<option value="인천">인천</option>
+			<option value="광주">광주</option>
+			<option value="대전">대전</option>
+			<option value="울산">울산</option>
+			<option value="세종특별자치시">세종특별자치시</option>
+			<option value="경기도">경기도</option>
+			<option value="강원도">강원도</option>
+			<option value="충청북도">충청북도</option>
+			<option value="충청남도">충청남도</option>
+			<option value="전라북도">전라북도</option>
+			<option value="전라남도">전라남도</option>
+			<option value="경상북도">경상북도</option>
+			<option value="경상남도">경상남도</option>
+			<option value="제주도">제주도</option>
+		</select>
 
+		<div id="div1">
+			<h3>오늘</h3>
+			<p id="POP0"></p>
+			<p id="PTY0"></p>
+			<p id="REH0"></p>
+			<p id="SKY0"></p>
+			<p id="TMX0"></p>
+		</div>
+		<div id="div2">
+			<h5>내일</h5>
+			<p id="POP1"></p>
+			<p id="PTY1"></p>
+			<p id="REH1"></p>
+			<p id="SKY1"></p>
+			<p id="TMX1"></p>
+		</div>
+		<div id="div3">
+			<h5>모레</h5>
+			<p id="POP2"></p>
+			<p id="PTY2"></p>
+			<p id="REH2"></p>
+			<p id="SKY2"></p>
+			<p id="TMX2"></p>
+		</div>
+	</div>
+
+</body>
 <script>
 $(document).ready(function() {
 	$("select option[value='서울']").attr("selected",true);
@@ -132,9 +137,13 @@ $(document).ready(function() {
 	
 	function drawWeatherCast(obj, idVar, index) {
 		$('#POP'+idVar).html("강수 확률 : " + obj.list[0+index].POP);
-		$('#PTY'+idVar).html("강수 형태 : " + obj.list[1+index].PTY);
+		if(obj.list[1+index].PTY != "없음"){
+			$('#PTY'+idVar).html("<img src='" + ptyState(obj.list[1+index].PTY) + "'/>");
+		} else{
+			$('#PTY'+idVar).html("");
+		}
 		$('#REH'+idVar).html("습도 : " + obj.list[2+index].REH);
-        $('#SKY'+idVar).html("<img src='"+skyState(obj.list[3+index].SKY)+"'/>");
+        $('#SKY'+idVar).html("<img src='" + skyState(obj.list[3+index].SKY) + "'/>");
 		$('#TMX'+idVar).html("낮 최고기온 : " + obj.list[4+index].TMX);
 	}
 	
@@ -153,6 +162,42 @@ $(document).ready(function() {
 		}
 		return image;
 	}
+	
+	function ptyState(pty){
+		var image = "";
+		switch(pty){
+			case "비":
+				image = "./WeatherIcon/비.png";
+				break;
+				
+			case "비/눈":
+				image = "./WeatherIcon/눈비.png";
+				break;
+				
+			case "눈":
+				image = "./WeatherIcon/눈.png";
+				break;
+				
+			case "소나기":
+				image = "./WeatherIcon/소나기.png";
+				break;
+				
+			case "빗방울":
+				image = "./WeatherIcon/비.png";
+				break;
+				
+			case "빗방울/눈날림":
+				image = "./WeatherIcon/눈비.png";
+				break;
+				
+			case "눈날림":
+				image = "./WeatherIcon/눈.png";
+				break;
+		}
+		return image;
+	}
+	
+	
 
 </script>
 </html>
