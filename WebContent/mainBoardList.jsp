@@ -27,8 +27,8 @@
 		</tr>
 		<c:forEach items="${list}" var="board">
 			<tr class="mainBaord">
-				<td class="mainBoard"><a class="mouse_over" href="boardDetail?boardIdx=${board.boardIdx}&page=1">${managerbbs.subject}</a></td>
-				<td class="mainBoard">${managerbbs.id}</td>
+				<td class="mainBoard"><a class="mouse_over" href="boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
+				<td class="mainBoard">${board.id}</td>
 			</tr>
 		</c:forEach>
 	</table>
