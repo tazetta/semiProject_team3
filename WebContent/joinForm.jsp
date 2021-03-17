@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>회원가입</title>
+		<title>회원가입 페이지</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<style>
             table,td,th{
@@ -15,6 +15,7 @@
             table{
                 width: 600px;
                 height : 500px;
+                background-color : white;
             }
             input[type='text'],input[type='password'],input[type='email']{
                 width: 70%;
