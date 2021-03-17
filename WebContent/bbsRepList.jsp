@@ -15,7 +15,6 @@
 			}
 			#body{
 				width: 800px;
-				border: 1px solid black;
 			}
 			#page{
 				text-align: center;
@@ -23,17 +22,15 @@
 			div{
 			
 			}
+			#bssRep{
+				background-color: gray;
+			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<div>
-			<ol style="float: left; margin-right: 50px;">
-				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
-				<ul><a href="./reportComment">댓글 신고 내역</a></ul>
-			</ol>
-		</div>
+		<jsp:include page="side_repList.jsp"/>
 		<div id="body">
 		<a href="./reportBBS">미처리 내역 </a> / <a href="./reportBBS?deactivate=TRUE">처리 내역 </a>
 		<table>
@@ -59,18 +56,19 @@
 			</tr>			
 			</c:forEach>
 		</table>
+			<c:if test="${list eq '[]'}"><p style="text-align: center;">신고 된 게시글이 없습니다.</p></c:if>
 		<div id="page">
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./reportBBS?page=${currPage-1}'>이전</a>
+				<a href='./reportBBS?page=${currPage-1}&deactivate=${deactivate}'>이전</a>
 			</c:if>
 		</span>
 		<span>${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./reportBBS?page=${currPage+1}">다음</a></c:if>
+         		<a href="./reportBBS?page=${currPage+1}&deactivate=${deactivate}">다음</a></c:if>
 		</span>		
 		</div>
 		</div>

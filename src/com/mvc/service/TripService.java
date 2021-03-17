@@ -9,10 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.mvc.dao.TripDAO;
 import com.mvc.dto.AreaDTO;
 import com.mvc.dto.CityDTO;
 import com.mvc.dto.ContentDTO;
+import com.mvc.dto.LargeDTO;
+import com.mvc.dto.MediumDTO;
+import com.mvc.dto.SmallDTO;
+import com.mvc.dto.TripDTO;
+import com.mvc.dto.TripDetailDTO;
 
 public class TripService {
 	HttpServletRequest req = null;

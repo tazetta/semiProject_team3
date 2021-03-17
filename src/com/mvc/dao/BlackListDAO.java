@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BlackListDTO;
-import com.mvc.dto.MemberListDTO;
 
 public class BlackListDAO {
 
@@ -52,10 +51,10 @@ public class BlackListDAO {
 		int pagePerCnt = 10;
 		int end = page*pagePerCnt;
 		int start = end-(pagePerCnt-1);
-		String sql = "SELECT reg_date, managerid, id, name, phone, email FROM (" +
-					 "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " +
-					 "AS rnum, reg_date, managerid, id, name, phone, email "+
-					 "FROM blacklist WHERE blackstatus='TRUE') WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT blackidx, id, reason, reg_date, managerid FROM (" +
+					 "SELECT ROW_NUMBER() OVER(ORDER BY blackidx DESC) " +
+					 "AS rnum, blackidx, id, reason, reg_date, managerid "+
+					 "FROM blacklist) WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<BlackListDTO> memberBlackList = new ArrayList<BlackListDTO>();
 		try {
@@ -65,12 +64,11 @@ public class BlackListDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				BlackListDTO dto = new BlackListDTO();
-				dto.setReg_date(rs.getDate("reg_date"));
-				dto.setManagerid(rs.getString("setManagerid"));
+				dto.setBlackidx(rs.getInt("blackidx"));
 				dto.setId(rs.getString("id"));
-				dto.setName(rs.getString("name"));
-				dto.setPhone(rs.getString("phone"));
-				dto.setEmail(rs.getString("email"));
+				dto.setReason(rs.getString("reason"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setManagerid(rs.getString("managerid"));
 				memberBlackList.add(dto);
 			}
 			int maxPage= getMaxPage(pagePerCnt);
@@ -101,14 +99,22 @@ public class BlackListDAO {
 		return max;
 	}
 
-	public boolean memberBlackAdd(String id) {
+	public boolean memberBlackAdd(BlackListDTO dto) {
 	
-		String sql = "UPDATE member SET blackstatus='TRUE' WHERE id=?";
+//		String sql = "UPDATE member SET blackstatus='TRUE' "+
+//		" (INSERT INTO blacklist (blackidx,id,reason,managerid,blackstatus)"+
+//		" VALUES (black_seq.NEXTVAL,?,?,?,?)) WHERE id=? ";
+		
+		String sql = "INSERT INTO blacklist (blackidx,id,reason,managerid,blackstatus) VALUES (black_seq.NEXTVAL,?,?,?,?)";
 		boolean success = false;
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
+			//ps.setInt(1, dto.getBlackidx());
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getReason());
+			ps.setString(3, dto.getManagerid());
+			ps.setString(4, dto.getBlackstatus());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}
@@ -119,6 +125,38 @@ public class BlackListDAO {
 		}	
 		System.out.println("블랙리스트 추가 성공여부 :"+success);
 		return success;
+	}
+
+	public BlackListDTO memberBlackDetail(String id) {
+		
+		BlackListDTO dto = null;
+
+		String sql = "select b.reg_date, b.id, b.managerid, b.reason, b.blackstatus ,m.reportcnt, m.blackcnt, m.name "
+					+ "from blacklist b, member m where b.id=m.id AND b.id=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			System.out.println("쿼리 실행");
+			rs = ps.executeQuery();
+			System.out.println("rs : "+rs);
+			if(rs.next()) {
+				dto = new BlackListDTO();
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				dto.setManagerid(rs.getString("managerid"));
+				dto.setReason(rs.getString("reason"));
+				dto.setBlackstatus(rs.getString("blackstatus"));
+				dto.setReportcnt(rs.getInt("reportcnt"));
+				dto.setBlackcnt(rs.getInt("blackcnt"));
+				dto.setName(rs.getString("name"));
+				dto.setUpdate_date(rs.getDate("update_date"));				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}			
+		return dto;
 	}
 	
 	

@@ -217,11 +217,63 @@ public class MemberListDAO {
 		return success;
 	}
 
-	public ArrayList<MemberListDTO> memberSearch() {
-		
-		return null;
-	}
+    	
+    public HashMap<String, Object> memberSearch(int page,String searchType, String memberKeyword) {
+        
+        HashMap<String,Object> map= new HashMap<String, Object>();
+        int pagePerCnt = 10;
+        int end = page*pagePerCnt;
+        int start = end-(pagePerCnt-1);
+        String sql = "SELECT reg_date, id, name, phone, email FROM (" +
+                 "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " +
+                 "AS rnum, reg_date, id, name, phone, email "+
+                 "FROM member WHERE id NOT IN ('admin') AND "+searchType+"=?) WHERE rnum BETWEEN ? AND ?";
+        
+        ArrayList<MemberListDTO> memberSearchList = new ArrayList<MemberListDTO>();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, memberKeyword);
+            ps.setInt(2, start);
+            ps.setInt(3, end);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MemberListDTO dto = new MemberListDTO();
+                dto.setReg_date(rs.getDate("reg_date"));
+                dto.setId(rs.getString("id"));
+                dto.setName(rs.getString("name"));
+                dto.setPhone(rs.getString("phone"));
+                dto.setEmail(rs.getString("email"));
+                memberSearchList.add(dto);
+            }
+            int maxPage= search_getMaxPage(pagePerCnt,searchType,memberKeyword);
+            map.put("memberSearchList",memberSearchList);
+            map.put("maxPage",maxPage);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            resClose();
+        }
+        return map;
+    }
 
-	
+    private int search_getMaxPage(int pagePerCnt, String searchType, String memberKeyword) {
+        String sql = "SELECT COUNT(id) FROM member WHERE "+ searchType + "= ?";
+        int max=0;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, memberKeyword);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                int cnt = rs.getInt(1);
+                max = (int) Math.ceil(cnt/(double)pagePerCnt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            resClose();
+        }
+        return max;
+    }
+    
 
 }

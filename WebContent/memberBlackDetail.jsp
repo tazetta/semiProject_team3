@@ -42,23 +42,21 @@ table, th, td {
 				<th>등록 관리자</th>                
                 <th>아이디</th>
                 <th>이름</th>
-                <th>핸드폰</th>
-                <th>이메일</th>
                 <th>블랙리스트 등록사유</th>
                 <th>블랙리스트로 등록된 횟수</th>
                 <th>글,댓글 신고수</th>
-                <th>수정일</th>
+                <th>블랙리스트 상태</th>
+                <th>마지막 수정일</th>
             </tr>
             <tr>
                 <td>${dto.reg_date}</td>
                 <td>${dto.managerid}</td>
                 <td>${dto.id}</td>
                 <td>${dto.name}</td>
-                <td>${dto.phone}</td>
-                <td>${dto.email}</td>
                 <td>${dto.reason}</td>
                 <td>${dto.blackcnt}</td>
                 <td>${dto.reportcnt}</td>
+                <td>${dto.blackstatus}</td>
                 <td>${dto.update_date}</td>           
             </tr>
 			</table>

@@ -30,20 +30,27 @@ public class BlackListService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		
 		if(loginId!=null) {
+		String managerid = req.getParameter("managerid");
 		String id = req.getParameter("id");
-		System.out.println("블랙리스트로 추가할 id:"+id);
-		
-		msg = "";
-		page = "/memberBlackList";
+		String reason = req.getParameter("reason");
+		System.out.println(managerid+"/"+id+"/"+reason);
 		
 		BlackListDAO dao = new BlackListDAO();
 		BlackListDTO dto = new BlackListDTO();
 		
-		if(dao.memberBlackAdd(id)) {
+		dto.setManagerid(managerid);
+		dto.setId(id);
+		dto.setReason(reason);
+		
+		msg = "";
+		page = "/memberBlackList";
+		
+		if(dao.memberBlackAdd(dto)) {
+			page = "/memberBlackAdd.jsp";
 			msg = "해당 회원을 블랙리스트에 추가하시겠습니까?";
 		}
 		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher("memberBlackList.jsp");
+		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		}else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
@@ -79,6 +86,35 @@ public class BlackListService {
 			dis = req.getRequestDispatcher("login.jsp");
 			dis.forward(req, resp);
 		}
+	}
+
+	public void memberBlackDetail() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			String id = req.getParameter("id");
+			System.out.println("상세보기 id: " + id);
+			
+			String memberBlackDetail = "/memberBlackList";
+			String page = memberBlackDetail;
+			
+			BlackListDAO dao = new BlackListDAO();
+			BlackListDTO dto = dao.memberBlackDetail(id);
+			
+			if (dto != null) {
+				dao = new BlackListDAO();
+				page = "memberBlackDetail.jsp";
+				req.setAttribute("dto", dto);
+			}
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			}else {
+				req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+				dis = req.getRequestDispatcher("login.jsp");
+				dis.forward(req, resp);
+		}
+		
 	}
 
 

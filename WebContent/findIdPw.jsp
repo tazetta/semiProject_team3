@@ -92,6 +92,12 @@
 	</form>
 	</body>
 	<script>
+	
+	var msg="${msg}";
+	if(msg!=""){
+		alert(msg);
+	}
+	
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
@@ -203,10 +209,10 @@
 				alert('가입하신 이름을 입력해주세요.');
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
-			}else{
+			}/* else{
 				alert('새로운 비밀번호를 입력해주세요.');
 				location.href="findpwUpdate.jsp";
-			}
+			} */
 		});
 	</script>
 </html>

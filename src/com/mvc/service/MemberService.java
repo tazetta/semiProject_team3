@@ -309,12 +309,13 @@ public class MemberService {
 		
 		boolean success = false;
 		String newPw = req.getParameter("newPw");
-		System.out.println(newPw);
+		String id = req.getParameter("id");
+		System.out.println("새비밀번호: "+newPw);
 		
 		msg="비밀번호를 다시 확인해주세요.";
 		page = "findpwUpdate.jsp";
 		
-		success = dao.findpwUpdate(newPw);
+		success = dao.findpwUpdate(id,newPw);
 		System.out.println("비밀번호 수정 : " + success);
 		if(success) {
 			msg="비밀번호가 수정 되었습니다.";
