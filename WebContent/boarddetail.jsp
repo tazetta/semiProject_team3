@@ -80,7 +80,12 @@
 				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
 				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
+				<c:if test="${boardkeyword eq null}">
 				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
+				</c:if>
+				<c:if test="${boardkeyword ne null}">
+				<button onclick="location.href='./boardSearch?${url}&page=${currPage}'">목록</button>
+				</c:if>
 			</div>
 		<table>
 			<tr>
