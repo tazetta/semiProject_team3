@@ -88,36 +88,46 @@ a {
 					<th>작성자</th>
 					<th>답변</th>
 				</tr>
-					<c:forEach items="${list}" var="qna">
-						<tr>
-							<td>${qna.rnum}</td>
-							<th style="width: 400px"><a
-								href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
-							<td>${qna.reg_date}</td>
-							<td>${qna.id}</td>
-							<td>y/n</td>
-						</tr>
-
-					</c:forEach>
-					
-					</table>
+				<c:forEach items="${list}" var="qna">
+					<tr>
+						<td>${qna.rnum}</td>
+						<th style="width: 400px"><a
+							href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
+						<td>${qna.reg_date}</td>
+						<td>${qna.id}</td>
 				
-					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
+						
+						<td><c:choose>
+							<c:when test="${qna.ansIdx gt 0}">
+									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
+							</c:when>
+							<c:otherwise>
+								 
+							</c:otherwise>
+
+						</c:choose></td>
+					</tr>
+
+				</c:forEach>
+
+			</table>
+
+			<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 		</div>
 
-				<div class="pageArea">
-					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
-							test="${currPage>1}">
-							<a href="?page=${currPage-1}">이전</a>
-						</c:if>
-					</span> <span id="page">${currPage}</span> <span> <c:if
-							test="${currPage==maxPage}">다음</c:if> <c:if
-							test="${currPage<maxPage}">
-							<a href="?page=${currPage+1}">다음</a>
-						</c:if>
-					</span>
-				</div>
-	
+		<div class="pageArea">
+			<span> <c:if test="${currPage==1}">이전</c:if> <c:if
+					test="${currPage>1}">
+					<a href="?page=${currPage-1}">이전</a>
+				</c:if>
+			</span> <span id="page">${currPage}</span> <span> <c:if
+					test="${currPage==maxPage}">다음</c:if> <c:if
+					test="${currPage<maxPage}">
+					<a href="?page=${currPage+1}">다음</a>
+				</c:if>
+			</span>
+		</div>
+
 	</section>
 
 </body>

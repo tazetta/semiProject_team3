@@ -95,7 +95,15 @@ a {
 								href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
 							<td>${qna.reg_date}</td>
 							<td>${qna.id}</td>
-							<td>y/n</td>
+							<td><c:choose>
+							<c:when test="${qna.ansIdx gt 0}">
+									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
+							</c:when>
+							<c:otherwise>
+								 
+							</c:otherwise>
+
+						</c:choose></td>
 						</tr>
 					</c:forEach>
 					
