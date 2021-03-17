@@ -66,12 +66,14 @@ span {
 				<td colspan="2">
 					<c:choose>
 							<c:when test="${sessionScope.isManager eq true}">
+								<c:if test="${dto.ansIdx eq 0}">
 									<button class="wd" onclick="location.href='writeFormA?qnaIdx=${dto.qnaIdx}'">답변하기</button>
+									</c:if>
 									<input type="button" onclick="location.href='./qnaList'" value="목록" />
 							</c:when>
 							<c:otherwise>
 								<c:if test="${dto.ansIdx eq 0}">
-									<input type="button" onclick="location.href='qnaDel'" value="삭제" />			
+									<input type="button" onclick="location.href='qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제" />			
 								</c:if>
 								 <input type="button" onclick="location.href='./qnaListUser'" value="목록" />								
 							</c:otherwise>

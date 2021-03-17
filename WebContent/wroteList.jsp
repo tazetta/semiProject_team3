@@ -137,14 +137,14 @@ a {
 					<tr>
 						<td>${bbs.rnum }</td>
 						<th style="width: 500px"><a
-							href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject }</a></th>
+							href="boardDetail?boardIdx=${bbs.boardIdx}&page=1">${bbs.subject }</a></th>
 						<td>${bbs.reg_date }</td>
-						<td>
+						<%-- <td>
 							<button
 								onclick="location.href='./boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
 							<br />
 							<button onclick="location.href='./wroteDel?boardIdx=${bbs.boardIdx}'">삭제</button>
-						</td>
+						</td> --%>
 					</tr>
 				</c:forEach>
 			</table>

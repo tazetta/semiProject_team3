@@ -217,7 +217,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				 dto =new QnaDTO();
-				 dto.setQnaIdx(rs.getInt("qnaidx"));
+				dto.setQnaIdx(rs.getInt("qnaidx"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setId(rs.getString("id"));
 				dto.setContent(rs.getString("content"));
@@ -234,6 +234,24 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 		}finally {
 			resClose();}
 		return dto;
+	}
+	
+	/*게시글 삭제*/
+	public boolean qnaDel(String qnaIdx) {
+		String sql ="DELETE FROM question WHERE qnaidx=?";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(qnaIdx));
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
 	}
 	
 	
