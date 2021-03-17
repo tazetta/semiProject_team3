@@ -18,7 +18,7 @@
         .ci {
             position: relative;
             top: 10px;
-            left: 50px;
+            margin-left: 50px;
         }
         .login li {
             float: left;
