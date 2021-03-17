@@ -5,8 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>날씨 테스트</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<style>
+	#div1{
+		border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px 10px;
+        width: 300px;
+	}
+	#div2{
+		border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px 10px;
+        width: 300px;    
+	}
+	#div3{
+		border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px 10px;
+        width: 300px;
+	}
+</style>
 </head>
 <body>
 	<select id="area" name="area" onchange='areaList(value)'>
@@ -29,22 +49,24 @@
 		<option value="제주도">제주도</option>
 	</select>
 </body>
+<div id="div1">
 <h3>오늘</h3>
 	<p id="POP0"></p>
 	<p id="PTY0"></p>
 	<p id="REH0"></p>
 	<p id="SKY0"></p>
 	<p id="TMX0"></p>
-<div>
-<p>내일</p>
+</div>
+<div id="div2">
+<h3>내일</h3>
 	<p id="POP1"></p>
 	<p id="PTY1"></p>
 	<p id="REH1"></p>
 	<p id="SKY1"></p>
 	<p id="TMX1"></p>
 </div>
-<div>
-<p>모레</p>
+<div id="div3">
+<h3>모레</h3>
 	<p id="POP2"></p>
 	<p id="PTY2"></p>
 	<p id="REH2"></p>
