@@ -68,7 +68,7 @@ public class BoardService {
 			
 			page = "boardwriteForm.jsp";
 			msg = "글 등록에 실패하였습니다.";
-			
+			int currPage =1;
 			long boardIdx = dao.write(dto);
 //			HashMap<String, Object> map = new HashMap<String, Object>();
 //			map.put("boardIdx",boardIdx);
@@ -79,7 +79,7 @@ public class BoardService {
 //			resp.setHeader("Access-Control-Allow-origin", "*");
 //			resp.getWriter().print(json);
 			if(boardIdx>0) {
-				page = "boardDetail?boardIdx="+boardIdx;
+				page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 				msg = "글 등록에 성공하였습니다.";
 			}
 			req.setAttribute("msg", msg);
