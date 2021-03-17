@@ -64,31 +64,31 @@ img {
 		<option value="경상남도">경상남도</option>
 		<option value="제주도">제주도</option>
 	</select>
-</body>
-<div id="div1">
-	<h3 style="background-color: blanchedalmond">오늘</h3>
-	<p id="SKY0"></p>
-	<p id="POP0"></p>
-	<p id="PTY0"></p>
-	<p id="REH0"></p>
-	<p id="TMX0"></p>
-</div>
-<div id="div2">
-	<h3 style="background-color: blanchedalmond">내일</h3>
-	<p id="SKY1"></p>
-	<p id="POP1"></p>
-	<p id="PTY1"></p>
-	<p id="REH1"></p>
-	<p id="TMX1"></p>
-</div>
-<div id="div3">
-	<h3 style="background-color: blanchedalmond">모레</h3>
-	<p id="SKY2"></p>
-	<p id="POP2"></p>
-	<p id="PTY2"></p>
-	<p id="REH2"></p>
-	<p id="TMX2"></p>
-</div>
+
+	<div id="div1">
+		<h3 style="background-color: blanchedalmond">오늘</h3>
+		<p id="SKY0"></p>
+		<p id="POP0"></p>
+		<p id="PTY0"></p>
+		<p id="REH0"></p>
+		<p id="TMX0"></p>
+	</div>
+	<div id="div2">
+		<h3 style="background-color: blanchedalmond">내일</h3>
+		<p id="SKY1"></p>
+		<p id="POP1"></p>
+		<p id="PTY1"></p>
+		<p id="REH1"></p>
+		<p id="TMX1"></p>
+	</div>
+	<div id="div3">
+		<h3 style="background-color: blanchedalmond">모레</h3>
+		<p id="SKY2"></p>
+		<p id="POP2"></p>
+		<p id="PTY2"></p>
+		<p id="REH2"></p>
+		<p id="TMX2"></p>
+	</div>
 
 </body>
 <script>
