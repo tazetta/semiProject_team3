@@ -36,88 +36,92 @@
 				background-color: lightgray;				
 				font-weight: bold;
 			}
+			#white{
+				border-color: white;
+			}
 		</style>
 	</head>
 	<body>	
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<br/>
+		<div class="mid">
 		<jsp:include page="side_repList.jsp"/>
-		<br/>
-		<br/>
-		<div>
-			<table class="body">
-				<tr>
-					<th>제목</th>
-					<td>${dto.subject}</td>
-				</tr>
-				<tr class="comtent">
-					<th>내용</th>
-					<td colspan="3" style="text-align: left;">${dto.content}</td>
-				</tr>
-				<tr>
-					<th>첨부파일</th>
-					<td colspan="3">
-						<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
-					</td>
-				</tr>
-			</table>
-			<br/>
-			<div>
-				<c:forEach items="${list }" var="com">
-					<c:if test="${com.reIdx ne reason.reIdx}">
-					<table class="body">
+		<br/><br/><br/>
+		<table class="body" >
+			<tr>
+				<td id="white">
+					<table>
 						<tr>
-							<th style="width: 100px;">${com.id }</th>
-							<td>${com.content }</td>
-							<td style="width: 150px;">${com.reg_date }</td>
+							<th>제목</th>
+							<td>${dto.subject}</td>
 						</tr>
-					</table>	
-					</c:if>
-					<c:if test="${com.reIdx eq reason.reIdx}">		
-						<br/>				
-						<table class="body">
-							<tr style="background-color: coral;">
-								<th style="width: 100px;">${com.id }</th>
-								<td>${com.content }</td>
-								<th>${com.reg_date }</th>
-								<th>신고수 / ${reason.repCnt }</th>
-								<c:if test="${reason.deactivate eq 'FALSE' }">
-									<th>
-										블라인드 				
-										<select id="YN">
-											<option value="TRUE" ${com.deactivate eq 'TRUE' ? 'selected="selected"' : ""}>Y</option>
-											<option value="FALSE" ${com.deactivate eq 'FALSE' ? 'selected="selected"' : ""}>N</option>
-										</select>
-									</th>
-								</c:if>
-							</tr>
-							<c:if test=""></c:if>
-							<tr>
-								<td colspan="5" style="border: 1px solid white;">
-									<fieldset>
-										<legend>신고 사유 </legend>
-										<p>
-											<b>${reason.reason }</b>
-									</fieldset>
+						<tr class="comtent">
+							<th>내용</th>
+							<td colspan="3" style="text-align: left;">${dto.content}</td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td colspan="3">
+								<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
+							</td>
+						</tr>
+					</table>
+					<br/>
+						<c:forEach items="${list }" var="com">
+							<c:if test="${com.reIdx ne reason.reIdx}">
+							<table>
+								<tr>
+									<th style="width: 100px;">${com.id }</th>
+									<td>${com.content }</td>
+									<td style="width: 150px;">${com.reg_date }</td>
+								</tr>
+							</table>	
+							</c:if>
+							<c:if test="${com.reIdx eq reason.reIdx}">		
+								<br/>				
+								<table>
+									<tr style="background-color: coral;">
+										<th style="width: 100px;">${com.id }</th>
+										<td>${com.content }</td>
+										<th>${com.reg_date }</th>
+										<th>신고수 / ${reason.repCnt }</th>
+										<c:if test="${reason.deactivate eq 'FALSE' }">
+											<th>
+												블라인드 				
+												<select id="YN">
+													<option value="TRUE" ${com.deactivate eq 'TRUE' ? 'selected="selected"' : ""}>Y</option>
+													<option value="FALSE" ${com.deactivate eq 'FALSE' ? 'selected="selected"' : ""}>N</option>
+												</select>
+											</th>
+										</c:if>
+									</tr>							
+									<tr>
+										<td colspan="5" style="border: 1px solid white;">
+											<fieldset>
+												<legend>신고 사유 </legend>
+												<p>
+													<b>${reason.reason }</b>
+											</fieldset>
+										</td>
+									</tr>
+								</table>
+							</c:if>
+						</c:forEach>
+							<table>
+								<tr>
+									<td  style="border: 1px solid white;" colspan="4">
+										<div style="text-align: right;">
+											<input class="btn" type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>											&nbsp;&nbsp;&nbsp;
+										<c:if test="${reason.deactivate eq 'FALSE' }">
+											<button id="btn" class="btn"> 적용 </button>
+										</c:if>
+									</div>
 								</td>
 							</tr>
 						</table>
-					</c:if>
-				</c:forEach>
-					<table class="body">
-						<tr>
-							<td  style="border: 1px solid white;" colspan="4">
-								<div style="text-align: right;">
-									<input class="btn" type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>											&nbsp;&nbsp;&nbsp;
-								<c:if test="${reason.deactivate eq 'FALSE' }">
-									<button id="btn" class="btn"> 적용 </button>
-								</c:if>
-							</div>
-						</td>
-					</tr>
-				</table>				
-			</div>
+					</td>
+				</tr>
+			</table>				
 		</div>
 	</body>
 	<script>

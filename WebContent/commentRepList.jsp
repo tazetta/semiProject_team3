@@ -24,13 +24,11 @@
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<br/>
+		<div class="mid">
 		<jsp:include page="side_repList.jsp"/>
 		<br/>
-		<br/>
-		<div class="mid">
 		<!-- <a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a> -->
-		<br/><br/>
+		<br/>
 		<table class="body">
 			<tr>
 				<td style="border-color: white;border-bottom-color: lightgray;" colspan="5">

@@ -3,36 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<style>
-
-#page {
-	text-align: center;
-}
-#click{
-	color: blue;
-	font-weight: bold;
-}
-
-.bssRep ,.repList{
-	background-color: lightgray;
-	font-weight: bold;
-}
-</style>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<style>		
+		#page {
+			text-align: center;
+		}
+		#click{
+			color: blue;
+			font-weight: bold;
+		}		
+		.bssRep ,.repList{
+			background-color: lightgray;
+			font-weight: bold;
+		}
+		</style>
+	</head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi_manager.jsp" />
-		<br/>
 	<div class="mid">
-	<jsp:include page="side_repList.jsp" />
-		<br/>
+		<jsp:include page="side_repList.jsp" />
 		<br/>
 		<!-- <a href="./reportBBS">미처리 내역 </a> / <a href="./reportBBS?deactivate=TRUE">처리 내역 </a> -->
-		<br/><br/>
+		<br/>
 		<table class="body">
 			<tr>
 				<td style="border-color: white;border-bottom-color: lightgray;" colspan="5">

@@ -35,7 +35,6 @@
 				position:relative;
 				left : 5%;
 			}
-						
 			.comtent{
 				height: 300px;				
 			}
@@ -47,14 +46,16 @@
 			#side {
 				position: relative;
 				top:50px;
-				margin-left: 70px;
 				padding: 10px;
-				height: 1000px;
 				z-index: 10;
 				float: left;
+				display: inline;
+				
 			}
 			.mid{
 				width: 100%;
+				margin-left: 5%;
+				min-width: 1200px;
 			}
 
 			a {
@@ -79,7 +80,7 @@
 </head>
 <body>
 	<div id="side">
-		<table style="width: 160px;">
+		<table style="width: 180px;text-align: center;">
 			<tr>
 				<td class="bssRep"><a href="./reportBBS" target="_parent">게시글 신고 내역</a></td>
 			</tr>

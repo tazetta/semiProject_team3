@@ -39,11 +39,9 @@
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<br/>
+		<div class="mid">
 		<jsp:include page="side_repList.jsp"/>
-		<br/>
-		<br/>
-		<div>
+		<br/><br/><br/>
 			<table class="body">
 				<tr>
 					<th>제목</th>

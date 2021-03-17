@@ -29,11 +29,6 @@ li {
 	margin-left: 15px;
 }
 
-.ci {
-	position: relative;
-	top: 20px;
-	left: 50px;
-}
 
 .login {
 	display: flex;

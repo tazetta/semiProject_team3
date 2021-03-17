@@ -38,7 +38,7 @@
 	float: left;
 }
 
-img {
+#weather {
 	width: 50px;
 	height: 50px;
 }
@@ -152,7 +152,7 @@ img {
 		}
 		$('#REH' + idVar).html("습도 : " + obj.list[2 + index].REH);
 		$('#SKY' + idVar).html(
-				"<img src='" + skyState(obj.list[3 + index].SKY) + "'/>");
+				"<img id='weather' src='" + skyState(obj.list[3 + index].SKY) + "'/>");
 		$('#TMX' + idVar).html("낮 최고기온 : " + obj.list[4 + index].TMX);
 	}
 
