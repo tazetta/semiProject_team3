@@ -126,8 +126,9 @@ button{
 		</tr>
 		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<th><img src="${result.firstImage}" width="100px"
-					height="100px" /></th>
+				<th><a href="./tripDetail?contentId=${result.contentId}"
+					target=window.open()><img src="${result.firstImage}" width="100px"
+					height="100px" /></a></th>
 
 				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
 					target=window.open()>${result.title}</a></th>

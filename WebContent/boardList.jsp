@@ -91,6 +91,17 @@
 			<th>조회수</th>
 			<th>작성날짜</th>
 		</tr>
+		<c:if test="${managerbbsList ne null}">
+		<c:forEach items="${managerbbsList}" var="managerbbs">
+			<tr style="background-color: yellow">
+				<td>${managerbbs.boardIdx}</td>
+				<td><a href="boardDetail?boardIdx=${managerbbs.boardIdx}&page=${currPage}">${managerbbs.subject}</a></td>
+				<td>${managerbbs.id}</td>
+				<td>${managerbbs.bHit}</td>
+				<td>${managerbbs.reg_date}</td>
+			</tr>
+		</c:forEach>
+		</c:if>
 		<c:forEach items="${list}" var="bbs">
 			<tr>
 				<td>${bbs.boardIdx}</td>

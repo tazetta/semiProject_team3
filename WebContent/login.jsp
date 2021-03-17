@@ -17,11 +17,19 @@
                 padding: 5px 10px;
                 font-size: 20px;
             }
+            fieldset{
+            	padding: 20px;
+                width: 800px;
+                margin: auto;
+                margin-top: 8%;
+                border: 1px solid white;
+                background-color: whitesmoke;
+            }
         </style>
 	</head>
 	<body>
-		<h2 style="text-align : center">로그인</h2>
-        <br/>
+	<fieldset>
+		<h2 style="text-align : center; font-size : 40px;">로그인</h2>
         <form action="login" method="post">
 	        <table>
 	                <tr>
@@ -43,11 +51,17 @@
 	                    <td colspan="3">
 	                        <input type="button" onclick="location.href='joinForm.jsp'" value="회원가입"/>
 	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
+	                        <input type="button" onclick="location.href='main.jsp'" value="메인으로"/>
 	                    </td>
 	                </tr>
 	            </table>
+	            <br/>
+	            <br/>
+	            <br/>
+	            <br/>
         
         </form>
+    </fieldset>
 	</body>
 	<script>
 		var msg = "${msg}";

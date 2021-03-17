@@ -124,58 +124,53 @@ public class WeatherCastService {
 
 	public void mainWeatherCast() {
 		int page = 1;
-		boolean isData = true;
 		String area = req.getParameter("area");
-		System.out.println("area : " + area);
 		if (area == null) {
 			area = "서울";
 		}
 		areaSelect(area);
-		System.out.println(nx + " : " + ny);
 		ArrayList<WeatherCastDTO> list = new ArrayList<WeatherCastDTO>();
 		ArrayList<WeatherCastDTO> weatherCastList = new ArrayList<WeatherCastDTO>();
 		WeatherCastDTO dto = null;
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date time = new Date();
 		String today = format.format(time);
 		try {
-			while (isData) {
+			while (page <= 2) {
 
-			String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=OYnBOIZFr7Qq92NvKqRJCgsU0E%2BdAOAjTZ9N8g0lLXvqa4GOfMmtvwgj7%2FhE7QNa64K%2FbbqXxOV3fZO9ffucVQ%3D%3D&numOfRows=100&dataType=XML"
-					+ "&base_date=" + today + "&base_time=0500&nx=" + nx + "&ny=" + ny + "&pageNo=" + page;
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(url);
-			doc.getDocumentElement().normalize();
-			
-			NodeList nList = (NodeList) doc.getElementsByTagName("item");
-				if (nList.getLength() == 0) {
-					isData = false;
-				}
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-				dto = new WeatherCastDTO();
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eElement = (Element) nNode;
-					if (getTagValue("fcstTime", eElement).equals("1500") && 
-							(getTagValue("category", eElement).equals("POP") || getTagValue("category", eElement).equals("PTY")
-								|| getTagValue("category", eElement).equals("REH") || getTagValue("category", eElement).equals("SKY")
-								|| getTagValue("category", eElement).equals("TMX"))) {
-						dto.setCategory(getTagValue("category", eElement));
-						dto.setFcstDate(getTagValue("fcstDate", eElement));
-						dto.setFcstValue(getTagValue("fcstValue", eElement));
-						list.add(dto);
+				String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=OYnBOIZFr7Qq92NvKqRJCgsU0E%2BdAOAjTZ9N8g0lLXvqa4GOfMmtvwgj7%2FhE7QNa64K%2FbbqXxOV3fZO9ffucVQ%3D%3D&numOfRows=100&dataType=XML"
+						+ "&base_date=" + today + "&base_time=0500&nx=" + nx + "&ny=" + ny + "&pageNo=" + page;
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = (NodeList) doc.getElementsByTagName("item");
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+					dto = new WeatherCastDTO();
+					Node nNode = nList.item(temp);
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+						if (getTagValue("fcstTime", eElement).equals("1500")
+								&& (getTagValue("category", eElement).equals("POP")
+										|| getTagValue("category", eElement).equals("PTY")
+										|| getTagValue("category", eElement).equals("REH")
+										|| getTagValue("category", eElement).equals("SKY")
+										|| getTagValue("category", eElement).equals("TMX"))) {
+							dto.setCategory(getTagValue("category", eElement));
+							dto.setFcstDate(getTagValue("fcstDate", eElement));
+							dto.setFcstValue(getTagValue("fcstValue", eElement));
+							list.add(dto);
+						}
 					}
 				}
-			}
 				page++;
-				System.out.println("page : " + page);
 			}
 			for (WeatherCastDTO weatherCastDTO : list) {
 				weatherCastList.add(classify(weatherCastDTO));
 			}
-			
+
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("list", weatherCastList);
 			map.put("today", getDay("yyyyMMdd", 0));
@@ -203,42 +198,42 @@ public class WeatherCastService {
 
 	private void category(WeatherCastDTO dto) {
 		switch (dto.getCategory()) {
-			case "POP": // 강수확률 %
-				dto.setPOP(dto.getFcstValue() + "%");
-				break;
-			case "PTY": // 강수 형태 코드값
-				dto.setPTY(getPTY(dto.getFcstValue()));
-				break;
-			case "R06": // 6시간 강수량 범주 (1mm)
-				dto.setR06(dto.getFcstValue() + "mm");
-				break;
-			case "REH": // 습도 %
-				dto.setREH(dto.getFcstValue() + "%");
-				break;
-			case "SKY": // 하늘상태 코드값
-				dto.setSKY(getSKY(dto.getFcstValue()));
-				break;
-			case "TMN": // 아침 최저기온 ℃
-				dto.setTMN(dto.getFcstValue() + "℃");
-				break;
-			case "TMX": // 낮 최고기온 ℃
-				dto.setTMX(dto.getFcstValue() + "℃");
-				break;
+		case "POP": // 강수확률 %
+			dto.setPOP(dto.getFcstValue() + "%");
+			break;
+		case "PTY": // 강수 형태 코드값
+			dto.setPTY(getPTY(dto.getFcstValue()));
+			break;
+		case "R06": // 6시간 강수량 범주 (1mm)
+			dto.setR06(dto.getFcstValue() + "mm");
+			break;
+		case "REH": // 습도 %
+			dto.setREH(dto.getFcstValue() + "%");
+			break;
+		case "SKY": // 하늘상태 코드값
+			dto.setSKY(getSKY(dto.getFcstValue()));
+			break;
+		case "TMN": // 아침 최저기온 ℃
+			dto.setTMN(dto.getFcstValue() + "℃");
+			break;
+		case "TMX": // 낮 최고기온 ℃
+			dto.setTMX(dto.getFcstValue() + "℃");
+			break;
 		}
 	}
 
 	private String getSKY(String fcstValue) {
 		String SKY = null;
 		switch (fcstValue) {
-			case "1":
-				SKY = "맑음";
-				break;
-			case "3":
-				SKY = "구름많음";
-				break;
-			case "4":
-				SKY = "흐림";
-				break;
+		case "1":
+			SKY = "맑음";
+			break;
+		case "3":
+			SKY = "구름많음";
+			break;
+		case "4":
+			SKY = "흐림";
+			break;
 		}
 		return SKY;
 	}
@@ -246,30 +241,30 @@ public class WeatherCastService {
 	private String getPTY(String fcstValue) {
 		String PTY = null;
 		switch (fcstValue) {
-			case "0":
-				PTY = "없음";
-				break;
-			case "1":
-				PTY = "비";
-				break;
-			case "2":
-				PTY = "비/눈";
-				break;
-			case "3":
-				PTY = "눈";
-				break;
-			case "4":
-				PTY = "소나기";
-				break;
-			case "5":
-				PTY = "빗방울";
-				break;
-			case "6":
-				PTY = "빗방울/눈날림";
-				break;
-			case "7":
-				PTY = "눈날림";
-				break;
+		case "0":
+			PTY = "없음";
+			break;
+		case "1":
+			PTY = "비";
+			break;
+		case "2":
+			PTY = "비/눈";
+			break;
+		case "3":
+			PTY = "눈";
+			break;
+		case "4":
+			PTY = "소나기";
+			break;
+		case "5":
+			PTY = "빗방울";
+			break;
+		case "6":
+			PTY = "빗방울/눈날림";
+			break;
+		case "7":
+			PTY = "눈날림";
+			break;
 		}
 		return PTY;
 	}

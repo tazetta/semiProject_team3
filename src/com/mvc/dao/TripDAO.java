@@ -14,11 +14,7 @@ import javax.sql.DataSource;
 import com.mvc.dto.AreaDTO;
 import com.mvc.dto.CityDTO;
 import com.mvc.dto.ContentDTO;
-import com.mvc.dto.LargeDTO;
-import com.mvc.dto.MediumDTO;
-import com.mvc.dto.SmallDTO;
 import com.mvc.dto.TripDTO;
-import com.mvc.dto.TripDetailDTO;
 
 public class TripDAO {
 
@@ -225,7 +221,6 @@ public class TripDAO {
 		return maxPage;
 	}
 	
-
 	public HashMap<String, Object> search(int page, String keyword, String searchType, String alignType) {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		TripDTO dto = null;

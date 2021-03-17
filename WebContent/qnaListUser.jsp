@@ -97,11 +97,12 @@ a {
 							<td>${qna.id}</td>
 							<td>y/n</td>
 						</tr>
+
 					</c:forEach>
 					
 					</table>
 				
-				
+					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 		</div>
 
 				<div class="pageArea">

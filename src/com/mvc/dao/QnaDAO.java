@@ -66,6 +66,29 @@ public class QnaDAO {
 		return success;
 	}
 	
+	/*고객센터 글쓰기(관리자)*/
+	public boolean writeAnswer(QnaDTO dto) {
+		String sql ="INSERT INTO answer (ansidx, subjectA, contentA, reg_dateA, managerid,qnaidx) VALUES(seq_answer.NEXTVAL,?,?,SYSDATE,?,?)";
+		boolean success =false;
+		try {
+			ps= conn.prepareStatement(sql);
+			ps.setString(1, dto.getSubject_A());
+			ps.setString(2, dto.getContent_A());
+			ps.setString(3, dto.getManagerid());
+			ps.setInt(4, dto.getQnaIdx());
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
+	}
+	
+	
 	/*고객센터 리스트*/
 	public HashMap<String, Object> qnaList(String loginId, int group) {
 		
@@ -105,6 +128,46 @@ public class QnaDAO {
 		}return map;
 	}
 	
+	/*고객센터 리스트(사용자)*/
+	public HashMap<String, Object> qnaListUser(String loginId, int group) {
+int pagePerCnt = 10; // 페이지 당 보여줄 갯수
+		
+		int end= group*pagePerCnt; //페이지 끝 rnum
+		int start = end-(pagePerCnt-1); //페이지 시작 rnum
+		
+		String sql = "SELECT rnum, qnaidx, subject, reg_date, id  "
+				+ "FROM (SELECT  ROW_NUMBER() OVER(ORDER BY qnaidx DESC) AS rnum, qnaidx ,subject ,reg_date,id FROM question WHERE id=?)"
+				+ "WHERE rnum BETWEEN ? AND ?";
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginId);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				QnaDTO dto = new QnaDTO();
+				dto.setRnum(rs.getInt("rnum"));
+				dto.setQnaIdx(rs.getInt("qnaidx"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				list.add(dto);
+			}
+			int maxPage = getMaxPageUser(pagePerCnt,loginId); 
+			System.out.println("maxPage:"+maxPage);
+
+			map.put("list",list);
+			map.put("maxPage", maxPage); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}return map;
+	}
+	
+	
 	/* 마지막 페이지*/
 	private int getMaxPage(int pagePerCnt) {
 		 String sql= "SELECT COUNT(qnaidx) FROM question";
@@ -122,9 +185,28 @@ public class QnaDAO {
 			return max;
 	}
 	
+	/* 마지막 페이지(사용자)*/
+	private int getMaxPageUser(int pagePerCnt, String loginId) {
+		 String sql= "SELECT COUNT(qnaidx) FROM question WHERE id=?";
+		 int max = 0;
+		 try {
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, loginId);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					int cnt = rs.getInt(1); 
+					max = (int)Math.ceil(cnt/(double)pagePerCnt);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return max;
+	}
+	
+	
 	/*상세보기*/
 	public QnaDTO qnaDetail(String loginId, String qnaIdx) {
-		String sql ="SELECT subject, id,content,reg_date FROM question WHERE qnaidx=?";
+		String sql ="SELECT qnaidx,subject, id,content,reg_date FROM question WHERE qnaidx=?";
 		QnaDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -132,6 +214,7 @@ public class QnaDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				 dto =new QnaDTO();
+				 dto.setQnaIdx(rs.getInt("qnaidx"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setId(rs.getString("id"));
 				dto.setContent(rs.getString("content"));
@@ -143,5 +226,8 @@ public class QnaDAO {
 			resClose();}
 		return dto;
 	}
+	
+	
+	
 
 }

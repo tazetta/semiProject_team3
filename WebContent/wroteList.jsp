@@ -133,14 +133,7 @@ a {
 			<table id="wroteList">
 
 				<c:forEach items="${list}" var="bbs">
-					<%-- 	<c:if test="${bbs.deactivate eq 'TRUE'}">
-						<tr>
-				
-						<td >${bbs.rnum}</td>
-							<th >"${bbs.subject }" 해당 게시물은 신고처리되어 검토중입니다.</th>
-							<td colspan="2">${bbs.reg_date }</td>
-							
-					</c:if> --%>
+
 					<tr>
 						<td>${bbs.rnum }</td>
 						<th style="width: 500px"><a
