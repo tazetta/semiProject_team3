@@ -81,7 +81,7 @@ public class BoardDAO {
 		int start = end-(pagePerCnt-1);
 		String sql ="SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
-				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='FALSE' OR ISMANAGER IS NULL)" + 
+				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL)" + 
 				") WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -447,7 +447,7 @@ public class BoardDAO {
 		System.out.println(searchType);
 		String sql ="SELECT boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id" + 
-				" FROM bbs WHERE DEACTIVATE='FALSE' AND "+ searchType +" LIKE ?" + 
+				" FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL) AND "+ searchType +" LIKE ?" + 
 				") WHERE rnum BETWEEN ? AND ?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		String searchkeyword = "%"+keyword+"%";
