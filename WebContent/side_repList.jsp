@@ -43,7 +43,6 @@
 			}
 			#side {
 				position: relative;
-				float: left;
 				margin-left: 100px;
 				padding: 10px;
 				height: 1000px;
@@ -72,7 +71,7 @@
 </head>
 <body>
 	<div id="side">
-		<table>
+		<table style="width: 120px;">
 			<tr>
 				<td class="bssRep"><a href="./reportBBS" target="_parent">게시글 신고 내역</a></td>
 			</tr>
