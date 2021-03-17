@@ -66,6 +66,12 @@ textarea {
 	height: 150px;
 	resize: none;
 }
+input{
+	width:100%;
+}
+.select{
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -97,7 +103,7 @@ textarea {
 				<tr>
 					<th>이미지 경로</th>
 					<td><input type="text" id="firstImage"
-						placeholder="주소 또는 사진 경로" /></td>
+						placeholder="이미지 URL" /></td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -119,7 +125,7 @@ textarea {
 				</tr>
 				<tr>
 					<th>콘텐츠 타입</th>
-					<td><select id="contentType" name="contentType"
+					<td><select class="select" id="contentType" name="contentType"
 						onchange='largeList(value)'>
 							<option value="">선택</option>
 							<c:forEach items="${contentList}" var="content">
@@ -129,27 +135,27 @@ textarea {
 				</tr>
 				<tr>
 					<th>대분류</th>
-					<td><select id="large" name="largeType"
+					<td><select class="select"  id="large" name="largeType"
 						onchange='mediumList(value)'>
 							<option value="">대분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>중분류</th>
-					<td><select id="medium" name="mediumType"
+					<td><select class="select" id="medium" name="mediumType"
 						onchange='smallList(value)'>
 							<option value="">중분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>소분류</th>
-					<td><select id="small" name="smallType">
+					<td><select class="select" id="small" name="smallType">
 							<option value="">소분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td><select id="area" name="areaType"
+					<td><select class="select" id="area" name="areaType"
 						onchange='cityList(value)'>
 							<option value="">지역</option>
 							<c:forEach items="${areaList}" var="area">
@@ -159,7 +165,7 @@ textarea {
 				</tr>
 				<tr>
 					<th>시군구</th>
-					<td><select id="city" name="cityType">
+					<td><select class="select" id="city" name="cityType">
 							<option value="">시/군/구</option>
 					</select></td>
 				</tr>
@@ -171,7 +177,7 @@ textarea {
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManage'">목록보기</button>
+			<button onclick="location.href='./tripManageList'">목록보기</button>
 		</div>
 	</div>
 </body>
@@ -281,6 +287,10 @@ textarea {
 	var overChk = false;
 	$("#overlay").click(function() {
 		var $contentId = $("#contentId");
+		if($contentId.val() == '') {
+			alert("contentId를 입력해 주세요.");
+		} else{
+			
 		$.ajax({
 			type : 'get',
 			url : 'tripInsertOverlay',
@@ -302,6 +312,7 @@ textarea {
 				console.log(e);
 			}
 		});
+		}
 	});
 
 	$('#btn').click(function() {

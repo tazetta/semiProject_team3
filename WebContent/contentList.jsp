@@ -14,7 +14,7 @@ div.contentList {
 }
 
 div.content {
-	padding: 5px 15px;
+	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
 	height: 30px;
@@ -22,8 +22,8 @@ div.content {
 }
 
 div.clear {
-	border-color: red;
 	clear: left;
+	border: 1px solid black;
 }
 
 div.areaList>div {
@@ -31,7 +31,6 @@ div.areaList>div {
 	border: 1px solid black;
 	padding: 5px 5px;
 	width: 140px;
-	/* text-align: center; */
 }
 
 div.areaList {
