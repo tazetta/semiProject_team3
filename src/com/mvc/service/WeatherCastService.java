@@ -148,7 +148,7 @@ public class WeatherCastService {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(url);
 			doc.getDocumentElement().normalize();
-			System.out.println("1");
+			
 			NodeList nList = (NodeList) doc.getElementsByTagName("item");
 				if (nList.getLength() == 0) {
 					isData = false;
@@ -158,7 +158,10 @@ public class WeatherCastService {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					if (getTagValue("fcstTime", eElement).equals("1500")) {
+					if (getTagValue("fcstTime", eElement).equals("1500") && 
+							(getTagValue("category", eElement).equals("POP") || getTagValue("category", eElement).equals("PTY")
+								|| getTagValue("category", eElement).equals("REH") || getTagValue("category", eElement).equals("SKY")
+								|| getTagValue("category", eElement).equals("TMX"))) {
 						dto.setCategory(getTagValue("category", eElement));
 						dto.setFcstDate(getTagValue("fcstDate", eElement));
 						dto.setFcstValue(getTagValue("fcstValue", eElement));
@@ -189,10 +192,8 @@ public class WeatherCastService {
 
 	private WeatherCastDTO classify(WeatherCastDTO dto) {
 		if (getDay("yyyyMMdd", 0).equals(dto.getFcstDate())) {
-			System.out.println("today");
 			category(dto);
 		} else if (getDay("yyyyMMdd", 1).equals(dto.getFcstDate())) {
-			System.out.println("tomorrow");
 			category(dto);
 		} else {
 			category(dto);
@@ -202,49 +203,42 @@ public class WeatherCastService {
 
 	private void category(WeatherCastDTO dto) {
 		switch (dto.getCategory()) {
-		case "POP": // 강수확률 %
-			dto.setPOP(dto.getFcstValue() + "%");
-			System.out.println(dto.getPOP());
-			break;
-		case "PTY": // 강수 형태 코드값
-			dto.setPTY(getPTY(dto.getFcstValue()));
-			System.out.println(dto.getPTY());
-			break;
-		case "R06": // 6시간 강수량 범주 (1mm)
-			dto.setR06(dto.getFcstValue() + "mm");
-			System.out.println(dto.getR06());
-			break;
-		case "REH": // 습도 %
-			dto.setREH(dto.getFcstValue() + "%");
-			System.out.println(dto.getREH());
-			break;
-		case "SKY": // 하늘상태 코드값
-			dto.setSKY(getSKY(dto.getFcstValue()));
-			System.out.println(dto.getSKY());
-			break;
-		case "TMN": // 아침 최저기온 ℃
-			dto.setTMN(dto.getFcstValue() + "℃");
-			System.out.println(dto.getTMN());
-			break;
-		case "TMX": // 낮 최고기온 ℃
-			dto.setTMX(dto.getFcstValue() + "℃");
-			System.out.println(dto.getTMX());
-			break;
+			case "POP": // 강수확률 %
+				dto.setPOP(dto.getFcstValue() + "%");
+				break;
+			case "PTY": // 강수 형태 코드값
+				dto.setPTY(getPTY(dto.getFcstValue()));
+				break;
+			case "R06": // 6시간 강수량 범주 (1mm)
+				dto.setR06(dto.getFcstValue() + "mm");
+				break;
+			case "REH": // 습도 %
+				dto.setREH(dto.getFcstValue() + "%");
+				break;
+			case "SKY": // 하늘상태 코드값
+				dto.setSKY(getSKY(dto.getFcstValue()));
+				break;
+			case "TMN": // 아침 최저기온 ℃
+				dto.setTMN(dto.getFcstValue() + "℃");
+				break;
+			case "TMX": // 낮 최고기온 ℃
+				dto.setTMX(dto.getFcstValue() + "℃");
+				break;
 		}
 	}
 
 	private String getSKY(String fcstValue) {
 		String SKY = null;
 		switch (fcstValue) {
-		case "1":
-			SKY = "맑음";
-			break;
-		case "3":
-			SKY = "구름많음";
-			break;
-		case "4":
-			SKY = "흐림";
-			break;
+			case "1":
+				SKY = "맑음";
+				break;
+			case "3":
+				SKY = "구름많음";
+				break;
+			case "4":
+				SKY = "흐림";
+				break;
 		}
 		return SKY;
 	}
@@ -252,30 +246,30 @@ public class WeatherCastService {
 	private String getPTY(String fcstValue) {
 		String PTY = null;
 		switch (fcstValue) {
-		case "0":
-			PTY = "없음";
-			break;
-		case "1":
-			PTY = "비";
-			break;
-		case "2":
-			PTY = "비/눈";
-			break;
-		case "3":
-			PTY = "눈";
-			break;
-		case "4":
-			PTY = "소나기";
-			break;
-		case "5":
-			PTY = "빗방울";
-			break;
-		case "6":
-			PTY = "빗방울/눈날림";
-			break;
-		case "7":
-			PTY = "눈날림";
-			break;
+			case "0":
+				PTY = "없음";
+				break;
+			case "1":
+				PTY = "비";
+				break;
+			case "2":
+				PTY = "비/눈";
+				break;
+			case "3":
+				PTY = "눈";
+				break;
+			case "4":
+				PTY = "소나기";
+				break;
+			case "5":
+				PTY = "빗방울";
+				break;
+			case "6":
+				PTY = "빗방울/눈날림";
+				break;
+			case "7":
+				PTY = "눈날림";
+				break;
 		}
 		return PTY;
 	}
