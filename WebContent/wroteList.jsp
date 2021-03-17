@@ -125,7 +125,7 @@ a {
 	<section id=background>
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-			<c:if test="${list eq '[]'}">
+			<c:if test="${list eq  null}">
 				<div class="noneList">
 					<p>작성한 글이 존재하지 않습니다</p>
 				</div>
@@ -155,7 +155,7 @@ a {
 					</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${list ne '[]'}">
+			<c:if test="${list ne  null}">
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
 							test="${currPage>1}">

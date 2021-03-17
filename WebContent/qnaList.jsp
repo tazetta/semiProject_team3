@@ -40,17 +40,17 @@ table#qna {
 	width: 60%;
 }
 
-#wd {
+.wd {
 	position: absolute;
 	right: 20px;
-	bottom: 20px;
+	top: 20px;
 }
 
 /*페이징*/
 .pageArea {
 	text-align: center;
 	position: absolute;
-	top: 50%;
+	top: 80%;
 	left: 50%;
 }
 
@@ -92,7 +92,7 @@ a {
 				 <c:if test="${qna.id eq loginId}"> 
 					<tr>
 						<td>${qna.rnum}</td>
-						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
+						<th style="width: 400px"><a href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
 						<td>${qna.reg_date}</td>
 						<td>${qna.id}</td>
 						<td>y/n</td>
@@ -103,7 +103,7 @@ a {
 				 <c:forEach items="${list}" var="qna">
 					<tr>
 						<td>${qna.rnum}</td>
-						<td style="width: 400px"><a href="#">${qna.subject}</a></td>
+						<th style="width: 400px"><a href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
 						<td>${qna.reg_date}</td>
 						<td>${qna.id}</td>
 						<td>y/n</td>
@@ -111,14 +111,16 @@ a {
 				</c:forEach>
 				 </c:if> 
 			</table>
+			<c:forEach items="${list}" var="qna">
 			<c:if test="${qna.id eq loginId}"> 
-			<button id="wd" onclick="location.href='writeFormQ.jsp'">글쓰기</button>
-			
+				<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 			</c:if>
+			</c:forEach>
 			
 			 <c:if test="${isManager eq true}">
-			 <button id="wd" onclick="location.href='writeFormA.jsp'">글쓰기</button> 
-			 </c:if> 
+			 	<button class="wd" onclick="location.href='writeFormA.jsp'">답변하기</button> 
+			 </c:if>  
+			<!--  <button class="wd" onclick="location.href='writeFormQ.jsp'">글쓰기</button> -->
 		</div>
 
 		<div class="pageArea">
