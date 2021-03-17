@@ -72,8 +72,8 @@ public class QnaDAO {
 		boolean success =false;
 		try {
 			ps= conn.prepareStatement(sql);
-			ps.setString(1, dto.getSubject_A());
-			ps.setString(2, dto.getContent_A());
+			ps.setString(1, dto.getSubjectA());
+			ps.setString(2, dto.getContentA());
 			ps.setString(3, dto.getManagerid());
 			ps.setInt(4, dto.getQnaIdx());
 			if(ps.executeUpdate()>0) {
@@ -89,7 +89,7 @@ public class QnaDAO {
 	}
 	
 	
-	/*고객센터 리스트*/
+	/*고객센터 리스트(admin)*/
 	public HashMap<String, Object> qnaList(String loginId, int group) {
 		
 		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
@@ -97,9 +97,9 @@ public class QnaDAO {
 		int end= group*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql = "SELECT rnum, qnaidx, subject, reg_date, id  "
-				+ "FROM (SELECT  ROW_NUMBER() OVER(ORDER BY qnaidx DESC) AS rnum, qnaidx ,subject ,reg_date,id FROM question)"
-				+ "WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT rnum, qnaidx, subject, reg_date, id, ansidx " + 
+				"FROM (SELECT  ROW_NUMBER() OVER(ORDER BY q.qnaidx DESC) AS rnum, q.qnaidx , q.subject , q.reg_date, q.id, a.ansidx " + 
+				"FROM question q,answer a WHERE  q.qnaidx=a.qnaidx(+)) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
@@ -114,6 +114,7 @@ public class QnaDAO {
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setId(rs.getString("id"));
+				dto.setAnsIdx(rs.getInt("ansidx"));
 				list.add(dto);
 			}
 			int maxPage = getMaxPage(pagePerCnt); 
@@ -135,9 +136,9 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 		int end= group*pagePerCnt; //페이지 끝 rnum
 		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 		
-		String sql = "SELECT rnum, qnaidx, subject, reg_date, id  "
-				+ "FROM (SELECT  ROW_NUMBER() OVER(ORDER BY qnaidx DESC) AS rnum, qnaidx ,subject ,reg_date,id FROM question WHERE id=?)"
-				+ "WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT rnum, qnaidx, subject, reg_date, id, ansidx " + 
+				"FROM (SELECT  ROW_NUMBER() OVER(ORDER BY q.qnaidx DESC) AS rnum, q.qnaidx , q.subject , q.reg_date, q.id, a.ansidx " + 
+				"FROM question q,answer a WHERE q.id=? AND q.qnaidx=a.qnaidx(+)) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
@@ -153,6 +154,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 				dto.setSubject(rs.getString("subject"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setId(rs.getString("id"));
+				dto.setAnsIdx(rs.getInt("ansIdx"));
 				list.add(dto);
 			}
 			int maxPage = getMaxPageUser(pagePerCnt,loginId); 
@@ -204,9 +206,10 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 	}
 	
 	
-	/*상세보기*/
+	/*상세보기(Q&A)*/
 	public QnaDTO qnaDetail(String loginId, String qnaIdx) {
-		String sql ="SELECT qnaidx,subject, id,content,reg_date FROM question WHERE qnaidx=?";
+		String sql ="SELECT q.qnaidx, q.subject, q.id, q.content, q.reg_date, a.ansidx, a.managerid, a.subjecta, a.contenta "
+				+ "FROM question q, answer a  WHERE q.qnaidx=? AND q.qnaidx=a.qnaidx(+)";
 		QnaDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -214,17 +217,41 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				 dto =new QnaDTO();
-				 dto.setQnaIdx(rs.getInt("qnaidx"));
+				dto.setQnaIdx(rs.getInt("qnaidx"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setId(rs.getString("id"));
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getDate("reg_date"));
+				//
+				dto.setAnsIdx(rs.getInt("ansIdx"));
+				dto.setManagerid(rs.getString("managerid"));
+				dto.setSubjectA(rs.getString("subjecta"));
+				dto.setContentA(rs.getString("contenta"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();}
 		return dto;
+	}
+	
+	/*게시글 삭제*/
+	public boolean qnaDel(String qnaIdx) {
+		String sql ="DELETE FROM question WHERE qnaidx=?";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(qnaIdx));
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
 	}
 	
 	

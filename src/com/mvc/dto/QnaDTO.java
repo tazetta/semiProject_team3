@@ -13,36 +13,37 @@ public class QnaDTO {
 	
 	/*answer*/
 	private int ansIdx;
-	private String subject_A;
-	private String content_A;
-	private Date reg_date_A;
+	private String subjectA;
+	private String contentA;
+	private Date reg_dateA;
 	private String managerid;
 	
 	
+	public String getSubjectA() {
+		return subjectA;
+	}
+	public void setSubjectA(String subjectA) {
+		this.subjectA = subjectA;
+	}
+	public String getContentA() {
+		return contentA;
+	}
+	public void setContentA(String contentA) {
+		this.contentA = contentA;
+	}
+	public Date getReg_dateA() {
+		return reg_dateA;
+	}
+	public void setReg_dateA(Date reg_dateA) {
+		this.reg_dateA = reg_dateA;
+	}
 	public int getAnsIdx() {
 		return ansIdx;
 	}
 	public void setAnsIdx(int ansIdx) {
 		this.ansIdx = ansIdx;
 	}
-	public String getSubject_A() {
-		return subject_A;
-	}
-	public void setSubject_A(String subject_A) {
-		this.subject_A = subject_A;
-	}
-	public String getContent_A() {
-		return content_A;
-	}
-	public void setContent_A(String content_A) {
-		this.content_A = content_A;
-	}
-	public Date getReg_date_A() {
-		return reg_date_A;
-	}
-	public void setReg_date_A(Date reg_date_A) {
-		this.reg_date_A = reg_date_A;
-	}
+	
 	public String getManagerid() {
 		return managerid;
 	}
