@@ -77,8 +77,8 @@ div.deactivate{
 				<input type="text" name="keyword"> 
 				<input type="submit" value="검색">
 			<input type="checkbox" name="deactivate" value="TRUE"/>비활성화 여부
+			<button type="button" onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
 			</form>
-			<button onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
 		</div>
 		
 		<div class="tripManageList">
