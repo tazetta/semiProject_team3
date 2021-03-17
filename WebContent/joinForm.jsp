@@ -41,7 +41,7 @@
                        <th>아이디</th>
                        <td>
                            <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
-                           <input type="submit" id="overlay" value="중복 확인"/>
+                           <input type="button" id="overlay" value="중복 확인"/>
                        </td>
                    </tr>
                    <tr>
@@ -91,32 +91,36 @@
 		var emailChk = false;
 	
  		$("#overlay").click(function(){
-			
-			
-			$.ajax({
-				type:'get'
-				,url:'overlay'
-				,data:{"id":$("#userId").val()}
-				,dataType:'JSON'
-				,success:function(obj){
-					console.log(obj);
-					if(obj.use){//obj를 사용할수있다면
-						alert('사용할 수 있는 아이디 입니다.');
-						//비동기 방식을 사용하면 javascript 를 이용하여 좀더 다양한 효과를 줄 수 있다.
-						$("#userId").css({backgroundColor:'yellowgreen'});
-						overChk = true;
-					}else{
-						alert('이미 사용중인 아이디 입니다.');
-						$("#userId").val('');
+ 			if($('#userId').val().length<5){
+                alert('아이디를 5자 이상 입력해주세요.');
+                
+            }else{
+				$.ajax({
+					type:'get'
+					,url:'overlay'
+					,data:{"id":$("#userId").val()}
+					,dataType:'JSON'
+					,success:function(obj){
+						console.log(obj);
+						if(obj.use){//obj를 사용할수있다면
+							alert('사용할 수 있는 아이디 입니다.');
+							//비동기 방식을 사용하면 javascript 를 이용하여 좀더 다양한 효과를 줄 수 있다.
+							$("#userId").css({backgroundColor:'yellowgreen'});
+							overChk = true;
+						}else{
+							alert('이미 사용중인 아이디 입니다.');
+							$("#userId").val('');
+						}
 					}
-				}
-				,error:function(e){
-					console.log(e);
-				}
-			});
+					,error:function(e){
+						console.log(e);
+					}
+				});
+            	
+            }
 			
 		});
-/*    		 //1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+/*      	//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
            if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
@@ -124,7 +128,7 @@
             }else{
                 idChk = true;
             }
-        });   */
+        }); */
         //2. pw가 5자 이상인가?
         $('#userPw').focusout(function(){
             if($(this).val().length<5){

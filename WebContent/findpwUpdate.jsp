@@ -49,7 +49,7 @@
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
-            <button id="btn">확인</button>
+            <input type = "button" id="btn" value="확인"/>
                 	<!-- <input type="button" value="확인" id="btn"/> -->
             </div>
         </fieldset>
@@ -60,6 +60,8 @@
 	if(msg!=""){
 		alert(msg);
 	}
+	
+	
 	var $newPw = $("#newPw");
 	var $pwConfirm = $("#pwConfirm");
 	var pwChk = false;
@@ -100,10 +102,15 @@
     		alert("비밀번호는 5자 이상 입력해주세요.");
     	}else if(pwChk==false){
     		alert("비밀번호가 일치하지 않습니다.");
-    	}/* else{
-    		alert("비밀번호가 변경되었습니다.");
-    		location.href="login.jsp";
-    	} */
+    	}else{
+    		console.log("비밀번호가 수정되었습니다.");
+    		$('form').submit();
+    	}
     });
+    
+    /* else{
+	alert("비밀번호가 변경되었습니다.");
+	location.href="login.jsp";
+} */
 	</script>
 </html>
