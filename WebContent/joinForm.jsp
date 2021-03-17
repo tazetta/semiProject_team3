@@ -13,7 +13,8 @@
                 padding: 5px 10px;
             }
             table{
-                width: 500px;
+                width: 600px;
+                height : 500px;
             }
             input[type='text'],input[type='password'],input[type='email']{
                 width: 70%;
@@ -25,15 +26,15 @@
                 padding: 20px;
                 width: 500px;
                 margin: auto;
-                margin-top: 15%;
+                margin-top: 8%;
                 border: 1px solid white;
                 background-color: whitesmoke;
             }
         </style>
 	</head>
 	<body>
-		<h2>회원가입</h2>
-        <hr/>
+		<h1 style="text-align : center; background-color : blanchedalmond">회원가입 페이지</h1>
+        <br/>
            <fieldset>
                <table>
                    <tr>
@@ -90,14 +91,7 @@
 		var emailChk = false;
 	
  		$("#overlay").click(function(){
-			//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
-	        $('#userId').focusout(function(){
-	           if($(this).val().length<5){
-	                alert('아이디를 5자 이상 입력해주세요.');
-	            }else{
-	                idChk = true;
-	            }
-	        }); 
+			
 			
 			$.ajax({
 				type:'get'
@@ -122,7 +116,7 @@
 			});
 			
 		});
-   		 //1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+/*    		 //1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
            if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
@@ -130,7 +124,7 @@
             }else{
                 idChk = true;
             }
-        });  
+        });   */
         //2. pw가 5자 이상인가?
         $('#userPw').focusout(function(){
             if($(this).val().length<5){
@@ -204,7 +198,7 @@
 				if($id.val()==''){
 					alert('아이디를 입력해 주세요!');
 				}else if($id.val().length<5){
-					alert('아이디를 5자 이상 입력해 주세요!');
+					alert('아이디를 5자 이상 입력하고 다시 중복체크를 해주세요!');
 				}else if($name.val()==''){
 					alert('이름을 입력해 주세요!');
 				}else if($pw.val()==''){
@@ -232,7 +226,7 @@
 							console.log(data);
 							if(data.success == true){
 								alert('회원가입을 축하 드립니다.');
-								location.href="main.jsp";
+								location.href="login.jsp";
 							}else{
 								alert('잠시후 다시 시도해 주세요.');
 							}
