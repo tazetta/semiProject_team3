@@ -43,7 +43,7 @@
 			<tr>
 				<th>신고댓글 no.</th>
 				<th>신고 당한 ID</th>
-				<th>신고 사유</th>
+				<th style="width: 30%; min-width: 150px;">신고 사유</th>
 				<th>블라인드 여부</th>
 				<th>처리자</th>
 			</tr>
