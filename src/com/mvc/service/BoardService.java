@@ -104,6 +104,7 @@ public class BoardService {
 			System.out.println("현재페이지: "+currPage);
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
+			System.out.println("관리자인가? : "+dto.getIsManager());
 			System.out.println("oriFileName"+dto.getOriFileName());
 			dao = new BoardDAO();
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);

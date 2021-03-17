@@ -13,6 +13,7 @@ public class BoardDTO {
 	private String id;
 	private int reportCnt;
 	private String deactivate;
+	private String isManager;
 	private int fileIdx;
 	private String oriFileName;
 	private String newFileName;
@@ -20,6 +21,12 @@ public class BoardDTO {
 	
 	
 	
+	public String getIsManager() {
+		return isManager;
+	}
+	public void setIsManager(String isManager) {
+		this.isManager = isManager;
+	}
 	public int getRnum() {
 		return rnum;
 	}

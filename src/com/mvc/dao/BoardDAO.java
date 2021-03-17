@@ -106,15 +106,28 @@ public class BoardDAO {
 	
 	
 	public long write(BoardDTO dto) {
-		String sql = "INSERT INTO bbs (boardIdx,subject,content,id)VALUES (bbs_seq.NEXTVAL,?,?,?)";
+		String admin_sql = "SELECT id FROM member WHERE id=?";
+		String sql = "INSERT INTO bbs (boardIdx,subject,content,id,isManager)VALUES (bbs_seq.NEXTVAL,?,?,?,?)";
 		long pk = 0;
 		try {
-			ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
-			ps.setString(1, dto.getSubject());
-			ps.setString(2, dto.getContent());
-			ps.setString(3, dto.getId());
-			ps.executeUpdate();
-			
+			ps = conn.prepareStatement(admin_sql);
+			ps.setString(1, dto.getId());
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
+				ps.setString(1, dto.getSubject());
+				ps.setString(2, dto.getContent());
+				ps.setString(3, dto.getId());
+				ps.setString(4, "false");				
+				ps.executeUpdate();				
+			}else {
+				ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
+				ps.setString(1, dto.getSubject());
+				ps.setString(2, dto.getContent());
+				ps.setString(3, dto.getId());
+				ps.setString(4, "true");				
+				ps.executeUpdate();	
+			}
 			rs = ps.getGeneratedKeys();
 			if(rs.next()) {
 				pk = rs.getLong(1);
@@ -127,7 +140,7 @@ public class BoardDAO {
 					ps.setLong(3, pk);
 					ps.executeUpdate();					
 				}
-			}
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -139,7 +152,7 @@ public class BoardDAO {
 
 
 	public BoardDTO detail(String boardIdx) {
-		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id,b.deactivate, p.oriFileName, p.newFileName "+ 
+		String sql="SELECT b.boardIdx, b.subject, b.content, b.bHit,b.id,b.deactivate,b.isManager, p.oriFileName, p.newFileName "+ 
 				"FROM bbs b, photo p WHERE b.boardIdx = p.boardIdx(+) AND b.boardIdx = ?";		
 		BoardDTO dto = null;
 		
@@ -155,6 +168,7 @@ public class BoardDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setbHit(rs.getInt("bHit"));
 				dto.setDeactivate(rs.getString("deactivate"));
+				dto.setIsManager(rs.getString("isManager"));
 				dto.setOriFileName(rs.getString("oriFileName"));
 				dto.setNewFileName(rs.getString("newFileName"));
 			}
