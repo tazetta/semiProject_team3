@@ -91,6 +91,10 @@ div.tripManageName {
 					<td>${tripDTO.firstImage}</td>
 				</tr>
 				<tr>
+					<th>이미지</th>
+					<td><img src="${tripDTO.firstImage}" width="200px" height="200px"></td>
+				</tr>
+				<tr>
 					<th>위도</th>
 					<td>${tripDTO.latitude}</td>
 				</tr>
