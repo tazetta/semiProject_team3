@@ -63,10 +63,17 @@ table, th, td {
             </tr>
 			</table>
 				<div class="black">
-                	<button onclick="location.href='./memberBlackAdd?id=${dto.id}'">블랙리스트 추가</button>
+                	<button onclick="location.href='./memberBlackAddForm?id=${dto.id}'">블랙리스트 추가</button>
+                	<!--  <button onclick="location.href='memberBlackAdd.jsp'">블랙리스트 추가</button> -->
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 	<button onclick="location.href='./memberList'">닫기</button>
 				</div>
 		</div>
 </body>
+<script>
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
+</script>
 </html>
