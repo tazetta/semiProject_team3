@@ -101,7 +101,7 @@ a {
 					
 					</table>
 				
-					<button class="wd" onclick="location.href='writeFormA.jsp'">답변하기</button>
+				
 		</div>
 
 				<div class="pageArea">

@@ -66,6 +66,29 @@ public class QnaDAO {
 		return success;
 	}
 	
+	/*고객센터 글쓰기(관리자)*/
+	public boolean writeAnswer(QnaDTO dto) {
+		String sql ="INSERT INTO answer (ansidx, subjectA, contentA, reg_dateA, managerid,qnaidx) VALUES(seq_answer.NEXTVAL,?,?,SYSDATE,?,?)";
+		boolean success =false;
+		try {
+			ps= conn.prepareStatement(sql);
+			ps.setString(1, dto.getSubject_A());
+			ps.setString(2, dto.getContent_A());
+			ps.setString(3, dto.getManagerid());
+			ps.setInt(4, dto.getQnaIdx());
+			if(ps.executeUpdate()>0) {
+				success= true;
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return success;
+	}
+	
+	
 	/*고객센터 리스트*/
 	public HashMap<String, Object> qnaList(String loginId, int group) {
 		
@@ -183,7 +206,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 	
 	/*상세보기*/
 	public QnaDTO qnaDetail(String loginId, String qnaIdx) {
-		String sql ="SELECT subject, id,content,reg_date FROM question WHERE qnaidx=?";
+		String sql ="SELECT qnaidx,subject, id,content,reg_date FROM question WHERE qnaidx=?";
 		QnaDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -191,6 +214,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				 dto =new QnaDTO();
+				 dto.setQnaIdx(rs.getInt("qnaidx"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setId(rs.getString("id"));
 				dto.setContent(rs.getString("content"));
@@ -202,6 +226,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 			resClose();}
 		return dto;
 	}
+	
 	
 	
 
