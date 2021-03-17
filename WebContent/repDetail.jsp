@@ -33,18 +33,16 @@
 			#body{
 				width: 800px;
 			}
-				
+			
+			#bssRep{
+				background-color: gray;
+			}	
 		</style>
 	</head>
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<div>
-			<ol style="float: left; margin-right: 50px;">
-				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
-				<ul><a href="./reportComment">댓글 신고 내역</a></ul>
-			</ol>
-		</div>
+		<jsp:include page="side_repList.jsp"/>
 		<div id="body">
 			<table>
 				<tr>
@@ -74,7 +72,7 @@
 			</table>
 			<fieldset>
 				<p>
-					신고 사유 ${reason.deactivate}
+					신고 사유 
 					<br/><br/>
 					<b>${reason.reason }</b>
 				</p>

@@ -15,7 +15,6 @@
     color: black;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
     
 }
 
@@ -36,6 +35,7 @@ a {
 </style>
 </head>
 <body>
+	<jsp:include page="navi.jsp" />
 	<div class="navbar">
 			<li><a href="./managerList" target="_parent">관리자정보</a></li>
 			<li><a href="./tripManageList">여행지 관리</a></li>
