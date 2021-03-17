@@ -31,6 +31,10 @@ public class QnaSerivce {
 
 	}
 
+	private boolean isManager() {
+		return (String) req.getSession().getAttribute("isManager") != null;
+	}
+	
 	/* 고객센터  리스트 */
 	public void qnaList() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
@@ -163,7 +167,10 @@ public class QnaSerivce {
 			QnaDTO dto = dao.qnaDetail(loginId,qnaIdx);
 			System.out.println("dto:"+dto);
 			msg="상세보기에 실패했습니다";
-			page="/qnaList";
+			page="/qnaListUser";
+			if(isManager()) {
+				page="/qnaList";
+			}
 			if(dto!=null) {
 				msg="";
 				page="qnaDetail.jsp";
@@ -206,7 +213,7 @@ public class QnaSerivce {
 		}		
 	}
 
-	/*답변확인(user)*/
+	/*답변확인*/
 	public void ansDetail() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String qnaIdx =req.getParameter("qnaIdx");
@@ -235,8 +242,33 @@ public class QnaSerivce {
 		
 	}
 	
-	private boolean isManager() {
-		return (String) req.getSession().getAttribute("isManager") != null;
+	
+
+	/* 고객센터 게시글 삭제*/
+	public void qnaDel() throws IOException, ServletException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		String qnaIdx =req.getParameter("qnaIdx");
+		System.out.println(loginId+" 의 게시글 삭제: "+qnaIdx);
+		if (loginId != null) { // 로그인체크
+			boolean success =dao.qnaDel(qnaIdx);
+			msg="삭제에 실패했습니다";
+			page="/qnaListUser";
+			if(isManager()) {
+				page="/qnaList";
+			}
+			if(success) {
+				msg="삭제에 성공했습니다";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			
+		}else {
+			msg="로그인 후 이용해주세요";
+			req.getSession().setAttribute("msg", msg); 
+			resp.sendRedirect("index.jsp");
+		}
+		
 	}
 
 		

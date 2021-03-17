@@ -347,6 +347,7 @@ $('a').hover(function(){
 			params.city = $city.val();
 			params.overview = $overview.val();
 			params.deactivate = $deactivate.val();
+			params.page = ${currPage};
 			$.ajax({
 				type : 'GET',
 				url : 'tripManageUpdate',
@@ -355,7 +356,7 @@ $('a').hover(function(){
 				success : function(data) {
 					if (data.success == true) {
 						alert('여행지를 수정했습니다.');
-						location.href = "./tripManageDetail?contentId=${tripDTO.contentId}";
+						location.href = "./tripManageDetail?contentId=${tripDTO.contentId}&page="+data.currPage+"";
 					} else {
 						alert('잠시 후 다시 시도해 주세요.');
 					}

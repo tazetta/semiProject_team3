@@ -8,58 +8,50 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+			/* 
 			table,th,td{
 				width : 100%;
 				border: 1px solid black;
-				border-collapse: collapse;
-				
+				border-collapse: collapse;				
+				white-space: nowrap;
 			}
-			th,td{
-				width: 150px;
-			}
-			fieldset,p{			
-				margin : 10px;
-				box-sizing : 100%;
+			fieldset,p{
 				text-align: left;
 			}
-			div{			
-				width:500px;
-			}
-			button {
-				margin-top : 10px;
-			}
-			#btn{
-				
-			}
-			#comment{
-				margin-top : 20px;
-				width: 600px;
-			}	
-			#comment th{
+			th{
 				width: 150px;
 			}
-			#body{
+			.btn{
+				font-size: 20pt;
+				margin-top: -20px;
+			} 
+			.body{
 				width: 800px;
+			}
+			#comtent{
+				height: 300px;				
+			}
+			 */
+			.comRep,.repList{
+				background-color: lightgray;				
+				font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>	
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
+		<br/>
+		<jsp:include page="side_repList.jsp"/>
+		<br/>
+		<br/>
 		<div>
-			<ol style="float: left; margin-right: 50px;">
-				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
-				<ul><a href="./reportComment">댓글 신고 내역</a></ul>
-			</ol>
-		</div>
-		<div id="body">
-			<table>
+			<table class="body">
 				<tr>
 					<th>제목</th>
-					<td>${dto.subject}</td>>
-					</td>
+					<td>${dto.subject}</td>
 				</tr>
-				<tr>
+				<tr class="comtent">
 					<th>내용</th>
 					<td colspan="3">${dto.content}</td>
 				</tr>
@@ -70,21 +62,23 @@
 					</td>
 				</tr>
 			</table>
-			<div id="comment">
+			<br/>
+			<div>
 				<c:forEach items="${list }" var="com">
 					<c:if test="${com.reIdx ne reason.reIdx}">
-					<table>
+					<table class="body">
 						<tr>
-							<th>${com.id }</th>
+							<th style="width: 150px;">${com.id }</th>
 							<td>${com.content }</td>
 							<td>${com.reg_date }</td>
 						</tr>
 					</table>	
 					</c:if>
-					<c:if test="${com.reIdx eq reason.reIdx}">						
-						<table>
+					<c:if test="${com.reIdx eq reason.reIdx}">		
+						<br/>				
+						<table class="body">
 							<tr style="background-color: coral;">
-								<th>${com.id }</th>
+								<th style="width: 60px;">${com.id }</th>
 								<td>${com.content }</td>
 								<td>${com.reg_date }</td>
 								<td>신고수 / ${reason.repCnt }</td>
@@ -98,26 +92,31 @@
 									</td>
 								</c:if>
 							</tr>
+							<c:if test=""></c:if>
 							<tr>
 								<td colspan="5" style="border: 1px solid white;">
 									<fieldset>
+										<legend>신고 사유 </legend>
 										<p>
-											신고 사유 ${reason.deactivate}
-											<br/><br/>
-										<b>${reason.reason }</b>
+											<b>${reason.reason }</b>
 									</fieldset>
 								</td>
 							</tr>
 						</table>
 					</c:if>
 				</c:forEach>
-			</div>
-			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
-				&nbsp;&nbsp;&nbsp;
-				<c:if test="${reason.deactivate eq 'FALSE' }">
-					<button id="btn"> 적용 </button>
-				</c:if>
+					<table class="body">
+						<tr>
+							<td  style="border: 1px solid white;" colspan="4">
+								<div style="text-align: right;">
+									<input class="btn" type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>											&nbsp;&nbsp;&nbsp;
+								<c:if test="${reason.deactivate eq 'FALSE' }">
+									<button class="btn"> 적용 </button>
+								</c:if>
+							</div>
+						</td>
+					</tr>
+				</table>				
 			</div>
 		</div>
 	</body>
