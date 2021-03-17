@@ -27,10 +27,10 @@
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi_manager.jsp" />
 		<br/>
+	<div class="mid">
 	<jsp:include page="side_repList.jsp" />
 		<br/>
 		<br/>
-	<div class="mid">
 		<!-- <a href="./reportBBS">미처리 내역 </a> / <a href="./reportBBS?deactivate=TRUE">처리 내역 </a> -->
 		<br/><br/>
 		<table class="body">
@@ -45,7 +45,7 @@
 			<tr>
 				<th>신고게시물 no.</th>
 				<th>신고 당한 ID</th>
-				<th>신고 사유</th>
+				<th style="width: 30%; min-width: 150px;">신고 사유</th>
 				<th>블라인드 여부</th>
 				<th>처리자</th>
 			</tr>

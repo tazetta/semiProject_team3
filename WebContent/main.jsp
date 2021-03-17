@@ -190,8 +190,11 @@ a:visited {
 		</form>
 	</section>
 	<jsp:include page="weatherCast.jsp" />
+	
+	<jsp:include page="mainBoardList.jsp" />
 </body>
 <script>
+	
 	$("li").hover(function() {
 		$(this).toggleClass("li");
 	});

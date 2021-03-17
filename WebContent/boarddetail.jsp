@@ -59,7 +59,10 @@
 	.comm_table{
 		border: 1px solid lightgray;
 	}
-	
+	.mouse_over:hover{
+		font-weight: 600;
+		color: blue;
+	}
 	
 </style>
 </head>
@@ -89,21 +92,21 @@
 			</div>
 		<table>
 			<tr>
-				<th style="width: 60px;">작성자</th>
+				<th style="width: 70px;">작성자</th>
 				<td>${dto.id}</td>
 			</tr>
 			<tr>
-				<th style="width: 60px;">제목</th>
+				<th style="width: 70px;">제목</th>
 				<td>${dto.subject}</td>
 			</tr>
-			<tr style="height: 500px;">
-				<th style="width: 60px;">내용</th>
+			<tr style="height: 300px;">
+				<th style="width: 70px;">내용</th>
 				<td>${dto.content}</td>
 			</tr>
 			<c:if test="${dto.newFileName ne null}">
 			<tr>
-				<th class="bbstable">첨부사진</th>
-				<td class="bbstable">
+				<th>첨부사진</th>
+				<td>
 					<a href="photo/${dto.newFileName}" target="_blank">${dto.oriFileName}</a>
 					<br/>
 					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
@@ -126,10 +129,10 @@
 						<td class ="comm_table">
 							${comment.content}
 							<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-								<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
+								<a style="color:blue;" class="mouse_over" href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
 							</c:if>
 							<c:if test="${comment.id==loginId || isManager=='true'}">
-								<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
+								<a style="color:blue;" class="mouse_over" href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
 							</c:if>
 						</td>
 						<td class ="comm_table" style="width:150px;">${comment.reg_date}</td>
@@ -144,7 +147,7 @@
 		</c:forEach>
 		</c:if>
 		<c:if test="${empty list}"><!-- 댓글이 없는경우 -->
-			<p class ="comm_table">현재 댓글이 없습니다.</p>
+			<p>현재 댓글이 없습니다.</p>
 		</c:if>
 		</div>
 </body>

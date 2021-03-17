@@ -53,7 +53,7 @@
 				</tr>
 				<tr class="comtent">
 					<th>내용</th>
-					<td colspan="3">${dto.content}</td>
+					<td colspan="3" style="text-align: left;">${dto.content}</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
@@ -68,9 +68,9 @@
 					<c:if test="${com.reIdx ne reason.reIdx}">
 					<table class="body">
 						<tr>
-							<th style="width: 150px;">${com.id }</th>
+							<th style="width: 100px;">${com.id }</th>
 							<td>${com.content }</td>
-							<td>${com.reg_date }</td>
+							<td style="width: 150px;">${com.reg_date }</td>
 						</tr>
 					</table>	
 					</c:if>
@@ -78,18 +78,18 @@
 						<br/>				
 						<table class="body">
 							<tr style="background-color: coral;">
-								<th style="width: 60px;">${com.id }</th>
+								<th style="width: 100px;">${com.id }</th>
 								<td>${com.content }</td>
-								<td>${com.reg_date }</td>
-								<td>신고수 / ${reason.repCnt }</td>
+								<th>${com.reg_date }</th>
+								<th>신고수 / ${reason.repCnt }</th>
 								<c:if test="${reason.deactivate eq 'FALSE' }">
-									<td>
+									<th>
 										블라인드 				
 										<select id="YN">
 											<option value="TRUE" ${com.deactivate eq 'TRUE' ? 'selected="selected"' : ""}>Y</option>
 											<option value="FALSE" ${com.deactivate eq 'FALSE' ? 'selected="selected"' : ""}>N</option>
 										</select>
-									</td>
+									</th>
 								</c:if>
 							</tr>
 							<c:if test=""></c:if>
@@ -111,7 +111,7 @@
 								<div style="text-align: right;">
 									<input class="btn" type="button"  onclick="location.href='./reportComment?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>											&nbsp;&nbsp;&nbsp;
 								<c:if test="${reason.deactivate eq 'FALSE' }">
-									<button class="btn"> 적용 </button>
+									<button id="btn" class="btn"> 적용 </button>
 								</c:if>
 							</div>
 						</td>
@@ -130,8 +130,8 @@
 			if(YN=="FALSE"){
 				chkMsg="N";
 			}
-			var chk = confirm('선택 하신 값이 맞습니까? '+ chkMsg);
-			if(chk){
+			
+			if(confirm('선택 하신 값이 맞습니까? '+ chkMsg)){
 				$.ajax({
 					type:"get"
 					,url:"updateYN"

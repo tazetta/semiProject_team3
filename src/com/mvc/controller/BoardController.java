@@ -12,7 +12,8 @@ import com.mvc.service.BoardService;
 
 
 
-@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite","/commentUpdateForm","/commentUpdate","/commentDel","/boardSearch","/boardReportForm","/boardReport","/commReportForm","/commReport"})
+@WebServlet({"/boardList","/boardWrite","/boardDetail","/boardDel","/boardUpdateForm","/boardUpdate","/commentList","/commentWrite",
+	"/commentUpdateForm","/commentUpdate","/commentDel","/boardSearch","/boardReportForm","/boardReport","/commReportForm","/commReport","/mainBoardList"})
 
 public class BoardController  extends HttpServlet{
 	
@@ -111,6 +112,11 @@ public class BoardController  extends HttpServlet{
 			case "/commReport":
 				System.out.println("댓글 신고 요청");
 				service.commReport();
+				break;
+			
+			case "/mainBoardList":
+				System.out.println("메인에서 인기게시글 요청");
+				service.mainBoardList();
 				break;
 			}
 		}

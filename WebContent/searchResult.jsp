@@ -8,57 +8,32 @@
 <title>테마별</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-div.areaList {
-	position: absolute;
-	top: 20%;
+body {
+	min-width: 1400px;
 }
 
-div.area {
-	padding: 0px 15px;
-	border: 1px solid black;
-	width: 120px;
-	height: 30px;
-	text-align: center;
-}
-
-div.clear {
-	clear: left;
-	border: 1px solid black;
-}
-
-div.cityList>div {
-	float: left;
-	border: 1px solid black;
-	padding: 5px 5px;
-	width: 140px;
-}
-
-div.cityList {
-	position: absolute;
-	left: 25%;
-	top: 15%;
-}
-
-a:link {
-	color: black;
-	text-decoration: none;
-}
-
-a:visited {
-	color: black;
-	text-decoration: none;
-}
-
-table, th, td {
-	border: 1px solid black;
+table, tr, td {
+	border: 1px solid lightgray;
 	border-collapse: collapse;
-	padding: 10px 20px;
 	text-align: center;
-	margin-left: 25%;
-	margin-top: 10%;
+	padding: 20px;
 }
-.title{
-	width:50%;
+#content {
+	background-color: #F2F2F2;
+	text-align: center;
+	position: relative;
+	top: 70px;
+	left: 170px;
+	float: left;
+	margin: 10px;
+	width: 80%;
+	height: 80%;
+	/* flex-direction:column; */
+}
+span {
+	position: relative;
+	top: 50px;
+	font-weight: 600;
 }
 
 .pageArea {
@@ -70,77 +45,123 @@ table, th, td {
 .pageArea span {
 	font-size: 16px;
 	border: 1px solid lightgray;
+	background-color: lightgray;
 	padding: 2px 10px;
-	color: gray;
+}
+
+.text {
+	text-align: left;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	width: 95%;
+	height: auto;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.bottom {
+	position: relative;
+	bottom: 0px;
+	float: right;
+}
+
+#list {
+	/*background-color: #FFFFFF;*/
+	margin-top: 1%;
+	margin-right: 1%;
+	width: 80%;
+	float: left;
+	overflow: hidden;
+}
+
+#page {
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
 }
 
 a {
 	text-decoration: none;
 }
 
-#page {
-	font-weight: 600;
-	color: red;
-}
-button{
+button {
 	padding: 20px 20px;
 }
-#btn{
+
+#btn {
 	position: absolute;
-	top:25%;
-	right:33%;
+	top: -2%;
+	right: 0%;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-	
-	<div id="btn">
-		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
-		<button onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
-	</div>
 
-	<table>
-		<tr>
-			<th>사진</th>
-			<th>제목</th>
-			<th>등록일</th>
-			<th>즐겨찾기 수</th>
-		</tr>
-		<c:forEach items="${list}" var="result" varStatus="status">
-			<tr>
-				<th><a href="./tripDetail?contentId=${result.contentId}"
-					target=window.open()><img src="${result.firstImage}" width="100px"
-					height="100px" /></a></th>
+	<section id=background>
+		<div id="content">
+			<div id="btn">
+				<button
+					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
+				<button
+					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
+			</div>
 
-				<th class="title"><a href="./tripDetail?contentId=${result.contentId}&page=${currPage}"
-					target=window.open()>${result.title}</a></th>
-				<th>${result.reg_date}</th>
-				<th>${result.bookmarkCnt}</th>
-			</tr>
-		</c:forEach>
-	</table>
-
+			<c:forEach items="${list}" var="result">
+				<table>
+					<tr>
+						<th colspan="3" style="font-size: 150%">						
+							<a href="./tripDetail?contentId=${result.contentId}&page=${currPage}"
+							target=window.open()>${result.title}</a>
+						</th>
+					</tr>
+					<tr>
+						<td id="user" rowspan="2">
+							<div>
+								<a href="tripDetail?contentId=${result.contentId}"
+									target=window.open()> <img src="${result.firstImage}"
+									width="300px" height="200px"></a>
+							</div>
+						</td>
+						<td colspan="2" id="text">
+							<div class="ellipsis">${result.overview}</div>
+						</td>
+					</tr>
+					<tr>
+						<th class="title">${result.address}</th>
+					</tr>
+				</table>
+			</c:forEach>
 	<div class="pageArea">
-		<span> 
-			<c:if test="${currPage == 1}">이전</c:if> 
-			<c:if test="${currPage > 1}">
+		<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+				test="${currPage > 1}">
 				<a href="./search?${url}&page=${currPage-1}">이전</a>
 			</c:if>
-		</span> 
-		<span id="page">
-			${currPage}
-		</span> 
-		<span> 
-			<c:if test="${currPage == maxPage}">다음</c:if> 
-			<c:if test="${currPage < maxPage}">
+		</span> <span id="page"> ${currPage} </span> <span> <c:if
+				test="${currPage == maxPage}">다음</c:if> <c:if
+				test="${currPage < maxPage}">
 				<a href="./search?${url}&page=${currPage+1}">다음</a>
 			</c:if>
-		</span>
-		<span>${currPage}/${maxPage}</span>
+		</span> <span>${currPage}/${maxPage}</span>
 	</div>
+		</div>
+	</section>
 </body>
 <script>
+	// 말줄임 기능
+	$('.ellipsis').each(function() {
+		var length = 200; //글자수
+		$(this).each(function() {
+
+			if ($(this).text().length >= length) {
+				$(this).text($(this).text().substr(0, length) + '...');
+			}
+
+		});
+	});
 </script>
 </html>

@@ -627,6 +627,31 @@ public class BoardDAO {
 		return success;
 	}
 
+	public ArrayList<BoardDTO> mainBoardList() {
+		String sql = "SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
+				"    SELECT ROW_NUMBER() OVER(ORDER BY bHit DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
+				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL)" + 
+				") WHERE rnum BETWEEN 1 AND 5";
+		BoardDTO dto = null;
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				dto = new BoardDTO();
+				dto.setSubject(rs.getString("subject"));
+				dto.setBoardIdx(rs.getInt("boardIdx"));
+				dto.setId(rs.getString("id"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return list;
+	}
+
 	
 	
 
