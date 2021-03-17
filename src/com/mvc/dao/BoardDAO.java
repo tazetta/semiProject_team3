@@ -489,13 +489,13 @@ public class BoardDAO {
 					}
 				}
 				
-			}
-			sql="SELECT count(bbsrepidx) AS repCnt FROM  BBSREP WHERE boardIdx=? AND deactivate='FALSE' ";
+			}////
+			sql="SELECT reportcnt FROM bbs WHERE boardidx=?";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				int repCnt = rs.getInt("repCnt");
+				int repCnt = rs.getInt("reportcnt");
 				System.out.println("카운팅 : "+repCnt);
 				
 				if(repCnt>=3) {// 3이상 일 때 블라인드
@@ -563,12 +563,12 @@ public class BoardDAO {
 				}			
 				
 			}
-			sql="SELECT count(commentrepidx) AS repCnt FROM  commentrep WHERE reidx=? AND deactivate='FALSE' ";
+			sql="SELECT reportcnt FROM bbs_comment WHERE reIdx=?";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, reIdx);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				int repCnt = rs.getInt("repCnt");
+				int repCnt = rs.getInt("reportcnt");
 				System.out.println("카운팅 : "+repCnt);
 				if(repCnt>=3) {
 					sql="UPDATE BBS_COMMENT SET deactivate='TRUE' WHERE reIdx=?";

@@ -22,17 +22,15 @@
 			div{
 			
 			}
+			#comRep{
+				background-color: gray;
+			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<div>
-			<ol style="float: left; margin-right: 50px;">
-				<ul><a href="./reportBBS">게시글 신고 내역</a></ul>
-				<ul><a href="./reportComment">댓글 신고 내역</a></ul>
-			</ol>
-		</div>
+		<jsp:include page="side_repList.jsp"/>
 		<div id="body">
 		<a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a>
 		<table>
