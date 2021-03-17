@@ -12,8 +12,6 @@ public class BlackListDTO {
 	private String blackstatus;
 	
 	private String name;
-	private String phone;
-	private String email;
 	private int reportcnt;
 	private int blackcnt;
 	private Date update_date;
@@ -65,18 +63,6 @@ public class BlackListDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public int getReportcnt() {
 		return reportcnt;

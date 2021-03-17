@@ -47,6 +47,11 @@ public class BlackListController extends HttpServlet {
 			System.out.println("블랙리스트 회원 상세보기");
 			service.memberBlackDetail();
 			break;
+			
+		/*case "/memberBlackAddForm":
+			System.out.println("블랙리스트 사유 추가 요청");
+			service.memberBlackAddForm();
+			break; */
 		}
 	}
 }
