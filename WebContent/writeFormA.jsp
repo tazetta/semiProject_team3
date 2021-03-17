@@ -57,17 +57,22 @@ textarea {
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
 	<form action="writeAns" method="post">
+	<input type="hidden" name="qnaIdx" value="${dto.qnaIdx}"/>
 			<div id="content">
 				<table id="qna">
 					<tr>
 						<th>작성자</th>
 						<td>${loginId}</td>
+						
 					</tr>
 					<tr>
 						<th>제목</th>
 						<td><input type="text" id="subject" name="subject" placeholder="제목을 입력하세요" /></td>
+					</tr>
+					<tr>
+						<th>문의내용</th>
+						<td>${dto.content}</td>
 					</tr>
 					<tr>
 						<th>내용</th>
