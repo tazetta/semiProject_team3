@@ -47,6 +47,7 @@
 				padding: 10px;
 				height: 1000px;
 				z-index: 10;
+				float: left;
 			}
 
 			a {
