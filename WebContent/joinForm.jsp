@@ -121,7 +121,7 @@
             }
 			
 		});
-/*      	//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
+/*       	//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
         $('#userId').focusout(function(){
            if($(this).val().length<5){
                 alert('아이디를 5자 이상 입력해주세요.');
@@ -129,13 +129,27 @@
             }else{
                 idChk = true;
             }
-        }); */
-        //2. pw가 5자 이상인가?
+        });  */
+/*         //2. pw가 5자 이상인가?
         $('#userPw').focusout(function(){
             if($(this).val().length<5){
                 alert('비밀번호를  5자 이상 입력해주세요.');
                 
             }else if($(this).val()!==$('#pwConfirm').val()){
+                $('span').html('비밀번호가 일치하지 않습니다.');
+                $('span').css('color','red');
+                pwChk = false;
+            }else{
+                $('span').html('비밀번호가 일치합니다.');
+                $('span').css('color','green');
+                pwChk = true;
+            }
+        }); */
+        
+        
+      	//2. pw가 5자 이상인가?
+        $('#userPw').focusout(function(){
+            if($(this).val()!==$('#pwConfirm').val()){
                 $('span').html('비밀번호가 일치하지 않습니다.');
                 $('span').css('color','red');
                 pwChk = false;
@@ -173,7 +187,7 @@
             return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
         });
 	
-        //5. 이메일은 형식을 갖추었는가?(@,.)
+/*         //5. 이메일은 형식을 갖추었는가?(@,.)
         $('#email').focusout(function(){
             var val = $(this).val();
             if(val.indexOf('@')<0){
@@ -185,7 +199,7 @@
             }else{
                 emailChk = true;
             }
-        });
+        }); */
                 
                 
 	
@@ -202,18 +216,32 @@
 				
 				if($id.val()==''){
 					alert('아이디를 입력해 주세요!');
-				}else if($id.val().length<5){
-					alert('아이디를 5자 이상 입력하고 다시 중복체크를 해주세요!');
+					$id.focus();
+					overChk = false;
 				}else if($name.val()==''){
 					alert('이름을 입력해 주세요!');
+					$name.focus();
 				}else if($pw.val()==''){
 					alert('비밀번호를 입력해 주세요!');
+					$pw.focus();
+				}else if($pw.val().length<5){
+					alert('비밀번호를 5자리 이상 입력해주세요!!');
+					$pw.focus();
 				}else if(pwChk==false){
 					alert('비밀번호와 비밀번호확인을 똑같이 입력해주세요!');
+					$pw.focus();
 				}else if($phone.val()==''){
 					alert('핸드폰번호를 입력해 주세요!');
+					$phone.focus();
 				}else if($email.val()==''){
 					alert('이메일을 입력해 주세요!');
+					$email.focus();
+				}else if($email.val().indexOf('@')<0){
+					alert('이메일의 형식을 맞춰 주세요(@ 추가)');
+					$email.focus();
+				}else if($email.val().indexOf('.')<0){
+					alert('이메일의 형식을 맞춰주세요(. 추가)');
+					$email.focus();
 				}else{
 					var params = {};
 					params.id = $id.val();
