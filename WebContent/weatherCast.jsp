@@ -13,18 +13,23 @@
         border-collapse: collapse;
         padding: 5px 10px;
         width: 300px;
+        position: absolute;
 	}
 	#div2{
 		border: 1px solid black;
         border-collapse: collapse;
         padding: 5px 10px;
-        width: 300px;    
+        width: 300px;
+        position: absolute;
+        left: 329px;
 	}
 	#div3{
 		border: 1px solid black;
         border-collapse: collapse;
         padding: 5px 10px;
         width: 300px;
+        position : absolute;
+        left: 650px;
 	}
 	
 	img {
@@ -55,33 +60,33 @@
 	</select>
 </body>
 <div id="div1">
-<h3>오늘</h3>
+<h3 style="background-color : blanchedalmond">오늘</h3>
+	<p id="SKY0"></p>
 	<p id="POP0"></p>
 	<p id="PTY0"></p>
 	<p id="REH0"></p>
-	<p id="SKY0"></p>
 	<p id="TMX0"></p>
 </div>
 <div id="div2">
-<h3>내일</h3>
+<h3 style="background-color : blanchedalmond">내일</h3>
+	<p id="SKY1"></p>
 	<p id="POP1"></p>
 	<p id="PTY1"></p>
 	<p id="REH1"></p>
-	<p id="SKY1"></p>
 	<p id="TMX1"></p>
 </div>
 <div id="div3">
-<h3>모레</h3>
+<h3 style="background-color : blanchedalmond">모레</h3>
+	<p id="SKY2"></p>
 	<p id="POP2"></p>
 	<p id="PTY2"></p>
 	<p id="REH2"></p>
-	<p id="SKY2"></p>
 	<p id="TMX2"></p>
 </div>
 
 <script>
 $(document).ready(function() {
-	$("select option[value='서울']").attr("selected",true);
+	/* $("select option[value='서울']").attr("selected",true); */
 	var $area = $("#area");
 	$.ajax({
 		type : 'GET',
