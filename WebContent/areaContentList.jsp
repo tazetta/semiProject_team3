@@ -51,7 +51,7 @@ a:visited {
 
 div.chkBtn{
 	position: absolute;
-	top:30%;
+	top:36%;
 	right:53%;
 }
 .btn{

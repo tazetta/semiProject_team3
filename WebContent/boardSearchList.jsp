@@ -108,7 +108,7 @@
 		<c:forEach items="${list}" var="bbs">
 			<tr>
 				<td>${bbs.boardIdx}</td>
-				<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}">${bbs.subject}</a></td>
+				<td><a class="mouse_over" href="boardDetail?${url}&boardIdx=${bbs.boardIdx}&page=${currPage}">${bbs.subject}</a></td>
 				<td>${bbs.id}</td>
 				<td>${bbs.bHit}</td>
 				<td>${bbs.reg_date}</td>

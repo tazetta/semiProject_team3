@@ -19,7 +19,7 @@
             }
             table{
                 width: 100%;
-                height: 100%;
+               
             }
             #page{                
                 width: 800px;

@@ -14,7 +14,7 @@ div.areaList {
 }
 
 div.area {
-	padding: 5px 15px;
+	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
 	height: 30px;
@@ -39,21 +39,6 @@ div.cityList {
 	top: 15%;
 }
 
-.mainUl>li {
-	position: relative;
-	font-weight: 600;
-	font-size: 24;
-	left: 50%;
-	float: left;
-	border: 1px solid black;
-	padding: 10px 15px;
-	list-style-type: none;
-}
-
-.mainUl>li:hover {
-	background-color: darkkhaki;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
@@ -69,9 +54,8 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 200px;
+	margin-left: 25%;
+	margin-top: 10%;
 }
 .title{
 	width:50%;
@@ -103,8 +87,8 @@ button{
 }
 #btn{
 	position: absolute;
-	top:20%;
-	right:25%;
+	top:25%;
+	right:33%;
 }
 </style>
 </head>

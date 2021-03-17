@@ -239,9 +239,9 @@ public TestDAO() {
 
 	public RepDTO repReason(String Idx, int type, String reIdx) {
 		RepDTO dto = null;
-		String sql = "SELECT reason, deactivate, (SELECT count(bbsrepidx)  FROM bbsrep  WHERE boardIdx=? )AS repCnt FROM  bbsrep WHERE bbsrepidx=?";
+		String sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs  WHERE boardIdx=? )AS repCnt FROM  bbsrep WHERE bbsrepidx=?";
 		if (type==2) {
-			sql = "SELECT reason, deactivate, (SELECT count(commentrepidx)  FROM commentrep  WHERE reIdx=? )AS repCnt FROM  commentrep WHERE commentrepidx=?";
+			sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs_comment  WHERE reidx=? )AS repCnt FROM  commentrep WHERE commentrepidx=?";
 		}
 		try {
 			ps = conn.prepareStatement(sql);

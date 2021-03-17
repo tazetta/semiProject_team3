@@ -104,21 +104,28 @@ public class BoardService {
 			BoardDAO dao = new BoardDAO();
 			String boardIdx = req.getParameter("boardIdx");
 			String currPage = req.getParameter("page");
+			String boardkeyword = req.getParameter("boardkeyword");
+			String searchType = req.getParameter("searchType");
+			System.out.println("검색페이지로 돌아갈거니? :"+ boardkeyword);
 			System.out.println("현재페이지: "+currPage);
 			System.out.println("boardIdx: " +boardIdx);
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println("관리자인가? : "+dto.getIsManager());
 			System.out.println("oriFileName"+dto.getOriFileName());
+			
 			dao = new BoardDAO();
 			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
 			System.out.println("댓글리스트 사이즈: "+list.size());
 			System.out.println("비활성화상태:"+dto.getDeactivate());
 			String page="/boardList?page="+currPage;
 			
+			String url = "searchType=" + searchType + "&boardkeyword=" + boardkeyword;
 			if(dto!=null && dto.getDeactivate().equals("FALSE")) {	
 				dao = new BoardDAO();
 				dao.upHit(boardIdx);
 				page="boarddetail.jsp";
+				req.setAttribute("url", url);
+				req.setAttribute("boardkeyword", boardkeyword);
 				req.setAttribute("currPage", currPage);
 				req.setAttribute("dto", dto);
 				req.setAttribute("list", list);
@@ -334,6 +341,7 @@ public class BoardService {
 		ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
 		
 		System.out.println(map.get("maxPage"));
+		req.setAttribute("boardkeyword", keyword);
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
