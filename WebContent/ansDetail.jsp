@@ -59,24 +59,21 @@ span {
 				<td><span>작성일</span><br />${dto.reg_date}</td>
 			</tr>
 			<tr>
-				<td colspan="2">${dto.content}</td>
+				<td colspan="2"><span>문의내용</span><br/><br/>${dto.content}</td>
 			</tr>
-
+			<tr>
+				<td colspan="2"><span>답변</span><br/><br/><b>${dto.subjectA}</b><br/>${dto.contentA}</td>
+			</tr>
 			<tr>
 				<td colspan="2">
 					<c:choose>
 							<c:when test="${sessionScope.isManager eq true}">
-									<button class="wd" onclick="location.href='writeFormA?qnaIdx=${dto.qnaIdx}'">답변하기</button>
 									<input type="button" onclick="location.href='./qnaList'" value="목록" />
 							</c:when>
-							<c:otherwise>
-								<c:if test="${dto.ansIdx eq 0}">
-									<input type="button" onclick="location.href='qnaDel'" value="삭제" />			
-								</c:if>
+							<c:otherwise>	
 								 <input type="button" onclick="location.href='./qnaListUser'" value="목록" />								
 							</c:otherwise>
 						</c:choose>
-					
 					</td>
 			</tr>
 		</table>

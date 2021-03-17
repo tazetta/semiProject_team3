@@ -330,10 +330,14 @@ public class BoardService {
 		String url = "searchType=" + searchType + "&boardkeyword=" + keyword;
 		
 		HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
+		dao = new BoardDAO();
+		ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
+		
 		System.out.println(map.get("maxPage"));
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("url", url);
 		req.setAttribute("list",map.get("list"));
+		req.setAttribute("managerbbsList", managerbbsList);
 		req.setAttribute("currPage", group);
 		dis = req.getRequestDispatcher("boardSearchList.jsp");
 		dis.forward(req, resp);

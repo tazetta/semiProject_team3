@@ -42,12 +42,12 @@ public class BlackListService {
 		dto.setId(id);
 		dto.setReason(reason);
 		
-		msg = "";
-		page = "/memberBlackList";
+		page = "/memberBlackAdd.jsp";
+		msg = "블랙리스트 등록 실패";
 		
 		if(dao.memberBlackAdd(dto)) {
-			page = "/memberBlackAdd.jsp";
-			msg = "해당 회원을 블랙리스트에 추가하시겠습니까?";
+			msg = "해당 회원을 블랙리스트에 추가하였습니다.";
+			page = "/memberBlackList";
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
@@ -117,6 +117,32 @@ public class BlackListService {
 		
 	}
 
-
-
+	/* public void memberBlackAddForm() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			String id = req.getParameter("id");
+			System.out.println("블랙리스트에 추가할 id: " + id);
+			
+			BlackListDAO dao = new BlackListDAO();
+			BlackListDTO dto = dao.memberBlackDetail(id);
+			
+			page = "/memberBlackList";
+			msg="실패";
+			
+			if(dto!=null) {
+				page="memberBlackAdd.jsp";
+				req.setAttribute("dto", dto);
+			}
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+	}
+		else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+	}
+} */
+	
 }
