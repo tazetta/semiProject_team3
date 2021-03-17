@@ -102,7 +102,7 @@
 		var phoneChk = false;
 		var idChk = false;
 		
-        $('#userName').focusout(function(){
+/*         $('#userName').focusout(function(){
             if($(this).val()==''){
                  alert('이름을 입력해주세요.');
                  $(this).focusin();
@@ -118,7 +118,7 @@
              }else{
                  phoneChk = true;
              }
-         });
+         }); */
 	
 	
 		$('#userPhone').keydown(function(event) {
@@ -144,10 +144,10 @@
 			if(nameChk){
 				if($name.val()==''){
 					alert('이름을 입력해주세요.');
-					$name.focus();
+					
 				}else if($phone.val()==''){
 					alert('핸드폰번호를 입력해주세요.');
-					$phone.focus();
+					
 				}
 			}
 		});
