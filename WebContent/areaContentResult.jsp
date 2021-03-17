@@ -14,7 +14,7 @@ div.areaList {
 }
 
 div.area {
-	padding: 5px 15px;
+	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
 	height: 30px;
@@ -54,9 +54,8 @@ table, th, td {
 	border-collapse: collapse;
 	padding: 10px 20px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 200px;
+	margin-left: 25%;
+	margin-top: 20%;
 }
 .title{
 	width:50%;
@@ -85,12 +84,11 @@ a {
 }
 div.chkBtn{
 	position: absolute;
-	top:27%;
-	right:28%;
-	border: none;
+	top:36%;
+	right:53%;
 }
 .btn{
-	padding:5px 10px;
+	padding:20px 40px;
 }
 </style>
 </head>
