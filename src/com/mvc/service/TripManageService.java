@@ -35,7 +35,7 @@ public class TripManageService {
 	private boolean isManager() {
 		return (String) req.getSession().getAttribute("isManager") != null;
 	}
-	
+
 	public void tripInsert() throws IOException {
 		if (isManager()) {
 			boolean success = false;
@@ -86,27 +86,29 @@ public class TripManageService {
 			resp.sendRedirect("index.jsp");
 		}
 	}
-	
+
 	public void tripInsertOverlay() throws IOException {
-		String contentId = req.getParameter("contentId");
-		System.out.println("contentId overlay : " + contentId);
-		boolean success = false;
+		if (isManager()) {
+			String contentId = req.getParameter("contentId");
+			System.out.println("contentId overlay : " + contentId);
+			boolean success = false;
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
+			HashMap<String, Object> map = new HashMap<String, Object>();
 
-		success = tripManageDAO.tripInsertOverlay(contentId);
-		map.put("use", success);
-		Gson gson = new Gson();
-		String json = gson.toJson(map);
-		resp.getWriter().print(json);
+			success = tripManageDAO.tripInsertOverlay(contentId);
+			map.put("use", success);
+			Gson gson = new Gson();
+			String json = gson.toJson(map);
+			resp.getWriter().print(json);
+		}
 
 	}
-	
+
 	public void tripInsetrInformation() throws ServletException, IOException {
 		if (isManager()) {
 			String tripNav = req.getParameter("tripNav");
 			System.out.println("tripNav : " + tripNav);
-			
+
 			ArrayList<ContentDTO> contentList = null;
 			ArrayList<LargeDTO> largeList = null;
 			ArrayList<MediumDTO> mediumList = null;
@@ -126,6 +128,7 @@ public class TripManageService {
 			} finally {
 				tripDAO.resClose();
 				tripManageDAO.resClose();
+				
 				req.setAttribute("tripNav", tripNav);
 				req.setAttribute("contentList", contentList);
 				req.setAttribute("largeList", largeList);
@@ -144,16 +147,16 @@ public class TripManageService {
 		if (isManager()) {
 			String pageParam = req.getParameter("page");
 			String tripNav = req.getParameter("tripNav");
-			if(tripNav == null) {
+			if (tripNav == null) {
 				tripNav = "99";
 			}
-			System.out.println("tripNav : " + tripNav );
+			System.out.println("tripNav : " + tripNav);
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
 			}
 			HashMap<String, Object> tripMap = tripManageDAO.tripManageList(group);
-		
+
 			req.getSession().setAttribute("type", "manageList");
 			req.setAttribute("tripNav", tripNav);
 			req.setAttribute("deactivate", "FALSE");
@@ -184,7 +187,7 @@ public class TripManageService {
 				group = Integer.parseInt(pageParam);
 			}
 			HashMap<String, Object> tripMap = tripManageDAO.tripSearch(group, keyword, searchType, isDeactivate);
-			String url = "keyword=" + keyword + "&searchType=" + searchType + "&deactivate="+isDeactivate;
+			String url = "keyword=" + keyword + "&searchType=" + searchType + "&deactivate=" + isDeactivate;
 
 			req.getSession().setAttribute("type", "search");
 			req.getSession().setAttribute("url", url);
@@ -207,7 +210,7 @@ public class TripManageService {
 			System.out.println("contentId : " + contentId);
 
 			TripDetailDTO tripDTO = tripManageDAO.tripManageDetail(contentId);
-			
+
 			req.setAttribute("currPage", page);
 			req.setAttribute("tripDTO", tripDTO);
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageDetail.jsp");
@@ -243,12 +246,13 @@ public class TripManageService {
 				e.printStackTrace();
 			} finally {
 				tripDAO.resClose();
-
-				tripDAO = new TripDAO();
+				tripManageDAO.resClose();
+				
+				tripManageDAO = new TripManageDAO();
 				TripDetailDTO tripDTO = tripManageDAO.tripManageDetail(contentId);
 
 				req.setAttribute("currPage", page);
-				
+
 				req.setAttribute("contentList", contentList);
 				req.setAttribute("largeList", largeList);
 				req.setAttribute("mediumList", mediumList);
@@ -281,6 +285,8 @@ public class TripManageService {
 			String city = req.getParameter("city");
 			String overview = req.getParameter("overview");
 			String deactivate = req.getParameter("deactivate");
+			String currPage = req.getParameter("page");
+			System.out.println("currPage : " + currPage);
 			System.out.println(managerId + " / " + contentId + " / " + firstImage + " / " + latitude + " / " + longitude
 					+ " / " + address + " / " + title);
 			System.out.println(contentType + " / " + medium + " / " + small + " / " + area + " / " + city + " / "
@@ -306,6 +312,7 @@ public class TripManageService {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 
 			map.put("success", success);
+			map.put("currPage", currPage);
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);
@@ -315,24 +322,23 @@ public class TripManageService {
 	}
 
 	public void tripDeactivateFilter() throws ServletException, IOException {
-		if(isManager()) {
-			
-		String pageParam = req.getParameter("page");
-		int group = 1;
-		if (pageParam != null) {
-			group = Integer.parseInt(pageParam);
-		}
-		HashMap<String, Object> tripMap = tripManageDAO.tripDeactivateFilter(group);
-		String url = "deactivate=TRUE";
-		req.getSession().setAttribute("type", "filter");
-		req.getSession().setAttribute("url", url);
-		req.setAttribute("url", url);
-		req.setAttribute("deactivate", "TRUE");
-		req.setAttribute("tripList", tripMap.get("tripList"));
-		req.setAttribute("maxPage", tripMap.get("maxPage"));
-		req.setAttribute("currPage", group);
-		RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
-		dis.forward(req, resp);
+		if (isManager()) {
+			String pageParam = req.getParameter("page");
+			int group = 1;
+			if (pageParam != null) {
+				group = Integer.parseInt(pageParam);
+			}
+			HashMap<String, Object> tripMap = tripManageDAO.tripDeactivateFilter(group);
+			String url = "deactivate=TRUE";
+			req.getSession().setAttribute("type", "filter");
+			req.getSession().setAttribute("url", url);
+			req.setAttribute("url", url);
+			req.setAttribute("deactivate", "TRUE");
+			req.setAttribute("tripList", tripMap.get("tripList"));
+			req.setAttribute("maxPage", tripMap.get("maxPage"));
+			req.setAttribute("currPage", group);
+			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
+			dis.forward(req, resp);
 		} else {
 			resp.sendRedirect("index.jsp");
 		}

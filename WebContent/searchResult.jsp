@@ -114,7 +114,7 @@ button{
 					target=window.open()><img src="${result.firstImage}" width="100px"
 					height="100px" /></a></th>
 
-				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
+				<th class="title"><a href="./tripDetail?contentId=${result.contentId}&page=${currPage}"
 					target=window.open()>${result.title}</a></th>
 				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>

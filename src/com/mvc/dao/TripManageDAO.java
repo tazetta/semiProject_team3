@@ -51,6 +51,7 @@ public class TripManageDAO {
 			e.printStackTrace();
 		}
 	}
+	
 	public boolean insert(TripDTO dto) {
 		boolean success = false;
 		String sql = "INSERT INTO trip(managerId,contentId,firstImage,latitude,longitude,address,title,"
@@ -221,13 +222,11 @@ public class TripManageDAO {
 		TripDTO dto = null;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// 페이징
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		int maxPage = 0;
 		
-		// 검색어
 		String addKeyword = "%"+tripKeyword+"%";
 		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY contentId DESC) AS rnum, "
@@ -367,13 +366,11 @@ public class TripManageDAO {
 		TripDTO dto = null;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// 페이징
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		int maxPage = 0;
 		
-		// 검색어
 		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
 				+ "contentId, title, reg_date, deactivate FROM trip WHERE  deactivate = 'TRUE'"
