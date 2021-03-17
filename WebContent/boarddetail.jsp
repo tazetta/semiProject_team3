@@ -129,10 +129,10 @@
 						<td class ="comm_table">
 							${comment.content}
 							<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
-								<a class="mouse_over" href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
+								<a style="color:blue;" class="mouse_over" href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
 							</c:if>
 							<c:if test="${comment.id==loginId || isManager=='true'}">
-								<a class="mouse_over" href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
+								<a style="color:blue;" class="mouse_over" href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
 							</c:if>
 						</td>
 						<td class ="comm_table" style="width:150px;">${comment.reg_date}</td>
