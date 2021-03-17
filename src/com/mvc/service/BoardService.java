@@ -41,10 +41,13 @@ public class BoardService {
 		}
 		BoardDAO dao = new BoardDAO();
 		HashMap<String, Object> map = dao.list(group);
+		dao = new BoardDAO();
+		ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
 		
 		req.setAttribute("maxPage", map.get("maxPage"));
 		req.setAttribute("list",map.get("list"));
 		req.setAttribute("currPage", group);
+		req.setAttribute("managerbbsList", managerbbsList);
 		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
 		//}else {
