@@ -46,7 +46,7 @@ public class BlackListService {
 		page = "/memberBlackList";
 		
 		if(dao.memberBlackAdd(dto)) {
-			page = "/memberBlackList";
+			page = "/memberBlackAdd.jsp";
 			msg = "해당 회원을 블랙리스트에 추가하시겠습니까?";
 		}
 		req.setAttribute("msg", msg);

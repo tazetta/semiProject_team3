@@ -16,7 +16,14 @@ public class BlackListDTO {
 	private String email;
 	private int reportcnt;
 	private int blackcnt;
+	private Date update_date;
 	
+	public Date getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
+	}
 	public int getBlackidx() {
 		return blackidx;
 	}
