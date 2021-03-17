@@ -95,6 +95,13 @@ div.chkBtn{
 <script>
 	$(document).ready(function() {
 		$("div#"+${nav}).css({"background-color" : "lightgray"});
+		console.log("nav : " + ${nav});
+	});
+	   
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
 	});
 	
 	function maxChkBox(){

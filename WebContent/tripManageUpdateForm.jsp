@@ -187,6 +187,12 @@ textarea {
 	</div>
 </body>
 <script>
+$('a').hover(function(){
+	   $(this).css({'font-weight':'600'});
+},function(){
+	    $(this).css({'font-weight':'1'});
+});
+
 	function largeList(type) {
 		var text;
 		var value;

@@ -97,6 +97,12 @@ div.chkBtn{
 		$("div#"+${nav}).css({"background-color" : "lightgray"});
 	});
 	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
+	});
+	
 	function maxChkBox(){
 		var cnt = 0;
 		$('input[type="checkbox"]').each(function(idx, item){

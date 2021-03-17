@@ -117,6 +117,38 @@ public class QnaSerivce {
 		
 		
 	}
+
+	/*고객센터 리스트(사용자)*/
+	public void qnaDetailUser() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println(loginId + "의 고객센터 게시글");
+		
+		String pageParam = req.getParameter("page"); 
+		System.out.println("pageParam:" + pageParam);
+
+		int group = 1; 
+
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam); 
+		}
+		
+		if (loginId != null) { // 로그인체크
+			HashMap<String, Object> map = dao.qnaListUser(loginId,group);
+			req.setAttribute("list", map.get("list")); 
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("currPage", group);
+			System.out.println("currPage:"+group);
+			System.out.println("list:"+map.get("list"));
+
+			dis = req.getRequestDispatcher("qnaListUser.jsp");
+			dis.forward(req, resp);
+		} else {
+			msg="로그인 후 이용해주세요";
+			req.getSession().setAttribute("msg", msg); 
+			resp.sendRedirect("index.jsp");
+		}
+		
+	}
 		
 	
 
