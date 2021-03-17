@@ -57,9 +57,11 @@ table, th, td {
 	margin-left: 25%;
 	margin-top: 15%;
 }
-.title{
-	width:50%;
+
+.title {
+	width: 50%;
 }
+
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -82,21 +84,21 @@ a {
 	color: red;
 }
 
-div.chkBtn{
+div.chkBtn {
 	position: absolute;
-	top:30%;
-	right:53%;
+	top: 30%;
+	right: 53%;
 }
 
-.btn{
-	padding:20px 40px;
+.btn {
+	padding: 20px 40px;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-	
+
 	<div class="contentList">
 		<c:forEach items="${contentList}" var="content">
 			<div class="content" id="${content.contentCode}">
@@ -119,45 +121,44 @@ div.chkBtn{
 					</div>
 				</c:if>
 			</c:forEach>
-			<input type="hidden" name="nav" value="${nav}" /> 
-			<input type="hidden" name="type" value="theme" /> 
+			<input type="hidden" name="nav" value="${nav}" /> <input
+				type="hidden" name="type" value="theme" />
 		</div>
-			<div class = "chkBtn">
-				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
-			</div>
+		<div class="chkBtn">
+			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+		</div>
 	</form>
-		<table>
+	<table>
+		<tr>
+			<th>사진</th>
+			<th>제목</th>
+			<th>등록일</th>
+			<th>즐겨찾기 수</th>
+		</tr>
+		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<th>사진</th>
-				<th>제목</th>
-				<th>등록일</th>
-				<th>즐겨찾기 수</th>
-			</tr>
-			<c:forEach items="${list}" var="result" varStatus="status">
-				<tr>
-					<th>
-						<img src="${result.firstImage}" width="100px" height="100px" />
-					</th>
-					<th class="title"><a href="#"
+				<th><img src="${result.firstImage}" width="100px"
+					height="100px" /></th>
+				<th class="title"><a href="#"
 					onclick='window.open("./tripDetail?contentId=${result.contentId}","",
 			"width=700px, height=950px, left=400, top=10")'>${result.title}</a></th>
-					<th>${result.reg_date}</th>
-					<th>${result.bookmarkCnt}</th>
-				</tr>
-			</c:forEach>
-		</table>
-		<div class="pageArea">
-			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
-					test="${currPage > 1}">
-					<a href="./resultList?${url}&page=${currPage-1}">이전</a>
-				</c:if>
-			</span> <span id="page"> ${currPage} </span> <span> <c:if
-					test="${currPage == maxPage}">다음</c:if> <c:if
-					test="${currPage < maxPage}">
-					<a href="./resultList?${url}&page=${currPage+1}">다음</a>
-				</c:if>
-			</span> <span>${currPage}/${maxPage}</span>
-		</div>
+				<th>${result.reg_date}</th>
+				<th>${result.bookmarkCnt}</th>
+			</tr>
+		</c:forEach>
+	</table>
+	<div class="pageArea">
+		<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+				test="${currPage > 1}">
+				<a href="./resultList?${url}&page=${currPage-1}">이전</a>
+			</c:if>
+		</span> <span id="page"> ${currPage} </span> <span> <c:if
+				test="${currPage == maxPage}">다음</c:if> <c:if
+				test="${currPage < maxPage}">
+				<a href="./resultList?${url}&page=${currPage+1}">다음</a>
+			</c:if>
+		</span> <span>${currPage}/${maxPage}</span>
+	</div>
 </body>
 <script>
 	$(document).ready(function() {
