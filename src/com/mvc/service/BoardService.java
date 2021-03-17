@@ -443,6 +443,8 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.mainBoardList();
 		System.out.println("메인에서 가져오는 리스트  : "+list);
+		req.getSession().setAttribute("list", list);
+		//ArrayList<BoardDTO> test = (ArrayList<BoardDTO>) req.getSession().getAttribute("list");
 		return list;
 		/*
 		 * req.setAttribute("list", list); dis =
