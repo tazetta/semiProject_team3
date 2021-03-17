@@ -65,7 +65,7 @@
 				margin:2px
 			}
 			#field{
-				margin-left:25%;
+				margin-left:15%;
 				text-align:center;
 				width:1200px;			
 			}

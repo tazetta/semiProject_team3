@@ -55,7 +55,7 @@ table, th,td {
 						<td>${black.reg_date}</td>
 						<td>${black.reason}</td>
 						<td>${black.managerid}</td>
-						<td><a href="./memberBlackDetail?id=${black.id}">상세보기</a></td>
+						<td><a href="./memberBlackDetail?blackidx=${black.blackidx}">상세보기</a></td>
 					</tr>
 				</c:forEach>
 			</table>
