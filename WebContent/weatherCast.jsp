@@ -118,7 +118,6 @@ $(document).ready(function() {
 	}
 	
 	function skyState(sky){
-		console.log(sky);
 		var image = "";
 		switch(sky){
 			case "맑음":
