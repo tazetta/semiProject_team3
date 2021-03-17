@@ -80,14 +80,16 @@ div.deactivate{
 			</form>
 			<button onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
 		</div>
+		
 		<div class="tripManageList">
-			<div class="tripManageName">
-				<a href="./tripManageList">여행지 목록</a>
+			<div class="tripManageName" id="99">
+				<a href="./tripManageList?tripNav=99">여행지 목록</a>
 			</div>
-			<div class="tripManageName">
-				<a href="./tripInsertInformation">여행지 저장</a> 
+			<div class="tripManageName" id="100">
+				<a href="./tripInsertInformation?tripNav=100">여행지 저장</a> 
 			</div>
 		</div>
+		
 		<div>
 			<table>
 				<tr>
@@ -146,5 +148,14 @@ div.deactivate{
 	</div>
 </body>
 <script>
+	$(document).ready(function() {
+		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
+	});
+	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
+	});
 </script>
 </html>

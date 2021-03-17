@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BlackListDTO;
+import com.mvc.dto.PopupDTO;
 
 public class BlackListDAO {
 
@@ -84,7 +85,7 @@ public class BlackListDAO {
 	}
 
 	private int getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(id) FROM blacklist WHERE blackstatus='TRUE'";
+		String sql = "SELECT COUNT(blackidx) FROM blacklist";
 		int max=0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -105,7 +106,7 @@ public class BlackListDAO {
 //		" (INSERT INTO blacklist (blackidx,id,reason,managerid,blackstatus)"+
 //		" VALUES (black_seq.NEXTVAL,?,?,?,?)) WHERE id=? ";
 		
-		String sql = "INSERT INTO blacklist (blackidx,id,reason,managerid,blackstatus) VALUES (black_seq.NEXTVAL,?,?,?,?)";
+		String sql = "INSERT INTO blacklist (blackidx,id,reason,managerid) VALUES (black_seq.NEXTVAL,?,?,?)";
 		boolean success = false;
 		
 		try {
@@ -114,7 +115,6 @@ public class BlackListDAO {
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getReason());
 			ps.setString(3, dto.getManagerid());
-			ps.setString(4, dto.getBlackstatus());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}
@@ -131,8 +131,8 @@ public class BlackListDAO {
 		
 		BlackListDTO dto = null;
 
-		String sql = "select b.reg_date, b.id, b.managerid, b.reason, b.blackstatus ,m.reportcnt, m.blackcnt, m.name "
-					+ "from blacklist b, member m where b.id=m.id AND b.id=?";
+		String sql = "select b.reg_date, b.id, b.managerid, b.reason, b.blackstatus ,m.reportcnt, m.blackcnt, m.name, m.update_date"
+					+ " from blacklist b, member m where b.id=m.id AND b.id=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
@@ -150,6 +150,32 @@ public class BlackListDAO {
 				dto.setBlackcnt(rs.getInt("blackcnt"));
 				dto.setName(rs.getString("name"));
 				dto.setUpdate_date(rs.getDate("update_date"));				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}			
+		return dto;
+	}
+
+	public BlackListDTO memberDetail(String id) {
+		
+		BlackListDTO dto = null;
+		String sql="SELECT blackidx, id, reason, reg_date, managerid FROM blacklist WHERE id= ?";	
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			System.out.println("쿼리 실행");
+			rs = ps.executeQuery();
+			System.out.println("rs : "+rs);
+			if(rs.next()) {
+				dto = new BlackListDTO();
+				dto.setBlackidx(rs.getInt("blackidx"));
+				dto.setManagerid(rs.getString("id"));
+				dto.setReason(rs.getString("reason"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setManagerid(rs.getString("managerid"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -69,54 +69,5 @@
 	</form>
 </body>
 <script>
-	/* $('#regist').click(function(){
-		console.log('등록클릭');
-		var $subject = $('#subject');
-		var $content = $('#content');
-		var $userId = $('#userId');
-		var $photo = $('#photo');
-		
-		if($subject.val()==''){
-			alert("제목을 입력해주세요.");
-			$subject.focus();
-		}else if($content.val()==''){
-			alert("내용을 입력해주세요.");
-			$content.focus();
-		}else{
-			/* var params = {};
-			params.subject = $subject.val();
-			params.content = $content.val();
-			params.userId = $userId.val();
-			params.photo = $photo.val();
-			var formData = new FormData();
-			formData.append("subject", $subject.val());
-			formData.append("content", $content.val());
-			formData.append("userId", $userId.val());
-			formData.append("photo", $photo[0].files[0]);
-
-
-			$('#form').ajaxForm({
-				type:'POST'
-				,url:'./boardWrite'
-				,enctype: 'multipart/form-data'
-				,processData: false
-			    ,contentType: false
-				,data:formData
-				,dataType:'JSON'
-				,success:function(data){
-					console.log(data);
-					if(data.boardIdx>0){
-						alert('글등록에 성공하였습니다.');
-						location.href="./boardDetail?boardIdx="+data.boardIdx;
-					}else{
-						alert('글등록에 실패하였습니다.');
-						location.href="./boardList";
-					}
-				},error:function(e){
-					console.log(e);
-				}
-			});
-		}
-	}); */
 </script>
 </html>

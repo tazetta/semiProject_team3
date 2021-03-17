@@ -166,14 +166,14 @@ public class MemberDAO {
 
 		String sql ="SELECT rnum, boardIdx,subject,bHit,reg_date,id "
 				+ "FROM ( SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id "
-				+ "FROM bbs WHERE DEACTIVATE='FALSE') WHERE rnum BETWEEN ? AND ? AND id=?";
+				+ "FROM bbs WHERE DEACTIVATE='FALSE' AND  id=?) WHERE rnum BETWEEN ? AND ? ";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, start);
-			ps.setInt(2, end);
-			ps.setString(3, loginId);
+			ps.setString(1, loginId);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();

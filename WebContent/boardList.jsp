@@ -69,6 +69,9 @@
 				text-align:center;
 				width:1200px;			
 			}
+			.mouse_over:hover{
+				font-weight: 600;
+			}
         </style>
     </head>
 	<body>
@@ -85,16 +88,27 @@
     	<button id="boardSearch">검색</button>
     	<table>
 		<tr>
-			<th>글 번호</th>
+			<th style="width:60px">글 번호</th>
 			<th>제목</th>
-			<th>작성자</th>
-			<th>조회수</th>
-			<th>작성날짜</th>
+			<th style="width:120px">작성자</th>
+			<th style="width:60px">조회수</th>
+			<th style="width:100px">작성날짜</th>
 		</tr>
+		<c:if test="${managerbbsList ne null}">
+		<c:forEach items="${managerbbsList}" var="managerbbs">
+			<tr style="background-color: yellow">
+				<td>${managerbbs.boardIdx}</td>
+				<td><a class="mouse_over" href="boardDetail?boardIdx=${managerbbs.boardIdx}&page=${currPage}">${managerbbs.subject}</a></td>
+				<td>${managerbbs.id}</td>
+				<td>${managerbbs.bHit}</td>
+				<td>${managerbbs.reg_date}</td>
+			</tr>
+		</c:forEach>
+		</c:if>
 		<c:forEach items="${list}" var="bbs">
 			<tr>
 				<td>${bbs.boardIdx}</td>
-				<td><a href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${bbs.subject}</a></td>
+				<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${bbs.subject}</a></td>
 				<td>${bbs.id}</td>
 				<td>${bbs.bHit}</td>
 				<td>${bbs.reg_date}</td>
@@ -105,14 +119,14 @@
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>
 			<c:if test="${currPage>1}">
-				<a href='./boardList?page=${currPage-1}'>이전</a>
+				<a class="mouse_over" href='./boardList?page=${currPage-1}'>이전</a>
 			</c:if>
 		</span>
-		<span id="page">${currPage}</span>
+		<span id="page" style="font-weight: 600">${currPage}</span>
 		<span>
 			<c:if test="${currPage == maxPage}">다음</c:if>
          	<c:if test="${currPage < maxPage}">
-         		<a href="./boardList?page=${currPage+1}">다음</a></c:if>
+         		<a class="mouse_over" href="./boardList?page=${currPage+1}">다음</a></c:if>
 		</span>
 		<c:if test="${loginId ne null}">
    		<button id="write" onclick="location.href='./boardwriteForm.jsp'">글쓰기</button>

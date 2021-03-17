@@ -14,7 +14,7 @@ div.contentList {
 }
 
 div.content {
-	padding: 5px 15px;
+	padding: 0px 15px;
 	border: 1px solid black;
 	width: 120px;
 	height: 30px;
@@ -162,6 +162,12 @@ div.chkBtn{
 <script>
 	$(document).ready(function() {
 		$("div#"+${nav}).css({"background-color" : "lightgray"});
+	});
+	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
 	});
 	
 	function maxChkBox(){

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>아이디 찾기 결과 페이지</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	</head>
 	<style>
@@ -14,11 +14,11 @@
                 padding: 5px 10px;
         }
 		table{
-            	width:500px;
+            	width:700px;
         }
 		fieldset{
                 padding: 20px 30px;
-                width: 500px;
+                width: 700px;
                 margin: auto;
                 margin-top: 10%;
                 border: 1px solid white;
@@ -27,14 +27,15 @@
 	</style>
 	<body>
 		<fieldset>
-            <div>아이디 찾기</div>
+            <div style="font-size : 25px">아이디 찾기 결과</div>
+            <br/>
             <table>
                 <tr>
-                    <th>이름</th>
+                    <th style="background-color : blanchedalmond">아이디</th>
                     <th>${findId}</th>
                 </tr>
             </table>
-            <div style="text-align: right; margin-top: 10px;">
+            <div style="text-align: right; margin-top: 20px;">
                 <input type="button" onclick="location.href='./login.jsp'" value="확인"/>
             </div>
         </fieldset>

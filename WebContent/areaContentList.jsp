@@ -51,7 +51,7 @@ a:visited {
 
 div.chkBtn{
 	position: absolute;
-	top:30%;
+	top:36%;
 	right:53%;
 }
 .btn{
@@ -95,6 +95,12 @@ div.chkBtn{
 <script>
 	$(document).ready(function() {
 		$("div#"+${nav}).css({"background-color" : "lightgray"});
+	});
+	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
 	});
 	
 	function maxChkBox(){

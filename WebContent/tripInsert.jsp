@@ -60,11 +60,18 @@ div.tripManageName {
 	height: 30px;
 	text-align: center;
 }
-	textarea{
-		width: 100%;
-		height: 150px;
-		resize: none;
-	}	
+
+textarea {
+	width: 100%;
+	height: 150px;
+	resize: none;
+}
+input{
+	width:100%;
+}
+.select{
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -72,11 +79,11 @@ div.tripManageName {
 	<jsp:include page="admin_navbar.jsp" />
 
 	<div class="tripManageList">
-		<div class="tripManageName">
-			<a href="./tripManageList">여행지 목록</a>
+		<div class="tripManageName" id="99">
+			<a href="./tripManageList?tripNav=99">여행지 목록</a>
 		</div>
-		<div class="tripManageName">
-			<a href="./tripInsertInformation">여행지 저장</a>
+		<div class="tripManageName" id="100">
+			<a href="./tripInsertInformation?tripNav=100">여행지 저장</a>
 		</div>
 	</div>
 	<div>
@@ -96,7 +103,7 @@ div.tripManageName {
 				<tr>
 					<th>이미지 경로</th>
 					<td><input type="text" id="firstImage"
-						placeholder="주소 또는 사진 경로" /></td>
+						placeholder="이미지 URL" /></td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -118,7 +125,7 @@ div.tripManageName {
 				</tr>
 				<tr>
 					<th>콘텐츠 타입</th>
-					<td><select id="contentType" name="contentType"
+					<td><select class="select" id="contentType" name="contentType"
 						onchange='largeList(value)'>
 							<option value="">선택</option>
 							<c:forEach items="${contentList}" var="content">
@@ -128,27 +135,27 @@ div.tripManageName {
 				</tr>
 				<tr>
 					<th>대분류</th>
-					<td><select id="large" name="largeType"
+					<td><select class="select"  id="large" name="largeType"
 						onchange='mediumList(value)'>
 							<option value="">대분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>중분류</th>
-					<td><select id="medium" name="mediumType"
+					<td><select class="select" id="medium" name="mediumType"
 						onchange='smallList(value)'>
 							<option value="">중분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>소분류</th>
-					<td><select id="small" name="smallType">
+					<td><select class="select" id="small" name="smallType">
 							<option value="">소분류</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td><select id="area" name="areaType"
+					<td><select class="select" id="area" name="areaType"
 						onchange='cityList(value)'>
 							<option value="">지역</option>
 							<c:forEach items="${areaList}" var="area">
@@ -158,7 +165,7 @@ div.tripManageName {
 				</tr>
 				<tr>
 					<th>시군구</th>
-					<td><select id="city" name="cityType">
+					<td><select class="select" id="city" name="cityType">
 							<option value="">시/군/구</option>
 					</select></td>
 				</tr>
@@ -170,11 +177,22 @@ div.tripManageName {
 		</form>
 		<div class="button">
 			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManage'">목록보기</button>
+			<button onclick="location.href='./tripManageList'">목록보기</button>
 		</div>
 	</div>
 </body>
 <script>
+	$(document).ready(function() {
+		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
+		console.log("tripNav : " + ${tripNav});
+	});
+	
+	$('a').hover(function(){
+		   $(this).css({'font-weight':'600'});
+	},function(){
+		    $(this).css({'font-weight':'1'});
+	});
+	
 	function largeList(type) {
 		var text;
 		var value;
@@ -269,6 +287,10 @@ div.tripManageName {
 	var overChk = false;
 	$("#overlay").click(function() {
 		var $contentId = $("#contentId");
+		if($contentId.val() == '') {
+			alert("contentId를 입력해 주세요.");
+		} else{
+			
 		$.ajax({
 			type : 'get',
 			url : 'tripInsertOverlay',
@@ -290,6 +312,7 @@ div.tripManageName {
 				console.log(e);
 			}
 		});
+		}
 	});
 
 	$('#btn').click(function() {
