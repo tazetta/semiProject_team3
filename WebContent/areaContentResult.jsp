@@ -139,8 +139,9 @@ div.chkBtn{
 				<th><img src="${result.firstImage}" width="100px"
 					height="100px" /></th>
 
-				<th class="title"><a href="./tripDetail?contentId=${result.contentId}"
-					target=window.open()>${result.title}</a></th>
+				<th class="title"><a href="#"
+					onclick='window.open("./tripDetail?contentId=${result.contentId}","",
+			"width=700px, height=950px, left=400, top=10")'>${result.title}</a></th>
 				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>
 			</tr>

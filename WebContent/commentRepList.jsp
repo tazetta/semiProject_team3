@@ -8,32 +8,38 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
-			table,td,th{
-				border: 1px solid black;
-				border-collapse: collapse;
-				padding: 5px 10px;
-			}
-			#body{
-				width: 800px;
-			}
 			#page{
 				text-align: center;
 			}
-			div{
-			
+			#click{
+				color: blue;
+				font-weight: bold;
 			}
-			#comRep{
-				background-color: gray;
+			.comRep,.repList{
+				background-color: lightgray;
+				font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
+		<br/>
 		<jsp:include page="side_repList.jsp"/>
-		<div>
-		<a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a>
-		<table id="body">
+		<br/>
+		<br/>
+		<div class="mid">
+		<!-- <a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a> -->
+		<br/><br/>
+		<table class="body">
+			<tr>
+				<td style="border-color: white;border-bottom-color: lightgray;" colspan="5">
+					<select id="pros" onchange=processing()>
+						<option value="A"  ${deactivate eq 'FALSE' ? 'selected="selected"' : '' }>미처리 내역</option>
+						<option value="B"${deactivate eq 'TRUE' ? 'selected="selected"' : '' }>처리 내역</option>
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<th>신고댓글 no.</th>
 				<th>신고 당한 ID</th>
@@ -43,7 +49,7 @@
 			</tr>
 			<c:forEach items="${list }" var="rep">
 			<tr>
-				<td><a href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.reIdx }</a></td>
+				<td><a id="click" href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.reIdx }</a></td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>
 				<c:if test="${rep.deactivate eq 'FALSE' }">
@@ -78,5 +84,16 @@
 		</div>
 	</body>
 	<script>
+	<!-- <a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a> -->
+
+		function processing() {
+			var pros = $('#pros').val();
+			console.log(pros);
+			if(pros=='A'){
+				location.href="./reportComment";
+			}else{
+				location.href="./reportComment?deactivate=TRUE";
+			}
+		}
 	</script>
 </html>

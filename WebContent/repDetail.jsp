@@ -8,43 +8,43 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>
+		/* 
 			table,th,td{
 				width : 100%;
 				border: 1px solid black;
 				border-collapse: collapse;
-			}
-			th,td{
-				width: 150px;
+				white-space: nowrap;
 			}
 			fieldset,p{			
-				margin-top : 10px;
-				box-sizing : 100%;
 				text-align: left;
 			}
-			div{			
-				width:500px;
+			th{
+				width: 150px;
 			}
-			button {
-				margin-top : 10px;
-			}
-			#btn{
-				
-			}
-			#body{
+			.btn{
+				font-size: 20pt;
+				margin-top: 10px;
+			} 
+			.body{
 				width: 800px;
 			}
 			
-			#bssRep{
-				background-color: gray;
+			 */
+			.bssRep,.repList{
+				background-color: lightgray;				
+				font-weight: bold;
 			}	
 		</style>
 	</head>
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
+		<br/>
 		<jsp:include page="side_repList.jsp"/>
-		<div id="body">
-			<table>
+		<br/>
+		<br/>
+		<div>
+			<table class="body">
 				<tr>
 					<th>제목</th>
 					<td>${dto.subject}</td>
@@ -59,8 +59,8 @@
 						</td>
 					</c:if>
 				</tr>
-				<tr>
-					<th>내용</th>
+				<tr class="comtent">
+					<th >내용</th>
 					<td colspan="3">${dto.content}</td>
 				</tr>
 				<tr>
@@ -69,21 +69,24 @@
 						<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
 					</td>
 				</tr>
+				<tr>
+					<td style="border: 1px solid white;" colspan="3">
+						<fieldset>
+							<legend>신고 사유 </legend>
+							<p>				
+								<b>${reason.reason }</b>
+							</p>
+						</fieldset>
+						<div style="text-align: right;">
+							<input  class="btn" type="button"  onclick="location.href='./reportBBS?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
+							&nbsp;&nbsp;&nbsp;
+							<c:if test="${reason.deactivate eq 'FALSE' }">
+								<button class="btn"> 적용 </button>
+							</c:if>
+						</div>
+					</td>
+				</tr>
 			</table>
-			<fieldset>
-				<p>
-					신고 사유 
-					<br/><br/>
-					<b>${reason.reason }</b>
-				</p>
-			</fieldset>
-			<div id=#btn>
-				<input type="button"  onclick="location.href='./reportBBS?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
-				&nbsp;&nbsp;&nbsp;
-				<c:if test="${reason.deactivate eq 'FALSE' }">
-					<button id="btn"> 적용 </button>
-				</c:if>
-			</div>
 		</div>
 	</body>
 	<script>
