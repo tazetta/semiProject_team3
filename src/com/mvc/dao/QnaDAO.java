@@ -121,5 +121,27 @@ public class QnaDAO {
 			}
 			return max;
 	}
+	
+	/*상세보기*/
+	public QnaDTO qnaDetail(String loginId, String qnaIdx) {
+		String sql ="SELECT subject, id,content,reg_date FROM question WHERE qnaidx=?";
+		QnaDTO dto = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(qnaIdx));
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				 dto =new QnaDTO();
+				dto.setSubject(rs.getString("subject"));
+				dto.setId(rs.getString("id"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getDate("reg_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();}
+		return dto;
+	}
 
 }

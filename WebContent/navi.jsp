@@ -60,7 +60,7 @@
 
             <li><a href="boardList">커뮤니티</a></li>
 
-            <li><a href="#">고객센터</a></li>
+            <li><a href="qnaList">고객센터</a></li>
 			<c:if test="${sessionScope.isManager ne true}">
             	<li><a href="profile">마이페이지</a></li>
 			</c:if>
