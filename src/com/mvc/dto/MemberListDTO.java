@@ -15,14 +15,11 @@ public class MemberListDTO {
 		private Date update_date;
 		private int blackcnt;
 		
+		private int blackidx;
+		private String reason;
 		private String managerid;
+		private String blackstatus;
 		
-		public String getManagerid() {
-			return managerid;
-		}
-		public void setManagerid(String managerid) {
-			this.managerid = managerid;
-		}
 		public String getId() {
 			return id;
 		}
@@ -83,6 +80,31 @@ public class MemberListDTO {
 		public void setBlackcnt(int blackcnt) {
 			this.blackcnt = blackcnt;
 		}
+		public int getBlackidx() {
+			return blackidx;
+		}
+		public void setBlackidx(int blackidx) {
+			this.blackidx = blackidx;
+		}
+		public String getReason() {
+			return reason;
+		}
+		public void setReason(String reason) {
+			this.reason = reason;
+		}
+		public String getManagerid() {
+			return managerid;
+		}
+		public void setManagerid(String managerid) {
+			this.managerid = managerid;
+		}
+		public String getBlackstatus() {
+			return blackstatus;
+		}
+		public void setBlackstatus(String blackstatus) {
+			this.blackstatus = blackstatus;
+		}
+
 		
 
 }
