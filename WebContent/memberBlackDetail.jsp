@@ -41,6 +41,7 @@ table, th, td {
                 <th>블랙리스트 등록일</th>
 				<th>등록 관리자</th>                
                 <th>아이디</th>
+                <th>이름</th>
                 <th>블랙리스트 등록사유</th>
                 <th>블랙리스트로 등록된 횟수</th>
                 <th>글,댓글 신고수</th>
@@ -51,6 +52,7 @@ table, th, td {
                 <td>${dto.reg_date}</td>
                 <td>${dto.managerid}</td>
                 <td>${dto.id}</td>
+                <td>${dto.name}</td>
                 <td>${dto.reason}</td>
                 <td>${dto.blackcnt}</td>
                 <td>${dto.reportcnt}</td>

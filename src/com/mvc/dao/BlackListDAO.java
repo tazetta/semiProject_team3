@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.BlackListDTO;
-import com.mvc.dto.MemberListDTO;
 
 public class BlackListDAO {
 
@@ -131,8 +130,9 @@ public class BlackListDAO {
 	public BlackListDTO memberBlackDetail(String id) {
 		
 		BlackListDTO dto = null;
-		String sql = "select blacklist.*, member.reportcnt,member.blackcnt "+
-					 "from blacklist inner join member on blacklist.id=member.id";
+
+		String sql = "select b.reg_date, b.id, b.managerid, b.reason, b.blackstatus ,m.reportcnt, m.blackcnt, m.name "
+					+ "from blacklist b, member m where b.id=m.id AND b.id=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
@@ -140,18 +140,17 @@ public class BlackListDAO {
 			rs = ps.executeQuery();
 			System.out.println("rs : "+rs);
 			if(rs.next()) {
-//				dto = new BlackListDTO();
-//				dto.setReg_date(rs.getDate("reg_date"));
-//				dto.setId(rs.getString("id"));
-//				dto.setName(rs.getString("name"));
-//				dto.setPhone(rs.getString("phone"));
-//				dto.setEmail(rs.getString("email"));
-//				dto.setWithdraw(rs.getString("withdraw"));
-//				dto.setReportcnt(rs.getInt("reportcnt"));
-//				dto.setUpdate_date(rs.getDate("update_date"));
-//				dto.setBlackcnt(rs.getInt("blackcnt"));
+				dto = new BlackListDTO();
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				dto.setManagerid(rs.getString("managerid"));
+				dto.setReason(rs.getString("reason"));
+				dto.setBlackstatus(rs.getString("blackstatus"));
+				dto.setReportcnt(rs.getInt("reportcnt"));
+				dto.setBlackcnt(rs.getInt("blackcnt"));
+				dto.setName(rs.getString("name"));
+				dto.setUpdate_date(rs.getDate("update_date"));				
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

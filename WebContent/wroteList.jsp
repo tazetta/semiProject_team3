@@ -125,7 +125,7 @@ a {
 	<section id=background>
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-			<c:if test="${list eq '[]'}">
+			<c:if test="${list eq  null}">
 				<div class="noneList">
 					<p>작성한 글이 존재하지 않습니다</p>
 				</div>
@@ -133,14 +133,7 @@ a {
 			<table id="wroteList">
 
 				<c:forEach items="${list}" var="bbs">
-					<%-- 	<c:if test="${bbs.deactivate eq 'TRUE'}">
-						<tr>
-				
-						<td >${bbs.rnum}</td>
-							<th >"${bbs.subject }" 해당 게시물은 신고처리되어 검토중입니다.</th>
-							<td colspan="2">${bbs.reg_date }</td>
-							
-					</c:if> --%>
+
 					<tr>
 						<td>${bbs.rnum }</td>
 						<th style="width: 500px"><a
@@ -155,7 +148,7 @@ a {
 					</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${list ne '[]'}">
+			<c:if test="${list ne  null}">
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
 							test="${currPage>1}">
