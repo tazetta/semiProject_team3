@@ -132,5 +132,23 @@ $(document).ready(function() {
 		$('#SKY'+idVar).html("하늘 상태 : " + obj.list[3+index].SKY);
 		$('#TMX'+idVar).html("낮 최고기온 : " + obj.list[4+index].TMX);
 	}
+
+	
+	function skyState(sky){
+		var image = "";
+		switch(sky){
+			case "맑음":
+				image = "./WeatherIcon/맑음.png";
+				break;
+			case "구름많음":
+				image = "./WeatherIcon/구름많음.png";
+				break;
+			case "흐림":
+				image = "./WeatherIcon/흐림.png";
+				break;
+		}
+		return image;
+	}
+
 </script>
 </html>
