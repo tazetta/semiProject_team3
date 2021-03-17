@@ -291,7 +291,6 @@ public class TripManageService {
 					+ " / " + address + " / " + title);
 			System.out.println(contentType + " / " + medium + " / " + small + " / " + area + " / " + city + " / "
 					+ large + " / " + overview + " / " + deactivate);
-			System.out.println(contentId + " / contentId.length" + contentId.length());
 			TripDTO tripDTO = new TripDTO();
 			tripDTO.setManagerId(managerId);
 			tripDTO.setContentId(Integer.parseInt(contentId));

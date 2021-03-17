@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>아이디 비밀번호 찾기</title>
+		<title>아이디 비밀번호 찾기 페이지</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<style>
             table,td,th{
@@ -33,6 +33,9 @@
             div{
                 margin-bottom: 10px;
             }
+            input[type='text']{
+                width: 90%;
+        	}
         </style>
 	</head>
 	<body>
@@ -102,7 +105,7 @@
 		var phoneChk = false;
 		var idChk = false;
 		
-/*         $('#userName').focusout(function(){
+/*          $('#userName').focusout(function(){
             if($(this).val()==''){
                  alert('이름을 입력해주세요.');
                  $(this).focusin();
@@ -118,7 +121,7 @@
              }else{
                  phoneChk = true;
              }
-         }); */
+         });  */
 	
 	
 		$('#userPhone').keydown(function(event) {

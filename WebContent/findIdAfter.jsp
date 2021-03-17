@@ -24,10 +24,11 @@
                 border: 1px solid white;
                 background-color: whitesmoke;
         }
+
 	</style>
 	<body>
 		<fieldset>
-            <div style="font-size : 25px">아이디 찾기 결과</div>
+            <div style="font-size : 25px">아이디 찾기</div>
             <br/>
             <table>
                 <tr>
@@ -35,7 +36,7 @@
                     <th>${findId}</th>
                 </tr>
             </table>
-            <div style="text-align: right; margin-top: 20px;">
+            <div style="text-align: center; margin-top: 20px;">
                 <input type="button" onclick="location.href='./login.jsp'" value="확인"/>
             </div>
         </fieldset>

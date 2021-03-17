@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>로그인</title>
+		<title>로그인 페이지</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 		<style>
             table{

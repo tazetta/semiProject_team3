@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>비밀번호 찾기 후 수정 페이지</title>
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 	</head>
 	<style>
@@ -48,7 +48,7 @@
                     </td>
                 </tr>
             </table>
-            <div style="text-align: right; margin-top: 10px;">
+            <div style="text-align: center; margin-top: 10px;">
             <input type = "button" id="btn" value="확인"/>
                 	<!-- <input type="button" value="확인" id="btn"/> -->
             </div>
