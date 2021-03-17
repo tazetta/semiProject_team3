@@ -29,9 +29,9 @@ public class BoardService {
 
 	public void list() throws ServletException, IOException {
 		
-		//String loginId = (String) req.getSession().getAttribute("loginId");
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		
-		//if(loginId!=null) {
+		if(loginId!=null) {
 		String pageParam =  req.getParameter("page");
 		System.out.println("page:"+pageParam);
 		//한페이지 그룹 -> 1~10번
@@ -50,11 +50,12 @@ public class BoardService {
 		req.setAttribute("managerbbsList", managerbbsList);
 		dis = req.getRequestDispatcher("boardList.jsp");
 		dis.forward(req, resp);
-		//}else {
-			//msg = "로그인이 필요한 서비스입니다.";
-			//dis = req.getRequestDispatcher("index.jsp");
-			//dis.forward(req, resp);	
-		//}
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
+		}
 	}
 
 	public void write() throws ServletException, IOException {
@@ -90,6 +91,7 @@ public class BoardService {
 			dis.forward(req, resp);		
 		} else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -134,6 +136,7 @@ public class BoardService {
 			dis.forward(req, resp); 
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -189,6 +192,7 @@ public class BoardService {
 			dis.forward(req, resp);			
 		} else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -222,6 +226,7 @@ public class BoardService {
 			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx()+"&page="+currPage);
 		} else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -251,6 +256,7 @@ public class BoardService {
 			
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -362,6 +368,7 @@ public class BoardService {
 			dis.forward(req, resp);			
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -385,6 +392,7 @@ public class BoardService {
 			dis.forward(req, resp);			
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -400,6 +408,7 @@ public class BoardService {
 			dis.forward(req, resp);			
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
@@ -423,9 +432,19 @@ public class BoardService {
 			dis.forward(req, resp);			
 		}else {
 			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
 		
+	}
+
+	public void mainBoardList() throws ServletException, IOException {
+		BoardDAO dao = new BoardDAO();
+		ArrayList<BoardDTO> list = dao.mainBoardList();
+		System.out.println("메인에서 가져오는 리스트  : "+list);
+		req.setAttribute("list", list);
+		dis = req.getRequestDispatcher("mainBoardList.jsp");
+		dis.forward(req, resp);		
 	}
 }
