@@ -107,6 +107,7 @@
 							alert('사용할 수 있는 아이디 입니다.');
 							//비동기 방식을 사용하면 javascript 를 이용하여 좀더 다양한 효과를 줄 수 있다.
 							$("#userId").css({backgroundColor:'yellowgreen'});
+							$("#userId").attr( "readonly","readonly");
 							overChk = true;
 						}else{
 							alert('이미 사용중인 아이디 입니다.');

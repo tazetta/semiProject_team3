@@ -34,8 +34,6 @@
 	</table>
 </body>
 <script>
-$(document).ready(function() {
-	location.href = "./mainBoardList";
-});
+
 </script>
 </html>
