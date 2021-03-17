@@ -147,7 +147,7 @@
 		</c:forEach>
 		</c:if>
 		<c:if test="${empty list}"><!-- 댓글이 없는경우 -->
-			<p class ="comm_table">현재 댓글이 없습니다.</p>
+			<p>현재 댓글이 없습니다.</p>
 		</c:if>
 		</div>
 </body>
