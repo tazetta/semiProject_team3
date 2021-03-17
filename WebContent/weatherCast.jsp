@@ -26,6 +26,11 @@
         padding: 5px 10px;
         width: 300px;
 	}
+	
+	img {
+		width: 50px;
+		height: 50px;
+	}
 </style>
 </head>
 <body>
@@ -129,10 +134,9 @@ $(document).ready(function() {
 		$('#POP'+idVar).html("강수 확률 : " + obj.list[0+index].POP);
 		$('#PTY'+idVar).html("강수 형태 : " + obj.list[1+index].PTY);
 		$('#REH'+idVar).html("습도 : " + obj.list[2+index].REH);
-		$('#SKY'+idVar).html("하늘 상태 : " + obj.list[3+index].SKY);
+        $('#SKY'+idVar).html("<img src='"+skyState(obj.list[3+index].SKY)+"'/>");
 		$('#TMX'+idVar).html("낮 최고기온 : " + obj.list[4+index].TMX);
 	}
-
 	
 	function skyState(sky){
 		var image = "";
