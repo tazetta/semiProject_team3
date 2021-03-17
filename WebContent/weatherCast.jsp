@@ -8,34 +8,40 @@
 <title>날씨 테스트</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-	#div1{
-		border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-        width: 300px;
-        position: absolute;
-	}
-	#div2{
-		border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-        width: 300px;
-        position: absolute;
-        left: 329px;
-	}
-	#div3{
-		border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-        width: 300px;
-        position : absolute;
-        left: 650px;
-	}
-	
-	img {
-		width: 50px;
-		height: 50px;
-	}
+#div1 {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	width: 300px;
+	position: absolute;
+}
+
+#div2 {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	width: 300px;
+	position: absolute;
+	left: 329px;
+}
+
+#div3 {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	width: 300px;
+	position: absolute;
+	left: 650px;
+}
+
+#div1, #div2, #div3 {
+	float: left;
+}
+
+img {
+	width: 50px;
+	height: 50px;
+}
 </style>
 </head>
 <body>
@@ -58,51 +64,52 @@
 		<option value="경상남도">경상남도</option>
 		<option value="제주도">제주도</option>
 	</select>
-</body>
-<div id="div1">
-<h3 style="background-color : blanchedalmond">오늘</h3>
-	<p id="SKY0"></p>
-	<p id="POP0"></p>
-	<p id="PTY0"></p>
-	<p id="REH0"></p>
-	<p id="TMX0"></p>
-</div>
-<div id="div2">
-<h3 style="background-color : blanchedalmond">내일</h3>
-	<p id="SKY1"></p>
-	<p id="POP1"></p>
-	<p id="PTY1"></p>
-	<p id="REH1"></p>
-	<p id="TMX1"></p>
-</div>
-<div id="div3">
-<h3 style="background-color : blanchedalmond">모레</h3>
-	<p id="SKY2"></p>
-	<p id="POP2"></p>
-	<p id="PTY2"></p>
-	<p id="REH2"></p>
-	<p id="TMX2"></p>
-</div>
 
+	<div id="div1">
+		<h3 style="background-color: blanchedalmond">오늘</h3>
+		<p id="SKY0"></p>
+		<p id="POP0"></p>
+		<p id="PTY0"></p>
+		<p id="REH0"></p>
+		<p id="TMX0"></p>
+	</div>
+	<div id="div2">
+		<h3 style="background-color: blanchedalmond">내일</h3>
+		<p id="SKY1"></p>
+		<p id="POP1"></p>
+		<p id="PTY1"></p>
+		<p id="REH1"></p>
+		<p id="TMX1"></p>
+	</div>
+	<div id="div3">
+		<h3 style="background-color: blanchedalmond">모레</h3>
+		<p id="SKY2"></p>
+		<p id="POP2"></p>
+		<p id="PTY2"></p>
+		<p id="REH2"></p>
+		<p id="TMX2"></p>
+	</div>
+
+</body>
 <script>
-$(document).ready(function() {
-	/* $("select option[value='서울']").attr("selected",true); */
-	var $area = $("#area");
-	$.ajax({
-		type : 'GET',
-		url : 'mainWeatherCast',
-		data : {
-			"area" : $area.val()
-		},
-		dataType : 'JSON',
-		success : function(obj) {
-			classify(obj);
-		},
-		error : function(e) {
-			console.log(e);
-		}
-	})
-});
+	$(document).ready(function() {
+		/* $("select option[value='서울']").attr("selected",true); */
+		var $area = $("#area");
+		$.ajax({
+			type : 'GET',
+			url : 'mainWeatherCast',
+			data : {
+				"area" : $area.val()
+			},
+			dataType : 'JSON',
+			success : function(obj) {
+				classify(obj);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		})
+	});
 
 	function areaList(value) {
 		var $area = $("#area");
@@ -122,42 +129,81 @@ $(document).ready(function() {
 			}
 		})
 	}
-	
-	function classify(obj){
-		for(var i = 0; i < obj.list.length; i++) {
-			if(obj.list[i].fcstDate == obj.today) {
+
+	function classify(obj) {
+		for (var i = 0; i < obj.list.length; i++) {
+			if (obj.list[i].fcstDate == obj.today) {
 				drawWeatherCast(obj, 0, 0);
-			} else if(obj.list[i].fcstDate == obj.tomorrow) {
+			} else if (obj.list[i].fcstDate == obj.tomorrow) {
 				drawWeatherCast(obj, 1, 5);
-			} else{
+			} else {
 				drawWeatherCast(obj, 2, 10);
 			}
 		}
 	}
-	
+
 	function drawWeatherCast(obj, idVar, index) {
-		$('#POP'+idVar).html("강수 확률 : " + obj.list[0+index].POP);
-		$('#PTY'+idVar).html("강수 형태 : " + obj.list[1+index].PTY);
-		$('#REH'+idVar).html("습도 : " + obj.list[2+index].REH);
-        $('#SKY'+idVar).html("<img src='"+skyState(obj.list[3+index].SKY)+"'/>");
-		$('#TMX'+idVar).html("낮 최고기온 : " + obj.list[4+index].TMX);
+		$('#POP' + idVar).html("강수 확률 : " + obj.list[0 + index].POP);
+		if (obj.list[1 + index].PTY != "없음") {
+			$('#PTY' + idVar).html(
+					"<img src='" + ptyState(obj.list[1 + index].PTY) + "'/>");
+		} else {
+			$('#PTY' + idVar).html("");
+		}
+		$('#REH' + idVar).html("습도 : " + obj.list[2 + index].REH);
+		$('#SKY' + idVar).html(
+				"<img src='" + skyState(obj.list[3 + index].SKY) + "'/>");
+		$('#TMX' + idVar).html("낮 최고기온 : " + obj.list[4 + index].TMX);
 	}
-	
-	function skyState(sky){
+
+	function skyState(sky) {
 		var image = "";
-		switch(sky){
-			case "맑음":
-				image = "./WeatherIcon/맑음.png";
-				break;
-			case "구름많음":
-				image = "./WeatherIcon/구름많음.png";
-				break;
-			case "흐림":
-				image = "./WeatherIcon/흐림.png";
-				break;
+		switch (sky) {
+		case "맑음":
+			image = "./WeatherIcon/맑음.png";
+			break;
+		case "구름많음":
+			image = "./WeatherIcon/구름많음.png";
+			break;
+		case "흐림":
+			image = "./WeatherIcon/흐림.png";
+			break;
 		}
 		return image;
 	}
 
+	function ptyState(pty) {
+		var image = "";
+		switch (pty) {
+		case "비":
+			image = "./WeatherIcon/비.png";
+			break;
+
+		case "비/눈":
+			image = "./WeatherIcon/눈비.png";
+			break;
+
+		case "눈":
+			image = "./WeatherIcon/눈.png";
+			break;
+
+		case "소나기":
+			image = "./WeatherIcon/소나기.png";
+			break;
+
+		case "빗방울":
+			image = "./WeatherIcon/비.png";
+			break;
+
+		case "빗방울/눈날림":
+			image = "./WeatherIcon/눈비.png";
+			break;
+
+		case "눈날림":
+			image = "./WeatherIcon/눈.png";
+			break;
+		}
+		return image;
+	}
 </script>
 </html>

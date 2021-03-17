@@ -124,13 +124,11 @@ public class WeatherCastService {
 
 	public void mainWeatherCast() {
 		int page = 1;
-		boolean isData = true;
 		String area = req.getParameter("area");
 		if (area == null) {
 			area = "서울";
 		}
 		areaSelect(area);
-		System.out.println(nx + " : " + ny);
 		ArrayList<WeatherCastDTO> list = new ArrayList<WeatherCastDTO>();
 		ArrayList<WeatherCastDTO> weatherCastList = new ArrayList<WeatherCastDTO>();
 		WeatherCastDTO dto = null;

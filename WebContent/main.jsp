@@ -189,11 +189,7 @@ a:visited {
 			</table>
 		</form>
 	</section>
-
-<form action="weatherCast.jsp" method="GET">
-
-	<input type="submit" id="weatherCast" value="날씨 테스트"/>
-</form>
+	<jsp:include page="weatherCast.jsp" />
 </body>
 <script>
 	$("li").hover(function() {
