@@ -78,11 +78,11 @@
         <ul>
         	<c:if test="${sessionScope.loginId eq null}">
             	<li><a href="./login.jsp">로그인</a></li>
+		         <li><a href="joinForm.jsp">회원가입</a></li>
 			</c:if>
 			<c:if test="${sessionScope.loginId ne null}">
             	<li><a href="./logout">로그아웃</a></li> 
 			</c:if>
-          <li><a href="joinForm.jsp">회원가입</a></li>
         </ul>
     </div>
 
