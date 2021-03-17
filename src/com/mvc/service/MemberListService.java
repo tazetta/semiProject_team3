@@ -9,8 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.dao.BlackListDAO;
 import com.mvc.dao.MemberListDAO;
 import com.mvc.dao.PopupDAO;
+import com.mvc.dto.BlackListDTO;
 import com.mvc.dto.MemberListDTO;
 
 public class MemberListService {
@@ -215,4 +217,33 @@ public class MemberListService {
             dis = req.getRequestDispatcher("login.jsp");
         }
     }
+
+	public void memberBlackAddForm() throws ServletException, IOException {
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			String id = req.getParameter("id");
+			String managerid = req.getParameter("managerid");
+			System.out.println("블랙리스트에 추가할 id: " + id+"/"+managerid);
+			
+			MemberListDAO dao = new MemberListDAO();
+			MemberListDTO dto = dao.memberDetail(id);
+			
+			page = "/memberBlackList";
+			msg="실패";
+			
+			if(dto!=null) {
+				page="memberBlackAdd.jsp";
+				req.setAttribute("dto", dto);
+			}
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+	}
+		else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+	}
+}
 }

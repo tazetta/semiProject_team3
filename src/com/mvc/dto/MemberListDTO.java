@@ -15,6 +15,14 @@ public class MemberListDTO {
 		private Date update_date;
 		private int blackcnt;
 		
+		private String managerid;
+		
+		public String getManagerid() {
+			return managerid;
+		}
+		public void setManagerid(String managerid) {
+			this.managerid = managerid;
+		}
 		public String getId() {
 			return id;
 		}

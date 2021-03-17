@@ -52,9 +52,14 @@
 		position: relative;
 		left:18%;
 	}
+	
 	p{
 		text-align: center;
 	}
+	.comm_table{
+		border: 1px solid lightgray;
+	}
+	
 	
 </style>
 </head>
@@ -79,15 +84,15 @@
 			</div>
 		<table>
 			<tr>
-				<th>작성자</th>
+				<th style="width: 60px;">작성자</th>
 				<td>${dto.id}</td>
 			</tr>
 			<tr>
-				<th>제목</th>
+				<th style="width: 60px;">제목</th>
 				<td>${dto.subject}</td>
 			</tr>
-			<tr>
-				<th>내용</th>
+			<tr style="height: 500px;">
+				<th style="width: 60px;">내용</th>
 				<td>${dto.content}</td>
 			</tr>
 			<c:if test="${dto.newFileName ne null}">
@@ -109,13 +114,11 @@
 		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
-			<c:if test="${comment.deactivate eq 'TRUE' }">
-			</c:if>
 			<c:if test="${comment.deactivate eq 'FALSE' }">
 				<table class ="comm_table">
-					<tr>
-						<td style="width:150px;">${comment.id}</td>
-						<td>
+					<tr class ="comm_table">
+						<td class ="comm_table" style="width:150px;">${comment.id}</td>
+						<td class ="comm_table">
 							${comment.content}
 							<c:if test="${comment.id==loginId}"><!-- 작성자만 버튼 보이게 -->
 								<a href="commentUpdateForm?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">수정</a>
@@ -124,12 +127,12 @@
 								<a href="commentDel?reIdx=${comment.reIdx}&id=${comment.id}&boardIdx=${dto.boardIdx}&page=${currPage}">삭제</a>
 							</c:if>
 						</td>
-						<td style="width:150px;">${comment.reg_date}</td>
+						<td class ="comm_table" style="width:150px;">${comment.reg_date}</td>
+						<td class ="comm_table" style="width:50px;">
 						<c:if test="${comment.id!=loginId}">
-						<td style="width:50px;">
 							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
-						</td>
 						</c:if>
+						</td>
 					</tr>
 				</table>			
 			</c:if>
