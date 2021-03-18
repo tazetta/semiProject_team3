@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mvc.service.TestService;
+import com.mvc.service.TripDetailService;
 
-@WebServlet({"/tripDetail","/bookmarkUpdate","/reportBBS","/repDetail","/updateYN","/reportComment","/repDetailCom","/myUpdate"})
-public class TestController extends HttpServlet {
+@WebServlet({"/tripDetail","/bookmarkUpdate"})
+public class TripDetailController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class TestController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		
 		
-		TestService service = new TestService(req,resp);
+		TripDetailService service = new TripDetailService(req,resp);
 		
 		switch (req.getRequestURI().substring(req.getContextPath().length())) {
 		case "/tripDetail":
@@ -40,35 +40,6 @@ public class TestController extends HttpServlet {
 			service.addDel();
 			break;
 
-		case "/reportBBS":
-			System.out.println("신고게시물 리스트");
-			service.reportBBS();
-			break;
-
-		case "/repDetail":
-			System.out.println("신고게시물 상세보기");
-			service.repDetail();
-			break;			
-
-		case "/updateYN":
-			System.out.println("신고 처리 요청");
-			service.updateYN();
-			break;			
-
-		case "/reportComment":
-			System.out.println("신고댓글 리스트");
-			service.reportComment();
-			break;		
-
-		case "/repDetailCom":
-			System.out.println("신고댓글 상세보기");
-			service.repDetailCom();
-			break;
-			
-		case"/myUpdate":
-			System.out.println("");
-			System.out.println("--마이페이지 북마크 수정--");
-			service.myUpdate();
 		}
 		
 	}

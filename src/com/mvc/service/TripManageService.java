@@ -140,6 +140,8 @@ public class TripManageService {
 				RequestDispatcher dis = req.getRequestDispatcher("tripInsert.jsp");
 				dis.forward(req, resp);
 			}
+		} else {
+			resp.sendRedirect("index.jsp");
 		}
 	}
 

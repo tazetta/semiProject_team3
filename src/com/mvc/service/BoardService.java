@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import com.google.gson.Gson;
 import com.mvc.dao.BoardDAO;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.CommentDTO;
@@ -119,6 +119,7 @@ public class BoardService {
 			System.out.println("비활성화상태:"+dto.getDeactivate());
 			
 			//댓글페이징
+			//String ajax = req.getParameter("type");
 			String pageParam =  req.getParameter("commpage");
 			System.out.println("page:"+pageParam);
 			int group =1;
@@ -133,7 +134,7 @@ public class BoardService {
 			HashMap<String, Object> map = dao.comm_list(group,boardIdx);
 			System.out.println("댓글리스트 사이즈: "+map.get("maxPage"));
 			System.out.println("댓글 페이지 : "+ group);
-			
+			map.put("commcurrPage",group);
 			String page="/boardList?page="+currPage;
 			String url = "searchType=" + searchType + "&boardkeyword=" + boardkeyword;
 			if(dto!=null && dto.getDeactivate().equals("FALSE")) {	
@@ -147,6 +148,12 @@ public class BoardService {
 				req.setAttribute("list", map.get("list"));
 				req.setAttribute("maxPage", map.get("maxPage"));
 				req.setAttribute("commcurrPage", group);
+				/*
+				 * Gson gson = new Gson(); String json = gson.toJson(map);
+				 * resp.setContentType("text/html; charset=UTF-8");
+				 * resp.setHeader("Access-Control-Allow-origin", "*");
+				 * resp.getWriter().println(json);
+				 */
 			}		
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 

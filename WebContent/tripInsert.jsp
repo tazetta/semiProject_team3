@@ -101,9 +101,10 @@ input{
 						value="contentId 체크" /></td>
 				</tr>
 				<tr>
-					<th>이미지 경로</th>
+					<th>이미지 URL</th>
 					<td><input type="text" id="firstImage"
 						placeholder="이미지 URL" /></td>
+						<td><img id="img" /></td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -191,6 +192,14 @@ input{
 	},function(){
 		    $(this).css({'font-weight':'1'});
 	});
+	
+	$('#firstImage').keyup(function(){
+			var imgSource = $(this).val();
+			$('#img').attr('src',imgSource);
+            $('#img').attr('width', "100px");
+            $('#img').attr('height', "100px");
+	});
+	
 	
 	function largeList(type) {
 		var text;
