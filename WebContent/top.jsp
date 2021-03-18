@@ -55,8 +55,8 @@
             font-weight: 600;
         }
         #mtop td{
-        	text-align:center;/* 
-            border-color: white; */
+        	text-align:center;
+            border-color: white; 
             height: 30px;
             white-space: nowrap;
             padding: 5px;
