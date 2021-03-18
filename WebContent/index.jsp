@@ -6,4 +6,10 @@
 		location.href="./main";
 	}
 	page();
+	
+	var msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+	} 
+	
 </script>

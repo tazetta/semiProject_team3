@@ -10,10 +10,14 @@
 <style>
 	#boardTableDiv{
 		position: absolute;
-		top: 100%;
+
+		top: 50%;
+		left:50%;
+
+		/* top: 100%;
 		border : 0px;
 		text-align: center;
-		left:60%;
+		left:60%; */
 
 	}
 	#boardTable,.mainBoard{
