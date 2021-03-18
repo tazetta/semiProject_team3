@@ -10,24 +10,28 @@
 <style>
 	#boardTable{
 		position: absolute;
-		top: 70%;
+		top: 80%;
 	}
-	#boardTable,.mainBaord{
+	#boardTable,.mainBoard{
 		border : 1px solid black;
 		border-collapse: collapse;
 		padding: 5px 10px;
+		text-align: center;
+	}
+	.mouse_over:hover{
+		font-weight: 600;
 	}
 </style>
 </head>
 <body>
 	<table id="boardTable">
-		<tr class="mainBaord">
-			<th class="mainBaord" style="width: 400px;">제목</th>
-			<th class="mainBaord" style="width: 200px;">작성자</th>
+		<tr class="mainBoard">
+			<th class="mainBoard" style="width: 400px;">제목</th>
+			<th class="mainBoard" style="width: 200px;">작성자</th>
 		</tr>
 		<c:forEach items="${list}" var="board">
-			<tr class="mainBaord">
-				<td class="mainBoard"><a class="mouse_over" href="boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
+			<tr class="mainBoard">
+				<td class="mainBoard"><a class="mouse_over" href="./boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
 				<td class="mainBoard">${board.id}</td>
 			</tr>
 		</c:forEach>
