@@ -10,10 +10,13 @@
 <style>
 	#boardTableDiv{
 		position: absolute;
-		top: 100%;
+		/* top: 100%; */
+		top:300px;
+		left:850px;
+		background-color:white;
 		border : 0px;
 		text-align: center;
-		margin-left:70%; 
+		/* margin-left:70%; */ 
 
 	}
 	#boardTable,.mainBoard{
@@ -30,6 +33,7 @@
 <body>
 	<div id="boardTableDiv">
 	<h3 style="background-color: blanchedalmond">커뮤니티 인기 게시물</h3>
+	  <!--   #E0E6F8 -->
 	<table id= "boardTable">
 		<tr class="mainBoard">
 			<th class="mainBoard" style="width: 400px;">제목</th>

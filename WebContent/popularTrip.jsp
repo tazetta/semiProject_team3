@@ -31,7 +31,8 @@ button {
 /* 브라우저 마진과 패딩 리셋 */
 * {margin:0;padding:0;}
 	.section input[id*="slide"] {display:none;}
-	.section .slidewrap {max-width:700px;margin:20px;}
+	.section {margin-left:30px;}
+	.section .slidewrap {max-width:800px;margin:0px;}
 	.section .slidelist {white-space:nowrap;font-size:0;overflow:hidden;position:relative;}
 	.section .slidelist > li {display:inline-block;vertical-align:middle;width:100%;transition:all .5s;}
 	.section .slidelist > li > a {display:block;position:relative;}
@@ -56,18 +57,18 @@ button {
 	
 	
 	.img{
-		width:700px;
-		height:500px;
+		width:800px;
+		height:450px;
 	}
 	.slidewrap span{
 		font-size:110%;
 		font-weight:600;
 		position:absolute;
-		top:240px;
+		top:220px;
 		color: black;
 		z-index:9;
 		text-shadow: 2px 2px 2px white;
-		background-color:#F6E3CE;
+		background-color:  blanchedalmond ;
 		padding:5px 10px;
 	}
 	
