@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <title>index</title>
-<link rel="icon" href="favicon.png">
+<!-- <link rel="icon" href="favicon.png"> -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
@@ -189,6 +189,8 @@ a:visited {
 			</table>
 		</form>
 	</section>
+	<jsp:include page="popularTrip.jsp"/>
+	<br/>
 	<jsp:include page="weatherCast.jsp" />
 </body>
 <script>

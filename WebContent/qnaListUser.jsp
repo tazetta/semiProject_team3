@@ -25,6 +25,14 @@
 	margin: 0 auto;
 	width: 90%;
 }
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
+}
 
 table, th, td {
 	border: 1px solid black;
@@ -80,53 +88,65 @@ a {
 
 	<section id="background">
 		<div id="content">
-			<table id="qna">
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성일</th>
-					<th>작성자</th>
-					<th>답변</th>
-				</tr>
-				<c:forEach items="${list}" var="qna">
-					<tr>
-						<td>${qna.rnum}</td>
-						<th style="width: 400px"><a
-							href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
-						<td>${qna.reg_date}</td>
-						<td>${qna.id}</td>
-				
-						
-						<td><c:choose>
-							<c:when test="${qna.ansIdx gt 0}">
-									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
-							</c:when>
-							<c:otherwise>
-								 
-							</c:otherwise>
 
-						</c:choose></td>
-					</tr>
+			<c:choose>
+				<c:when test="${list eq  '[]'}">
+					<div class="noneList">
+						<p>작성한 문의글이 없습니다</p>
+					</div>
 
-				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<table id="qna">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성일</th>
+							<th>작성자</th>
+							<th>답변</th>
+						</tr>
+						<c:forEach items="${list}" var="qna">
+							<tr>
+								<td>${qna.rnum}</td>
+								<th style="width: 400px"><a
+									href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
+								<td>${qna.reg_date}</td>
+								<td>${qna.id}</td>
 
-			</table>
 
-			<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
+								<td><c:choose>
+										<c:when test="${qna.ansIdx gt 0}">
+											<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
+										</c:when>
+										<c:otherwise>
+
+										</c:otherwise>
+
+									</c:choose></td>
+							</tr>
+
+						</c:forEach>
+
+					</table>
+					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
+
+					<div class="pageArea">
+						<span> <c:if test="${currPage==1}">이전</c:if> <c:if
+								test="${currPage>1}">
+								<a href="?page=${currPage-1}">이전</a>
+							</c:if>
+						</span> <span id="page">${currPage}</span> <span> <c:if
+								test="${currPage==maxPage}">다음</c:if> <c:if
+								test="${currPage<maxPage}">
+								<a href="?page=${currPage+1}">다음</a>
+							</c:if>
+						</span>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
-		<div class="pageArea">
-			<span> <c:if test="${currPage==1}">이전</c:if> <c:if
-					test="${currPage>1}">
-					<a href="?page=${currPage-1}">이전</a>
-				</c:if>
-			</span> <span id="page">${currPage}</span> <span> <c:if
-					test="${currPage==maxPage}">다음</c:if> <c:if
-					test="${currPage<maxPage}">
-					<a href="?page=${currPage+1}">다음</a>
-				</c:if>
-			</span>
-		</div>
+
 
 	</section>
 
@@ -138,6 +158,5 @@ a {
 	}
 <%request.removeAttribute("msg");%>
 	
-	
-	</script>
+</script>
 </html>

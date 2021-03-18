@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.TripService;
 
-@WebServlet({ "/themeContentList", "/areaContentList", "/resultList", "/search",  })
+@WebServlet({ "/themeContentList", "/areaContentList", "/resultList", "/search","/popularImage"  })
 public class TripController extends HttpServlet {
 
 	@Override
@@ -40,6 +40,11 @@ public class TripController extends HttpServlet {
 				System.out.println("search 요청");
 				service.search();
 				break;
+				
+			case "/popularImage":
+				System.out.println("");
+				System.out.println("--인기있는 여행지 사진--");
+				service.popularImage();
 
 		}
 	}

@@ -43,7 +43,7 @@ section#left {
 	float: left;
 	margin: 10px;
 	width: 80%;
-	height: 80%;
+	height: 500px;
 	/* flex-direction:column; */
 }
 
@@ -77,11 +77,6 @@ span {
     margin-right: 2.5%;
     width: 95%;
     height: auto; 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
 }
 .bottom{
 position:relative;
