@@ -11,11 +11,12 @@
         <link rel="icon" href="south-korea.png">
         <style>
             table,th,td{
-                border:1px solid black;
+                border:1px solid gray;
                 border-collapse: collapse;
                 text-align: center;
             }
             th,td{
+            	font-size: 18px;
             	padding:5px 10px;
             }
             table{
@@ -88,7 +89,7 @@
     <button id="boardSearch">검색</button>
     <table>
 		<tr>
-			<th style="width:60px">글 번호</th>
+			<th style="width:70px">글 번호</th>
 			<th>제목</th>
 			<th style="width:120px">작성자</th>
 			<th style="width:60px">조회수</th>

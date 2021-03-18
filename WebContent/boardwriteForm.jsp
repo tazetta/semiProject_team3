@@ -16,7 +16,7 @@
 		left:20%;	
 	}
 	table, th, td {
-		border: 1px solid black;
+		border: 1px solid gray;
 		border-collapse: collapse;
 		text-align: center;
 		padding : 5px 10px;
