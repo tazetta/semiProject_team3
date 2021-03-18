@@ -134,14 +134,14 @@ div.chkBtn{
 		</tr>
 		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<th><img src="${result.firstImage}" width="100px"
-					height="100px" /></th>
+				<td><img src="${result.firstImage}" width="100px"
+					height="100px" /></td>
 
-				<th class="title"><a href="#"
+				<td class="title"><a href="#"
 					onclick='window.open("./tripDetail?contentId=${result.contentId}","",
-			"width=880px, height=950px, left=400, top=10")'>${result.title}</a></th>
-				<th>${result.reg_date}</th>
-				<th>${result.bookmarkCnt}</th>
+			"width=880px, height=950px, left=400, top=10")'>${result.title}</a></td>
+				<td>${result.reg_date}</td>
+				<td>${result.bookmarkCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
