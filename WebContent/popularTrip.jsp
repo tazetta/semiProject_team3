@@ -11,9 +11,8 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 .container {
-margin:20px;
+
 	width: 300vw;
-	/* transition: transform 1s ease  0.5s; */
 	transition-duration: 0.5s;
 }
 
@@ -24,8 +23,8 @@ margin:20px;
 }
 
 .inner img {
-	width: 40%;
-	height:40%
+	width: 800px;
+	height: 700px;
 }
 button{
 	text-align:center;
@@ -34,9 +33,10 @@ span{
 	font-size:130%;
 	font-weight:600;
 	position:absolute;
-	bottom:-10px;
-	left:600px;
-	text-shadow: 3px 3px 3px white;
+	bottom:20px;
+	left:300px;
+	text-shadow: 0px 1px #ffffff, 4px 4px 0px #dad7d7;
+
 	
 }
 </style>
@@ -51,10 +51,12 @@ span{
 			</div>
 			<div class="inner">
 				<img src="#" >
+				<span>title</span>
 
 			</div>
 			<div class="inner">
 				<img src="#">
+				<span>title</span>
 			</div>
 		</div>
 	</div>
@@ -87,6 +89,7 @@ $.ajax({
 				console.log("list: ",data.list[i]);
 				console.log("img: ",data.list[i].firstImage);
 				$(".inner>img").eq(i).attr({"src":data.list[i].firstImage});
+				$(".inner>span").eq(i).html(data.list[i].title);
 				console.log(".inner>img : ",$(".inner>img").eq(i).attr("src"));	
 			}
 		
