@@ -206,12 +206,16 @@
 			 
 			if($id.val()==''){
 				alert('가입하신 아이디를 입력해주세요.');
+				$id.focus();
 			}else if($id.val().length<5){
 				alert('가입하신 아이디를 5자 이상 입력해주세요.');
+				$id.focus();
 			}else if($name.val()==''){
 				alert('가입하신 이름을 입력해주세요.');
+				$name.focus();
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
+				$phone.focus();
 			}/* else{
 				alert('새로운 비밀번호를 입력해주세요.');
 				location.href="findpwUpdate.jsp";
