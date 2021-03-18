@@ -20,7 +20,7 @@ table, th, td {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: -30px;
+	margin-top: 20px;
 } 
 .title{
 	width:200px;
@@ -49,10 +49,10 @@ table, th, td {
 	text-align: center;
 }
 
-/*  div.tripManageList {
+ div.tripManageList {
 	position: absolute;
 	top: 20%;
-}  */
+}
 
 div.tripManageName {
 	padding: 5px 15px;
