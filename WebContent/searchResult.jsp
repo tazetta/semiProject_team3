@@ -18,6 +18,7 @@ table, tr, td {
 	text-align: center;
 	padding: 20px;
 }
+
 #content {
 	background-color: #F2F2F2;
 	text-align: center;
@@ -30,6 +31,7 @@ table, tr, td {
 	height: 80%;
 	/* flex-direction:column; */
 }
+
 span {
 	position: relative;
 	top: 50px;
@@ -114,17 +116,18 @@ button {
 			<c:forEach items="${list}" var="result">
 				<table>
 					<tr>
-						<th colspan="3" style="font-size: 150%">						
-							<a href="./tripDetail?contentId=${result.contentId}&page=${currPage}"
-							target=window.open()>${result.title}</a>
+						<th colspan="3" style="font-size: 150%"><a href="#"
+							onclick='window.open("./tripDetail?contentId=${result.contentId}","",
+							"width=880px, height=950px, left=400, top=10")'>${result.title}</a>
 						</th>
 					</tr>
 					<tr>
 						<td id="user" rowspan="2">
 							<div>
-								<a href="tripDetail?contentId=${result.contentId}"
-									target=window.open()> <img src="${result.firstImage}"
-									width="300px" height="200px"></a>
+								<a href="#"
+									onclick='window.open("./tripDetail?contentId=${result.contentId}","",
+									"width=880px, height=950px, left=400, top=10")'>
+									<img src="${result.firstImage}" width="300px" height="200px"></a>
 							</div>
 						</td>
 						<td colspan="2" id="text">
@@ -136,18 +139,18 @@ button {
 					</tr>
 				</table>
 			</c:forEach>
-	<div class="pageArea">
-		<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
-				test="${currPage > 1}">
-				<a href="./search?${url}&page=${currPage-1}">이전</a>
-			</c:if>
-		</span> <span id="page"> ${currPage} </span> <span> <c:if
-				test="${currPage == maxPage}">다음</c:if> <c:if
-				test="${currPage < maxPage}">
-				<a href="./search?${url}&page=${currPage+1}">다음</a>
-			</c:if>
-		</span> <span>${currPage}/${maxPage}</span>
-	</div>
+			<div class="pageArea">
+				<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+						test="${currPage > 1}">
+						<a href="./search?${url}&page=${currPage-1}">이전</a>
+					</c:if>
+				</span> <span id="page"> ${currPage} </span> <span> <c:if
+						test="${currPage == maxPage}">다음</c:if> <c:if
+						test="${currPage < maxPage}">
+						<a href="./search?${url}&page=${currPage+1}">다음</a>
+					</c:if>
+				</span> <span>${currPage}/${maxPage}</span>
+			</div>
 		</div>
 	</section>
 </body>

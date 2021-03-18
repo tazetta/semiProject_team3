@@ -150,28 +150,7 @@ a {
 					<p>가봤어요에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-		<%-- 	<table id="visitedList">
-
-				<c:forEach items="${list}" var="bm">
-					<tr>
-						<th style="font-size: 150%" colspan="3">${bm.title }</th>
-					</tr>
-					<tr>
-						<td rowspan="2"><img src="${bm.firstImage}" width="300px"
-							height="200px" /></td>
-						<td class="overview" rowspan="2">${bm.overview}</td>
-						<td style="width: 100px">${bm.reg_date }<br /></td>
-
-					</tr>
-					<tr>
-						<td>
-							<button onclick="location.href='#'">삭제</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</table> --%>
-			
-			<!-- ---------------------------------------- -->
+		
 				<c:forEach items="${list}" var="bm">
 				<div id="list">
 					<table >
@@ -193,7 +172,7 @@ a {
 						</tr>
 						<tr>
 							<td class="bottom">
-							<a href="./bookmarkUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
+							<a href="bookmarkUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}" target="_blanck">삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 				
@@ -221,6 +200,12 @@ a {
 	</section>
 </body>
 <script>
+
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
+
 	// 말줄임 기능
  	$('.ellipsis').each(function(){
 	    var length = 200; //글자수
@@ -232,5 +217,12 @@ a {
 	    	
 	    });
 	  }); 
+	
+ 	  $(".menu").hover(function () {
+ 	        $(this).toggleClass("menuHover");
+ 	    });
+ 	    $(".menu").click(function () {
+ 	        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
+ 	    })
 	</script>
 </html>

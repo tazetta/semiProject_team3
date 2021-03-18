@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.MemberDTO;
-import com.mvc.dto.TestBookDTO;
+import com.mvc.dto.BookmarkDTO;
 import com.mvc.dto.TripDTO;
 
 
@@ -348,7 +348,7 @@ public class MemberDAO {
 		String sql ="SELECT myidx,deactivate, contentid, type,title, firstimage, overview, reg_date  "
 				+ "FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, b.contentid,b.myidx,b.type, b.reg_date,b.deactivate,t.title, t.firstimage, t.overview " + 
 				" FROM bookmark b, trip t WHERE b.contentid=t.contentid AND b.deactivate='FALSE' AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
-		ArrayList<TestBookDTO> list = new ArrayList<TestBookDTO>();
+		ArrayList<BookmarkDTO> list = new ArrayList<BookmarkDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			ps= conn.prepareStatement(sql);
@@ -359,7 +359,7 @@ public class MemberDAO {
 			rs= ps.executeQuery();
 
 			while(rs.next()) {
-				TestBookDTO dto = new TestBookDTO();
+				BookmarkDTO dto = new BookmarkDTO();
 				dto.setMyidx(rs.getInt("myidx"));
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setContentid(rs.getInt("contentid"));
@@ -371,7 +371,7 @@ public class MemberDAO {
 				list.add(dto);
 
 			}
-				int maxPage = getVisitedMaxPage(pagePerCnt,loginId); 
+				int maxPage = getVisitedMaxPage(pagePerCnt,loginId,type); 
 				System.out.println("maxPage:"+maxPage);
 				map.put("list", list); 
 				map.put("maxPage", maxPage); 
@@ -386,12 +386,13 @@ public class MemberDAO {
 	}
 	
 	/*가봤어요 마지막 페이지*/
-	private int getVisitedMaxPage(int pagePerCnt, String loginId) {
-		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type='2'";
+	private int getVisitedMaxPage(int pagePerCnt, String loginId, int type) {
+		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
+			ps.setInt(2, type);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				int cnt = rs.getInt(1); 
@@ -442,6 +443,17 @@ public class MemberDAO {
 
 		return success;
 	}
-	
+
+	/*마이페이지 북마크 업데이트*/
+	/*
+	 * public boolean myUpdate(String myIdx, String type) { String
+	 * sql="UPDATE bookmark SET deactivate='TRUE' WHERE myidx=?"; boolean success
+	 * =false; try { ps = conn.prepareStatement(sql); ps.setInt(1,
+	 * Integer.parseInt(myIdx)); if(ps.executeUpdate()>0) { success= true; } } catch
+	 * (SQLException e) { e.printStackTrace(); }finally { resClose(); } return
+	 * success;
+	 * 
+	 * }
+	 */
 
 }

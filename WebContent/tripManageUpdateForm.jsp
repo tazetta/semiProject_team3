@@ -71,6 +71,9 @@ textarea {
 	height: 150px;
 	resize: none;
 }
+.select{
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -119,7 +122,7 @@ textarea {
 				</tr>
 				<tr>
 					<th>콘텐츠 타입</th>
-					<td><select id="contentType" name="contentType"
+					<td><select class="select" id="contentType" name="contentType"
 						onchange='largeList(value)'>
 							<option value="${tripDTO.contentCode}">${tripDTO.contentName}</option>
 							<c:forEach items="${contentList}" var="content">
@@ -129,27 +132,27 @@ textarea {
 				</tr>
 				<tr>
 					<th>대분류</th>
-					<td><select id="large" name="largeType"
+					<td><select class="select" id="large" name="largeType"
 						onchange='mediumList(value)'>
 							<option value="${tripDTO.largeIdx}">${tripDTO.largeName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>중분류</th>
-					<td><select id="medium" name="mediumType"
+					<td><select class="select" id="medium" name="mediumType"
 						onchange='smallList(value)'>
 							<option value="${tripDTO.mediumCode}">${tripDTO.mediumName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>소분류</th>
-					<td><select id="small" name="smallType">
+					<td><select class="select" id="small" name="smallType">
 							<option value="${tripDTO.smallCode}">${tripDTO.smallName}</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td><select id="area" name="areaType"
+					<td><select class="select" id="area" name="areaType"
 						onchange='cityList(value)'>
 							<option value="${tripDTO.areaCode}">${tripDTO.areaName}</option>
 							<c:forEach items="${areaList}" var="area">
@@ -160,7 +163,7 @@ textarea {
 				<tr>
 					<th>시군구</th>
 					<td>
-						<select id="city" name="cityType">
+						<select class="select" id="city" name="cityType">
 								<option value="${tripDTO.cityCode}">${tripDTO.cityName}</option>
 						</select>
 					</td>
@@ -172,7 +175,7 @@ textarea {
 				<tr>
 					<th>비활성화 여부</th>
 					<td>
-						<select id="deactivate" name="deactivate">
+						<select class="select" id="deactivate" name="deactivate">
 								<option value="FALSE">활성화</option>
 								<option value="TRUE">비활성화</option>
 						</select>

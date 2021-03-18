@@ -12,7 +12,7 @@ import com.mvc.service.MemberService;
 
 
 @WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
-	,"/visitedList","/bookmarkList","/findpwUpdate"})
+	,"/visitedList","/bookmarkList","/findpwUpdate","/myUpdate"})
 
 public class MemberController extends HttpServlet {
 
@@ -30,6 +30,16 @@ public class MemberController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String sub = req.getRequestURI().substring(req.getContextPath().length());
 		MemberService service = new MemberService(req,resp);
+		
+		String msg = (String) req.getSession().getAttribute("msg");
+
+		System.out.println("session msg:"+msg);
+		
+		if(msg != null) { 
+			req.setAttribute("msg", msg);  
+			req.getSession().removeAttribute("msg"); 
+		}
+		
 		switch (sub) {
 		case"/login":
 			System.out.println("");
@@ -120,7 +130,10 @@ public class MemberController extends HttpServlet {
 			System.out.println("--즐겨찾기 리스트 요청--");
 			service.bookmarkList();
 			
-			
+			/*
+			 * case"/myUpdate": System.out.println("");
+			 * System.out.println("--마이페이지 북마크 수정--"); service.myUpdate();
+			 */
 		
 		}
 		

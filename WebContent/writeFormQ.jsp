@@ -77,7 +77,7 @@ textarea {
 					<tr>
 						<td colspan="2">
 						<input type="button" value="저장" id="save" /> 
-						<input type="button" id="cancel" onclick="location.href='./qnaList'" value="취소" /></td>
+						<input type="button" id="cancel" onclick="location.href='./qnaListUser'" value="취소" /></td>
 					</tr>
 				</table>
 			</div>

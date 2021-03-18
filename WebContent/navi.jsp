@@ -11,27 +11,30 @@
 <style>
 div.bar {
 	display: flex;
-	background-color: #faf9f9;
+	background-color:  #08444D;
+	/* #025169  #540B0B  */
 	height: 50px;
-	border-radius: 5px;
-	border: 1px solid lightgray;
-	color: black;
-	/* margin-left: 30px;
-            margin-right: 30px; */
+	border-radius: 2px;
+/* 	border: 1px solid lightgray; */
 	justify-content: center;
 	align-items: center;
-	margin: 20px 5px 0px 0px;
+	margin:  10px 0px;
 	width: 100%;
 	min-width: 1000px;
 }
 
-.bar li {
-	position: relative;
+
+
+/* .li {
+	font-weight: 600;
+} */
+.naviUl li{
+position: relative;
 	float: left;
-	padding: 20px 30px;
-	color: black;
-	font-size: 120%;
-	font-weight: 500;
+	padding: 10px 30px;
+	color: white;
+	font-size: 100%;
+	font-weight: 600;
 	text-align: center;
 	width: 110px;
 	height: 20px;
@@ -39,24 +42,20 @@ div.bar {
 	display: inline;
 }
 
-.li {
-	font-weight: 600;
-}
-
-a:link {
+.naviUl a:link {
 	text-decoration: none;
 	font-size: 90%;
-	color: black;
+		color: white;
 }
 
-a:visited {
-	color: black;
+.naviUl a:visited {
+		color: white;
 }
 </style>
 </head>
 <body>
 	<div class="bar">
-		<ul>
+		<ul class="naviUl">
 			<li><a href="themeContentList">테마별</a></li>
 
 			<li><a href="areaContentList">지역별</a></li>
@@ -86,7 +85,7 @@ a:visited {
 
 </body>
 <script>
-	$("li").hover(function () {
+	$(".naviUl>li").hover(function () {
         $(this).toggleClass("li");
     });
     $("li").click(function(){

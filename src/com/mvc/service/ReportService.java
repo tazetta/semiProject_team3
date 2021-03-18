@@ -1,11 +1,6 @@
 package com.mvc.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -15,82 +10,79 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mvc.dao.BoardDAO;
-import com.mvc.dao.TestDAO;
+import com.mvc.dao.ReportDAO;
 import com.mvc.dto.BoardDTO;
-import com.mvc.dto.CommentDTO;
 import com.mvc.dto.RepDTO;
-import com.mvc.dto.TestBookDTO;
-import com.mvc.dto.TripDTO;
 
-public class TestService {
+public class ReportService {
 
 	HttpServletRequest req=null;
 	HttpServletResponse resp =null;
 	
 	RequestDispatcher dis = null;
 	
-	public TestService(HttpServletRequest req, HttpServletResponse resp) {
+	public ReportService(HttpServletRequest req, HttpServletResponse resp) {
 		this.req= req;
 		this.resp=resp;
 	}
 	
-	public void tripDetail() throws ServletException, IOException {
-		String conIdx =req.getParameter("contentId");
-		System.out.println("conIdx : "+conIdx);
-		String id = (String) req.getSession().getAttribute("loginId");
-		TestDAO dao = new TestDAO();		
-		TripDTO detail = dao.tripDetail(conIdx);
-		if(detail!=null) {
-			TestBookDTO book =dao.bookmark(conIdx,id);
-			if(book!=null && id!=null) {
-				req.setAttribute("book", book);
-			}
-			book =dao.visit(conIdx,id);
-			if(book!=null&& id!=null) {
-				req.setAttribute("visit", book);
-			}
-			req.setAttribute("detail", detail);
-			req.setAttribute("conIdx", conIdx);
-		}
-		dao.resClose();
-		dis =req.getRequestDispatcher("tripDetail.jsp");
-		dis.forward(req, resp);
-		
-	}
-	
-	
-	public void addDel() throws ServletException, IOException {
-		if(req.getSession().getAttribute("loginId")!=null) {
-			String myidx = req.getParameter("myidx");
-			String deact = req.getParameter("deact");
-			String conIdx = req.getParameter("conIdx");
-			String type = req.getParameter("type");
-			
-			String id = (String) req.getSession().getAttribute("loginId");
-			System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx+"/"+type+"/"+id);
-			TestBookDTO bdto= new TestBookDTO();
-			if(myidx!="") {
-				bdto.setMyidx(Integer.parseInt(myidx));			
-			}
-			bdto.setDeactivate(deact);
-			bdto.setContentid(Integer.parseInt(conIdx));
-			bdto.setType(Integer.parseInt(type));
-			bdto.setId(id);
-			
-			
-			TestDAO dao = new TestDAO();	
-			int a =dao.addDel(bdto);
-			System.out.println("성공여부 : "+a);
-			dao.resClose();
-			resp.sendRedirect("./tripDetail?contentId="+conIdx);
-			
-		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
-			dis = req.getRequestDispatcher("/login.jsp");
-			dis.forward(req, resp);
-		}
-		
-	}
+//	public void tripDetail() throws ServletException, IOException {
+//		String conIdx =req.getParameter("contentId");
+//		System.out.println("conIdx : "+conIdx);
+//		String id = (String) req.getSession().getAttribute("loginId");
+//		TripDetailDAO dao = new TripDetailDAO();		
+//		TripDTO detail = dao.tripDetail(conIdx);
+//		if(detail!=null) {
+//			BookmarkDTO book =dao.bookmark(conIdx,id);
+//			if(book!=null && id!=null) {
+//				req.setAttribute("book", book);
+//			}
+//			book =dao.visit(conIdx,id);
+//			if(book!=null&& id!=null) {
+//				req.setAttribute("visit", book);
+//			}
+//			req.setAttribute("detail", detail);
+//			req.setAttribute("conIdx", conIdx);
+//		}
+//		dao.resClose();
+//		dis =req.getRequestDispatcher("tripDetail.jsp");
+//		dis.forward(req, resp);
+//		
+//	}
+//	
+//	
+//	public void addDel() throws ServletException, IOException {
+//		if(req.getSession().getAttribute("loginId")!=null) {
+//			String myidx = req.getParameter("myidx");
+//			String deact = req.getParameter("deact");
+//			String conIdx = req.getParameter("conIdx");
+//			String type = req.getParameter("type");
+//			
+//			String id = (String) req.getSession().getAttribute("loginId");
+//			System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx+"/"+type+"/"+id);
+//			BookmarkDTO bdto= new BookmarkDTO();
+//			if(myidx!="") {
+//				bdto.setMyidx(Integer.parseInt(myidx));			
+//			}
+//			bdto.setDeactivate(deact);
+//			bdto.setContentid(Integer.parseInt(conIdx));
+//			bdto.setType(Integer.parseInt(type));
+//			bdto.setId(id);
+//			
+//			
+//			TripDetailDAO dao = new TripDetailDAO();	
+//			int a =dao.addDel(bdto);
+//			System.out.println("성공여부 : "+a);
+//			dao.resClose();
+//			resp.sendRedirect("./tripDetail?contentId="+conIdx);
+//			
+//		}else {
+//			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+//			dis = req.getRequestDispatcher("/login.jsp");
+//			dis.forward(req, resp);
+//		}
+//		
+//	}
 
 
 	
@@ -112,7 +104,7 @@ public class TestService {
 			dto.setType(type);
 			dto.setDeactivate(deactivate);
 			
-			TestDAO dao = new TestDAO();
+			ReportDAO dao = new ReportDAO();
 			int suc=dao.updateYN(dto,managerid);
 			dao.resClose();
 			
@@ -146,7 +138,7 @@ public class TestService {
 			if(pageParam!=null) {
 				group = Integer.parseInt(pageParam);
 			}
-			TestDAO dao = new TestDAO();	
+			ReportDAO dao = new ReportDAO();	
 			
 			HashMap<String, Object> map =dao.reportComment(group,deactivate,type);
 			if(map!=null) {
@@ -181,7 +173,7 @@ public class TestService {
 			if(pageParam!=null) {
 				group = Integer.parseInt(pageParam);
 			}
-			TestDAO dao = new TestDAO();	
+			ReportDAO dao = new ReportDAO();	
 			
 			HashMap<String, Object> map =dao.reportComment(group,deactivate,type);
 			if(map!=null) {
@@ -213,10 +205,10 @@ public class TestService {
 			BoardDTO dto = dao.detail(boardIdx);
 			
 			dao = new BoardDAO();		
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println(dto +"/"+list);
+			HashMap<String, Object> map = dao.comm_list(1000,boardIdx);
+			System.out.println(dto +"/"+map);
 			
-			TestDAO dao1 = new TestDAO();
+			ReportDAO dao1 = new ReportDAO();
 			RepDTO reason = dao1.repReason(commentRepIdx,type,reIdx);
 //			String repCnt = dao1.repCnt(reIdx,type);
 			String page="/reportComment";
@@ -230,7 +222,7 @@ public class TestService {
 //				req.setAttribute("repCnt", repCnt);
 				req.setAttribute("reason", reason);
 				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
+				req.setAttribute("list", map.get("list"));
 			}		
 			dao1.resClose();
 			dis = req.getRequestDispatcher(page);
@@ -258,10 +250,10 @@ public class TestService {
 			BoardDTO dto = dao.detail(boardIdx);
 			
 			dao = new BoardDAO();		
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println(dto +"/"+list);
+			HashMap<String, Object> map = dao.comm_list(1000,boardIdx);
+			System.out.println(dto +"/"+map);
 			
-			TestDAO dao1 = new TestDAO();
+			ReportDAO dao1 = new ReportDAO();
 			RepDTO reason = dao1.repReason(bbsRepIdx,type,boardIdx);
 //			String repCnt = dao1.repCnt(boardIdx,type);
 			String page="/reportBBS";
@@ -273,7 +265,7 @@ public class TestService {
 //				req.setAttribute("repCnt", repCnt);
 				req.setAttribute("reason", reason);
 				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
+				req.setAttribute("list", map.get("list"));
 			}		
 			dao1.resClose();
 			dis = req.getRequestDispatcher(page);
@@ -285,6 +277,8 @@ public class TestService {
 		}
 		
 	}
+
+	
 	
 
 }

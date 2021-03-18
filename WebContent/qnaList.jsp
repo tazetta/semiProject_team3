@@ -40,7 +40,7 @@ table#qna {
 	width: 60%;
 }
 
-.wd {
+#btn {
 	position: absolute;
 	right: 20px;
 	top: 20px;
@@ -97,7 +97,7 @@ a {
 							<td>${qna.id}</td>
 							<td><c:choose>
 							<c:when test="${qna.ansIdx gt 0}">
-									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
+									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료</a>
 							</c:when>
 							<c:otherwise>
 								 
@@ -109,6 +109,7 @@ a {
 					
 					</table>
 				
+				<button id="btn" onclick="#">답변 미완료</button>
 				
 		</div>
 
@@ -134,6 +135,8 @@ a {
 		alert(msg);
 	}
 <%request.removeAttribute("msg");%>
+
+$("#btn").
 	
 	
 	</script>

@@ -17,7 +17,7 @@
         }
         .ci {
             position: relative;
-            top: 10px;
+            top: 15px;
             margin-left: 50px;
             float: left;
         }
@@ -30,25 +30,29 @@
         .login {
             /* margin-right: 80px;; */
             display: flex;
-            position: static;
-            top: 30px;
-            right: 5%; 
+            position: relative;
+            top: 25px;
+            right: 20px; 
         }
         /*검색창*/
         div#search{
             position: static;
-            height: 25px;
+            height:0px;
+
+            /* top:40px; */
         }
+     
         #search input[type='text']{
-            border: 2px solid#e8f8fd;
-            background-color:#e8f8fd;
+            border: 2px solid #D8D8D8;
+            background-color:#D8D8D8;
             text-align: center;
             width: 500px;
             height: 30px;
+
         }
         #search input[type='submit']{
-            border:#e8f8fd ;
-            background-color:#c8e4ec;
+            border:#BDBDBD ;
+            background-color:#D8D8D8;
             width: 50px;
             height: 35px;
             margin-left: 10px;
@@ -75,12 +79,12 @@
 
 </head>
 
-<body>
+<body style="margin:0">
     <table id="mtop">
     	<tr>
     		<td>
     <div class="ci">
-        <a href="./main" target="_parent"><img alt="CI" src="./koreaCI.png" width="100px" height="45px"></a>
+        <a href="./main" target="_parent"><img alt="CI" src="./koreaCI.png" width="100px" height="50px"></a>
     </div>
     		</td>
     		<td>
