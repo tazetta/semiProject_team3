@@ -18,11 +18,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style>
- body {
+body {
 	min-width: 1500px;
 }
 /*top*/
-li {
+/* li {
 	float: left;
 	list-style-type: none;
 	padding: 0 10 0 10;
@@ -35,9 +35,9 @@ li {
 	position: absolute;
 	top: 40px;
 	right: 5%;
-}
+} */
 /*검색창*/
-div#search {
+/* div#search {
 	position: absolute;
 	top: 40px;
 	left: 500px;
@@ -59,9 +59,9 @@ input[type='submit'] {
 	height: 35px;
 	margin-left: 10px;
 	font-weight: 600;
-}
+} */
 /*네비*/
-div.bar {
+/* div.bar {
 	display: flex;
 	background-color: #faf9f9;
 	height: 50px;
@@ -102,7 +102,7 @@ a:link {
 
 a:visited {
 	color: black;
-} 
+}  */ 
 
 .popup {
 	background-color: gray;
