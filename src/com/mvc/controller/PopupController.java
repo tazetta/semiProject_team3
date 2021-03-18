@@ -32,6 +32,14 @@ public class PopupController extends HttpServlet {
 		PopupService service = new PopupService(req,resp);
 		req.setCharacterEncoding("utf-8");
 		
+		String msg = (String) req.getSession().getAttribute("msg");
+		System.out.println("session msg:"+msg);
+		
+		if(msg != null) { 
+			req.setAttribute("msg", msg);  
+			req.getSession().removeAttribute("msg"); 
+		}
+		
 		switch(sub) {
 		
 		case "/popupList":
