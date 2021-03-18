@@ -41,7 +41,7 @@ button {
 	.section .slidelist > li > a {display:block;position:relative;}
 
 	/* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
-	.section .slide-control {position:absolute;top:0;left:0;z-index:10;width:100%;height:100%;}
+	.section .slide-control {position:absolute;top:0;left:0;z-index:9;width:100%;height:100%;}
 	.section .slide-control label {position:absolute;z-index:1;top:50%;transform:translateY(-50%);padding:50px;cursor:pointer;}
 	.section .slide-control .left {left:20px;background:url('./left.png') center center / 100% no-repeat;}
 	.section .slide-control .right {right:20px;background:url('./right.png') center center / 100% no-repeat;}
@@ -71,6 +71,11 @@ button {
 		text-shadow: 2px 2px 2px white;
 		background-color:#F6E3CE;
 		padding:5px 10px;
+	}
+	
+	.a{
+	 z-index:10;
+	 border: 3px solid red;
 	}
 	
 	
@@ -174,7 +179,7 @@ button {
 								$(".img").eq(i).attr({
 									"src" : data.list[i].firstImage
 								});
-								$(".a").eq(i).attr({"href":"/tripDetail?"+data.list[i].contentId});
+								$(".a").eq(i).attr({"href":"./tripDetail?contentId="+data.list[i].contentId});
 								/* $(".a").eq(i).append("<span>"+data.list[i].title+"</span>"); */
 								console.log(".img : ", $(".img").eq(i).attr("src"));
 								console.log("title:",data.list[i].title);

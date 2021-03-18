@@ -35,6 +35,16 @@ public class BoardController  extends HttpServlet{
 			String sub = uri.substring(ctx.length());
 			
 			BoardService service = new BoardService(req, resp);
+			
+			//msg처리
+			String msg = (String) req.getSession().getAttribute("msg");
+
+			System.out.println("session msg:"+msg);
+			
+			if(msg != null) { 
+				req.setAttribute("msg", msg);  
+				req.getSession().removeAttribute("msg"); 
+			}
 		
 			switch(sub) {
 			

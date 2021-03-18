@@ -61,7 +61,7 @@ public class QnaSerivce {
 			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
@@ -93,7 +93,7 @@ public class QnaSerivce {
 			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 		
@@ -123,7 +123,7 @@ public class QnaSerivce {
 			resp.sendRedirect(page);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 		
@@ -152,7 +152,7 @@ public class QnaSerivce {
 			resp.sendRedirect(page);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
@@ -181,7 +181,7 @@ public class QnaSerivce {
 			dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 
@@ -208,7 +208,7 @@ public class QnaSerivce {
 			dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}		
 	}
@@ -236,7 +236,7 @@ public class QnaSerivce {
 			dis.forward(req, resp);
 		}else{
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 		
@@ -265,7 +265,7 @@ public class QnaSerivce {
 			
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 		

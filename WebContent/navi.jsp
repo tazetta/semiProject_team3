@@ -56,7 +56,7 @@ a:visited {
 </head>
 <body>
 	<div class="bar">
-		<ul>
+		<ul class="naviUl">
 			<li><a href="themeContentList">테마별</a></li>
 
 			<li><a href="areaContentList">지역별</a></li>
@@ -86,7 +86,7 @@ a:visited {
 
 </body>
 <script>
-	$("li").hover(function () {
+	$(".naviUl>li").hover(function () {
         $(this).toggleClass("li");
     });
     $("li").click(function(){
