@@ -10,7 +10,7 @@
 <style>
 	#boardTableDiv{
 		position: absolute;
-		top: 110%;
+		top: 100%;
 		border : 0px;
 		text-align: center;
 		left:60%;
@@ -36,15 +36,14 @@
 			<th class="mainBoard" style="width: 200px;">작성자</th>
 		</tr>
 		<c:forEach items="${list}" var="board">
-			<tr class="mainBoard">
-				<td class="mainBoard"><a class="mouse_over" href="./boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
-				<td class="mainBoard">${board.id}</td>
-			</tr>
+		<tr class="mainBoard">
+			<td class="mainBoard"><a class="mouse_over" href="./boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
+			<td class="mainBoard">${board.id}</td>
+		</tr>
 		</c:forEach>
 	</table>
 	</div>
 </body>
 <script>
-
 </script>
 </html>
