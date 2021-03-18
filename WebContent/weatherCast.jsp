@@ -146,7 +146,7 @@
 		$('#POP' + idVar).html("강수 확률 : " + obj.list[0 + index].POP);
 		if (obj.list[1 + index].PTY != "없음") {
 			$('#PTY' + idVar).html(
-					"<img src='" + ptyState(obj.list[1 + index].PTY) + "'/>");
+					"<img  id='weather' src='" + ptyState(obj.list[1 + index].PTY) + "'/>");
 		} else {
 			$('#PTY' + idVar).html("");
 		}
