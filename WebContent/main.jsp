@@ -19,90 +19,8 @@
 
 <style>
 body {
-	min-width: 1500px;
+	min-width: 1400px;
 }
-/*top*/
-/* li {
-	float: left;
-	list-style-type: none;
-	padding: 0 10 0 10;
-	margin-left: 15px;
-}
-
-
-.login {
-	display: flex;
-	position: absolute;
-	top: 40px;
-	right: 5%;
-} */
-/*검색창*/
-/* div#search {
-	position: absolute;
-	top: 40px;
-	left: 500px;
-	height: 30px;
-}
-
-input[type='text'] {
-	border: 2px solid #e8f8fd;
-	background-color: #e8f8fd;
-	text-align: center;
-	width: 500px;
-	height: 40px;
-}
-
-input[type='submit'] {
-	border: #e8f8fd;
-	background-color: #c8e4ec;
-	width: 50px;
-	height: 35px;
-	margin-left: 10px;
-	font-weight: 600;
-} */
-/*네비*/
-/* div.bar {
-	display: flex;
-	background-color: #faf9f9;
-	height: 50px;
-	border-radius: 5px;
-	border: 1px solid lightgray;
-	color: black;
-	justify-content: center;
-	align-items: center;
-}
-
-section#navi {
-	margin-top: 70px;
-}
-
-.navi {
-	position: relative;
-	float: left;
-	padding: 20px 30px;
-	color: black;
-	font-size: 120%;
-	font-weight: 500;
-	text-align: center;
-	width: 100px;
-	height: 20px;
-	list-style-type: none;
-	display: inline;
-}
-
-.li {
-	font-weight: 600;
-}
-
-a:link {
-	text-decoration: none;
-	font-size: 90%;
-	color: black;
-}
-
-a:visited {
-	color: black;
-}  */ 
 
 .popup {
 	background-color: gray;
@@ -166,27 +84,27 @@ a:visited {
 			</ul>
 		</div>
 	</section> -->
-
-	<section>
-		<form action="login" method="post">
-			<table>
-				<tr>
-					<th>ID</th>
-					<td><input type="text" name="userId" /></td>
-				</tr>
-				<tr>
-					<th>PW</th>
-					<td><input type="text" name="userPw" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit" value="login" /> <input
-						type="button" value="회원가입" onclick="location.href='joinForm.jsp'" />
-					</td>
-				</tr>
-
-			</table>
-		</form>
-	</section>
+	<c:if test="${sessionScope.loginId eq null}">
+		<section>
+			<form action="login" method="post">
+				<table>
+					<tr>
+						<th>ID</th>
+						<td><input type="text" name="userId" /></td>
+					</tr>
+					<tr>
+						<th>PW</th>
+						<td><input type="text" name="userPw" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="login" /> <input
+							type="button" value="회원가입" onclick="location.href='joinForm.jsp'" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</section>
+	</c:if>
 	<jsp:include page="popularTrip.jsp"/>
 	<br/>
 	<jsp:include page="weatherCast.jsp" />

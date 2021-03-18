@@ -79,7 +79,7 @@ public class MemberService {
 			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
@@ -98,7 +98,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.getSession().setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 
@@ -162,7 +164,7 @@ public class MemberService {
 
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
@@ -191,7 +193,7 @@ public class MemberService {
 			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
@@ -360,7 +362,7 @@ public class MemberService {
 			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 
@@ -393,7 +395,7 @@ public class MemberService {
 			dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}	
 	}
@@ -425,7 +427,7 @@ public class MemberService {
 			dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}	
 	}
@@ -453,7 +455,7 @@ public class MemberService {
 		dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
-			req.setAttribute("msg", msg);
+			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
