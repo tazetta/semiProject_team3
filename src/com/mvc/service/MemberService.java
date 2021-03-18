@@ -78,9 +78,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
-			msg="로그인 후 이용해주세요";
+			msg="로그인이 필요한 서비스 입니다";
 			req.setAttribute("msg", msg);
-			resp.sendRedirect("index.jsp"); //여기 index? main?어디로 보내야되지
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 
@@ -129,7 +129,9 @@ public class MemberService {
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 
@@ -158,6 +160,10 @@ public class MemberService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 
+		}else {
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 
@@ -184,7 +190,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher("wroteList.jsp"); 
 			dis.forward(req, resp);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 
@@ -351,7 +359,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 
 	}
@@ -382,7 +392,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher("myVisited.jsp"); 
 			dis.forward(req, resp);
 		}else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}	
 	}
 
@@ -412,7 +424,9 @@ public class MemberService {
 			dis = req.getRequestDispatcher("myBookmark.jsp"); 
 			dis.forward(req, resp);
 		}else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}	
 	}
 
@@ -438,7 +452,9 @@ public class MemberService {
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		}else {
-			resp.sendRedirect("index.jsp");
+			msg="로그인이 필요한 서비스 입니다";
+			req.setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
 		}
 	}
 

@@ -327,7 +327,7 @@ public class TripDAO {
 
 	/*인기 여행지 사진 TOP3*/
 	public ArrayList<TripDTO> popularImage() {
-		String sql ="SELECT firstimage,title  FROM (SELECT firstimage,title, bookmarkcnt  FROM trip ORDER BY trip.bookmarkcnt DESC)WHERE rownum <=3 ORDER BY rownum";
+		String sql ="SELECT firstimage,title,contentid  FROM (SELECT firstimage,title, bookmarkcnt,contentid  FROM trip ORDER BY trip.bookmarkcnt DESC)WHERE rownum <=3 ORDER BY rownum";
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		
 		try {
@@ -338,6 +338,7 @@ public class TripDAO {
 				dto = new TripDTO();
 				dto.setFirstImage(rs.getString("firstimage"));
 				dto.setTitle(rs.getString("title"));
+				dto.setContentId(rs.getInt("contentId"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {

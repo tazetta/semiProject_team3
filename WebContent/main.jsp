@@ -198,11 +198,11 @@ a:visited {
 	$("li").hover(function() {
 		$(this).toggleClass("li");
 	});
-
+/* 
  	var msg = "${msg}";
 	if (msg != "") {
 		alert(msg);
-	} 
+	}  */
 	
 	<%request.removeAttribute("msg");%>
 

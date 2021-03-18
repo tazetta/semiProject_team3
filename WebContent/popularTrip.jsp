@@ -67,11 +67,13 @@ button {
 		position:absolute;
 		top:0;
 		color: black;
-		z-index:10;
+		z-index:9;
 		text-shadow: 2px 2px 2px white;
 		background-color:#F6E3CE;
 		padding:5px 10px;
 	}
+	
+	
 </style>
 </head>
 <body >
@@ -83,17 +85,17 @@ button {
 		<span>인기있는 여행지 </span>
 		<ul class="slidelist">
 			<li>
-				<a>
+				<a class="a" href="#" >
 					<img src="#" class="img">
 				</a>
 			</li>
 			<li>
-				<a>
+				<a class="a" href="#" >
 					<img src="#" class="img">
 				</a>
 			</li>
 			<li>
-				<a>
+				<a class="a" href="#" >
 					<img src="#" class="img">
 				</a>
 			</li>
@@ -168,10 +170,12 @@ button {
 							for (var i = 0; i < data.list.length; i++) {
 								console.log("list: ", data.list[i]);
 								console.log("img: ", data.list[i].firstImage);
+								console.log("contentIdx: ",data.list[i].contentId);
 								$(".img").eq(i).attr({
 									"src" : data.list[i].firstImage
 								});
-								$(".img").eq(i).append("<span>"+data.list[i].title+"</span>");
+								$(".a").eq(i).attr({"href":"/tripDetail?"+data.list[i].contentId});
+								/* $(".a").eq(i).append("<span>"+data.list[i].title+"</span>"); */
 								console.log(".img : ", $(".img").eq(i).attr("src"));
 								console.log("title:",data.list[i].title);
 		
