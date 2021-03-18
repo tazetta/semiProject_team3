@@ -66,7 +66,7 @@ public class ManagerDAO {
 		}
 		return managerList;
 	}
-
+	
 		public boolean managerDel(String managerid) {
 			
 			String sql="DELETE FROM manager WHERE managerid=?";

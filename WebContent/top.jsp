@@ -80,7 +80,7 @@
     	<tr>
     		<td>
     <div class="ci">
-        <a href="main.jsp" target="_parent"><img alt="CI" src="./koreaCI.png" width="100px" height="45px"></a>
+        <a href="./main" target="_parent"><img alt="CI" src="./koreaCI.png" width="100px" height="45px"></a>
     </div>
     		</td>
     		<td>

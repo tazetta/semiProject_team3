@@ -193,86 +193,80 @@ $('a').hover(function(){
 	    $(this).css({'font-weight':'1'});
 });
 
-	function largeList(type) {
-		var text;
-		var value;
-		<c:forEach items="${largeList}" var="large">
-		if ('${large.contentCode}' == type) {
-			text = new Array('${large.name}');
-			value = new Array('${large.largeIdx}');
-		}
-		</c:forEach>
-		for (var i = 0; i < form.largeType.length; i++) {
-			form.largeType.options[i] = null;
-		}
-		for (var i = 0; i < form.mediumType.length; i++) {
-			form.mediumType.options[i] = null;
-		}
-		for (var i = 0; i < form.smallType.length; i++) {
-			form.smallType.options[i] = null;
-		}
-		form.largeType.options[0] = new Option("대분류", "");
-		form.mediumType.options[0] = new Option("중분류", "");
-		form.smallType.options[0] = new Option("소분류", "");
-		for (var i = 0; i < text.length; i++) {
-			form.largeType.options[i + 1] = new Option(text[i], value[i]);
-		}
-	};
+function largeList(type) {
+	var text;
+	var value;
+	<c:forEach items="${largeList}" var="large">
+	if ('${large.contentCode}' == type) {
+		text = new Array('${large.name}');
+		value = new Array('${large.largeIdx}');
+	}
+	</c:forEach>
 
-	function mediumList(type) {
-		var text = [];
-		var value = [];
-		console.log("mediumList : " + type);
-		<c:forEach items="${mediumList}" var="medium">
-		if ('${medium.largeIdx}' == type) {
-			text.push('${medium.name}');
-			value.push('${medium.mediumCode}');
-		}
-		</c:forEach>
-		for (var i = 0; i < form.mediumType.length; i++) {
-			form.mediumType.options[i] = null;
-		}
-		for (var i = 0; i < form.smallType.length; i++) {
-			form.smallType.options[i] = null;
-		}
-		form.mediumType.options[0] = new Option("중분류", "");
-		form.smallType.options[0] = new Option("소분류", "");
-		for (var i = 0; i < text.length; i++) {
-			form.mediumType.options[i + 1] = new Option(text[i], value[i]);
-		}
-	};
-	function smallList(type) {
-		var text = [];
-		var value = [];
-		console.log("smallList : " + type);
+	$('#large').find("option").remove();
+	$('#medium').find("option").remove();
+	$('#small').find("option").remove();
+	form.largeType.options[0] = new Option("대분류", "");
+	form.mediumType.options[0] = new Option("중분류", "");
+	form.smallType.options[0] = new Option("소분류", "");
+	for (var i = 0; i < text.length; i++) {
+		form.largeType.options[i + 1] = new Option(text[i], value[i]);
+	}
+};
 
-		<c:forEach items="${smallList}" var="small">
-		if ('${small.mediumCode}' == type) {
-			text.push('${small.name}');
-			value.push('${small.smallCode}');
-		}
-		</c:forEach>
+function mediumList(type) {
+	var text = [];
+	var value = [];
+	
+	<c:forEach items="${mediumList}" var="medium">
+	if ('${medium.largeIdx}' == type) {
+		text.push('${medium.name}');
+		value.push('${medium.mediumCode}');
+	}
+	</c:forEach>
 
-		form.smallType.options[0] = new Option("소분류", "");
-		for (var i = 0; i < text.length; i++) {
-			form.smallType.options[i + 1] = new Option(text[i], value[i]);
-		}
-	};
-	function cityList(type) {
-		var text = [];
-		var value = [];
+	$('#medium').find("option").remove();
+	$('#small').find("option").remove();
+	form.mediumType.options[0] = new Option("중분류", "");
+	form.smallType.options[0] = new Option("소분류", "");
+	for (var i = 0; i < text.length; i++) {
+		form.mediumType.options[i + 1] = new Option(text[i], value[i]);
+	}
+};
+function smallList(type) {
+	var text = [];
+	var value = [];
 
-		<c:forEach items="${cityList}" var="city">
-		if ('${city.areaCode}' == type) {
-			text.push('${city.name}');
-			value.push('${city.cityCode}');
-		}
-		</c:forEach>
+	<c:forEach items="${smallList}" var="small">
+	if ('${small.mediumCode}' == type) {
+		text.push('${small.name}');
+		value.push('${small.smallCode}');
+	}
+	</c:forEach>
 
-		for (var i = 0; i < text.length; i++) {
-			form.cityType.options[i] = new Option(text[i], value[i]);
-		}
-	};
+	$('#small').find("option").remove();
+	form.smallType.options[0] = new Option("소분류", "");
+	for (var i = 0; i < text.length; i++) {
+		form.smallType.options[i+1] = new Option(text[i], value[i]);
+	}
+};
+
+function cityList(type) {
+	var text = [];
+	var value = [];
+	
+	<c:forEach items="${cityList}" var="city">
+	if ('${city.areaCode}' == type) {
+		text.push('${city.name}');
+		value.push('${city.cityCode}');
+	}
+	</c:forEach>
+	$('#city').find("option").remove();
+		form.cityType.options[0] = new Option("시/군/구", "");
+	for (var i = 0; i < text.length; i++) {
+		form.cityType.options[i+1] = new Option(text[i], value[i]);
+	}
+};
 
 	$('#btn').click(function() {
 		var $managerId = $("#managerId");
@@ -325,7 +319,7 @@ $('a').hover(function(){
 			alert('지역을 선택해 주세요.');
 			$area.focus();
 		} else if ($city.val() == '') {
-			alert('군/구를 선택해 주세요.');
+			alert('시/군/구를 선택해 주세요.');
 			$city.focus();
 		} else if ($overview.val() == '') {
 			alert('상세설명을 입력해 주세요.');
