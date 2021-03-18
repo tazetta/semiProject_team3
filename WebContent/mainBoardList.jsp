@@ -11,6 +11,7 @@
 	#boardTable{
 		position: absolute;
 		top: 80%;
+		left:50%;
 	}
 	#boardTable,.mainBoard{
 		border : 1px solid black;
