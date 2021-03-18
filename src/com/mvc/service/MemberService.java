@@ -384,6 +384,7 @@ public class MemberService {
 				group = Integer.parseInt(pageParam); 
 			}
 			int type=2;
+			MemberDAO dao = new MemberDAO();
 			HashMap<String, Object> map =dao.visitedList(loginId,group,type);
 			if(map !=null) {
 				req.setAttribute("maxPage", map.get("maxPage"));
@@ -415,7 +416,7 @@ public class MemberService {
 				group = Integer.parseInt(pageParam); 
 			}
 			int type=1;
-			
+			MemberDAO dao = new MemberDAO();
 			HashMap<String, Object> map =dao.visitedList(loginId,group,type);
 			if(map !=null) {
 				req.setAttribute("maxPage", map.get("maxPage"));
@@ -459,6 +460,36 @@ public class MemberService {
 			resp.sendRedirect("index.jsp"); 
 		}
 	}
+
+	/*마이페이지 북마크 업데이트*/
+	/*public void myUpdate() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId"); 
+		String myIdx = req.getParameter("myidx");
+		String type = req.getParameter("type");
+		System.out.println(loginId+"의"+type+":"+myIdx);
+		
+		if(loginId!=null) { //로그인체크
+		boolean success =dao.myUpdate(myIdx,type);
+		System.out.println("북마크업데이트:"+success);
+		msg="삭제에 실패했습니다";
+		page="./profile";
+		if(success) {
+			if(type=="1") {
+			msg="즐겨찾기에서 삭제되었습니다.";
+			page="bookmarkList";
+			}
+			msg="가봤어요에서 삭제되었습니다.";
+			page="visitedList";
+		}
+		req.getSession().setAttribute("msg", msg);
+		resp.sendRedirect(page); 
+		}
+		else {
+			msg="로그인이 필요한 서비스 입니다";
+			req.getSession().setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
+		}
+	}*/
 
 
 

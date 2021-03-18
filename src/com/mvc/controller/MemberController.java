@@ -12,7 +12,7 @@ import com.mvc.service.MemberService;
 
 
 @WebServlet({"/login","/profile","/memberUpdateForm","/memberUpdate","/pwUpdate","/wroteList","/overlay","/logout","/join","/findId","/findPw","/memberWithdraw"
-	,"/visitedList","/bookmarkList","/findpwUpdate"})
+	,"/visitedList","/bookmarkList","/findpwUpdate","/myUpdate"})
 
 public class MemberController extends HttpServlet {
 
@@ -130,7 +130,10 @@ public class MemberController extends HttpServlet {
 			System.out.println("--즐겨찾기 리스트 요청--");
 			service.bookmarkList();
 			
-			
+			/*
+			 * case"/myUpdate": System.out.println("");
+			 * System.out.println("--마이페이지 북마크 수정--"); service.myUpdate();
+			 */
 		
 		}
 		

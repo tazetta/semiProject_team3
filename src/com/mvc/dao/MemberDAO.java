@@ -371,7 +371,7 @@ public class MemberDAO {
 				list.add(dto);
 
 			}
-				int maxPage = getVisitedMaxPage(pagePerCnt,loginId); 
+				int maxPage = getVisitedMaxPage(pagePerCnt,loginId,type); 
 				System.out.println("maxPage:"+maxPage);
 				map.put("list", list); 
 				map.put("maxPage", maxPage); 
@@ -386,12 +386,13 @@ public class MemberDAO {
 	}
 	
 	/*가봤어요 마지막 페이지*/
-	private int getVisitedMaxPage(int pagePerCnt, String loginId) {
-		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type='2'";
+	private int getVisitedMaxPage(int pagePerCnt, String loginId, int type) {
+		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
+			ps.setInt(2, type);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				int cnt = rs.getInt(1); 
@@ -442,6 +443,17 @@ public class MemberDAO {
 
 		return success;
 	}
-	
+
+	/*마이페이지 북마크 업데이트*/
+	/*
+	 * public boolean myUpdate(String myIdx, String type) { String
+	 * sql="UPDATE bookmark SET deactivate='TRUE' WHERE myidx=?"; boolean success
+	 * =false; try { ps = conn.prepareStatement(sql); ps.setInt(1,
+	 * Integer.parseInt(myIdx)); if(ps.executeUpdate()>0) { success= true; } } catch
+	 * (SQLException e) { e.printStackTrace(); }finally { resClose(); } return
+	 * success;
+	 * 
+	 * }
+	 */
 
 }

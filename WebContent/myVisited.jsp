@@ -172,7 +172,7 @@ a {
 						</tr>
 						<tr>
 							<td class="bottom">
-							<a href="./bookmarkUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
+							<a href="bookmarkUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}" target="_blanck">삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 				
@@ -200,6 +200,12 @@ a {
 	</section>
 </body>
 <script>
+
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
+
 	// 말줄임 기능
  	$('.ellipsis').each(function(){
 	    var length = 200; //글자수
