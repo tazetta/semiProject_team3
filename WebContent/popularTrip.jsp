@@ -61,6 +61,17 @@ button {
 		width:700px;
 		height:500px;
 	}
+	.slidewrap span{
+		font-size:110%;
+		font-weight:600;
+		position:absolute;
+		top:0;
+		color: black;
+		z-index:10;
+		text-shadow: 2px 2px 2px white;
+		background-color:#F6E3CE;
+		padding:5px 10px;
+	}
 </style>
 </head>
 <body >
@@ -69,6 +80,7 @@ button {
 	<input type="radio" name="slide" id="slide02">
 	<input type="radio" name="slide" id="slide03">
 	<div class="slidewrap">
+		<span>인기있는 여행지 </span>
 		<ul class="slidelist">
 			<li>
 				<a>
