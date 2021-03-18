@@ -20,7 +20,9 @@ div.bar {
             margin-right: 30px; */
 	justify-content: center;
 	align-items: center;
-	margin: 20px 5px;
+	margin: 20px 5px 0px 0px;
+	width: 100%;
+	min-width: 1000px;
 }
 
 .bar li {

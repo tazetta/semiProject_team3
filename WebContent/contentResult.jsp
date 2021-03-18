@@ -141,7 +141,7 @@ div.chkBtn {
 					height="100px" /></th>
 				<th class="title"><a href="#"
 					onclick='window.open("./tripDetail?contentId=${result.contentId}","",
-			"width=700px, height=950px, left=400, top=10")'>${result.title}</a></th>
+			"width=880px, height=950px, left=400, top=10")'>${result.title}</a></th>
 				<th>${result.reg_date}</th>
 				<th>${result.bookmarkCnt}</th>
 			</tr>
