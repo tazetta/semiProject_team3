@@ -285,6 +285,15 @@ public class TestService {
 		}
 		
 	}
+
+	/*마이페이지 북마크 업데이트*/
+	public void myUpdate() {
+		String loginId = (String) req.getSession().getAttribute("loginId"); 
+		String myidx = req.getParameter("myidx");
+		String type = req.getParameter("type");
+		System.out.println(loginId+"의"+type+":"+myidx);
+		
+	}
 	
 
 }

@@ -172,6 +172,13 @@ if (msg != "") {
 }
 
 <%request.removeAttribute("msg");%>
+
+$(".menu").hover(function () {
+    $(this).toggleClass("menuHover");
+});
+$(".menu").click(function () {
+    $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
+})
 	
 </script>
 </html>

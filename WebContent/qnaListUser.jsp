@@ -116,7 +116,7 @@ a {
 
 								<td><c:choose>
 										<c:when test="${qna.ansIdx gt 0}">
-											<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료${qna.ansIdx }</a>
+											<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료</a>
 										</c:when>
 										<c:otherwise>
 

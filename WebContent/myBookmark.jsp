@@ -149,21 +149,6 @@ a {
 					<p>즐겨찾기에 등록된 여행지가 없습니다</p>
 				</div>
 			</c:if>
-		<%-- 	<table id="bookmarkList">
-
-				<c:forEach items="${list}" var="bm">
-					<tr>
-						<th style="font-size: 150%"  colspan="3">${bm.title }</th>
-					</tr>
-					<tr>
-						<td rowspan="2"><img src="${bm.firstImage}" width="400px" height="200px" /></td>
-						<td class="overview" rowspan="2">${bm.overview}</td>
-						<td style="width:100px">${bm.reg_date }</td>
-					</tr>
-					<tr>
-						<td><button onclick="location.href='#'">삭제</button></td>
-					</tr>
-				</c:forEach> --%>
 				
 					<c:forEach items="${list}" var="bm">
 				<div id="list">
@@ -184,7 +169,7 @@ a {
 						</tr>
 						<tr>
 							<td class="bottom">
-							<a href="./bookmarkUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
+							<a href="./myUpdate?myidx=${bm.myidx}&deact=${bm.deactivate}&conIdx=${bm.contentid}&type=${bm.type}" target="_blanck">삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 				
@@ -223,5 +208,12 @@ a {
 	    	
 	    });
 	  }); 
+	
+	  $(".menu").hover(function () {
+	        $(this).toggleClass("menuHover");
+	    });
+	    $(".menu").click(function () {
+	        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
+	    })
 	</script>
 </html>
