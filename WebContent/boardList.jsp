@@ -68,7 +68,9 @@
 			#field{
 				margin-left:15%;
 				text-align:center;
-				width:1200px;			
+				width:1200px;	
+				position: relative;
+				top:20px;		
 			}
 			.mouse_over:hover{
 				font-weight: 600;
