@@ -1,8 +1,11 @@
+<%@page import="com.mvc.dto.BoardDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String loginId = (String) request.getSession().getAttribute("loginId");
+	//ArrayList<BoardDTO> list = (ArrayList<BoardDTO>) request.getSession().getAttribute("list");
 %>
 <!-- c태그 사용위해 불러옴 -->
 <!DOCTYPE html>
@@ -26,11 +29,6 @@ li {
 	margin-left: 15px;
 }
 
-.ci {
-	position: relative;
-	top: 20px;
-	left: 50px;
-}
 
 .login {
 	display: flex;
@@ -192,8 +190,11 @@ a:visited {
 	<jsp:include page="popularTrip.jsp"/>
 	<br/>
 	<jsp:include page="weatherCast.jsp" />
+	
+	<jsp:include page="mainBoardList.jsp" />
 </body>
 <script>
+	
 	$("li").hover(function() {
 		$(this).toggleClass("li");
 	});

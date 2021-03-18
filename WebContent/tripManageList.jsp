@@ -10,8 +10,8 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <style>
-table{
-	height:200px;
+ table{
+	height:50%;
 }
 table, th, td {
 	border: 1px solid black;
@@ -20,8 +20,8 @@ table, th, td {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 30px;
-}
+	margin-top: -30px;
+} 
 .title{
 	width:200px;
 }
@@ -37,7 +37,9 @@ table, th, td {
 	padding: 2px 10px;
 	color: gray;
 }
-
+.date{
+	width: 100px;
+}
 #page {
 	font-weight: 600;
 	color: red;
@@ -47,10 +49,10 @@ table, th, td {
 	text-align: center;
 }
 
-div.tripManageList {
+/*  div.tripManageList {
 	position: absolute;
 	top: 20%;
-}
+}  */
 
 div.tripManageName {
 	padding: 5px 15px;
@@ -66,7 +68,7 @@ div.deactivate{
 </style>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="admin_navbar.jsp" />
+	<jsp:include page="navi_manager.jsp" />
 	<div>
 		<div id='tripSearchBar'>
 			<form action="tripSearch" method="GET">
@@ -83,10 +85,10 @@ div.deactivate{
 		
 		<div class="tripManageList">
 			<div class="tripManageName" id="99">
-				<a href="./tripManageList?tripNav=99">여행지 목록</a>
+				<a href="./tripManageList?tripNav=99" class="list">여행지 목록</a>
 			</div>
 			<div class="tripManageName" id="100">
-				<a href="./tripInsertInformation?tripNav=100">여행지 저장</a> 
+				<a href="./tripInsertInformation?tripNav=100" class="list">여행지 저장</a> 
 			</div>
 		</div>
 		
@@ -103,7 +105,7 @@ div.deactivate{
 						<td>${trip.contentId}</td>
 						<td class='title'><a
 							href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
-						<td>${trip.reg_date}</td>
+						<td class="date">${trip.reg_date}</td>
 						<td>
 						<c:if test="${trip.deactivate eq true}">
 							Y
@@ -152,7 +154,7 @@ div.deactivate{
 		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
 	});
 	
-	$('a').hover(function(){
+ 	$('.list').hover(function(){
 		   $(this).css({'font-weight':'600'});
 	},function(){
 		    $(this).css({'font-weight':'1'});

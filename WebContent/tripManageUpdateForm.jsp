@@ -75,7 +75,7 @@ textarea {
 </head>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="admin_navbar.jsp" />
+	<jsp:include page="navi_manager.jsp" />
 
 	<div class="tripManageList">
 		<div class="tripManageName">

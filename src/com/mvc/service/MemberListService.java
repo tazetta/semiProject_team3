@@ -149,7 +149,7 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			if (dao.memberDraw(id)) {
-				msg = "해당 회원을 삭제하였습니다.";
+				msg = "해당 회원을 삭제하시겠습니까?";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
@@ -331,6 +331,30 @@ public class MemberListService {
 			dis = req.getRequestDispatcher("login.jsp");
 			dis.forward(req, resp);
 		}
+	}
 
+	public void memberBlackDel() throws ServletException, IOException { 
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+
+		if (loginId != null) {
+			String blackidx = req.getParameter("blackidx");
+			System.out.println("삭제할 블랙idx: " + blackidx);
+
+			msg = "";
+			page = "/memberBlackList";
+
+			MemberListDAO dao = new MemberListDAO();
+			if (dao.memberBlackDel(blackidx)) {
+				msg = "블랙리스트에서 삭제하였습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+		} else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 }

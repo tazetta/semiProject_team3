@@ -105,7 +105,7 @@ public class MemberListDAO {
 	public MemberListDTO memberDetail(String id) {
 
 		MemberListDTO dto = null;
-		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt FROM member WHERE id=?";
+		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt, blackstatus FROM member WHERE id=?";
 
 		try {
 			ps = conn.prepareStatement(sql);
@@ -124,6 +124,7 @@ public class MemberListDAO {
 				dto.setReportcnt(rs.getInt("reportcnt"));
 				dto.setUpdate_date(rs.getDate("update_date"));
 				dto.setBlackcnt(rs.getInt("blackcnt"));
+				dto.setBlackstatus(rs.getString("blackstatus"));
 			}
 
 		} catch (SQLException e) {
@@ -277,9 +278,9 @@ public class MemberListDAO {
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		String sql = "SELECT blackidx, id, reason, reg_date, managerid FROM ("
+		String sql = "SELECT blackidx, id, reason, reg_date, managerid, blackstatus FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY blackidx DESC) "
-				+ "AS rnum, blackidx, id, reason, reg_date, managerid " + "FROM blacklist) WHERE rnum BETWEEN ? AND ?";
+				+ "AS rnum, blackidx, id, reason, reg_date, managerid, blackstatus FROM blacklist WHERE blackstatus='TRUE') WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberBlackList = new ArrayList<MemberListDTO>();
 		try {
@@ -294,6 +295,7 @@ public class MemberListDAO {
 				dto.setReason(rs.getString("reason"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setManagerid(rs.getString("managerid"));
+				dto.setBlackstatus(rs.getString("blackstatus"));
 				memberBlackList.add(dto);
 			}
 			int maxPage = black_getMaxPage(pagePerCnt);
@@ -309,7 +311,7 @@ public class MemberListDAO {
 	}
 
 	private int black_getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(blackidx) FROM blacklist";
+		String sql = "SELECT COUNT(blackidx) FROM blacklist WHERE blackstatus='TRUE'";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -330,12 +332,23 @@ public class MemberListDAO {
 
 		try {
 			ps = conn.prepareStatement(sql);
-			// ps.setInt(1, dto.getBlackidx());
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getReason());
 			ps.setString(3, dto.getManagerid());
-			if (ps.executeUpdate() > 0) {
-				success = true;
+			if (ps.executeUpdate() > 0) { // 블랙 카운트 증가시키고
+				String black_sql = "UPDATE member SET blackcnt=blackcnt+1 WHERE id=?";
+				ps = conn.prepareStatement(black_sql);
+				ps.setString(1, dto.getId());
+
+				int cnt = 0;
+				if (ps.executeUpdate() > 0) { // 상태를 true로 바꾼다.
+					cnt += 1;
+					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE blackidx=?";
+					ps = conn.prepareStatement(black_sql2);
+					ps.setInt(1, dto.getBlackidx());
+					ps.executeUpdate();
+					success = true;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -379,4 +392,23 @@ public class MemberListDAO {
 		return dto;
 	}
 
+	public boolean memberBlackDel(String blackidx) {
+
+		String sql = "UPDATE blacklist SET blackstatus='FALSE' WHERE blackidx=?";
+		boolean success = false;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, blackidx);
+			if (ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		System.out.println("블랙리스트 삭제여부 :" + success);
+		return success;
+	}
 }

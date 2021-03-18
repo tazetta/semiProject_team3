@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.dao.PopupDAO;
-import com.mvc.dao.TripDAO;
+
+import com.mvc.dto.BoardDTO;
+
 import com.mvc.dto.PopupDTO;
-import com.mvc.dto.TripDTO;
+
 
 public class PopupService {
 
@@ -147,12 +149,14 @@ public class PopupService {
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
-		
+		BoardService bss = new BoardService(req, resp);
+		ArrayList<BoardDTO> list =bss.mainBoardList();
 		page = "main.jsp";
 	
-		if (dto != null) {
+		
+			req.setAttribute("list", list);
 			req.setAttribute("dto", dto);
-		}
+		
 		dis = req.getRequestDispatcher(page);		
 		dis.forward(req, resp);
 	}

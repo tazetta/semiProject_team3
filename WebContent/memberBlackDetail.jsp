@@ -61,7 +61,7 @@ table, th, td {
             </tr>
 			</table>
 				<div class="memberexist">
-                	<button onclick="location.href='./memberBlackDel?id=${dto.id}'">블랙리스트 삭제</button>
+                	<button onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   
                 	<button onclick="location.href='./memberBlackList'">닫기</button>

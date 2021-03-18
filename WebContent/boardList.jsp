@@ -96,7 +96,7 @@
 		</tr>
 		<c:if test="${managerbbsList ne null}">
 		<c:forEach items="${managerbbsList}" var="managerbbs">
-			<tr style="background-color: yellow">
+			<tr style="background-color: lightgray">
 				<td>${managerbbs.boardIdx}</td>
 				<td><a class="mouse_over" href="boardDetail?boardIdx=${managerbbs.boardIdx}&page=${currPage}">${managerbbs.subject}</a></td>
 				<td>${managerbbs.id}</td>

@@ -39,29 +39,27 @@
 	<body>
 		<jsp:include page="top.jsp" />
 		<jsp:include page="navi_manager.jsp"/>
-		<br/>
+		<div class="mid">
 		<jsp:include page="side_repList.jsp"/>
-		<br/>
-		<br/>
-		<div>
+		<br/><br/><br/>
 			<table class="body">
 				<tr>
 					<th>제목</th>
 					<td>${dto.subject}</td>
-					<td>신고수 / <b>${reason.repCnt }</b></td>
+					<th>신고수 / <b>${reason.repCnt }</b></th>
 					<c:if test="${reason.deactivate eq 'FALSE' }">
-						<td style="background-color: coral;">
+						<th style="background-color: coral;">
 							블라인드 				
 							<select id="YN">
 								<option value="TRUE" ${dto.deactivate eq 'TRUE' ? 'selected="selected"' : '' }>Y</option>
 								<option value="FALSE" ${dto.deactivate eq 'FALSE' ? 'selected="selected"' : '' }>N</option>
 							</select>
-						</td>
+						</th>
 					</c:if>
 				</tr>
 				<tr class="comtent">
 					<th >내용</th>
-					<td colspan="3">${dto.content}</td>
+					<td colspan="3" style="text-align: left;">${dto.content}</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
@@ -70,7 +68,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="border: 1px solid white;" colspan="3">
+					<td style="border: 1px solid white;" colspan="5">
 						<fieldset>
 							<legend>신고 사유 </legend>
 							<p>				
@@ -81,7 +79,7 @@
 							<input  class="btn" type="button"  onclick="location.href='./reportBBS?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
 							&nbsp;&nbsp;&nbsp;
 							<c:if test="${reason.deactivate eq 'FALSE' }">
-								<button class="btn"> 적용 </button>
+								<button id="btn" class="btn"> 적용 </button>
 							</c:if>
 						</div>
 					</td>
@@ -100,8 +98,7 @@
 				chkMsg="N";
 			}
 			
-			var chk = confirm('선택 하신 값이 맞습니까? '+ chkMsg);
-			if(chk){
+			if(confirm('선택 하신 값이 맞습니까? '+ chkMsg)){
 				$.ajax({
 					type:"get"
 					,url:"updateYN"

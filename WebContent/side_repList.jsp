@@ -8,18 +8,21 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 			table,th,td{
-				width : 100%;
 				border: 1px solid lightgray;
 				border-collapse: collapse;
-				white-space: nowrap;
 				padding: 20px;
+				text-align: center;
 			}
 			fieldset,p{			
 				text-align: left;
 			}
 			th{
+				white-space: nowrap;
 				width: 150px;
-				min-width: 50px;
+				min-width: 100px;
+			}
+			table{				
+				width : 100%;
 			}
 			.btn{
 				font-size: 14pt;
@@ -28,11 +31,10 @@
 				padding: 5px 10px;
 			} 
 			.body{
-				width: 800px;
+				width: 60%;
 				position:relative;
-				left : 20%;
+				left : 5%;
 			}
-						
 			.comtent{
 				height: 300px;				
 			}
@@ -43,11 +45,17 @@
 			}
 			#side {
 				position: relative;
-				float: left;
-				margin-left: 100px;
+				top:50px;
 				padding: 10px;
-				height: 1000px;
 				z-index: 10;
+				float: left;
+				display: inline;
+				
+			}
+			.mid{
+				width: 100%;
+				margin-left: 5%;
+				min-width: 1200px;
 			}
 
 			a {
@@ -72,7 +80,7 @@
 </head>
 <body>
 	<div id="side">
-		<table>
+		<table style="width: 180px;text-align: center;">
 			<tr>
 				<td class="bssRep"><a href="./reportBBS" target="_parent">게시글 신고 내역</a></td>
 			</tr>

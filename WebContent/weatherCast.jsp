@@ -38,7 +38,7 @@
 	float: left;
 }
 
-img {
+#weather {
 	width: 50px;
 	height: 50px;
 }
@@ -68,24 +68,24 @@ img {
 	<div id="div1">
 		<h3 style="background-color: blanchedalmond">오늘</h3>
 		<p id="SKY0"></p>
-		<p id="POP0"></p>
 		<p id="PTY0"></p>
+		<p id="POP0"></p>
 		<p id="REH0"></p>
 		<p id="TMX0"></p>
 	</div>
 	<div id="div2">
 		<h3 style="background-color: blanchedalmond">내일</h3>
 		<p id="SKY1"></p>
-		<p id="POP1"></p>
 		<p id="PTY1"></p>
+		<p id="POP1"></p>
 		<p id="REH1"></p>
 		<p id="TMX1"></p>
 	</div>
 	<div id="div3">
 		<h3 style="background-color: blanchedalmond">모레</h3>
 		<p id="SKY2"></p>
-		<p id="POP2"></p>
 		<p id="PTY2"></p>
+		<p id="POP2"></p>
 		<p id="REH2"></p>
 		<p id="TMX2"></p>
 	</div>
@@ -145,14 +145,13 @@ img {
 	function drawWeatherCast(obj, idVar, index) {
 		$('#POP' + idVar).html("강수 확률 : " + obj.list[0 + index].POP);
 		if (obj.list[1 + index].PTY != "없음") {
-			$('#PTY' + idVar).html(
-					"<img src='" + ptyState(obj.list[1 + index].PTY) + "'/>");
+			$('#PTY' + idVar).html("<img  id='weather' src='" + ptyState(obj.list[1 + index].PTY) + "'/>");
+			$('#SKY' + idVar).html("");
 		} else {
 			$('#PTY' + idVar).html("");
+			$('#SKY' + idVar).html("<img id='weather' src='" + skyState(obj.list[3 + index].SKY) + "'/>");
 		}
 		$('#REH' + idVar).html("습도 : " + obj.list[2 + index].REH);
-		$('#SKY' + idVar).html(
-				"<img src='" + skyState(obj.list[3 + index].SKY) + "'/>");
 		$('#TMX' + idVar).html("낮 최고기온 : " + obj.list[4 + index].TMX);
 	}
 
