@@ -63,6 +63,11 @@
 		font-weight: 600;
 		color: blue;
 	}
+	#more{
+		text-align: center;
+		margin-top: 10px;
+		font-size: 18px;
+	}
 	
 </style>
 </head>
@@ -122,7 +127,6 @@
 		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
-			<c:if test="${comment.deactivate eq 'FALSE' }">
 				<table id="comment_table" class ="comm_table">
 					<tr class ="comm_table">
 						<td class ="comm_table" style="width:150px;">${comment.id}</td>
@@ -143,9 +147,13 @@
 						</td>
 					</tr>
 				</table>			
-			</c:if>
 		</c:forEach>
-		</c:if>
+			<div id="more">
+         	<c:if test="${commcurrPage < maxPage}">
+         		<a style="background-color: lightgray;"id = "more" class="mouse_over" href="./boardDetail?boardIdx=${dto.boardIdx}&page=${currPage}&commpage=${commcurrPage+1}">더보기</a></c:if>
+		 	</c:if>
+			</div>
+		
 		<c:if test="${empty list}"><!-- 댓글이 없는경우 -->
 			<p>현재 댓글이 없습니다.</p>
 		</c:if>

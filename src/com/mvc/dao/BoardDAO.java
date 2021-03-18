@@ -182,7 +182,7 @@ public class BoardDAO {
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, Integer.parseInt(boardIdx));
+			ps.setString(1, boardIdx);
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				dto = new BoardDTO();
@@ -339,13 +339,36 @@ public class BoardDAO {
 		}
 		return success;
 	}
-
-	public ArrayList<CommentDTO> comm_list(String boardIdx) {
-		String sql = "SELECT reIdx,id,content,reg_date,deactivate FROM BBS_COMMENT WHERE boardIdx=?  ORDER BY reIdx DESC";
+	
+	private int comm_getMaxPage(int pagePerCnt,String boardIdx) {
+		String sql = "SELECT COUNT(reIdx) FROM BBS_COMMENT WHERE DEACTIVATE='FALSE' AND boardIdx=?";
+		int max=0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, boardIdx);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt/(double)pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return max;
+	}
+	
+	public HashMap<String, Object> comm_list(int page,String boardIdx) {
+		//String sql = "SELECT reIdx,id,content,reg_date,deactivate FROM BBS_COMMENT WHERE boardIdx=? AND deactivate='false' ORDER BY reIdx DESC";
+		String sql = "SELECT  reIdx,id,content,reg_date FROM (" + 
+		"    SELECT ROW_NUMBER() OVER(ORDER BY reIdx DESC) AS rnum,reIdx,id,content,reg_date " + 
+		"        FROM BBS_COMMENT WHERE DEACTIVATE='FALSE' AND boardIdx=?" + 
+		") WHERE rnum BETWEEN 1 AND ?";
+		HashMap<String,Object> map= new HashMap<String, Object>();
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
+			ps.setInt(2, page*10);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				CommentDTO dto = new CommentDTO();
@@ -353,16 +376,19 @@ public class BoardDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setReIdx(rs.getInt("reIdx"));
-				dto.setDeactivate(rs.getString("deactivate"));
 				list.add(dto);			
 			}
+			int maxPage= comm_getMaxPage(10,boardIdx);
+			map.put("list",list);
+			map.put("maxPage",maxPage);
+			System.out.println("maxPage: "+ maxPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
 		
-		return list;
+		return map;
 	}
 
 

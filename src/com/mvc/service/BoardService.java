@@ -105,7 +105,6 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		
 		if(loginId!=null) {
-			BoardDAO dao = new BoardDAO();
 			String boardIdx = req.getParameter("boardIdx");
 			String currPage = req.getParameter("page");
 			String boardkeyword = req.getParameter("boardkeyword");
@@ -113,16 +112,29 @@ public class BoardService {
 			System.out.println("검색페이지로 돌아갈거니? :"+ boardkeyword);
 			System.out.println("현재페이지: "+currPage);
 			System.out.println("boardIdx: " +boardIdx);
+			BoardDAO dao = new BoardDAO();
 			BoardDTO dto = dao.detail(boardIdx);
 			System.out.println("관리자인가? : "+dto.getIsManager());
 			System.out.println("oriFileName"+dto.getOriFileName());
-			
-			dao = new BoardDAO();
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println("댓글리스트 사이즈: "+list.size());
 			System.out.println("비활성화상태:"+dto.getDeactivate());
-			String page="/boardList?page="+currPage;
 			
+			//댓글페이징
+			String pageParam =  req.getParameter("commpage");
+			System.out.println("page:"+pageParam);
+			int group =1;
+			if(pageParam!=null) {
+				group = Integer.parseInt(pageParam);
+				if(group>1) {
+					dao = new BoardDAO();
+					dao.upDown(boardIdx);
+				}
+			}
+			dao = new BoardDAO();
+			HashMap<String, Object> map = dao.comm_list(group,boardIdx);
+			System.out.println("댓글리스트 사이즈: "+map.get("maxPage"));
+			System.out.println("댓글 페이지 : "+ group);
+			
+			String page="/boardList?page="+currPage;
 			String url = "searchType=" + searchType + "&boardkeyword=" + boardkeyword;
 			if(dto!=null && dto.getDeactivate().equals("FALSE")) {	
 				dao = new BoardDAO();
@@ -132,7 +144,9 @@ public class BoardService {
 				req.setAttribute("boardkeyword", boardkeyword);
 				req.setAttribute("currPage", currPage);
 				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
+				req.setAttribute("list", map.get("list"));
+				req.setAttribute("maxPage", map.get("maxPage"));
+				req.setAttribute("commcurrPage", group);
 			}		
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 
@@ -152,7 +166,7 @@ public class BoardService {
 		if(loginId.equals(id) || isManager.equals("true")) {//작성자와 로그인아이디가 같거나 관리자 이면
 		System.out.println("delete idx : "+boardIdx);
 		System.out.println("삭제할 글 작성자 아이디:"+id);	
-		FileService upload = new FileService(req);
+		//FileService upload = new FileService(req);
 
 		BoardDAO dao = new BoardDAO();
 		String newFileName = dao.getFileName(boardIdx);//파일명추출

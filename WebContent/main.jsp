@@ -84,27 +84,27 @@ body {
 			</ul>
 		</div>
 	</section> -->
-
-	<section>
-		<form action="login" method="post">
-			<table>
-				<tr>
-					<th>ID</th>
-					<td><input type="text" name="userId" /></td>
-				</tr>
-				<tr>
-					<th>PW</th>
-					<td><input type="text" name="userPw" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit" value="login" /> <input
-						type="button" value="회원가입" onclick="location.href='joinForm.jsp'" />
-					</td>
-				</tr>
-
-			</table>
-		</form>
-	</section>
+	<c:if test="${sessionScope.loginId eq null}">
+		<section>
+			<form action="login" method="post">
+				<table>
+					<tr>
+						<th>ID</th>
+						<td><input type="text" name="userId" /></td>
+					</tr>
+					<tr>
+						<th>PW</th>
+						<td><input type="text" name="userPw" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="login" /> <input
+							type="button" value="회원가입" onclick="location.href='joinForm.jsp'" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</section>
+	</c:if>
 	<jsp:include page="popularTrip.jsp"/>
 	<br/>
 	<jsp:include page="weatherCast.jsp" />
