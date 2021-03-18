@@ -200,10 +200,10 @@ a:visited {
 		$(this).toggleClass("li");
 	});
 
-	var msg = "${msg}";
+ 	var msg = "${msg}";
 	if (msg != "") {
 		alert(msg);
-	}
+	} 
 	
 	<%request.removeAttribute("msg");%>
 
