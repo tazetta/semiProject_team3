@@ -149,7 +149,7 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			if (dao.memberDraw(id)) {
-				msg = "해당 회원을 삭제하였습니다.";
+				msg = "해당 회원을 삭제하시겠습니까?";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);

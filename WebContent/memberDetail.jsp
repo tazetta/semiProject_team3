@@ -49,6 +49,7 @@ table, th, td {
                 <th>수정일</th>
                 <th>글,댓글 신고수</th>
                 <th>블랙리스트로 등록된 횟수</th>
+               	<th>블랙리스트 상태</th> 
             </tr>
             <tr>
                 <td>${dto.reg_date}</td>
@@ -60,6 +61,7 @@ table, th, td {
                 <td>${dto.update_date}</td>
                 <td>${dto.reportcnt}</td>
                 <td>${dto.blackcnt}</td>
+                <td>${dto.blackstatus}</td>
             </tr>
 			</table>
 				<div class="black">

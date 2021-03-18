@@ -105,7 +105,7 @@ public class MemberListDAO {
 	public MemberListDTO memberDetail(String id) {
 
 		MemberListDTO dto = null;
-		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt FROM member WHERE id=?";
+		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt, blackstatus FROM member WHERE id=?";
 
 		try {
 			ps = conn.prepareStatement(sql);
@@ -124,6 +124,7 @@ public class MemberListDAO {
 				dto.setReportcnt(rs.getInt("reportcnt"));
 				dto.setUpdate_date(rs.getDate("update_date"));
 				dto.setBlackcnt(rs.getInt("blackcnt"));
+				dto.setBlackstatus(rs.getString("blackstatus"));
 			}
 
 		} catch (SQLException e) {
@@ -310,7 +311,7 @@ public class MemberListDAO {
 	}
 
 	private int black_getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(blackidx) FROM blacklist";
+		String sql = "SELECT COUNT(blackidx) FROM blacklist WHERE blackstatus='TRUE'";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -334,17 +335,17 @@ public class MemberListDAO {
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getReason());
 			ps.setString(3, dto.getManagerid());
-			if (ps.executeUpdate() > 0) { // 블랙리스트 카운트 증가시키고
+			if (ps.executeUpdate() > 0) { // 블랙 카운트 증가시키고
 				String black_sql = "UPDATE member SET blackcnt=blackcnt+1 WHERE id=?";
 				ps = conn.prepareStatement(black_sql);
 				ps.setString(1, dto.getId());
 
 				int cnt = 0;
-				if (ps.executeUpdate() > 0) { // 블랙리스트 여부를 true로 바꾼다.
+				if (ps.executeUpdate() > 0) { // 상태를 true로 바꾼다.
 					cnt += 1;
-					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE id=?";
+					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE blackidx=?";
 					ps = conn.prepareStatement(black_sql2);
-					ps.setString(1, dto.getId());
+					ps.setInt(1, dto.getBlackidx());
 					ps.executeUpdate();
 					success = true;
 				}
