@@ -8,16 +8,20 @@
 <title>메인의 커뮤니티 글</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-	#boardTable{
+	#boardTableDiv{
 		position: absolute;
-		top: 50%;
-		left:50%;
+
+		top: 100%;
+		border : 0px;
+		text-align: center;
+		left:60%;
+
 	}
 	#boardTable,.mainBoard{
 		border : 1px solid black;
 		border-collapse: collapse;
 		padding: 5px 10px;
-		text-align: center;
+		
 	}
 	.mouse_over:hover{
 		font-weight: 600;
@@ -25,20 +29,22 @@
 </style>
 </head>
 <body>
-	<table id="boardTable">
+	<div id="boardTableDiv">
+	<h3 style="background-color: blanchedalmond">커뮤니티 인기 게시물</h3>
+	<table id= "boardTable">
 		<tr class="mainBoard">
 			<th class="mainBoard" style="width: 400px;">제목</th>
 			<th class="mainBoard" style="width: 200px;">작성자</th>
 		</tr>
 		<c:forEach items="${list}" var="board">
-			<tr class="mainBoard">
-				<td class="mainBoard"><a class="mouse_over" href="./boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
-				<td class="mainBoard">${board.id}</td>
-			</tr>
+		<tr class="mainBoard">
+			<td class="mainBoard"><a class="mouse_over" href="./boardDetail?boardIdx=${board.boardIdx}&page=1">${board.subject}</a></td>
+			<td class="mainBoard">${board.id}</td>
+		</tr>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 <script>
-
 </script>
 </html>

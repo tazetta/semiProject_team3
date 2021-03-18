@@ -1,6 +1,7 @@
 package com.mvc.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mvc.dao.BoardDAO;
+import com.mvc.dao.TripDAO;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.CommentDTO;
+import com.mvc.dto.TripDTO;
 
 public class BoardService {
 
@@ -440,15 +443,17 @@ public class BoardService {
 	}
 
 	public ArrayList<BoardDTO> mainBoardList() throws ServletException, IOException {
+		
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.mainBoardList();
 		System.out.println("메인에서 가져오는 리스트  : "+list);
-		req.getSession().setAttribute("list", list);
-		//ArrayList<BoardDTO> test = (ArrayList<BoardDTO>) req.getSession().getAttribute("list");
 		return list;
-		/*
-		 * req.setAttribute("list", list); dis =
-		 * req.getRequestDispatcher("mainBoardList.jsp"); dis.forward(req, resp);
-		 */
+		
+//		req.getSession().setAttribute("list", list);
+//		ArrayList<BoardDTO> test = (ArrayList<BoardDTO>) req.getSession().getAttribute("list");
+//		 req.setAttribute("list", list);
+//		 dis = req.getRequestDispatcher("mainBoardList.jsp");
+//		 dis.forward(req, resp);
+		 
 	}
 }

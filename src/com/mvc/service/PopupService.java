@@ -152,8 +152,6 @@ public class PopupService {
 		BoardService bss = new BoardService(req, resp);
 		ArrayList<BoardDTO> list =bss.mainBoardList();
 		page = "main.jsp";
-	
-		
 			req.setAttribute("list", list);
 			req.setAttribute("dto", dto);
 		

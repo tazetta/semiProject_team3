@@ -13,16 +13,18 @@
 	table{
 		width:800px;
 		position:absolute;
-		left:20%		
+		left:20%;	
 	}
 	table, th, td {
-		border: 1px solid black;
+		border: 1px solid gray;
 		border-collapse: collapse;
 		text-align: center;
 		padding : 5px 10px;
+		font-size: 18px;
 	}
 	input[type='text']{
-		width:100%
+		width:100%;
+		font-size: 16px;
 	}
 	textarea{
 		width:100%;
@@ -34,7 +36,9 @@
 		top:95%;
 		left:71%;
 	}
-	
+	textarea,input[type='file'],input[type='button'],button{
+		font-size: 16px;
+	}
 </style>
 </head>
 <body>
