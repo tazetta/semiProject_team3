@@ -127,6 +127,7 @@
 		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
+			<c:if test="${comment.deactivate eq 'FALSE'}">
 				<table id="comment_table" class ="comm_table">
 					<tr class ="comm_table">
 						<td class ="comm_table" style="width:150px;">${comment.id}</td>
@@ -147,10 +148,13 @@
 						</td>
 					</tr>
 				</table>			
+			</c:if>
 		</c:forEach>
+		<span id="test">
+		</span>
 			<div id="more">
          	<c:if test="${commcurrPage < maxPage}">
-         		<a style="background-color: lightgray;"id = "more" class="mouse_over" href="./boardDetail?boardIdx=${dto.boardIdx}&page=${currPage}&commpage=${commcurrPage+1}">더보기</a></c:if>
+         		<a style="background-color: lightgray;" id = "more" class="mouse_over" href="./boardDetail?boardIdx=${dto.boardIdx}&page=${currPage}&commpage=${commcurrPage+1}">더보기</a></c:if>
 		 	</c:if>
 			</div>
 		
@@ -160,7 +164,61 @@
 		</div>
 </body>
 <script>
-
+	/*  $('#more').click(function(){
+		console.log("더보기!!!!!!")
+		
+		var boardIdx = "${dto.boardIdx}";
+		var page ="${currPage}";
+		var commpage="${commcurrPage+1}";
+		var loginId = "${loginId}";
+			$.ajax({
+				type:"get"
+				,url:"/boardDetail"
+				,data:{
+					"boardIdx":boardIdx
+					,"page":page
+					,"commpage":commpage
+					,"type":"ajax"
+				}
+				,dataType:"json"
+				,success: function(data) {
+					
+					 if(data.commcurrPage<data.maxPage){
+						 $('#span').html(
+						for (var i = 0; i < data.list.length; i++) {
+							<c:if test="${comment.deactivate eq 'FALSE'}">
+							<table id="comment_table" class ="comm_table">
+								<tr class ="comm_table">
+									<td class ="comm_table" style="width:150px;">data.list.id</td>
+									<td class ="comm_table">
+										data.list.content
+										<c:if test="data.list.id==loginId"><!-- 작성자만 버튼 보이게 -->
+											<a style="color:blue;" class="mouse_over" href="commentUpdateForm?reIdx="+data.list.reIdx+"&id="+data.list.id+"&boardIdx="+boardIdx+"&page="+page">수정</a>
+										</c:if>
+										<c:if test="${data.list.id==loginId || isManager=='true'}">
+											<a style="color:blue;" class="mouse_over" href="commentDel?reIdx="+data.list.reIdx+"&id="+data.list.id+"&boardIdx="+boardIdx+"&page="+page">삭제</a>
+										</c:if>
+									</td>
+									<td class ="comm_table" style="width:150px;">data.list.reg_date</td>
+									<td class ="comm_table" style="width:50px;">
+									<c:if test="data.list.id==loginId">
+										<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx='+data.list.reIdx,'신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
+									</c:if>
+									</td>
+								</tr>
+							</table>			
+						</c:if> 
+						};
+					);
+					} 
+				}
+				,error: function(e) {
+					console.log(e);
+				}
+			});				
+		
+	} */
+	
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
 		if(comment==""){
