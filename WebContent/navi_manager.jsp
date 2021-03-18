@@ -15,6 +15,8 @@
     color: black;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    min-width: 1000px;
     
 }
 
