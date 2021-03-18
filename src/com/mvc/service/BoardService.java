@@ -1,7 +1,7 @@
 package com.mvc.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,12 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+
 import com.mvc.dao.BoardDAO;
-import com.mvc.dao.TripDAO;
 import com.mvc.dto.BoardDTO;
 import com.mvc.dto.CommentDTO;
-import com.mvc.dto.TripDTO;
+
 
 public class BoardService {
 

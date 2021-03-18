@@ -12,8 +12,9 @@
 <style>
 	table{
 		width:800px;
-		position:absolute;
+		position:relative;
 		left:20%;	
+		top:20px;
 	}
 	table, th, td {
 		border: 1px solid gray;
@@ -39,6 +40,7 @@
 	textarea,input[type='file'],input[type='button'],button{
 		font-size: 16px;
 	}
+	
 </style>
 </head>
 <body>

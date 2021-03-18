@@ -9,14 +9,17 @@
 <style>
 	table{
 		width:800px;
-		position:absolute;
-		left:20%		
+		position: relative;
+		top:20px;
+		left: 20%;
+	
 	}
 	table, th, td {
 		border: 1px solid black;
 		border-collapse: collapse;
 		text-align: center;
 		padding : 5px 10px;
+		font-size: 18px;
 	}
 	input[type='text']{
 		width:100%
@@ -30,6 +33,9 @@
 		position:absolute;
 		top:95%;
 		left:71%;
+	}
+	textarea,input[type='text'],input[type='file'],input[type='button'],button{
+		font-size: 16px;
 	}
 	
 </style>
