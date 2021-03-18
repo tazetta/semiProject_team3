@@ -2,7 +2,7 @@ package com.mvc.dto;
 
 import java.sql.Date;
 
-public class TestBookDTO {
+public class BookmarkDTO {
 	private int myidx; 
 	private int contentid; 
 	private String id; 
