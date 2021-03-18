@@ -59,7 +59,6 @@
             border-color: white; */
             height: 30px;
             white-space: nowrap;
-            border: 1px solid red;
             padding: 5px;
         }
         #mtop{
