@@ -15,7 +15,7 @@
 		width:800px;	
 	}
 	table, th, td {
-		border: 1px solid black;
+		border: 1px solid gray;
 		border-collapse: collapse;
 		text-align: center;
 		padding : 5px 10px;
@@ -123,7 +123,7 @@
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
 			<c:if test="${comment.deactivate eq 'FALSE' }">
-				<table class ="comm_table">
+				<table id="comment_table" class ="comm_table">
 					<tr class ="comm_table">
 						<td class ="comm_table" style="width:150px;">${comment.id}</td>
 						<td class ="comm_table">
@@ -152,6 +152,7 @@
 		</div>
 </body>
 <script>
+
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();
 		if(comment==""){

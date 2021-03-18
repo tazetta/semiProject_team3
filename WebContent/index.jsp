@@ -2,6 +2,10 @@
 
 
 <script>
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
 	function page() {
 		location.href="./main";
 	}
