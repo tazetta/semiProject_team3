@@ -76,7 +76,7 @@ table, th, td {
 <script>
 	var msg = "${msg}";
 	if(msg!=""){
-		alert(msg);
+		confirm(msg);
 	}	
 </script>
 </html>

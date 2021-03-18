@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.dao.PopupDAO;
+
 import com.mvc.dto.BoardDTO;
+
 import com.mvc.dto.PopupDTO;
+
 
 public class PopupService {
 
@@ -157,4 +160,6 @@ public class PopupService {
 		dis = req.getRequestDispatcher(page);		
 		dis.forward(req, resp);
 	}
+
+	
 }

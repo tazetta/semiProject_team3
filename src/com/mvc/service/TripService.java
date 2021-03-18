@@ -1,6 +1,7 @@
 package com.mvc.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -179,4 +180,34 @@ public class TripService {
 		RequestDispatcher dis = req.getRequestDispatcher("searchResult.jsp");
 		dis.forward(req, resp);
 	}
+
+
+		/*인기 여행지 사진*/
+		public void popularImage() throws IOException {
+			String img = req.getParameter("img");
+			System.out.println("img:"+img);
+			TripDAO dao = new TripDAO();
+			ArrayList<TripDTO> list = dao.popularImage();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			boolean success =false;
+			if(list!=null) {
+				success= true;
+				System.out.println("list.size:"+list.size());
+			}
+			map.put("list", list);
+			map.put("success", success);
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(map);
+			System.out.println("json:"+json);
+			
+			resp.setContentType("text/html; charset=UTF-8"); 
+			resp.setHeader("Access-Control-Allow", "*"); 
+			PrintWriter out = resp.getWriter(); 
+			out.print(json);
+			
+		}
+		
+	
 }

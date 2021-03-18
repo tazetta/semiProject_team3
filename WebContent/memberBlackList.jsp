@@ -41,18 +41,16 @@ table, th,td {
 		<div class="memberList_main">
 			<table>
 				<tr>
-					<th>블랙리스트 번호</th>
-					<th>아이디</th>
 					<th>블랙리스트 등록일</th>
+					<th>아이디</th>
 					<th>블랙리스트 등록사유</th>
 					<th>등록 관리자</th>
 					<th></th>
 				</tr>
 				<c:forEach items="${memberBlackList}" var="black">
 					<tr>
-						<td>${black.blackidx}</td>
-						<td>${black.id}</td>
 						<td>${black.reg_date}</td>
+						<td>${black.id}</td>
 						<td>${black.reason}</td>
 						<td>${black.managerid}</td>
 						<td><a href="./memberBlackDetail?blackidx=${black.blackidx}">상세보기</a></td>

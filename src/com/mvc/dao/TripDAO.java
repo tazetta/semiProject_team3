@@ -325,4 +325,27 @@ public class TripDAO {
 		return maxPage;
 	}
 
+	/*인기 여행지 사진 TOP3*/
+	public ArrayList<TripDTO> popularImage() {
+		String sql ="SELECT firstimage,title  FROM (SELECT firstimage,title, bookmarkcnt  FROM trip ORDER BY trip.bookmarkcnt DESC)WHERE rownum <=3 ORDER BY rownum";
+		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			TripDTO dto  = null;
+			while(rs.next()) {
+				dto = new TripDTO();
+				dto.setFirstImage(rs.getString("firstimage"));
+				dto.setTitle(rs.getString("title"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return list;
+	}
+
 }

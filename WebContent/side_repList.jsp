@@ -34,6 +34,7 @@
 				width: 60%;
 				position:relative;
 				left : 5%;
+				
 			}
 			.comtent{
 				height: 300px;				
@@ -54,8 +55,7 @@
 			}
 			.mid{
 				width: 100%;
-				margin-left: 5%;
-				min-width: 1200px;
+				min-width: 1000px;
 			}
 
 			a {

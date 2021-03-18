@@ -68,7 +68,8 @@
 					</table>
 					<br/>
 						<c:forEach items="${list }" var="com">
-							<c:if test="${com.reIdx ne reason.reIdx}">
+						
+							<%-- <c:if test="${com.reIdx ne reason.reIdx}"> 신고 외 댓글 
 							<table>
 								<tr>
 									<th style="width: 100px;">${com.id }</th>
@@ -76,7 +77,8 @@
 									<td style="width: 150px;">${com.reg_date }</td>
 								</tr>
 							</table>	
-							</c:if>
+							</c:if> --%>
+							
 							<c:if test="${com.reIdx eq reason.reIdx}">		
 								<br/>				
 								<table>

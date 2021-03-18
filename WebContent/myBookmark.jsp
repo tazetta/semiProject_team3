@@ -40,7 +40,7 @@ section#left {
 	float: left;
 	margin: 10px;
 	width: 80%;
-	height: 80%;
+	height: 500px;
 	/* flex-direction:column; */
 }
 

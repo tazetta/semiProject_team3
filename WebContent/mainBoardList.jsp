@@ -13,6 +13,8 @@
 		top: 80%;
 		border : 0px;
 		text-align: center;
+		left:50%;
+
 	}
 	#boardTable,.mainBoard{
 		border : 1px solid black;
