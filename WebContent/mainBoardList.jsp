@@ -10,7 +10,7 @@
 <style>
 	#boardTable{
 		position: absolute;
-		top: 80%;
+		top: 50%;
 		left:50%;
 	}
 	#boardTable,.mainBoard{

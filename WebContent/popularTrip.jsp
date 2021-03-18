@@ -11,6 +11,7 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 .container {
+margin:20px;
 	width: 300vw;
 	/* transition: transform 1s ease  0.5s; */
 	transition-duration: 0.5s;
@@ -19,11 +20,24 @@
 .inner {
 	width: 100vw;
 	float: left;
+	posiiton:relative;
 }
 
 .inner img {
 	width: 40%;
 	height:40%
+}
+button{
+	text-align:center;
+}
+span{
+	font-size:130%;
+	font-weight:600;
+	position:absolute;
+	bottom:-10px;
+	left:600px;
+	text-shadow: 3px 3px 3px white;
+	
 }
 </style>
 </head>
@@ -32,6 +46,7 @@
 		<div class="container">
 			<div class="inner">
 				<img src="#"  >
+				<span>title</span>
 
 			</div>
 			<div class="inner">

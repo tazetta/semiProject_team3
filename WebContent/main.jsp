@@ -190,7 +190,6 @@ a:visited {
 	<jsp:include page="popularTrip.jsp"/>
 	<br/>
 	<jsp:include page="weatherCast.jsp" />
-	<br/>
 	
 	<jsp:include page="mainBoardList.jsp" />
 </body>
