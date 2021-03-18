@@ -213,8 +213,8 @@ public class TestService {
 			BoardDTO dto = dao.detail(boardIdx);
 			
 			dao = new BoardDAO();		
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println(dto +"/"+list);
+			HashMap<String, Object> map = dao.comm_list(1000,boardIdx);
+			System.out.println(dto +"/"+map);
 			
 			TestDAO dao1 = new TestDAO();
 			RepDTO reason = dao1.repReason(commentRepIdx,type,reIdx);
@@ -230,7 +230,7 @@ public class TestService {
 //				req.setAttribute("repCnt", repCnt);
 				req.setAttribute("reason", reason);
 				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
+				req.setAttribute("list", map.get("list"));
 			}		
 			dao1.resClose();
 			dis = req.getRequestDispatcher(page);
@@ -258,8 +258,8 @@ public class TestService {
 			BoardDTO dto = dao.detail(boardIdx);
 			
 			dao = new BoardDAO();		
-			ArrayList<CommentDTO> list = dao.comm_list(boardIdx);
-			System.out.println(dto +"/"+list);
+			HashMap<String, Object> map = dao.comm_list(1000,boardIdx);
+			System.out.println(dto +"/"+map);
 			
 			TestDAO dao1 = new TestDAO();
 			RepDTO reason = dao1.repReason(bbsRepIdx,type,boardIdx);
@@ -273,7 +273,7 @@ public class TestService {
 //				req.setAttribute("repCnt", repCnt);
 				req.setAttribute("reason", reason);
 				req.setAttribute("dto", dto);
-				req.setAttribute("list", list);
+				req.setAttribute("list", map.get("list"));
 			}		
 			dao1.resClose();
 			dis = req.getRequestDispatcher(page);
