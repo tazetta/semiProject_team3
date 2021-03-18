@@ -105,7 +105,8 @@ public class MemberListDAO {
 	public MemberListDTO memberDetail(String id) {
 
 		MemberListDTO dto = null;
-		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt, blackstatus FROM member WHERE id=?";
+		String sql = "SELECT m.reg_date, m.id, m.name, m.phone, m.email, m.withdraw, m.reportcnt, m.update_date, m.blackcnt, b.blackstatus FROM "
+					+ "member m, blacklist b WHERE m.id=b.id AND m.id=?";
 
 		try {
 			ps = conn.prepareStatement(sql);
@@ -279,8 +280,8 @@ public class MemberListDAO {
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT blackidx, id, reason, reg_date, managerid, blackstatus FROM ("
-				+ "SELECT ROW_NUMBER() OVER(ORDER BY blackidx DESC) "
-				+ "AS rnum, blackidx, id, reason, reg_date, managerid, blackstatus FROM blacklist WHERE blackstatus='TRUE') WHERE rnum BETWEEN ? AND ?";
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY blackstatus DESC, blackidx DESC) "
+				+ "AS rnum, blackidx, id, reason, reg_date, managerid, blackstatus FROM blacklist) WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberBlackList = new ArrayList<MemberListDTO>();
 		try {
@@ -311,7 +312,7 @@ public class MemberListDAO {
 	}
 
 	private int black_getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(blackidx) FROM blacklist WHERE blackstatus='TRUE'";
+		String sql = "SELECT COUNT(blackidx) FROM blacklist";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -343,9 +344,10 @@ public class MemberListDAO {
 				int cnt = 0;
 				if (ps.executeUpdate() > 0) { // 상태를 true로 바꾼다.
 					cnt += 1;
-					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE blackidx=?";
+					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE id=?";
 					ps = conn.prepareStatement(black_sql2);
-					ps.setInt(1, dto.getBlackidx());
+					//ps.setInt(1, dto.getBlackidx());
+					ps.setString(1, dto.getId());
 					ps.executeUpdate();
 					success = true;
 				}
