@@ -42,6 +42,7 @@ table, th,td {
 			<table>
 				<tr>
 					<th>블랙리스트 등록일</th>
+					<th>블랙리스트 상태</th>
 					<th>아이디</th>
 					<th>블랙리스트 등록사유</th>
 					<th>등록 관리자</th>
@@ -50,6 +51,7 @@ table, th,td {
 				<c:forEach items="${memberBlackList}" var="black">
 					<tr>
 						<td>${black.reg_date}</td>
+						<td>${black.blackstatus}</td>
 						<td>${black.id}</td>
 						<td>${black.reason}</td>
 						<td>${black.managerid}</td>
