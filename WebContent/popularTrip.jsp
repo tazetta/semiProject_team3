@@ -29,33 +29,31 @@ button {
 	text-align: center;
 } */
 /* 브라우저 마진과 패딩 리셋 */
-	* {margin:0;padding:0;}
-
-	/* INPUT 가리기 */
-	.section [id*="slide"] {display:none;}
-	
-	/* 슬라이드 영역 - max-width 크기를 조절해주면 됩니다*/
-	.section .slidewrap {max-width:700px;margin-left:20px;overflow:hidden;position:relative;}
-	.section .slidelist {white-space:nowrap;font-size:0;}
+* {margin:0;padding:0;}
+	.section input[id*="slide"] {display:none;}
+	.section .slidewrap {max-width:700px;margin:20px;}
+	.section .slidelist {white-space:nowrap;font-size:0;overflow:hidden;position:relative;}
 	.section .slidelist > li {display:inline-block;vertical-align:middle;width:100%;transition:all .5s;}
 	.section .slidelist > li > a {display:block;position:relative;}
-
-	/* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
-	.section .slide-control {position:absolute;top:0;left:0;z-index:9;width:100%;height:100%;}
-	.section .slide-control label {position:absolute;z-index:1;top:50%;transform:translateY(-50%);padding:50px;cursor:pointer;}
-	.section .slide-control .left {left:20px;background:url('./left.png') center center / 100% no-repeat;}
-	.section .slide-control .right {right:20px;background:url('./right.png') center center / 100% no-repeat;}
-	.section .slide-control [class*="control"] {display:none;}
-
-	/* INPUT이 체크되면 변화값이 li까지 전달되는 스타일 */
-	.section [id="slide01"]:checked ~ .slidewrap .slidelist > li {transform:translateX(0%);}
-	.section [id="slide02"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-100%);}
-	.section [id="slide03"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-200%);}
+	.section .slidelist > li > a img {width:100%;}
+	.section .slidelist label {position:absolute;z-index:10;top:50%;transform:translateY(-50%);padding:50px;cursor:pointer;}
+	.section .slidelist .textbox {position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1.6;text-align:center;}
+	.section .slidelist .textbox h3 {font-size:36px;color:#fff;;transform:translateY(30px);transition:all .5s;}
+	.section .slidelist .textbox p {font-size:16px;color:#fff;opacity:0;transform:translateY(30px);transition:all .5s;}
 	
-	/*  INPUT이 체크되면 변화값이 좌우 슬라이드 버튼을 담고 있는 div 까지 전달되는 스타일 */
-	.section [id="slide01"]:checked ~ .slidewrap .control01 {display:block;}
-	.section [id="slide02"]:checked ~ .slidewrap .control02 {display:block;}
-	.section [id="slide03"]:checked ~ .slidewrap .control03 {display:block;}
+	/* input에 체크되면 슬라이드 효과 */
+	.section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {transform:translateX(0%);}
+	.section input[id="slide02"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-100%);}
+	.section input[id="slide03"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-200%);}
+	
+	/* 좌,우 슬라이드 버튼 */
+	.slide-control > div {display:none;}
+	.section .left {left:30px;background:url('./left.png') center center / 100% no-repeat;}
+	.section .right {right:30px;background:url('./right.png') center center / 100% no-repeat;}
+	.section input[id="slide01"]:checked ~ .slidewrap .slide-control > div:nth-child(1) {display:block;}
+	.section input[id="slide02"]:checked ~ .slidewrap .slide-control > div:nth-child(2) {display:block;}
+	.section input[id="slide03"]:checked ~ .slidewrap .slide-control > div:nth-child(3) {display:block;}
+	
 	
 	.img{
 		width:700px;
@@ -65,7 +63,7 @@ button {
 		font-size:110%;
 		font-weight:600;
 		position:absolute;
-		top:0;
+		top:240px;
 		color: black;
 		z-index:9;
 		text-shadow: 2px 2px 2px white;
@@ -73,11 +71,7 @@ button {
 		padding:5px 10px;
 	}
 	
-	.a{
-	 z-index:10;
-	 border: 3px solid red;
-	}
-	
+
 	
 </style>
 </head>
@@ -89,78 +83,56 @@ button {
 	<div class="slidewrap">
 		<span>인기있는 여행지 </span>
 		<ul class="slidelist">
-			<li>
-				<a class="a" href="#" >
-					<img src="#" class="img">
+			<!-- 슬라이드 영역 -->
+			<li class="slideitem">
+				<a href="" target="_blanck" class="a">
+					<div class="textbox">
+						<h3>첫번째</h3>
+					</div>
+					<img src="" class="img">
 				</a>
 			</li>
-			<li>
-				<a class="a" href="#" >
-					<img src="#" class="img">
+			<li class="slideitem">
+				<a href="" target="_blanck" class="a">
+					
+					<div class="textbox">
+						<h3>두번째</h3>
+					</div>
+					<img src="" class="img">
 				</a>
 			</li>
-			<li>
-				<a class="a" href="#" >
-					<img src="#" class="img">
+			<li class="slideitem">
+				<a href="" target="_blanck" class="a"> 
+					<div class="textbox">
+						<h3>세번째</h3>
+					</div>
+					<img src="" class="img">
 				</a>
-			</li>
-		</ul>
+			</li class="slideitem">
 
-		<div class="slide-control">
-			<div class="control01">
-				<label for="slide03" class="left"></label>
-				<label for="slide02" class="right"></label>
+			<!-- 좌,우 슬라이드 버튼 -->
+			<div class="slide-control">
+				<div>
+					<label for="slide03" class="left"></label>
+					<label for="slide02" class="right"></label>
+				</div>
+				<div>
+					<label for="slide01" class="left"></label>
+					<label for="slide03" class="right"></label>
+				</div>
+				<div>
+					<label for="slide02" class="left"></label>
+					<label for="slide01" class="right"></label>
+				</div>
 			</div>
-			<div class="control02">
-				<label for="slide01" class="left"></label>
-				<label for="slide03" class="right"></label>
-			</div>
-			<div class="control03">
-				<label for="slide02" class="left"></label>
-				<label for="slide01" class="right"></label>
-			</div>
-		</div>
+
+		</ul>
 	</div>
 </div>
 
-		<!-- <div class="container">
-			 <ul>
-				<li class="inner"><img src="#"></li>
-				<li class="inner"><img src="#"></li>
-				<li class="inner"><img src="#"></li>
-			</ul> 
-			<div class="inner">
-				<img src="#">
-			</div>
-			<div class="inner">
-				<img src="#">
-			</div>
-			<div class="inner">
-				<img src="#">
-			</div>
-		</div> -->
-
-	<!-- <button class="button1">1</button>
-	<button class="button2">2</button>
-	<button class="button3">3</button> -->
 </body>
 <script>
-	/* $(".button1").click(function() {
-		$(".container").css({
-			"transform" : "translate(0vw)"
-		});
 
-	});
-	$(".button2").click(function() {
-		$(".container").css({
-			"transform" : "translate(-100vw)"
-		});
-	});
-	$(".button3").click(function() {
-		$(".container").css({
-			"transform" : "translate(-200vw)"
-		});
-	}); */
 
 	$(document).ready(
 			function() {
@@ -175,15 +147,15 @@ button {
 							for (var i = 0; i < data.list.length; i++) {
 								console.log("list: ", data.list[i]);
 								console.log("img: ", data.list[i].firstImage);
-								console.log("contentIdx: ",data.list[i].contentId);
-								$(".img").eq(i).attr({
-									"src" : data.list[i].firstImage
-								});
-								$(".a").eq(i).attr({"href":"./tripDetail?contentId="+data.list[i].contentId});
-								/* $(".a").eq(i).append("<span>"+data.list[i].title+"</span>"); */
+								console.log("contentId: ", data.list[i].contentId);
+								$(".img").eq(i).attr({"src" : data.list[i].firstImage });
+								$(".a").eq(i).attr({"href" : "./tripDetail?contentId="+ data.list[i].contentId});
+								 $(".textbox>h3").eq(i).html(data.list[i].title); 
+								 
 								console.log(".img : ", $(".img").eq(i).attr("src"));
-								console.log("title:",data.list[i].title);
-		
+								console.log("title:", data.list[i].title);
+								console.log("href:",$(".a").eq(i).attr("href"));
+
 							}
 						}
 					},
