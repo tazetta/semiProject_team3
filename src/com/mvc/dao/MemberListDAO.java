@@ -413,4 +413,36 @@ public class MemberListDAO {
 		System.out.println("블랙리스트 삭제여부 :" + success);
 		return success;
 	}
+
+	public MemberListDTO memberDelDetail(String id) {
+		MemberListDTO dto = null;
+		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt FROM "
+					+ "member WHERE id=?";
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			System.out.println("쿼리 실행");
+			rs = ps.executeQuery();
+			System.out.println("rs : " + rs);
+			if (rs.next()) {
+				dto = new MemberListDTO();
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				dto.setName(rs.getString("name"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setEmail(rs.getString("email"));
+				dto.setWithdraw(rs.getString("withdraw"));
+				dto.setReportcnt(rs.getInt("reportcnt"));
+				dto.setUpdate_date(rs.getDate("update_date"));
+				dto.setBlackcnt(rs.getInt("blackcnt"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return dto;
+	}
 }

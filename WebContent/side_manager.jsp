@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
+
 #side {
 	position: relative;
 	float: left;
@@ -14,9 +15,15 @@
 	padding: 10px;
 }
 
-table, th, td {
-	border: 1px solid lightgray;
+#aside_table{
 	border-collapse: collapse;
+	margin-top : 50px; 
+	margin-left : 200px;
+	margin-right : 100px;
+}
+
+th,td {
+	border: 1px solid lightgray;
 	text-align: center;
 	padding: 20px;
 }
@@ -31,19 +38,11 @@ a:hover {
 	font-weight: 600;
 }
 
-.search {
-	padding: 30px;
-}
-
-#content {
-	margin-left: 300px;
-	margin-right: 300px;
-}
 </style>
 </head>
 <body>
 	<div id="side">
-		<table>
+		<table id="aside_table">
 			<tr>
 				<td><a href="./memberList" target="_parent">일반 회원</a></td>
 			</tr>
@@ -55,21 +54,5 @@ a:hover {
 			</tr>
 		</table>
 	</div>
-
-	<!-- <div class="search">
-			<select id="filter" name="filter">
-				<option value="id">아이디</option>
-				<option value="name">이름</option>
-			</select> 
-			<input type="text" id="memberKeyword"/> 
-			<button id="memberSearch">검색</button>
-	</div> -->
 </body>
-<script>
-/* $('#memberSearch').click(function(){
-	var searchType = $('#filter').val()
-	var memberKeyword = $('#memberKeyword').val()
-    location.href="./memberSearch?searchType="+searchType+"&memberKeyword="+memberKeyword;
-}); */
-</script>
 </html>
