@@ -127,7 +127,7 @@
 		</c:if>
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
-			<c:if test="${comment.deactivate eq 'FALSE'}">
+		
 				<table id="comment_table" class ="comm_table">
 					<tr class ="comm_table">
 						<td class ="comm_table" style="width:150px;">${comment.id}</td>
@@ -148,13 +148,14 @@
 						</td>
 					</tr>
 				</table>			
-			</c:if>
+			
 		</c:forEach>
+		</c:if>
 		<span id="test">
 		</span>
 			<div id="more">
          	<c:if test="${commcurrPage < maxPage}">
-         		<a style="background-color: lightgray;" id = "more" class="mouse_over" href="./boardDetail?boardIdx=${dto.boardIdx}&page=${currPage}&commpage=${commcurrPage+1}">더보기</a></c:if>
+         		<a style="background-color: lightgray;" id = "more" class="mouse_over" href="./boardDetail?boardIdx=${dto.boardIdx}&page=${currPage}&commpage=${commcurrPage+1}">더보기</a>         		
 		 	</c:if>
 			</div>
 		

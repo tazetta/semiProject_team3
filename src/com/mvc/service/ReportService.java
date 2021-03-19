@@ -205,7 +205,7 @@ public class ReportService {
 			BoardDTO dto = dao.detail(boardIdx);
 			
 			dao = new BoardDAO();		
-			HashMap<String, Object> map = dao.comm_list(1000,boardIdx);
+			HashMap<String, Object> map = dao.comm_list1(1000,boardIdx);
 			System.out.println(dto +"/"+map);
 			
 			ReportDAO dao1 = new ReportDAO();
