@@ -7,21 +7,34 @@
 <meta charset="UTF-8">
 <title>블랙리스트 회원정보 상세보기</title>
 <style>
-table, th, td {
-	border: 1px solid lightgray;
+#mdetail{
+	width: 1300px;
+	height : 300px;
+	float: right;
+	margin-right: 98px;
+	margin-top : -210px;
+}
+
+.memberList_de {
 	border-collapse: collapse;
-	text-align: center;
-	padding: 20px;
-	white-space: nowrap;
+	margin-top: 75px;
+	margin-left: 65px;
 }
 
-.memberList_main{
+th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	font-size: 13px;
+}
+
+#caption{
+	font-weight: 600;
+}
+
+.black {
+	width: 200px;
 	margin: auto;
-}
-
-.memberexist{
-	margin-top: 50px;
-	text-align: center;
+	padding-top: 65px;
 }
 </style>
 
@@ -37,8 +50,11 @@ table, th, td {
 	<jsp:include page="side_manager.jsp" />
 
 
-		<div>
-			<table class="memberList_main">
+		<div id="mdetail">
+			<table class=memberList_de>
+			<h5 id="cate">블랙리스트 회원</h5>
+			  <h3 id="caption">[${dto.id}] 님의 상세 정보</h3>
+			  <hr/>
 			<tr>
                 <th>블랙리스트 등록일</th>
 				<th>등록 관리자</th>                
@@ -62,7 +78,7 @@ table, th, td {
                 <td>${dto.update_date}</td>           
             </tr>
 			</table>
-				<div class="memberexist">
+				<div class="black">
 				<c:if test="${dto.blackstatus ne 'FALSE'}">
                 	<button onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

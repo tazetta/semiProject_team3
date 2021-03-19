@@ -8,17 +8,35 @@
 <title>블랙리스트 회원정보 리스트</title>
 </head>
 <style>
-table, th,td {
-	border: 1px solid lightgray;
+#memberList_main{
+	width: 900px;
+	height : 660px;
+	margin: 0 508px;
+}
+
+#member {
 	border-collapse: collapse;
+	margin: 45px 0;
+}
+
+th,td{
+	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 20px;
-	
-	white-space: nowrap;
+	padding: 8px;
+	font-size: 14px;
+}
+
+td{
+	background-color: white;
+}
+
+#title {
+	background-color: gray;
+	color : white;
 }
 
 #page{
-     margin-top:10px;
+     margin-top:50px;
      text-align:center;           
 }
 
@@ -26,7 +44,11 @@ table, th,td {
 	font-size : 16px;
 	border:1px solid lightgray;
 	padding: 2px 10px;
-	margin:2px
+	margin:2px;
+}
+
+.genmem, .blackmem, .delmem{
+	background-color: rgb(240, 191, 58);
 }
 </style>
 <body>
@@ -40,9 +62,9 @@ table, th,td {
 	<jsp:include page="side_manager.jsp" />
 
 
-		<div class="memberList_main">
-			<table>
-				<tr>
+		<div class="blackList_main">
+			<table id="member">
+				<tr id="title">
 					<th>블랙리스트 등록일</th>
 					<th>블랙리스트 상태</th>
 					<th>아이디</th>
