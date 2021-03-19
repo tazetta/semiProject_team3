@@ -254,6 +254,62 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 		return success;
 	}
 	
+	/*미답변 리스트*/
+	public HashMap<String, Object> unAnsList(int group) {
+int pagePerCnt = 10; // 페이지 당 보여줄 갯수
+		
+		int end= group*pagePerCnt; //페이지 끝 rnum
+		int start = end-(pagePerCnt-1); //페이지 시작 rnum
+		
+		String sql = "SELECT rnum, qnaidx, subject, reg_date, id, ansidx " + 
+				"FROM (SELECT  ROW_NUMBER() OVER(ORDER BY q.qnaidx DESC ) AS rnum, q.qnaidx , q.subject , q.reg_date, q.id, a.ansidx " + 
+				"FROM question q,answer a WHERE  q.qnaidx=a.qnaidx(+) AND a.ansidx is null) WHERE rnum BETWEEN ? AND ?";
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				QnaDTO dto = new QnaDTO();
+				dto.setRnum(rs.getInt("rnum"));
+				dto.setQnaIdx(rs.getInt("qnaidx"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setId(rs.getString("id"));
+				dto.setAnsIdx(rs.getInt("ansidx"));
+				list.add(dto);
+			}
+			int maxPage = getMaxPageUn(pagePerCnt); 
+			System.out.println("maxPage:"+maxPage);
+
+			map.put("list",list);
+			map.put("maxPage", maxPage); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}return map;
+	}
+	
+	/*미답변 마지막 페이지*/
+	/* 마지막 페이지*/
+	private int getMaxPageUn(int pagePerCnt) {
+		 String sql= "SELECT COUNT(q.qnaidx) FROM question q, answer a WHERE  q.qnaidx=a.qnaidx(+)  AND   ansidx is null";
+		 int max = 0;
+		 try {
+				ps = conn.prepareStatement(sql);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					int cnt = rs.getInt(1); 
+					max = (int)Math.ceil(cnt/(double)pagePerCnt);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return max;
+	}
 	
 	
 
