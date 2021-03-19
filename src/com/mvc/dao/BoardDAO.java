@@ -357,11 +357,15 @@ public class BoardDAO {
 		return max;
 	}
 	
-	public HashMap<String, Object> comm_list(int page,String boardIdx) {
+	public HashMap<String, Object> comm_list(int page,String boardIdx, int type) {
 		//String sql = "SELECT reIdx,id,content,reg_date,deactivate FROM BBS_COMMENT WHERE boardIdx=? AND deactivate='false' ORDER BY reIdx DESC";
+		String add = " deactivate='FALSE'  AND ";
+		if(type==2) {
+			add="";
+		}
 		String sql = "SELECT  reIdx,id,content,reg_date,deactivate FROM (" + 
 		"    SELECT ROW_NUMBER() OVER(ORDER BY reIdx DESC) AS rnum,reIdx,id,content,reg_date,deactivate " + 
-		"        FROM BBS_COMMENT WHERE deactivate='FALSE'  AND boardIdx=?" + 
+		"        FROM BBS_COMMENT WHERE"+add+" boardIdx=?" + 
 		") WHERE rnum BETWEEN 1 AND ?";
 		HashMap<String,Object> map= new HashMap<String, Object>();
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
@@ -369,6 +373,7 @@ public class BoardDAO {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, boardIdx);
 			ps.setInt(2, page*10);
+			System.out.println("sql = "+sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				CommentDTO dto = new CommentDTO();
@@ -392,40 +397,7 @@ public class BoardDAO {
 		return map;
 	}
 	
-	public HashMap<String, Object> comm_list1(int page,String boardIdx) {
-		//String sql = "SELECT reIdx,id,content,reg_date,deactivate FROM BBS_COMMENT WHERE boardIdx=? AND deactivate='false' ORDER BY reIdx DESC";
-		String sql = "SELECT  reIdx,id,content,reg_date,deactivate FROM (" + 
-		"    SELECT ROW_NUMBER() OVER(ORDER BY reIdx DESC) AS rnum,reIdx,id,content,reg_date,deactivate " + 
-		"        FROM BBS_COMMENT WHERE  boardIdx=?" + 
-		") WHERE rnum BETWEEN 1 AND ?";
-		HashMap<String,Object> map= new HashMap<String, Object>();
-		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, boardIdx);
-			ps.setInt(2, page*10);
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				CommentDTO dto = new CommentDTO();
-				dto.setId(rs.getString("id"));
-				dto.setContent(rs.getString("content"));
-				dto.setReg_date(rs.getDate("reg_date"));
-				dto.setReIdx(rs.getInt("reIdx"));
-				dto.setDeactivate(rs.getString("deactivate"));
-				list.add(dto);			
-			}
-			int maxPage= comm_getMaxPage(10,boardIdx);
-			map.put("list",list);
-			map.put("maxPage",maxPage);
-			System.out.println("maxPage: "+ maxPage);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		
-		return map;
-	}
+	
 
 	public CommentDTO commentUpdateForm(String reIdx) {
 		String sql = "SELECT content,id,reIdx FROM bbs_comment WHERE reIdx=?";
