@@ -8,39 +8,42 @@
 <title>관리자 페이지 - 메인</title>
 <link rel="stylesheet" type="text/css" href="basic.css">
 <Style>
-#manager_main{
+#manager_main {
 	width: 1000px;
-	height : 450px;
+	height: 450px;
 	margin: auto;
 }
 
 #manager_table {
-	width : 600px;
+	width: 620px;
 	border-collapse: collapse;
-	margin-top: 30px;
+	margin-top: 55px;
+	margin-left: 200px;
 }
 
-th,td{
-	border-bottom: 1px solid lightgray; 
+th, td {
+	border-bottom: 1px solid lightgray;
 	text-align: center;
 	padding: 8px;
 	font-size: 14px;
 }
 
-td{
+td {
 	background-color: white;
 }
 
 #title {
 	background-color: gray;
-	color : white;
+	color: white;
 }
 
-
-.button{
-	padding: 20px;
-	margin: 4px;
+.button {
 	text-align: right;
+}
+
+#who {
+	text-align: center;
+	margin-top: 10%
 }
 </Style>
 </head>
@@ -51,15 +54,19 @@ td{
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 
+
 	<div id="manager_main">
+		<span>
+			<h4 id="who">로그인한 관리자는 [ ${sessionScope.loginId} ] 입니다.</h4>
+		</span>
 		<table id="manager_table">
 			<tr id="title">
 				<th>관리자 ID</th>
 				<th>등록일</th>
 				<th>이름</th>
-				
+
 				<c:if test="${sessionScope.loginId eq 'sysadmin'}">
-				<th></th>
+					<th></th>
 				</c:if>
 			</tr>
 			<c:forEach items="${managerList}" var="manager">
@@ -71,14 +78,14 @@ td{
 					<c:if test="${sessionScope.loginId eq 'sysadmin'}">
 						<td><a href="managerDel?managerid=${manager.managerid}">삭제</a></td>
 					</c:if>
-					
+
 				</tr>
 			</c:forEach>
 
 			<c:if test="${sessionScope.loginId eq 'sysadmin'}">
-				<div class="button">
+				<span class="button">
 					<input type="button" value="신규 관리자 등록" onclick="show();" />
-				</div>
+				</span>
 			</c:if>
 		</table>
 	</div>

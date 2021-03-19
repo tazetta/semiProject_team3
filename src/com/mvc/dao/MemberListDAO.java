@@ -106,14 +106,14 @@ public class MemberListDAO {
 
 		MemberListDTO dto = null;
 		String sql = "SELECT m.reg_date, m.id, m.name, m.phone, m.email, m.withdraw, m.reportcnt, m.update_date, m.blackcnt, b.blackstatus FROM "
-					+ "member m, blacklist b WHERE m.id=b.id AND m.id=?";
+					+ "member m, blacklist b WHERE m.id=b.id(+) AND m.id=?";
 
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			System.out.println("쿼리 실행");
 			rs = ps.executeQuery();
-			System.out.println("rs : " + rs);
+			System.out.println("id : " + id);
 			if (rs.next()) {
 				dto = new MemberListDTO();
 				dto.setReg_date(rs.getDate("reg_date"));
