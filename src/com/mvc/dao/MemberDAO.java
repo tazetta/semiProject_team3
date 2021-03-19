@@ -385,7 +385,7 @@ public class MemberDAO {
 		return map;
 	}
 	
-	/*가봤어요 마지막 페이지*/
+	/* 북마크 마지막 페이지*/
 	private int getVisitedMaxPage(int pagePerCnt, String loginId, int type) {
 		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type=?";
 		int max = 0;

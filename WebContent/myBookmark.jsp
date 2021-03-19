@@ -11,6 +11,7 @@
 	min-width: 1400px;
 }
 
+
 /*좌측 카테고리*/
 table, tr, td {
 	border: 1px solid lightgray;
@@ -40,24 +41,16 @@ section#left {
 	float: left;
 	margin: 10px;
 	width: 80%;
-	height: 500px;
+/* 	height: 500px; */
 	/* flex-direction:column; */
 }
 
-span {
+#content span {
 	position: relative;
 	top: 50px;
+	left:0px;
 	font-weight: 600;
 }
-
-/* table#bookmarkList {
-	background-color: white;
-	text-align: center;
-	position: relative;
-	top: 80px;
-	margin: 0 auto;
-	width: 1200px;
-} */
 
 .noneList {
 	position: relative;
@@ -74,30 +67,37 @@ span {
     margin-right: 2.5%;
     width: 95%;
     height: auto; 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
 }
 .bottom{
+position:relative;
+bottom:0px;
 float:right;
 }
 
-#list{
-   background-color: #FFFFFF;
-    margin-top: 1%;
-    margin-right: 1%;
-    width: 80%;
+.bottom a{
+	background-color: lightgray;
+	padding:5px;
+}
+
+#list{ 
+position:relative;
+top:20px;
+left:60px;
+background-color: #FFFFFF;
+    margin-top:30px;
+
+    width: 60%;
     float: left;
     overflow: hidden;
+}
+
+#list table, #list tr, #list th,#list td{
+padding:5px 10px;
+border:none;
 }
 /*페이징*/
 .pageArea {
 	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
 }
 
 .pageArea span {
@@ -157,9 +157,9 @@ a {
 							<th colspan="3" style="font-size:150%">${bm.title }</th>
 						</tr>
 						<tr>
-							<td id="user" rowspan="2">
+							<td id="trip" rowspan="2">
 								<div>
-									<a href="./tripDetail?contentId=${bm.contentid}" target=window.open()><img src="${bm.firstimage}" width="300px" height="200px">
+									<a href="./tripDetail?contentId=${bm.contentid}" target=window.open()><img src="${bm.firstimage}" width="250px" height="150px">
 									</a>
 								</div>
 							</td>
@@ -205,7 +205,7 @@ a {
 	
 	// 말줄임 기능
 	$('.ellipsis').each(function(){
-	    var length = 200; //글자수
+	    var length = 100; //글자수
 	    $(this).each(function(){
 	    	
 	      if($(this).text().length >= length){

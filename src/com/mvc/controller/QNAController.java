@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.QnaSerivce;
 
-@WebServlet({ "/qnaList", "/qnaListUser", "/qnaDetail", "/writeQue", "/writeAns", "/writeFormA","/ansDetail","/qnaDel","/unAnsList" })
+@WebServlet({ "/qnaList", "/qnaListUser", "/qnaDetail", "/writeQue", "/writeAns", "/writeFormA","/ansDetail",
+	"/qnaDel","/unAnsList" })
 public class QNAController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
