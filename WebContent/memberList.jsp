@@ -8,15 +8,15 @@
 <title>일반 회원정보 리스트</title>
 
 <style>
-#manager_main{
-	width: 800px;
-	height : 450px;
-	background-color: whitesmoke;
-	margin: auto;
+#memberList_main{
+	width: 900px;
+	height : 660px;
+	margin: 0 508px;
 }
 
 #member {
 	border-collapse: collapse;
+	margin: 45px 0;
 }
 
 th,td{
@@ -36,7 +36,7 @@ td{
 }
 
 #page{
-     margin-top:10px;
+     margin-top:50px;
      text-align:center;           
 }
 
@@ -62,7 +62,7 @@ td{
 	<jsp:include page="search_member.jsp"/>
 
 
-		<div class="memberList_main">
+		<div id="memberList_main">
 			<table id="member">
 				<tr id="title">
 					<th>가입일</th>

@@ -11,8 +11,8 @@
 
 
 .search {
-	position: relative;
-	left:15%;
+	margin-left:15%;
+	margin-top : 39px;
 }
 </style>
 </head>
