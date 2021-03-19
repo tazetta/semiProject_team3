@@ -52,13 +52,13 @@ public class TripManageDAO {
 		}
 	}
 	
-	public boolean insert(TripDTO dto) {
-		boolean success = false;
+	public long insert(TripDTO dto) {
+		long success = 0;
 		String sql = "INSERT INTO trip(managerId,contentId,firstImage,latitude,longitude,address,title,"
 				+ "contentCode,mediumCode,smallCode,areaCode,cityCode,largeIdx,overview) "
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql, new String[] {"contentId"});
 			ps.setString(1, dto.getManagerId());
 			ps.setInt(2, dto.getContentId());
 			ps.setString(3, dto.getFirstImage());
@@ -73,8 +73,10 @@ public class TripManageDAO {
 			ps.setString(12, dto.getCityCode());
 			ps.setString(13, dto.getLargeIdx());
 			ps.setString(14, dto.getOverview());
-			if (ps.executeUpdate() > 0) {
-				success = true;
+			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				success = rs.getLong(1);
 			}
 			System.out.println("insert success : " + success);
 		} catch (SQLException e) {
@@ -173,7 +175,7 @@ public class TripManageDAO {
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		TripDTO tripDTO = null;
 		String sql = "SELECT contentId, title, reg_date, deactivate FROM ("
-				+ "SELECT ROW_NUMBER() OVER(ORDER BY title) AS rnum, "
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, "
 				+ "contentId, title, reg_date, deactivate FROM trip"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
