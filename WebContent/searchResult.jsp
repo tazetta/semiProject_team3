@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>테마별</title>
+<title>메인</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 body {

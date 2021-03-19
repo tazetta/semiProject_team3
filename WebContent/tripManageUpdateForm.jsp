@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여행지 수정</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 table, th, td {
@@ -100,9 +100,10 @@ textarea {
 					<td><input type="text" id="contentId" value="${tripDTO.contentId}" readonly />
 				</tr>
 				<tr>
-					<th>이미지 경로</th>
+					<th>이미지 URL</th>
 					<td><input type="text" id="firstImage"
 						value="${tripDTO.firstImage}" /></td>
+						<td><img id="img" src="${tripDTO.firstImage}" width="100px" height="100px"/></td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -194,6 +195,13 @@ $('a').hover(function(){
 	   $(this).css({'font-weight':'600'});
 },function(){
 	    $(this).css({'font-weight':'1'});
+});
+
+$('#firstImage').keyup(function(){
+	var imgSource = $(this).val();
+	$('#img').attr('src',imgSource);
+    $('#img').attr('width', "100px");
+    $('#img').attr('height', "100px");
 });
 
 function largeList(type) {

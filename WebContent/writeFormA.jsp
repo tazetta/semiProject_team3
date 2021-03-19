@@ -82,7 +82,19 @@ textarea {
 					<tr>
 						<td colspan="2">
 						<input type="button" value="저장" id="save" /> 
-						<input type="button" id="cancel" onclick="location.href='./qnaList'" value="취소" /></td>
+						
+						
+						
+						<c:choose>
+							<c:when test="${qna.ansIdx gt 0}">
+									<input type="button" id="cancel" onclick="location.href='./qnaList'" value="취소" />
+							</c:when>
+							<c:otherwise>
+								 <input type="button" id="cancel" onclick="location.href='./unAnsList'" value="취소" />
+							</c:otherwise>
+
+						</c:choose>
+						</td>
 					</tr>
 				</table>
 			</div>

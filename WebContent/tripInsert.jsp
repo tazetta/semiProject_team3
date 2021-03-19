@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여행지 추가</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 table, th, td {
@@ -386,9 +386,9 @@ input{
 					data : params,
 					dataType : 'JSON',
 					success : function(data) {
-						if (data.success == true) {
+						if (data.contentId > 0) {
 							alert('여행지를 추가했습니다.');
-							location.href = "tripInsertInformation";
+							location.href = "./tripManageDetail?contentId="+data.contentId+"&page=1";
 						} else {
 							alert('잠시 후 다시 시도해 주세요.');
 						}

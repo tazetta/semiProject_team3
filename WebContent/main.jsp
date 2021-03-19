@@ -94,7 +94,7 @@ body {
 					</tr>
 					<tr>
 						<th>PW</th>
-						<td><input type="text" name="userPw" /></td>
+						<td><input type="password" name="userPw" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="login" /> <input
