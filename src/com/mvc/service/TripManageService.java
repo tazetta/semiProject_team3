@@ -38,7 +38,6 @@ public class TripManageService {
 
 	public void tripInsert() throws IOException {
 		if (isManager()) {
-			boolean success = false;
 			String managerId = req.getParameter("managerId");
 			String contentId = req.getParameter("contentId");
 			String firstImage = req.getParameter("firstImage");
@@ -75,10 +74,10 @@ public class TripManageService {
 			dto.setOverview(overview);
 
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			success = tripManageDAO.insert(dto);
-			System.out.println("insert 성공 여부 : " + success);
+			long idx = tripManageDAO.insert(dto);
+			System.out.println("insert 성공 여부 : " + idx);
 
-			map.put("success", success);
+			map.put("contentId", idx);
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);
