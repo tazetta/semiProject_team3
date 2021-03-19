@@ -131,7 +131,8 @@ public class BoardService {
 				}
 			}
 			dao = new BoardDAO();
-			HashMap<String, Object> map = dao.comm_list(group,boardIdx);
+			int type = 1;
+			HashMap<String, Object> map = dao.comm_list(group,boardIdx,type);
 			System.out.println("댓글리스트 사이즈: "+map.get("maxPage"));
 			System.out.println("댓글 페이지 : "+ group);
 			map.put("commcurrPage",group);

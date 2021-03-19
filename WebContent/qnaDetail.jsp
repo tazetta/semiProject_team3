@@ -69,7 +69,17 @@ span {
 								<c:if test="${dto.ansIdx eq 0}">
 									<button class="wd" onclick="location.href='writeFormA?qnaIdx=${dto.qnaIdx}'">답변하기</button>
 									</c:if>
+									<input type="button" onclick="location.href='./unAnsList'" value="목록" />
+								<%-- 	<c:choose>
+							<c:when test="${qna.ansIdx gt 0}">
 									<input type="button" onclick="location.href='./qnaList'" value="목록" />
+							</c:when>
+							<c:otherwise>
+								<input type="button" onclick="location.href='./unAnsList'" value="목록" />
+							</c:otherwise>
+
+						</c:choose> --%>
+									
 							</c:when>
 							<c:otherwise>
 								<c:if test="${dto.ansIdx eq 0}">
