@@ -26,10 +26,9 @@ public class MemberListService {
 	}
 
 	public void memberList() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 
 			String pageParam = req.getParameter("page");
 			System.out.println("page:" + pageParam);
@@ -54,10 +53,9 @@ public class MemberListService {
 	}
 
 	public void memberDetail() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String id = req.getParameter("id");
 			System.out.println("상세보기 id: " + id);
 
@@ -83,10 +81,9 @@ public class MemberListService {
 	}
 
 	public void memberDelList() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String pageParam = req.getParameter("page");
 			System.out.println("page:" + pageParam);
 			// 한페이지 그룹 -> 1~10번
@@ -110,10 +107,9 @@ public class MemberListService {
 	}
 
 	public void memberDelDetail() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String id = req.getParameter("id");
 			System.out.println("탈퇴회원 상세보기 id: " + id);
 
@@ -139,10 +135,9 @@ public class MemberListService {
 	}
 
 	public void memberDraw() throws ServletException, IOException { // 탈퇴 회원 삭제
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String id = req.getParameter("id");
 			System.out.println("삭제할 탈퇴회원 id: " + id);
 
@@ -164,10 +159,9 @@ public class MemberListService {
 	}
 
 	public void memberRestore() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String id = req.getParameter("id");
 			System.out.println("복구할 탈퇴회원 id: " + id);
 
@@ -218,10 +212,9 @@ public class MemberListService {
 	}
 
 	public void memberBlackAddForm() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String id = req.getParameter("id");
 			String managerid = req.getParameter("managerid");
 			System.out.println("블랙리스트에 추가할 id: " + id + "/" + managerid);
@@ -246,10 +239,9 @@ public class MemberListService {
 	}
 
 	public void memberBlackAdd() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String managerid = req.getParameter("managerid");
 			String id = req.getParameter("id");
 			String reason = req.getParameter("reason");
@@ -280,10 +272,9 @@ public class MemberListService {
 	}
 
 	public void memberBlackList() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 
 			String pageParam = req.getParameter("page");
 			System.out.println("page:" + pageParam);
@@ -308,10 +299,9 @@ public class MemberListService {
 	}
 
 	public void memberBlackDetail() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		String loginId = (String) req.getSession().getAttribute("loginId");
-
-		if (loginId != null) {
+		if (isManager=="true") {
 			String blackidx = req.getParameter("blackidx");
 			System.out.println("상세보기 idx: " + blackidx);
 
@@ -336,10 +326,9 @@ public class MemberListService {
 	}
 
 	public void memberBlackDel() throws ServletException, IOException { 
-		
-		String loginId = (String) req.getSession().getAttribute("loginId");
+		String isManager = (String) req.getSession().getAttribute("isManager");
 
-		if (loginId != null) {
+		if (isManager=="true") {
 			String blackidx = req.getParameter("blackidx");
 			System.out.println("삭제할 블랙idx: " + blackidx);
 

@@ -86,7 +86,7 @@
         
 	</body>
 	<script>
-		var overChk = false;//중복 체크 여부
+		var overChk = false;
 		var idChk = false;
 		var pwChk = false;
 		var emailChk = false;
@@ -121,34 +121,9 @@
             	
             }
 			
-		});
-/*       	//1. id가 5자 이상인가? id창에서 벗어날때 보이게할것
-        $('#userId').focusout(function(){
-           if($(this).val().length<5){
-                alert('아이디를 5자 이상 입력해주세요.');
-                
-            }else{
-                idChk = true;
-            }
-        });  */
-/*         //2. pw가 5자 이상인가?
-        $('#userPw').focusout(function(){
-            if($(this).val().length<5){
-                alert('비밀번호를  5자 이상 입력해주세요.');
-                
-            }else if($(this).val()!==$('#pwConfirm').val()){
-                $('span').html('비밀번호가 일치하지 않습니다.');
-                $('span').css('color','red');
-                pwChk = false;
-            }else{
-                $('span').html('비밀번호가 일치합니다.');
-                $('span').css('color','green');
-                pwChk = true;
-            }
-        }); */
+		});      
         
-        
-      	//2. pw가 5자 이상인가?
+      	//pw가 5자 이상인가?
         $('#userPw').focusout(function(){
             if($(this).val()!==$('#pwConfirm').val()){
                 $('span').html('비밀번호가 일치하지 않습니다.');
@@ -160,7 +135,7 @@
                 pwChk = true;
             }
         });
-        //3. pw와 pw확인이 값이 일치하는가?
+        //pw와 pw확인이 값이 일치하는가?
         $('#pwConfirm').keyup(function(){
             if($(this).val()!==$('#userPw').val()){
                 $('span').html('비밀번호가 일치하지 않습니다.');
@@ -172,7 +147,7 @@
                 pwChk = true;
             }
         });
-        //4. 핸드폰 번호입력시 하이픈 자동입력
+        //핸드폰 번호입력시 하이픈 자동입력
         $('#userPhone').keydown(function(event) {
             var key = event.charCode || event.keyCode || 0;
             $text = $(this);
@@ -188,21 +163,7 @@
             return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
         });
 	
-/*         //5. 이메일은 형식을 갖추었는가?(@,.)
-        $('#email').focusout(function(){
-            var val = $(this).val();
-            if(val.indexOf('@')<0){
-                alert('이메일의 형식을 맞춰 주세요(@ 추가)');
-                
-            }else if(val.indexOf('.')<0){
-                alert('이메일의 형식을 맞춰주세요(. 추가');
-                
-            }else{
-                emailChk = true;
-            }
-        }); */
-                
-                
+             
 	
 		$('button').click(function(){//버튼을 클릭하는 순간부터
 			

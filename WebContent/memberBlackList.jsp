@@ -13,6 +13,8 @@ table, th,td {
 	border-collapse: collapse;
 	text-align: center;
 	padding: 20px;
+	
+	white-space: nowrap;
 }
 
 #page{
@@ -55,7 +57,7 @@ table, th,td {
 						<td>${black.id}</td>
 						<td>${black.reason}</td>
 						<td>${black.managerid}</td>
-						<td><a href="./memberBlackDetail?blackidx=${black.blackidx}">상세보기</a></td>
+						<td><a href="./memberBlackDetail?blackidx=${black.blackidx}"><b>상세보기</b></a></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -76,4 +78,16 @@ table, th,td {
 			</span>		
 		</div>
 </body>
+<script>
+	var msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+	}
+/* 	
+	$("#add").click(function() {
+		console.log("a");
+	}); */
+		
+	
+</script>
 </html>

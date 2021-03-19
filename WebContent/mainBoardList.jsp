@@ -11,7 +11,7 @@
 	#boardTableDiv{
 		position: absolute;
 		/* top: 100%; */
-		top:300px;
+		top:200px;
 		left:850px;
 		background-color:white;
 		border : 0px;
