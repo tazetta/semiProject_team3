@@ -104,24 +104,6 @@
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
-		
-/*          $('#userName').focusout(function(){
-            if($(this).val()==''){
-                 alert('이름을 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 nameChk = true;
-             }
-         });
-        
-         $('#userPhone').focusout(function(){
-            if($(this).val()==''){
-                 alert('번호를 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 phoneChk = true;
-             }
-         });  */
 	
 	
 		$('#userPhone').keydown(function(event) {
@@ -144,43 +126,16 @@
 			var $name = $("#userName");
 			var $phone = $("#userPhone");
 			
-			if(nameChk){
-				if($name.val()==''){
-					alert('이름을 입력해주세요.');
-					
-				}else if($phone.val()==''){
-					alert('핸드폰번호를 입력해주세요.');
-					
-				}
+			
+			if($name.val()==''){
+				alert('이름을 입력해주세요.');
+				$name.focus();
+			}else if($phone.val()==''){
+				alert('핸드폰번호를 입력해주세요.');
+				$phone.focus();
 			}
+			
 		});
-		
-		/* $('#userId').focusout(function(){
-            if($(this).val()==''){
-                 alert('아이디를 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 idChk = true;
-             }
-         });
-		
-		 $('#userName1').focusout(function(){
-            if($(this).val()==''){
-                 alert('이름을 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 nameChk = true;
-             }
-         }); 
-        
-         $('#userPhone1').focusout(function(){
-            if($(this).val()==''){
-                 alert('번호를 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 phoneChk = true;
-             }
-         });  */
 	
 	
 		 $('#userPhone1').keydown(function(event) {
@@ -216,10 +171,7 @@
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
-			}/* else{
-				alert('새로운 비밀번호를 입력해주세요.');
-				location.href="findpwUpdate.jsp";
-			} */
+			}
 		});
 	</script>
 </html>

@@ -66,7 +66,7 @@
 				margin:2px
 			}
 			#field{
-				margin-left:15%;
+				margin-left:10%;
 				text-align:center;
 				width:1200px;	
 				position: relative;
