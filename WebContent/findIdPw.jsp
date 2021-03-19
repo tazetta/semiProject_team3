@@ -104,24 +104,6 @@
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
-		
-/*          $('#userName').focusout(function(){
-            if($(this).val()==''){
-                 alert('이름을 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 nameChk = true;
-             }
-         });
-        
-         $('#userPhone').focusout(function(){
-            if($(this).val()==''){
-                 alert('번호를 입력해주세요.');
-                 $(this).focusin();
-             }else{
-                 phoneChk = true;
-             }
-         });  */
 	
 	
 		$('#userPhone').keydown(function(event) {
@@ -189,10 +171,7 @@
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
-			}/* else{
-				alert('새로운 비밀번호를 입력해주세요.');
-				location.href="findpwUpdate.jsp";
-			} */
+			}
 		});
 	</script>
 </html>
