@@ -112,8 +112,8 @@
 			<tr>
 				<th>첨부사진</th>
 				<td>
-					<a href="photo/${dto.newFileName}" target="_blank">${dto.oriFileName}</a>
-					<br/>
+					<%-- <a href="photo/${dto.newFileName}" target="_blank">${dto.oriFileName}</a> --%>
+					<!-- <br/> -->
 					<img src="photo/${dto.newFileName}" alt="${dto.oriFileName}" width="500px"/>
 				</td>
 			</tr>			
