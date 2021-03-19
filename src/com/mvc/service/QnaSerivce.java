@@ -38,7 +38,7 @@ public class QnaSerivce {
 	/* 고객센터  리스트 */
 	public void qnaList() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		System.out.println("관리자"+loginId + "의 고객센터 게시글");
+		System.out.println(loginId + "의 고객센터 게시글");
 		
 		String pageParam = req.getParameter("page"); 
 		System.out.println("pageParam:" + pageParam);
@@ -50,6 +50,7 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
+			QnaDAO dao = new QnaDAO();
 			HashMap<String, Object> map = dao.qnaList(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
@@ -82,6 +83,7 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
+			QnaDAO dao = new QnaDAO();
 			HashMap<String, Object> map = dao.qnaListUser(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
@@ -100,7 +102,7 @@ public class QnaSerivce {
 	}
 
 	/*고객센터 글쓰기(관리자)*/
-	public void writeAnswer() throws IOException {
+	public void writeAnswer() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String subject = req.getParameter("subject");
 		String content = req.getParameter("content");
@@ -120,7 +122,8 @@ public class QnaSerivce {
 				msg="글 등록에 성공 했습니다";
 			}
 			req.getSession().setAttribute("msg", msg); 
-			resp.sendRedirect(page);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
 		} else {
 			msg="로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
@@ -149,7 +152,8 @@ public class QnaSerivce {
 				msg="글 등록에 성공 했습니다";
 			}
 			req.getSession().setAttribute("msg", msg); 
-			resp.sendRedirect(page);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
 		}else {
 			msg="로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
@@ -250,6 +254,7 @@ public class QnaSerivce {
 		String qnaIdx =req.getParameter("qnaIdx");
 		System.out.println(loginId+" 의 게시글 삭제: "+qnaIdx);
 		if (loginId != null) { // 로그인체크
+			QnaDAO dao = new QnaDAO();
 			boolean success =dao.qnaDel(qnaIdx);
 			msg="삭제에 실패했습니다";
 			page="qnaListUser";
@@ -261,7 +266,8 @@ public class QnaSerivce {
 			}
 			req.setAttribute("msg", msg);
 			req.getSession().setAttribute("msg", msg);
-			resp.sendRedirect(page); 
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
 			
 		}else {
 			msg="로그인이 필요한 서비스 입니다";

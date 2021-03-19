@@ -42,10 +42,9 @@ section#left {
 	left: 20px;
 	float: left;
 	margin: 10px;
-	width: 80%;
+	width: 1200px;
+	height: 1200px;
 
-	/* 	height: 500px; */
-	/* flex-direction:column; */
 }
 
 #content span {
@@ -55,14 +54,6 @@ section#left {
 	font-weight: 600;
 }
 
-.noneList {
-	position: relative;
-	top: 150px;
-	height: 60px;
-	text-align: center;
-	align-items: stretch;
-	background-color: transParent;
-}
 
 .text {
 	text-align: left;
@@ -84,23 +75,43 @@ section#left {
 }
 
 #list {
-	position: relative;
+	/* position: relative;
 	top: 20px;
 	left: 100px;
 	background-color: #FFFFFF;
 	margin-top: 30px;
 	width: 60%;
-	float: left;
+	float: left; */
+	
+	background-color: white;
+	text-align: center;
+	position: relative;
+	top: 80px;
+	margin: 0 auto;
+	width: 800px;
 	/* overflow: hidden; */
 }
+
 
 #list table, #list tr, #list th, #list td {
 	padding: 5px 10px;
 	border: none;
 }
+
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
+}
 /*페이징*/
 .pageArea {
 	text-align: center;
+	position: relative;
+	top: 50px;
+	left: 20px;
 }
 
 .pageArea span {
@@ -151,11 +162,12 @@ a {
 				<div class="noneList">
 					<p>가봤어요에 등록된 여행지가 없습니다</p>
 				</div>
+			
 			</c:if>
 
 			<c:forEach items="${list}" var="bm">
-				<div id="list">
-					<table>
+				
+					<table id="list">
 						<tr>
 							<th colspan="3" style="font-size: 150%">${bm.title }</th>
 						</tr>
@@ -173,13 +185,13 @@ a {
 						</tr>
 						<tr>
 							<td class="bottom"><a
-								href="bookmarkUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}"
-								target="_blanck">삭제</a></td>
+								href="myUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}"
+								>삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 
 					</table>
-				</div>
+				
 			</c:forEach>
 
 			<!-- ---------------------------------------- -->
