@@ -16,7 +16,6 @@ import com.mvc.dto.MemberDTO;
 import com.mvc.dto.BookmarkDTO;
 import com.mvc.dto.TripDTO;
 
-
 public class MemberDAO {
 	Connection conn = null; // DB연결시 사용될 변수
 	PreparedStatement ps = null; // DB재사용시 사용될 변수
@@ -51,10 +50,9 @@ public class MemberDAO {
 		}
 	}
 
-	
-	/*로그인 +탈퇴여부확인*/
+	/* 로그인 +탈퇴여부확인 */
 	public boolean login(String id, String pw) {
-		
+
 		boolean success = false;
 		try {
 			String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
@@ -62,109 +60,110 @@ public class MemberDAO {
 			ps.setString(1, id);
 			ps.setString(2, pw);
 			rs = ps.executeQuery();
-			
+
 //			ResultSet rs2 = ps.executeQuery();
-			
+
 //			success = rs.next();
 //			success = rs2.next();
-			if(rs.next()) {
-				success=true;
-			}else {
+			if (rs.next()) {
+				success = true;
+			} else {
 				sql = "SELECT managerId FROM manager WHERE managerId=? AND pw=?";
-				ps=conn.prepareStatement(sql);
+				ps = conn.prepareStatement(sql);
 				ps.setString(1, id);
 				ps.setString(2, pw);
 				rs = ps.executeQuery();
-				if(rs.next()) {
+				if (rs.next()) {
 					success = true;
 				}
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return success;
 	}
 
-	
-	/*회원정보*/
+	/* 회원정보 */
 	public MemberDTO profile(String loginId) {
 		String sql = "SELECT name, phone, email FROM member WHERE id=?";
-		MemberDTO dto =null;
+		MemberDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
-			rs= ps.executeQuery();
-			if(rs.next()) {
+			rs = ps.executeQuery();
+			if (rs.next()) {
 				dto = new MemberDTO();
 				dto.setName(rs.getString("name"));
 				dto.setPhone(rs.getString("phone"));
 				dto.setEmail(rs.getString("email"));
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
-		}return dto;
+		}
+		return dto;
 	}
-	
-	/*회원정보 수정*/
+
+	/* 회원정보 수정 */
 	public boolean update(MemberDTO dto) {
-		boolean success= false;
+		boolean success = false;
 
 		String sql = "UPDATE  member SET name=?, phone=?, email=?  WHERE id=? AND pw=?";
 		try {
-			ps= conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getName());
 			ps.setString(2, dto.getPhone());
 			ps.setString(3, dto.getEmail());
 			ps.setString(4, dto.getId());
 			ps.setString(5, dto.getPw());
-			if(ps.executeUpdate()>0) {
-				success= true;
+			if (ps.executeUpdate() > 0) {
+				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return success;
 	}
 
-	/*비밀번호 변경*/
+	/* 비밀번호 변경 */
 	public boolean updatePw(String loginId, String pw, String updatePw) {
-		String sql="UPDATE member SET pw=? WHERE id=? AND pw=?";
+		String sql = "UPDATE member SET pw=? WHERE id=? AND pw=?";
 		boolean success = false;
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, updatePw);
 			ps.setString(2, loginId);
 			ps.setString(3, pw);
-			if(ps.executeUpdate()>0) {
-				success= true;
+			if (ps.executeUpdate() > 0) {
+				success = true;
 			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
-		}return success;
-	
+		}
+		return success;
+
 	}
 
-	/*내가 쓴 글 리스트 기능 +페이징*/
+	/* 내가 쓴 글 리스트 기능 +페이징 */
 	public HashMap<String, Object> wroteList(String loginId, int page) {
-	
-		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
-		
-		int end= page*pagePerCnt; //페이지 끝 rnum
-		int start = end-(pagePerCnt-1); //페이지 시작 rnum
 
-		String sql ="SELECT rnum, boardIdx,subject,bHit,reg_date,id "
+		int pagePerCnt = 10; // 페이지 당 보여줄 갯수
+
+		int end = page * pagePerCnt; // 페이지 끝 rnum
+		int start = end - (pagePerCnt - 1); // 페이지 시작 rnum
+
+		String sql = "SELECT rnum, boardIdx,subject,bHit,reg_date,id "
 				+ "FROM ( SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) AS rnum,boardIdx,subject,bHit,reg_date,id "
 				+ "FROM bbs WHERE DEACTIVATE='FALSE' AND  id=?) WHERE rnum BETWEEN ? AND ? ";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -175,7 +174,7 @@ public class MemberDAO {
 			ps.setInt(2, start);
 			ps.setInt(3, end);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				BoardDTO dto = new BoardDTO();
 				dto.setRnum(rs.getInt("rnum"));
 				dto.setBoardIdx(rs.getInt("boardIdx"));
@@ -185,80 +184,81 @@ public class MemberDAO {
 				dto.setId(rs.getString("id"));
 				list.add(dto);
 			}
-			
-			int maxPage = getMaxPage(pagePerCnt,loginId); 
-			System.out.println("maxPage:"+maxPage);
-			map.put("list", list); 
-			map.put("maxPage", maxPage); 
+
+			int maxPage = getMaxPage(pagePerCnt, loginId);
+			System.out.println("maxPage:" + maxPage);
+			map.put("list", list);
+			map.put("maxPage", maxPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			resClose();}
+		} finally {
+			resClose();
+		}
 		return map;
 	}
-	
-	/*마지막 페이지*/
+
+	/* 마지막 페이지 */
 	private int getMaxPage(int pagePerCnt, String loginId) {
-		String sql =  "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND id=?";
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND id=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
 			rs = ps.executeQuery();
-			if(rs.next()) {
-				int cnt = rs.getInt(1); 
-				max = (int)Math.ceil(cnt/(double)pagePerCnt);
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt / (double) pagePerCnt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return max;
 	}
-	
-	/*중복체크*/
+
+	/* 중복체크 */
 	public boolean overlay(String id) throws SQLException {
-		
+
 		boolean success = false;
 		String sql = "SELECT id FROM member WHERE id=?";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, id);
 		rs = ps.executeQuery();
 		success = rs.next();
-		
+
 		return !success;
 	}
 
 	public ArrayList<MemberDTO> list() {
-		//쿼리 준비
+		// 쿼리 준비
 		String sql = "SELECT id,name,email FROM member";
-		//list에 DTO의 값들을 담기위해 ArrayList<MemberDTO>사용
+		// list에 DTO의 값들을 담기위해 ArrayList<MemberDTO>사용
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		try {
-			ps = conn.prepareStatement(sql);//PreparedStatement 준비(Connection으로부터)
-			rs = ps.executeQuery();//쿼리실행(SELECT문이므로 Query사용)
-			while(rs.next()) {//순서대로 파라메터값 가져오기(1행씩 넘겨주다 더이상 행이 없으면 while문이 끝난다)
-				MemberDTO dto = new MemberDTO();//dto 객체화(DB 값 담는다)
-				//dto에 불러온 값 담아주기
+			ps = conn.prepareStatement(sql);// PreparedStatement 준비(Connection으로부터)
+			rs = ps.executeQuery();// 쿼리실행(SELECT문이므로 Query사용)
+			while (rs.next()) {// 순서대로 파라메터값 가져오기(1행씩 넘겨주다 더이상 행이 없으면 while문이 끝난다)
+				MemberDTO dto = new MemberDTO();// dto 객체화(DB 값 담는다)
+				// dto에 불러온 값 담아주기
 				dto.setId(rs.getString("id"));
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
-				list.add(dto);//list에 dto를 담는다
+				list.add(dto);// list에 dto를 담는다
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			resClose();//자원닫기
+		} finally {
+			resClose();// 자원닫기
 		}
-		return list;//list 반환
+		return list;// list 반환
 	}
-	
-	/*회원가입*/
+
+	/* 회원가입 */
 	public int join(MemberDTO dto) {
-		
-		String sql="INSERT INTO member(id,name,pw,phone,email)VALUES(?,?,?,?,?)";
+
+		String sql = "INSERT INTO member(id,name,pw,phone,email)VALUES(?,?,?,?,?)";
 		int success = -1;
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getName());
 			ps.setString(3, dto.getPw());
@@ -267,15 +267,15 @@ public class MemberDAO {
 			success = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
-		}	
+		}
 		return success;
 	}
-	
-	/*아이디찾기*/
+
+	/* 아이디찾기 */
 	public String findId(String name, String phone) {
-		
+
 		String sql = "SELECT id FROM member WHERE name=? AND phone=?";
 		String id = "";
 		try {
@@ -283,82 +283,83 @@ public class MemberDAO {
 			ps.setString(1, name);
 			ps.setString(2, phone);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				id = rs.getString("id");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
-		
+
 		System.out.println(id);
 		return id;
 	}
 
-	/*비밀번호 찾기*/
+	/* 비밀번호 찾기 */
 	public boolean findPw(String id, String name, String phone) {
-		
+
 		String sql = "SELECT pw FROM member WHERE id=? AND name=? AND phone=?";
 		boolean pw = false;
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, name);
 			ps.setString(3, phone);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				pw = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		System.out.println(pw);
 		return pw;
 	}
 
-	/*회원탈퇴*/
+	/* 회원탈퇴 */
 	public boolean memberWithdraw(String loginId, String pw) {
-		 String sql="UPDATE member SET withdraw='TRUE', update_date=SYSDATE WHERE id=? AND pw=? ";
-		 boolean success= false;
-		 try {
+		String sql = "UPDATE member SET withdraw='TRUE', update_date=SYSDATE WHERE id=? AND pw=? ";
+		boolean success = false;
+		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
 			ps.setString(2, pw);
-			if(ps.executeUpdate()>0) {
-				success= true;
+			if (ps.executeUpdate() > 0) {
+				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
-		}return success;
+		}
+		return success;
 
 	}
-	
-	/*가봤어요 / 즐겨찾기 리스트*/
+
+	/* 가봤어요 / 즐겨찾기 리스트 */
 	public HashMap<String, Object> visitedList(String loginId, int group, int type) {
 		int pagePerCnt = 4; // 페이지 당 보여줄 갯수
-		
-		int end= group*pagePerCnt; //페이지 끝 rnum
-		int start = end-(pagePerCnt-1); //페이지 시작 rnum
-		
-		String sql ="SELECT myidx,deactivate, contentid, type,title, firstimage, overview, reg_date  "
-				+ "FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, b.contentid,b.myidx,b.type, b.reg_date,b.deactivate,t.title, t.firstimage, t.overview " + 
-				" FROM bookmark b, trip t WHERE b.contentid=t.contentid AND b.deactivate='FALSE' AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
+
+		int end = group * pagePerCnt; // 페이지 끝 rnum
+		int start = end - (pagePerCnt - 1); // 페이지 시작 rnum
+
+		String sql = "SELECT myidx,deactivate, contentid, type,title, firstimage, overview, reg_date  "
+				+ "FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.myidx DESC) as rnum, b.contentid,b.myidx,b.type, b.reg_date,b.deactivate,t.title, t.firstimage, t.overview "
+				+ " FROM bookmark b, trip t WHERE b.contentid=t.contentid AND b.deactivate='FALSE' AND b.id=? AND b.type=?) WHERE rnum BETWEEN ? AND ? ";
 		ArrayList<BookmarkDTO> list = new ArrayList<BookmarkDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
-			ps= conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
 			ps.setInt(2, type);
 			ps.setInt(3, start);
 			ps.setInt(4, end);
-			rs= ps.executeQuery();
+			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				BookmarkDTO dto = new BookmarkDTO();
 				dto.setMyidx(rs.getInt("myidx"));
 				dto.setDeactivate(rs.getString("deactivate"));
@@ -371,40 +372,37 @@ public class MemberDAO {
 				list.add(dto);
 
 			}
-				int maxPage = getVisitedMaxPage(pagePerCnt,loginId,type); 
-				System.out.println("maxPage:"+maxPage);
-				map.put("list", list); 
-				map.put("maxPage", maxPage); 
+			int maxPage = getVisitedMaxPage(pagePerCnt, loginId, type);
+			System.out.println("maxPage:" + maxPage);
+			map.put("list", list);
+			map.put("maxPage", maxPage);
 
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return map;
 	}
-	
-	/*가봤어요 마지막 페이지*/
+
+	/* 북마크 마지막 페이지 */
 	private int getVisitedMaxPage(int pagePerCnt, String loginId, int type) {
-		String sql =  "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type=?";
+		String sql = "SELECT COUNT(myidx) FROM bookmark WHERE deactivate='FALSE' AND id=? AND type=?";
 		int max = 0;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginId);
 			ps.setInt(2, type);
 			rs = ps.executeQuery();
-			if(rs.next()) {
-				int cnt = rs.getInt(1); 
-				max = (int)Math.ceil(cnt/(double)pagePerCnt);
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt / (double) pagePerCnt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return max;
 	}
-
-	
 
 	public boolean chkManager(String loginId) {
 		boolean success = false;
@@ -422,38 +420,46 @@ public class MemberDAO {
 		return success;
 	}
 
-	/*비밀번호 찾기 후 수정*/
+	/* 비밀번호 찾기 후 수정 */
 	public boolean findpwUpdate(String id, String newPw) {
-		
+
 		String sql = "UPDATE member SET pw=? WHERE id=?";
 		boolean success = false;
-		
+
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, newPw);
 			ps.setString(2, id);
-			if(ps.executeUpdate()>0) {
-				success=true;
+			if (ps.executeUpdate() > 0) {
+				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 
 		return success;
 	}
 
-	/*마이페이지 북마크 업데이트*/
-	/*
-	 * public boolean myUpdate(String myIdx, String type) { String
-	 * sql="UPDATE bookmark SET deactivate='TRUE' WHERE myidx=?"; boolean success
-	 * =false; try { ps = conn.prepareStatement(sql); ps.setInt(1,
-	 * Integer.parseInt(myIdx)); if(ps.executeUpdate()>0) { success= true; } } catch
-	 * (SQLException e) { e.printStackTrace(); }finally { resClose(); } return
-	 * success;
-	 * 
-	 * }
-	 */
+	/* 마이페이지 북마크 업데이트 */
+
+	public boolean myUpdate(String myIdx, String type) {
+		String sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=?";
+		boolean success = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(myIdx));
+			if (ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
+
+	}
 
 }

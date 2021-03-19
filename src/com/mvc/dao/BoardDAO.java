@@ -113,7 +113,7 @@ public class BoardDAO {
 	}
 	
 	private int getMaxPage(int pagePerCnt) {
-		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE'";
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL)";
 		int max=0;
 		try {
 			ps = conn.prepareStatement(sql);
@@ -121,6 +121,7 @@ public class BoardDAO {
 			if(rs.next()) {
 				int cnt = rs.getInt(1);
 				max = (int) Math.ceil(cnt/(double)pagePerCnt);
+				System.out.println("글개수 : "+cnt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -399,6 +400,7 @@ public class BoardDAO {
 	
 	
 
+
 	public CommentDTO commentUpdateForm(String reIdx) {
 		String sql = "SELECT content,id,reIdx FROM bbs_comment WHERE reIdx=?";
 		CommentDTO dto = null;
@@ -454,7 +456,7 @@ public class BoardDAO {
 	}
 
 	private int search_getMaxPage(int pagePerCnt, String searchType, String keyword) {
-		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND "+ searchType + " LIKE ?";
+		String sql = "SELECT COUNT(boardIdx) FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL) AND "+ searchType + " LIKE ?";
 		String serarchkeyword = "%"+keyword+"%";
 		int max=0;
 		try {
@@ -664,7 +666,7 @@ public class BoardDAO {
 		String sql = "SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY bHit DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
 				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL)" + 
-				") WHERE rnum BETWEEN 1 AND 5";
+				") WHERE rnum BETWEEN 1 AND 10";
 		BoardDTO dto = null;
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {

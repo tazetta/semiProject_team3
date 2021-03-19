@@ -42,25 +42,61 @@ section#left {
 	left: 20px;
 	float: left;
 	margin: 10px;
-	width: 80%;
-	height: 500px;
-	/* flex-direction:column; */
+	width: 1200px;
+	height: 1200px;
+
 }
 
-span {
+#content span {
 	position: relative;
 	top: 50px;
+	left: 0px;
 	font-weight: 600;
 }
 
-/* table#visitedList {
+
+.text {
+	text-align: left;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	width: 95%;
+	height: auto;
+}
+
+.bottom {
+	position: relative;
+	bottom: 0px;
+	float: right;
+}
+
+.bottom a {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+#list {
+	/* position: relative;
+	top: 20px;
+	left: 100px;
+	background-color: #FFFFFF;
+	margin-top: 30px;
+	width: 60%;
+	float: left; */
+	
 	background-color: white;
 	text-align: center;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 900px;
-} */
+	width: 800px;
+	/* overflow: hidden; */
+}
+
+
+#list table, #list tr, #list th, #list td {
+	padding: 5px 10px;
+	border: none;
+}
 
 .noneList {
 	position: relative;
@@ -70,35 +106,12 @@ span {
 	align-items: stretch;
 	background-color: transParent;
 }
-
-.text {
-	text-align: left;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    width: 95%;
-    height: auto; 
-}
-.bottom{
-position:relative;
-bottom:0px;
-float:right;
-}
-
-#list{
-background-color: #FFFFFF;
-    margin-top: 1%;
-    margin-right: 1%;
-    width: 80%;
-    float: left;
-    overflow: hidden;
-}
-
 /*페이징*/
 .pageArea {
 	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
+	position: relative;
+	top: 50px;
+	left: 20px;
 }
 
 .pageArea span {
@@ -149,39 +162,40 @@ a {
 				<div class="noneList">
 					<p>가봤어요에 등록된 여행지가 없습니다</p>
 				</div>
+			
 			</c:if>
-		
-				<c:forEach items="${list}" var="bm">
-				<div id="list">
-					<table >
+
+			<c:forEach items="${list}" var="bm">
+				
+					<table id="list">
 						<tr>
-							<th colspan="3" style="font-size:150%">${bm.title }</th>
+							<th colspan="3" style="font-size: 150%">${bm.title }</th>
 						</tr>
 						<tr>
-							<td id="user" rowspan="2">
+							<td id="trip" rowspan="2">
 								<div>
-									<a href="tripDetail?contentId=${bm.contentid}" target=window.open()>
-									<img src="${bm.firstimage}" width="300px" height="200px"></a>
+									<a href="tripDetail?contentId=${bm.contentid}"
+										target=window.open()> <img src="${bm.firstimage}"
+										width="250px" height="150px"></a>
 								</div>
 							</td>
 							<td colspan="2" id="text">
-								<div class="ellipsis">
-								${bm.overview}
-								</div>
+								<div class="ellipsis">${bm.overview}</div>
 							</td>
 						</tr>
 						<tr>
-							<td class="bottom">
-							<a href="bookmarkUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}" target="_blanck">삭제</a></td>
+							<td class="bottom"><a
+								href="myUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}"
+								>삭제</a></td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
-				
+
 					</table>
-				</div>
-					</c:forEach>
 				
+			</c:forEach>
+
 			<!-- ---------------------------------------- -->
-			
+
 			<c:if test="${list ne '[]'}">
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
@@ -208,7 +222,7 @@ if (msg != "") {
 
 	// 말줄임 기능
  	$('.ellipsis').each(function(){
-	    var length = 200; //글자수
+	    var length = 100; //글자수
 	    $(this).each(function(){
 	    	
 	      if($(this).text().length >= length){
