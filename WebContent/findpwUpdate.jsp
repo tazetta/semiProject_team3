@@ -66,12 +66,9 @@
 	var $pwConfirm = $("#pwConfirm");
 	var pwChk = false;
 	
- 	//2. pw가 5자 이상인가?
+ 	//pw가 5자 이상인가?
     $('#newPw').focusout(function(){
-        if($(this).val().length<5){
-            alert('비밀번호를  5자 이상 입력해주세요.');
-            $(this).focusin();
-        }else if($(this).val()!==$('#pwConfirm').val()){
+        if($(this).val()!==$('#pwConfirm').val()){
             $('#passChk').html('비밀번호가 일치하지 않습니다.');
             $('#passChk').css('color','red');
             pwChk = false;
@@ -81,7 +78,7 @@
             pwChk = true;
         }
     }); 
-    //3. pw와 pw확인이 값이 일치하는가?
+    //pw와 pw확인이 값이 일치하는가?
     $('#pwConfirm').keyup(function(){
         if($(this).val()!==$('#newPw').val()){
             $('#passChk').html('비밀번호가 일치하지 않습니다.');
@@ -95,13 +92,16 @@
     });
     
     $('#btn').click(function(){
-    	if($newPw.val()==""||$pwConfirm==""){
+    	if($newPw.val()==""||$pwConfirm==""){//비밀번호 또는 비밀번호확인이 공백일때
     		console.log($newPw.val());
     		alert("비밀번호를 입력해주세요.")
+    		$newPw.focus();
     	}else if($newPw.val().length<5){
     		alert("비밀번호는 5자 이상 입력해주세요!!");
+    		$newPw.focus();
     	}else if(pwChk==false){
     		alert("비밀번호가 일치하지 않습니다.");
+    		$newPw.focus();
     	}else{
     		console.log("비밀번호가 수정되었습니다.");
     		$('form').submit();

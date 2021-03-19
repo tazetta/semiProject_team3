@@ -8,11 +8,31 @@
 <title>일반 회원정보 리스트</title>
 
 <style>
-table, th,td {
-	border: 1px solid lightgray;
+#manager_main{
+	width: 800px;
+	height : 450px;
+	background-color: whitesmoke;
+	margin: auto;
+}
+
+#member {
 	border-collapse: collapse;
+}
+
+th,td{
+	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 20px;
+	padding: 8px;
+	font-size: 14px;
+}
+
+td{
+	background-color: white;
+}
+
+#title {
+	background-color: gray;
+	color : white;
 }
 
 #page{
@@ -43,8 +63,8 @@ table, th,td {
 
 
 		<div class="memberList_main">
-			<table>
-				<tr>
+			<table id="member">
+				<tr id="title">
 					<th>가입일</th>
 					<th>아이디</th>
 					<th>이름</th>

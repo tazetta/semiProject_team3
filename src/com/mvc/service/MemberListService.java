@@ -66,6 +66,7 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			MemberListDTO dto = dao.memberDetail(id);
+			System.out.println("dto는??:"+dto);
 
 			if (dto != null) {
 				dao = new MemberListDAO();
@@ -116,11 +117,12 @@ public class MemberListService {
 			String id = req.getParameter("id");
 			System.out.println("탈퇴회원 상세보기 id: " + id);
 
-			String memberDelDetail = "/memberDetail";
+			String memberDelDetail = "/memberDelList";
 			String page = memberDelDetail;
 
 			MemberListDAO dao = new MemberListDAO();
-			MemberListDTO dto = dao.memberDetail(id);
+			MemberListDTO dto = dao.memberDelDetail(id);
+			System.out.println("dto는??:"+dto);
 
 			if (dto != null) {
 				dao = new MemberListDAO();
