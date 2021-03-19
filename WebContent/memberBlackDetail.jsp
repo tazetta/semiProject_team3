@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@ table, th, td {
 	border-collapse: collapse;
 	text-align: center;
 	padding: 20px;
+	white-space: nowrap;
 }
 
 .memberList_main{
@@ -61,9 +63,10 @@ table, th, td {
             </tr>
 			</table>
 				<div class="memberexist">
+				<c:if test="${dto.blackstatus ne 'FALSE'}">
                 	<button onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  
+  				</c:if>
                 	<button onclick="location.href='./memberBlackList'">닫기</button>
 				</div>
 		</div>
