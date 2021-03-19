@@ -666,7 +666,7 @@ public class BoardDAO {
 		String sql = "SELECT  boardIdx,subject,bHit,reg_date,id FROM (" + 
 				"    SELECT ROW_NUMBER() OVER(ORDER BY bHit DESC) AS rnum,boardIdx,subject,bHit,reg_date,id " + 
 				"        FROM bbs WHERE DEACTIVATE='FALSE' AND (ISMANAGER='false' OR ISMANAGER IS NULL)" + 
-				") WHERE rnum BETWEEN 1 AND 5";
+				") WHERE rnum BETWEEN 1 AND 10";
 		BoardDTO dto = null;
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
