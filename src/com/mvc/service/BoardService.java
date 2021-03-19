@@ -131,7 +131,8 @@ public class BoardService {
 				}
 			}
 			dao = new BoardDAO();
-			HashMap<String, Object> map = dao.comm_list(group,boardIdx);
+			int type = 1;
+			HashMap<String, Object> map = dao.comm_list(group,boardIdx,type);
 			System.out.println("댓글리스트 사이즈: "+map.get("maxPage"));
 			System.out.println("댓글 페이지 : "+ group);
 			map.put("commcurrPage",group);
@@ -230,6 +231,7 @@ public class BoardService {
 			System.out.println("수정후페이지:"+currPage);
 			FileService upload = new FileService(req);
 			BoardDTO dto = upload.regist();
+			System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
 			BoardDAO dao = new BoardDAO();
 			msg="수정에 실패했습니다.";
 			if(dao.update(dto)>0) {
@@ -243,6 +245,7 @@ public class BoardService {
 				String delFileName = dao.getFileName(String.valueOf(boardIdx));
 				System.out.println("삭제할 파일명: "+ delFileName);
 				dao = new BoardDAO();
+				dao.updateFileName(delFileName, dto);
 				
 //				//파일삭제
 //				if(delFileName!=null) {

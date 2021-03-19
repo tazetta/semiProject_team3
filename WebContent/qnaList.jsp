@@ -42,7 +42,12 @@ table#qna {
 
 #btn {
 	position: absolute;
-	right: 20px;
+	right: 10px;
+	top: 20px;
+}
+#btn2 {
+	position: absolute;
+	right: 120px;
 	top: 20px;
 }
 
@@ -109,7 +114,8 @@ a {
 					
 					</table>
 				
-				<button id="btn" onclick="#">답변 미완료</button>
+				<button id="btn" onclick="location.href='unAnsList'">미답변글보기</button>
+				<button id="btn2" onclick="location.href='qnaList'">전체글보기</button>
 				
 		</div>
 
@@ -136,7 +142,7 @@ a {
 	}
 <%request.removeAttribute("msg");%>
 
-$("#btn").
+
 	
 	
 	</script>

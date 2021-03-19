@@ -25,9 +25,9 @@ div.bar {
 
 
 
-/* .li {
+ .li {
 	font-weight: 600;
-} */
+} 
 .naviUl li{
 position: relative;
 	float: left;

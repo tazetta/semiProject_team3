@@ -38,7 +38,7 @@ public class QnaSerivce {
 	/* 고객센터  리스트 */
 	public void qnaList() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		System.out.println(loginId + "의 고객센터 게시글");
+		System.out.println("관리자"+loginId + "의 고객센터 게시글");
 		
 		String pageParam = req.getParameter("page"); 
 		System.out.println("pageParam:" + pageParam);
@@ -197,7 +197,7 @@ public class QnaSerivce {
 			QnaDTO dto = dao.qnaDetail(loginId,qnaIdx);
 			System.out.println("dto:"+dto);
 			msg="상세보기에 실패했습니다";
-			page="/qnaList";
+			page="qnaList";
 			if(dto!=null) {
 				msg="";
 				page="writeFormA.jsp";
@@ -222,9 +222,9 @@ public class QnaSerivce {
 			QnaDTO dto = dao.qnaDetail(loginId, qnaIdx);
 			System.out.println("dto:"+dto);
 			msg="답변보기에 실패했습니다";
-			page="/qnaListUser";
+			page="qnaListUser";
 			if(isManager()) {
-				page="/qnaList";
+				page="qnaList";
 			}
 			if(dto!=null) {
 				msg="";
@@ -252,18 +252,50 @@ public class QnaSerivce {
 		if (loginId != null) { // 로그인체크
 			boolean success =dao.qnaDel(qnaIdx);
 			msg="삭제에 실패했습니다";
-			page="/qnaListUser";
+			page="qnaListUser";
 			if(isManager()) {
-				page="/qnaList";
+				page="qnaList";
 			}
 			if(success) {
 				msg="삭제에 성공했습니다";
 			}
 			req.setAttribute("msg", msg);
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
+			req.getSession().setAttribute("msg", msg);
+			resp.sendRedirect(page); 
 			
 		}else {
+			msg="로그인이 필요한 서비스 입니다";
+			req.getSession().setAttribute("msg", msg);
+			resp.sendRedirect("index.jsp"); 
+		}
+		
+	}
+
+	/*미답변 리스트*/
+	public void unAnsList() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		System.out.println("관리자"+loginId + "의 고객센터 미답변 게시글 리스트");
+		
+		String pageParam = req.getParameter("page"); 
+		System.out.println("pageParam:" + pageParam);
+
+		int group = 1; 
+
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam); 
+		}
+		
+		if (loginId != null) { // 로그인체크
+			HashMap<String, Object> map = dao.unAnsList(group);
+			req.setAttribute("list", map.get("list")); 
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("currPage", group);
+			System.out.println("currPage:"+group);
+			System.out.println("list:"+map.get("list"));
+
+			dis = req.getRequestDispatcher("qnaList.jsp");
+			dis.forward(req, resp);
+		} else {
 			msg="로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
