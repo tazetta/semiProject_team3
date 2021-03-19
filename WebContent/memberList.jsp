@@ -46,6 +46,10 @@ td{
 	padding: 2px 10px;
 	margin:2px
 }
+
+.genmem, .blackmem, .delmem{
+	background-color: orange;
+}
 </style>
 
 </head>

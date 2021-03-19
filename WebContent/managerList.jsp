@@ -37,8 +37,13 @@ td {
 	color: white;
 }
 
+input [type='button']{
+	
+}
+
 .button {
 	text-align: right;
+	float : right;
 }
 
 #who {
