@@ -231,7 +231,11 @@ public class BoardService {
 			FileService upload = new FileService(req);
 			BoardDTO dto = upload.regist();
 			BoardDAO dao = new BoardDAO();
-			dao.update(dto);
+			msg="수정에 실패했습니다.";
+			if(dao.update(dto)>0) {
+				msg="수정이 완료되었습니다";
+			}
+			
 			if(dto.getOriFileName()!=null) {
 				//업로드 파일이 있다면 기존파일 지우기, 새로운 내용을 photo에 update
 				int boardIdx= dto.getBoardIdx();
@@ -239,14 +243,15 @@ public class BoardService {
 				String delFileName = dao.getFileName(String.valueOf(boardIdx));
 				System.out.println("삭제할 파일명: "+ delFileName);
 				dao = new BoardDAO();
-				dao.updateFileName(delFileName,dto);
 				
-				//파일삭제
-				if(delFileName!=null) {
-					upload.delete(delFileName);				
-				}
-			}			
-			resp.sendRedirect("boardDetail?boardIdx="+dto.getBoardIdx()+"&page="+currPage);
+//				//파일삭제
+//				if(delFileName!=null) {
+//					upload.delete(delFileName);				
+//				}
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("boardDetail?boardIdx="+dto.getBoardIdx()+"&page="+currPage);
+			dis.forward(req, resp);
 		} else {
 			msg = "로그인이 필요한 서비스입니다.";
 			req.setAttribute("msg", msg);
