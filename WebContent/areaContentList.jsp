@@ -97,7 +97,7 @@ div.chkBtn{
 </body>
 <script>
 	$(document).ready(function() {
-		$("div#"+${nav}).css({"background-color" : "lightgray"});
+		$("div#"+${nav}).css({"background-color" : "lightgray","font-weight":"600"});
 	});
 	
 	$('a').hover(function(){

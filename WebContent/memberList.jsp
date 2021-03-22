@@ -47,8 +47,14 @@ td{
 	margin:2px;
 }
 
-.genmem, .blackmem, .delmem{
-	background-color: rgb(240, 191, 58);
+.genmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
+}
+
+.memberlist a {
+ background-color: blanchedalmond;
+ color : red;
 }
 </style>
 

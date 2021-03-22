@@ -90,9 +90,9 @@ a {
 }
 
 button {
-    border:#BDBDBD ;
-    background-color:#D8D8D8;
-    font-weight: 600;
+	border: #BDBDBD;
+	background-color: #D8D8D8;
+	font-weight: 600;
 	padding: 20px 20px;
 }
 
@@ -101,61 +101,75 @@ button {
 	top: -2%;
 	right: 0%;
 }
+
+#noneResult {
+	text-align: center;
+	font-size: 36px;
+	font-weight: 600px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
-	<section id=background>
-		<div id="content">
-			<div id="btn">
-				<button
-					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
-				<button
-					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
-			</div>
+	<c:choose>
+		<c:when test="${list ne '[]'}">
+			<section id=background>
+				<div id="content">
+					<div id="btn">
+						<button
+							onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
+						<button
+							onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
+					</div>
 
-			<c:forEach items="${list}" var="result">
-				<table>
-					<tr>
-						<th colspan="3" style="font-size: 150%"><a href="#"
-							onclick='window.open("./tripDetail?contentId=${result.contentId}","",
-							"width=880px, height=950px, left=400, top=10")'>${result.title}</a>
-						</th>
-					</tr>
-					<tr>
-						<td id="user" rowspan="2">
-							<div>
-								<a href="#"
+					<c:forEach items="${list}" var="result">
+						<table>
+							<tr>
+								<th colspan="3" style="font-size: 150%"><a href="#"
 									onclick='window.open("./tripDetail?contentId=${result.contentId}","",
-									"width=880px, height=950px, left=400, top=10")'>
-									<img src="${result.firstImage}" width="300px" height="200px"></a>
-							</div>
-						</td>
-						<td colspan="2" id="text">
-							<div class="ellipsis">${result.overview}</div>
-						</td>
-					</tr>
-					<tr>
-						<th class="title">${result.address}</th>
-					</tr>
-				</table>
-			</c:forEach>
-			<div class="pageArea">
-				<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
-						test="${currPage > 1}">
-						<a href="./search?${url}&page=${currPage-1}">이전</a>
-					</c:if>
-				</span> <span id="page"> ${currPage} </span> <span> <c:if
-						test="${currPage == maxPage}">다음</c:if> <c:if
-						test="${currPage < maxPage}">
-						<a href="./search?${url}&page=${currPage+1}">다음</a>
-					</c:if>
-				</span> <span>${currPage}/${maxPage}</span>
-			</div>
-		</div>
-	</section>
+								"width=880px, height=950px, left=400, top=10")'>${result.title}</a>
+								</th>
+							</tr>
+							<tr>
+								<td id="user" rowspan="2">
+									<div>
+										<a href="#"
+											onclick='window.open("./tripDetail?contentId=${result.contentId}","",
+										"width=880px, height=950px, left=400, top=10")'>
+											<img src="${result.firstImage}" width="300px" height="200px">
+										</a>
+									</div>
+								</td>
+								<td colspan="2" id="text">
+									<div class="ellipsis">${result.overview}</div>
+								</td>
+							</tr>
+							<tr>
+								<th class="title">${result.address}</th>
+							</tr>
+						</table>
+					</c:forEach>
+					<div class="pageArea">
+						<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+								test="${currPage > 1}">
+								<a href="./search?${url}&page=${currPage-1}">이전</a>
+							</c:if>
+						</span> <span id="page"> ${currPage} </span> <span> <c:if
+								test="${currPage == maxPage}">다음</c:if> <c:if
+								test="${currPage < maxPage}">
+								<a href="./search?${url}&page=${currPage+1}">다음</a>
+							</c:if>
+						</span> <span>${currPage}/${maxPage}</span>
+					</div>
+				</div>
+			</section>
+		</c:when>
+		<c:otherwise>
+			<div id="noneResult">"${keyword}"에 대한 검색 결과가 없습니다.</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 <script>
 	// 말줄임 기능

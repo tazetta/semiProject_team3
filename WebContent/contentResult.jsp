@@ -55,7 +55,7 @@ table, th, td {
 	padding: 10px 20px;
 	text-align: center;
 	margin-left: 25%;
-	margin-top: 15%;
+	margin-top: 13%;
 }
 
 .title {
@@ -165,7 +165,7 @@ div.chkBtn {
 </body>
 <script>
 	$(document).ready(function() {
-		$("div#"+${nav}).css({"background-color" : "lightgray"});
+		$("div#"+${nav}).css({"background-color" : "lightgray","font-weight":"600"});
 	});
 	
 	$('a').hover(function(){

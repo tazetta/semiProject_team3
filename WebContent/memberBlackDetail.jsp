@@ -8,7 +8,8 @@
 <title>블랙리스트 회원정보 상세보기</title>
 <style>
 #mdetail{
-	width: 1300px;
+	/* width: 1300px; */
+	width : 60%;
 	height : 300px;
 	float: right;
 	margin-right: 98px;
@@ -32,9 +33,24 @@ th, td {
 }
 
 .black {
-	width: 200px;
+	width: 250px;
 	margin: auto;
 	padding-top: 65px;
+}
+
+.mbtn{
+	font-size: 13px;
+	padding: 6px 15px;
+	margin: 6px 0;
+}
+
+.blackmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
+}
+
+.memberlist {
+	color : #08444d;
 }
 </style>
 
@@ -80,10 +96,10 @@ th, td {
 			</table>
 				<div class="black">
 				<c:if test="${dto.blackstatus ne 'FALSE'}">
-                	<button onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>
+                	<button class="mbtn" onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>
                 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				</c:if>
-                	<button onclick="location.href='./memberBlackList'">닫기</button>
+                	<button class="mbtn" onclick="location.href='./memberBlackList'">닫기</button>
 				</div>
 		</div>
 </body>

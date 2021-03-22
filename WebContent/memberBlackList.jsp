@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,9 +8,9 @@
 <title>블랙리스트 회원정보 리스트</title>
 </head>
 <style>
-#memberList_main{
+#memberList_main {
 	width: 900px;
-	height : 660px;
+	height: 660px;
 	margin: 0 508px;
 }
 
@@ -19,36 +19,41 @@
 	margin: 45px 0;
 }
 
-th,td{
-	border: 1px solid lightgray; 
+th, td {
+	border: 1px solid lightgray;
 	text-align: center;
 	padding: 8px;
 	font-size: 14px;
 }
 
-td{
+td {
 	background-color: white;
 }
 
 #title {
 	background-color: gray;
-	color : white;
+	color: white;
 }
 
-#page{
-     margin-top:50px;
-     text-align:center;           
+#page {
+	margin-top: 50px;
+	text-align: center;
 }
 
-#page span{
-	font-size : 16px;
-	border:1px solid lightgray;
+#page span {
+	font-size: 16px;
+	border: 1px solid lightgray;
 	padding: 2px 10px;
-	margin:2px;
+	margin: 2px;
 }
 
-.genmem, .blackmem, .delmem{
-	background-color: rgb(240, 191, 58);
+.blackmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
+}
+
+.memberlist a {
+	color : #08444d;
 }
 </style>
 <body>
@@ -62,43 +67,47 @@ td{
 	<jsp:include page="side_manager.jsp" />
 
 
-		<div class="blackList_main">
-			<table id="member">
-				<tr id="title">
-					<th>블랙리스트 등록일</th>
-					<th>블랙리스트 상태</th>
-					<th>아이디</th>
-					<th>블랙리스트 등록사유</th>
-					<th>등록 관리자</th>
-					<th></th>
-				</tr>
-				<c:forEach items="${memberBlackList}" var="black">
-					<tr>
-						<td>${black.reg_date}</td>
+	<div class="blackList_main">
+		<table id="member">
+			<tr id="title">
+				<th>블랙리스트 등록일</th>
+				<th>블랙리스트 상태</th>
+				<th>아이디</th>
+				<th>블랙리스트 등록사유</th>
+				<th>등록 관리자</th>
+				<th></th>
+			</tr>
+			<c:forEach items="${memberBlackList}" var="black">
+				<tr>
+					<td>${black.reg_date}</td>
+
+					<c:if test="${black.blackstatus eq 'TRUE'}">
+						<td style="color: red"><b>${black.blackstatus}</b></td>
+					</c:if>
+					<c:if test="${black.blackstatus ne 'TRUE'}">
 						<td>${black.blackstatus}</td>
-						<td>${black.id}</td>
-						<td>${black.reason}</td>
-						<td>${black.managerid}</td>
-						<td><a href="./memberBlackDetail?blackidx=${black.blackidx}"><b>상세보기</b></a></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		
-		<div id="page">
-			<span>
-				<c:if test="${currPage==1}">이전</c:if>
-				<c:if test="${currPage>1}">
-					<a href='./memberBlackList?page=${currPage-1}'>이전</a>
-				</c:if>
-			</span>
-			<span>${currPage}</span>
-			<span>
-				<c:if test="${currPage == maxPage}">다음</c:if>
-         		<c:if test="${currPage < maxPage}">
-         			<a href="./memberBlackList?page=${currPage+1}">다음</a></c:if>
-			</span>		
-		</div>
+					</c:if>
+					<td>${black.id}</td>
+					<td>${black.reason}</td>
+					<td>${black.managerid}</td>
+					<td><a href="./memberBlackDetail?blackidx=${black.blackidx}"><b>상세보기</b></a></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+
+	<div id="page">
+		<span> <c:if test="${currPage==1}">이전</c:if> <c:if
+				test="${currPage>1}">
+				<a href='./memberBlackList?page=${currPage-1}'>이전</a>
+			</c:if>
+		</span> <span>${currPage}</span> <span> <c:if
+				test="${currPage == maxPage}">다음</c:if> <c:if
+				test="${currPage < maxPage}">
+				<a href="./memberBlackList?page=${currPage+1}">다음</a>
+			</c:if>
+		</span>
+	</div>
 </body>
 <script>
 	var msg = "${msg}";

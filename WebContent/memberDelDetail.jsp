@@ -9,7 +9,8 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 #mdetail{
-	width: 1300px;
+	/* width: 1300px; */
+	width : 60%;
 	height : 300px;
 	float: right;
 	margin-right: 98px;
@@ -32,10 +33,25 @@ th, td {
 	font-weight: 600;
 }
 
-.black {
-	width: 200px;
+.delblack {
+	width: 350px;
 	margin: auto;
 	padding-top: 65px;
+}
+
+.delbtn{
+	font-size: 13px;
+	padding: 6px 15px;
+	margin: 6px 0;
+}
+
+.delmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
+}
+
+.memberlist {
+	color : #08444d;
 }
 </style>
 
@@ -79,16 +95,16 @@ th, td {
 				<td>${dto.blackcnt}</td>
 			</tr>
 		</table>
-		<div class="black">
-			<button onclick="location.href='./memberDraw?id=${dto.id}'">회원
+		<div class="delblack">
+			<button class="delbtn" onclick="location.href='./memberDraw?id=${dto.id}'">회원
 				삭제</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-			<button onclick="location.href='./memberRestore?id=${dto.id}'">회원
+			<button class="delbtn" onclick="location.href='./memberRestore?id=${dto.id}'">회원
 				복구</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-			<button onclick="location.href='./memberDelList'">닫기</button>
+			<button class="delbtn" onclick="location.href='./memberDelList'">닫기</button>
 		</div>
 	</div>
 </body>

@@ -8,7 +8,8 @@
 <title>일반 회원정보 상세보기</title>
 <style>
 #mdetail{
-	width: 1300px;
+	/* width: 1300px; */
+	width : 60%;
 	height : 300px;
 	float: right;
 	margin-right: 98px;
@@ -32,9 +33,24 @@ th, td {
 }
 
 .black {
-	width: 200px;
+	width: 250px;
 	margin: auto;
 	padding-top: 65px;
+}
+
+.mbtn{
+	font-size: 13px;
+	padding: 6px 15px;
+	margin: 6px 0;
+}
+
+.genmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
+}
+
+.memberlist {
+	color : #08444d;
 }
 </style>
 
@@ -81,9 +97,9 @@ th, td {
             </tr>
 		</table>
 		<div class="black">
-			<button onclick="location.href='./memberBlackAddForm?id=${dto.id}'">블랙리스트 추가</button>
+			<button class="mbtn" onclick="location.href='./memberBlackAddForm?id=${dto.id}'">블랙리스트 추가</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button onclick="location.href='./memberList'">닫기</button>
+			<button class="mbtn" onclick="location.href='./memberList'">닫기</button>
 		</div>
 	</div>
 </body>

@@ -10,9 +10,10 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <style>
- table{
-	height:50%;
+table {
+	height: 50%;
 }
+
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -21,10 +22,12 @@ table, th, td {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
-} 
-.title{
-	width:200px;
 }
+
+.title {
+	width: 200px;
+}
+
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -37,9 +40,11 @@ table, th, td {
 	padding: 2px 10px;
 	color: gray;
 }
-.date{
+
+.date {
 	width: 100px;
 }
+
 #page {
 	font-weight: 600;
 	color: red;
@@ -49,7 +54,7 @@ table, th, td {
 	text-align: center;
 }
 
- div.tripManageList {
+div.tripManageList {
 	position: absolute;
 	top: 20%;
 }
@@ -61,9 +66,16 @@ div.tripManageName {
 	height: 30px;
 	text-align: center;
 }
-div.deactivate{
-	position:absolute;
-	left:60%;
+
+div.deactivate {
+	position: absolute;
+	left: 60%;
+}
+
+#noneResult {
+	font-size: 36px;
+	font-weight: 600px;
+	text-align: center;
 }
 </style>
 <body>
@@ -75,83 +87,94 @@ div.deactivate{
 				<select name="searchType">
 					<option value="title">여행지 이름</option>
 					<option value="address">여행지 위치</option>
-				</select> 
-				<input type="text" name="keyword"> 
-				<input type="submit" value="검색">
-			<input type="checkbox" name="deactivate" value="TRUE"/>비활성화 여부
-			<button type="button" onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된 게시물만 보기</button>
+				</select> <input type="text" name="keyword"> <input type="submit"
+					value="검색"> <input type="checkbox" name="deactivate"
+					value="TRUE" />비활성화 여부
+				<button type="button"
+					onclick="location.href='tripDeactivateFilter?${isDeactivate}'">비활성화된
+					게시물만 보기</button>
 			</form>
 		</div>
-		
+
 		<div class="tripManageList">
 			<div class="tripManageName" id="99">
 				<a href="./tripManageList?tripNav=99" class="list">여행지 목록</a>
 			</div>
 			<div class="tripManageName" id="100">
-				<a href="./tripInsertInformation?tripNav=100" class="list">여행지 저장</a> 
+				<a href="./tripInsertInformation?tripNav=100" class="list">여행지
+					저장</a>
 			</div>
 		</div>
-		
 		<div>
-			<table>
-				<tr>
-					<th>contentID</th>
-					<th>여행지 이름</th>
-					<th>등록 날짜</th>
-					<th>비활성화 여부</th>
-				</tr>
-				<c:forEach items="${tripList}" var="trip">
-					<tr>
-						<td>${trip.contentId}</td>
-						<td class='title'><a
-							href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
-						<td class="date">${trip.reg_date}</td>
-						<td>
-						<c:if test="${trip.deactivate eq true}">
+			<c:choose>
+				<c:when test="${tripList ne '[]'}">
+					<table>
+						<tr>
+							<th>contentID</th>
+							<th>여행지 이름</th>
+							<th>등록 날짜</th>
+							<th>비활성화 여부</th>
+						</tr>
+						<c:forEach items="${tripList}" var="trip">
+							<tr>
+								<td>${trip.contentId}</td>
+								<td class='title'><a
+									href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
+								<td class="date">${trip.reg_date}</td>
+								<td><c:if test="${trip.deactivate eq true}">
 							Y
-						</c:if>
-						<c:if test="${trip.deactivate eq false}">
+						</c:if> <c:if test="${trip.deactivate eq false}">
 							N
-						</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
+						</c:if></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:when>
+				<c:otherwise>
+					<div id="noneResult">"${keyword}"에 대한 검색 결과가 없습니다.</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
+		<c:if test="${tripList ne '[]'}">
 		<div class="pageArea">
 			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
 					test="${currPage > 1}">
-					<c:if test="${keyword eq null && deactivate eq 'FALSE'}">
-						<a href="./tripManageList?page=${currPage-1}">이전</a>
-					</c:if>
-					<c:if test="${keyword ne null}">
-						<a href="./tripSearch?${url}&page=${currPage-1}">이전</a>
-					</c:if>
-					<c:if test="${deactivate eq 'TRUE'}">
-						<a href="./tripDeactivateFilter?page=${currPage-1}">이전</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${keyword eq null && deactivate eq 'FALSE'}">
+							<a href="./tripManageList?page=${currPage-1}">이전</a>
+						</c:when>
+						<c:when test="${keyword ne null}">
+							<a href="./tripSearch?${url}&page=${currPage-1}">이전</a>
+						</c:when>
+						<c:when test="${deactivate eq 'TRUE'}">
+							<a href="./tripDeactivateFilter?page=${currPage-1}">이전</a>
+						</c:when>
+					</c:choose>
 				</c:if>
 			</span> <span id="page"> ${currPage} </span> <span> <c:if
 					test="${currPage == maxPage}">다음</c:if> <c:if
 					test="${currPage < maxPage}">
-					<c:if test="${keyword eq null && deactivate eq 'FALSE'}">
-						<a href="./tripManageList?page=${currPage+1}">다음</a>
-					</c:if>
-					<c:if test="${keyword  ne null}">
-						<a href="./tripSearch?${url}&page=${currPage+1}">다음</a>
-					</c:if>
-					<c:if test="${deactivate eq 'TRUE'}">
-						<a href="./tripDeactivateFilter?page=${currPage+1}">이전</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${keyword eq null && deactivate eq 'FALSE'}">
+							<a href="./tripManageList?page=${currPage+1}">다음</a>
+						</c:when>
+						<c:when test="${keyword  ne null}">
+							<a href="./tripSearch?${url}&page=${currPage+1}">다음</a>
+						</c:when>
+						<c:when test="${deactivate eq 'TRUE'}">
+							<a href="./tripDeactivateFilter?page=${currPage+1}">다음</a>
+						</c:when>
+					</c:choose>
 				</c:if>
-			</span> 
-			<span>${currPage}/${maxPage}</span>
+			</span> <span>${currPage}/${maxPage}</span>
 		</div>
+		</c:if>
 	</div>
 </body>
 <script>
 	$(document).ready(function() {
-		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
+		$("div#"+${tripNav}).css({"background-color" : "lightgray","font-weight":'600'});
+		console.log(sessionStorage.getItem("url"));
 	});
 	
  	$('.list').hover(function(){

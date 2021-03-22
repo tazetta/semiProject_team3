@@ -6,26 +6,46 @@
 <meta charset="UTF-8">
 <title>블랙리스트 추가 페이지</title>
 <style>
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	text-align: center;
-	padding: 10px;
-}
-
-#content{
-	min-width: 800px;
-	padding : 50px 100px;	
-	background-color: whitesmoke;
-	margin-top: 30px;
+#addFrom{
+	/* width: 1300px; */
+	width : 60%;
+	height : 300px;
+	float: right;
+	margin-right: 98px;
+	margin-top : -210px;
 	
 }
 
-.memberList_main{
-	width: 500px;
-	margin: auto;
-	font-size: 14px;
+.memberList_add{
+	border-collapse: collapse;
+	margin-top: 75px;
+	/* margin-left: 65px; */ 
+	margin-left: 35%;
+	width : 40%;
 }
+
+th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	font-size: 13px;
+}
+
+.addbtn {
+	width: 350px;
+	margin: 0 48%;
+	padding-top: 65px;
+}
+
+.add{
+	font-size: 13px;
+	padding: 6px 15px;
+	margin: 6px 0;
+}
+
+.memberlist {
+ 	color : #08444d;
+}
+
 </style>
 </head>
 <body>
@@ -38,14 +58,11 @@ table, th, td {
 	<!-- 사이드 네비-->
 	<jsp:include page="side_manager.jsp" />
 	
-	<div id="content">
-		<h4>블랙리스트 추가</h4>
+	<div id="addFrom">
+		<h3 style="text-align: center">블랙리스트 추가</h3>
 		<hr />
 			<form action="memberBlackAdd" method="post">
-				<table class="memberList_main">
-<%-- 					<input type="hidden" name="blackidx" value="${dto.blackidx}"/>
-					<input type="hidden" name="status" value="${dto.blackstatus}"/> --%>
-					
+				<table class="memberList_add">		
 					<tr>
 						<th>관리자 ID</th>
 						<td><input type="text" name="managerid" value="${sessionScope.loginId}" readonly/></td>
@@ -59,9 +76,10 @@ table, th, td {
 						<td><input type="text" name="reason" /></td>
 					</tr>
 				</table>
-			<div style="text-align: center; margin-top: 20px;">
-				<button id="add">추가</button>
-				<input type="button" onclick="location.href='./memberBlackDetail'" value="취소" />
+			<div class="addbtn">
+				<button class="add">추가</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<button class="add" onclick="location.href='./memberBlackDetail'">취소</button>
 			</div>
 			</form>
 	</div>
