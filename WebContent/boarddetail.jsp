@@ -24,20 +24,28 @@
 		margin-left:10%;
 		border:0px solid black;
 		width :1200px;
+		margin-top:60px;
 	}
 	button{
 		width:100px;
 		height: 30px;
 	}
 	#btn1{
-		position: relative;
-		top:35px;
-		left: 18%;
+		position: absolute;
+		top:150px;
+		left: 23%;
 	}
 	#btn2{
-		position: relative;
-		left:67%;
-		margin:5px;
+		position: absolute;
+		left:56.5%;
+		top:145px;
+		margin:5px;		
+	}
+	#btn3{
+		position: absolute;
+		left:63%;
+		top:145px;
+		margin:5px;		
 	}
 	.comment{
 		position: relative;
@@ -84,16 +92,18 @@
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">삭제</button>
 				</c:if>
 			</div>
-			<div id= "btn2">
+			<div >
 				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
-				<button onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
+				<button id= "btn2" onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=400px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
+				<div id= "btn3">
 				<c:if test="${boardkeyword eq null}">
 				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
 				</c:if>
 				<c:if test="${boardkeyword ne null}">
 				<button onclick="location.href='./boardSearch?${url}&page=${currPage}'">목록</button>
 				</c:if>
+				</div>
 			</div>
 		<table>
 			<tr>
@@ -143,7 +153,7 @@
 						<td class ="comm_table" style="width:150px;">${comment.reg_date}</td>
 						<td class ="comm_table" style="width:50px;">
 						<c:if test="${comment.id!=loginId}">
-							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
+							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=400px,location=no,status=no,scrollbars=yes');"/>
 						</c:if>
 						</td>
 					</tr>

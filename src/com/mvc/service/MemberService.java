@@ -283,7 +283,7 @@ public class MemberService {
 			req.getSession().setAttribute("findId", id); // "findId"라는 이름으로 session에 저장
 		}else{
 			page = "findIdPw.jsp";
-//			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
 			
 		}
 		req.setAttribute("msg", msg);
@@ -301,7 +301,7 @@ public class MemberService {
 		System.out.println(id+"/"+name+"/"+phone);
 		
 		
-//		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
 		page = "findIdPw.jsp";
 		
 		if(dao.findPw(id, name, phone)) {
@@ -467,20 +467,21 @@ public class MemberService {
 	      String loginId = (String) req.getSession().getAttribute("loginId"); 
 	      String myIdx = req.getParameter("myidx");
 	      String type = req.getParameter("type");
-	      System.out.println(loginId+"의"+type+":"+myIdx);
-	      
+	      System.out.println(loginId+"의 "+type+":"+myIdx);
+	      MemberDAO dao = new MemberDAO();
 	      if(loginId!=null) { //로그인체크
 	      boolean success =dao.myUpdate(myIdx,type);
 	      System.out.println("북마크업데이트:"+success);
 	      msg="삭제에 실패했습니다";
-	      page="./profile";
+	      page="profile";
 	      if(success) {
-	         if(type=="1") {
+	         if(type.equals("1")) {
 	         msg="즐겨찾기에서 삭제되었습니다.";
 	         page="bookmarkList";
-	         }
+	         }else {
 	         msg="가봤어요에서 삭제되었습니다.";
 	         page="visitedList";
+	         }
 	      }
 	      req.getSession().setAttribute("msg", msg);
 	      resp.sendRedirect(page); 

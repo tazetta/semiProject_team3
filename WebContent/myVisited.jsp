@@ -66,6 +66,7 @@ section#left {
 .bottom {
 	position: relative;
 	bottom: 0px;
+	right:10px;
 	float: right;
 }
 
@@ -74,14 +75,8 @@ section#left {
 	padding: 5px;
 }
 
-#list {
-	/* position: relative;
-	top: 20px;
-	left: 100px;
-	background-color: #FFFFFF;
-	margin-top: 30px;
-	width: 60%;
-	float: left; */
+.list {
+
 	
 	background-color: white;
 	text-align: center;
@@ -89,14 +84,17 @@ section#left {
 	top: 80px;
 	margin: 0 auto;
 	width: 800px;
-	/* overflow: hidden; */
+	margin-top:15px;
+
 }
 
 
-#list table, #list tr, #list th, #list td {
+.list table, .list tr, .list th, .list td {
 	padding: 5px 10px;
 	border: none;
+	
 }
+
 
 .noneList {
 	position: relative;
@@ -167,7 +165,7 @@ a {
 
 			<c:forEach items="${list}" var="bm">
 				
-					<table id="list">
+					<table class="list">
 						<tr>
 							<th colspan="3" style="font-size: 150%">${bm.title }</th>
 						</tr>
@@ -222,7 +220,7 @@ if (msg != "") {
 
 	// 말줄임 기능
  	$('.ellipsis').each(function(){
-	    var length = 100; //글자수
+	    var length = 120; //글자수
 	    $(this).each(function(){
 	    	
 	      if($(this).text().length >= length){

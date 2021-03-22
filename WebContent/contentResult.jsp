@@ -55,7 +55,7 @@ table, th, td {
 	padding: 10px 20px;
 	text-align: center;
 	margin-left: 25%;
-	margin-top: 15%;
+	margin-top: 13%;
 }
 
 .title {
@@ -91,6 +91,9 @@ div.chkBtn {
 }
 
 .btn {
+    border:#BDBDBD ;
+    background-color:#D8D8D8;
+    font-weight: 600;
 	padding: 20px 40px;
 }
 </style>
@@ -162,7 +165,7 @@ div.chkBtn {
 </body>
 <script>
 	$(document).ready(function() {
-		$("div#"+${nav}).css({"background-color" : "lightgray"});
+		$("div#"+${nav}).css({"background-color" : "lightgray","font-weight":"600"});
 	});
 	
 	$('a').hover(function(){

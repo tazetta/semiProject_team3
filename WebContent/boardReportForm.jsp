@@ -14,6 +14,7 @@
                 border-collapse: collapse;
                 padding: 5px 10px;
                 text-align: center;
+                font-size: 16px;
             }
             table{
             	width: 100%;
@@ -23,9 +24,11 @@
             	width:100%;
             	height:350px;
 				resize:none;
+				font-size: 16px;
             }
             .text{
             	width:100%;
+            	font-size: 16px;
             }
 	
 </style>

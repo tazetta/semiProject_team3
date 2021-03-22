@@ -445,11 +445,12 @@ public class MemberDAO {
 	/* 마이페이지 북마크 업데이트 */
 
 	public boolean myUpdate(String myIdx, String type) {
-		String sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=?";
+		String sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=? AND type=?";
 		boolean success = false;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, Integer.parseInt(myIdx));
+			ps.setInt(2, Integer.parseInt(type));
 			if (ps.executeUpdate() > 0) {
 				success = true;
 			}
