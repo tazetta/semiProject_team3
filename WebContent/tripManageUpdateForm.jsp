@@ -205,12 +205,12 @@ $('#firstImage').keyup(function(){
 });
 
 function largeList(type) {
-	var text;
-	var value;
+	var text = [];
+	var value = [];
 	<c:forEach items="${largeList}" var="large">
 	if ('${large.contentCode}' == type) {
-		text = new Array('${large.name}');
-		value = new Array('${large.largeIdx}');
+		text.push('${large.name}');
+		value.push('${large.largeIdx}');
 	}
 	</c:forEach>
 
