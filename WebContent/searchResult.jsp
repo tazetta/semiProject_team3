@@ -90,6 +90,9 @@ a {
 }
 
 button {
+    border:#BDBDBD ;
+    background-color:#D8D8D8;
+    font-weight: 600;
 	padding: 20px 20px;
 }
 
