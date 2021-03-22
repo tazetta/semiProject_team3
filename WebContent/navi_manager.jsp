@@ -6,44 +6,44 @@
 <meta charset="utf-8">
 <title></title>
 <style>
-.navbar {
-    display: flex;
-    background-color: #faf9f9;
-    height: 50px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    color: black;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-width: 1000px;
-    
+body {
+  margin: 0;
 }
 
-li {
-	padding: 8px 24px;
-	display: inline;
+#m_navbar {
+  display: flex;
+  height: 50px;
+  border-bottom: 1px solid #08444d;
+  justify-content: center;
+  align-items: center;
+  min-width: 1000px;
 }
 
-li:hover {
-	font-weight: 600;
+#m_navbar li {
+  padding: 8px 24px;
+  display: inline;
+  font-weight: 600;
 }
 
-a {
-	text-decoration: none;
-	font-size: 90%;
-	color: black;
+#m_navbar a:hover {
+  color: #08444d;
+}
+
+#m_navbar a {
+  text-decoration: none;
+  font-size: 89%;
+  color: rgb(155, 153, 153);
 }
 </style>
 </head>
 <body>
 	<jsp:include page="navi.jsp" />
-	<div class="navbar">
-			<li><a href="./managerList" target="_parent">관리자정보</a></li>
+	<div id="m_navbar">
+			<li class="managerlist"><a href="./managerList" target="_parent">관리자정보</a></li>
 			<li><a href="./tripManageList">여행지 관리</a></li>
 			<li class="repList"><a href="./reportBBS">신고내역 관리</a></li>
-			<li><a href="./memberList" target="_parent">회원정보 관리</a></li>
-			<li><a href="./popupList" target="_parent">팝업 관리</a></li>
+			<li class="memberlist"><a href="./memberList" target="_parent">회원정보 관리</a></li>
+			<li class="popupList"><a href="./popupList" target="_parent">팝업 관리</a></li>
 	</div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지 - 메인</title>
-<link rel="stylesheet" type="text/css" href="basic.css">
+
 <Style>
 #manager_main {
 	width: 1000px;
@@ -21,7 +21,7 @@
 	margin-left: 200px;
 }
 
-th, td {
+#manager_table>th, td {
 	border-bottom: 1px solid lightgray;
 	text-align: center;
 	padding: 8px;
@@ -50,6 +50,10 @@ input [type='button']{
 	text-align: center;
 	margin-top: 10%
 }
+
+.managerlist {
+	color : #08444d;
+}
 </Style>
 </head>
 <body>
@@ -62,7 +66,7 @@ input [type='button']{
 
 	<div id="manager_main">
 		<span>
-			<h4 id="who">로그인한 관리자는 [ ${sessionScope.loginId} ] 입니다.</h4>
+			<h4 id="who">현재 로그인한 관리자는 [ ${sessionScope.loginId} ] 입니다.</h4>
 		</span>
 		<table id="manager_table">
 			<tr id="title">
