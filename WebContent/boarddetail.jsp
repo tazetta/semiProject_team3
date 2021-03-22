@@ -92,7 +92,7 @@
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">삭제</button>
 				</c:if>
 			</div>
-			<div >
+			<div>
 				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
 				<button id= "btn2" onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=400px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
