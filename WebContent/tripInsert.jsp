@@ -184,7 +184,7 @@ input{
 </body>
 <script>
 	$(document).ready(function() {
-		$("div#"+${tripNav}).css({"background-color" : "lightgray"});
+		$("div#"+${tripNav}).css({"background-color" : "lightgray","font-weight":'600'});
 	});
 	
 	$('a').hover(function(){
