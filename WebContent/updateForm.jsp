@@ -13,32 +13,11 @@ body {
 }
 
 
-/*좌측 카테고리*/
-table, tr, td {
-	border: 1px solid lightgray;
-	border-collapse: collapse;
-	text-align: center;
-	padding: 20px;
-}
-
-section#left {
-	position: relative;
-	float: left;
-	margin-left: 10px;
-	padding: 10px;
-}
-
-        .menuHover {
-            font-weight: 600;
-        }
-.menu{
-	font-size:90%;
-}
 
 /*콘텐츠*/
 #content {
 	height: 600px;
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 	text-align: center;
 	float: left;
 	width: 80%;
@@ -66,12 +45,8 @@ table#profile {
 	width: 600px;
 }
 
-
-
-#profile input[type="text"],
-#profile input[type="password"],
-#profile input[type="email"]{
-	
+#profile input[type="text"], #profile input[type="password"], #profile input[type="email"]
+	{
 	width: 80%;
 	height: 30px;
 }
@@ -82,71 +57,43 @@ table#profile {
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-	<section id="left">
-		<div>
-			<table>
-				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
-				</tr>
-			</table>
-		</div>
-		
-		
-	</section>
+	<jsp:include page="myLeft.jsp" />
 	<div id="content">
 		<span>프로필 수정</span>
-			<table id="profile">
-				<tr>
-					<th>아이디</th>
-					<td>${sessionScope.loginId}</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" id="userName" value="${profile.name}" ></td>
-				</tr>
-				<tr>
-					<th>핸드폰 번호</th>
-					<td><input type="text" id="userPhone" value="${profile.phone}"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td><input type="email" id="userEmail" value="${profile.email}"></td>
-				</tr>
-				<tr>
-					<th>현재 비밀번호</th>
-					<td><input type="password" id="userPw"></td>
-				</tr>
-				<tr >
-                	<td colspan="2" style="border:none" >
-       
-		<input type="button" value="저장" id="save"/>
-		<button onclick="location.href='profile'">취소</button>
-
-                	</td>
-                </tr>
-			</table>
+		<table id="profile">
+			<tr>
+				<th>아이디</th>
+				<td>${sessionScope.loginId}</td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td><input type="text" id="userName" value="${profile.name}"></td>
+			</tr>
+			<tr>
+				<th>핸드폰 번호</th>
+				<td><input type="text" id="userPhone" value="${profile.phone}"></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type="email" id="userEmail" value="${profile.email}"></td>
+			</tr>
+			<tr>
+				<th>현재 비밀번호</th>
+				<td><input type="password" id="userPw"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="border: none"><input type="button"
+					value="저장" id="save" />
+					<button onclick="location.href='profile'">취소</button></td>
+			</tr>
+		</table>
 	</div>
 
 
 
 </body>
 <script>
-	/*좌측 카테고리*/
-    $(".menu").hover(function () {
-        $(this).toggleClass("menuHover");
-    });
-    $(".menu").click(function () {
-        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
-    });
+	
     
     /*비밀번호 유효성 검사*/
     

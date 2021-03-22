@@ -13,31 +13,10 @@ body {
 }
 
 
-/*좌측 카테고리*/
-table, tr, td {
-	border: 1px solid lightgray;
-	border-collapse: collapse;
-	text-align: center;
-	padding: 20px;
-}
-
-section#left {
-	position: relative;
-	float: left;
-	margin-left: 10px;
-	padding: 10px;
-}
-
-.menuHover {
-	font-weight: 600;
-}
-.menu{
-	font-size:90%;
-}
 /*콘텐츠*/
 #content {
 	height: 600px;
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 	text-align: center;
 	position: relative;
 	top: 0px;
@@ -45,7 +24,13 @@ section#left {
 	float: left;
 	width: 85%;
 }
-
+#content table,#content tr, #content td{
+	border: 1px solid gray;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 20px;
+}
+	
 span {
 	position: relative;
 	top: 50px;
@@ -59,6 +44,7 @@ table#profile {
 	margin: 0 auto;
 	width: 600px;
 	clear: both;
+	
 }
 
 #wd {
@@ -73,28 +59,9 @@ table#profile {
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
+	<jsp:include page="myLeft.jsp" />
 	
 
-	<section id="left">
-		<div>
-			<table>
-				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
-				</tr>
-			</table>
-		</div>
-	</section>
-
-	<section id="background">
 		<div id="content">
 			<span>회원정보</span>
 
@@ -126,7 +93,6 @@ table#profile {
 		</div>
 
 
-	</section>
 </body>
 <script>
 var msg = "${msg}"; 
@@ -134,18 +100,7 @@ if (msg != "") {
 	alert(msg); 
 }
 
-	/*카테고리 이벤트 */
-	$("li").hover(function () {
-        $(this).toggleClass("li");
-    });
-	
-    $(".menu").hover(function () {
-        $(this).toggleClass("menuHover");
-    });
-    $(".menu").click(function () {
-        $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
-    })
-    
+
 
 </script>
 

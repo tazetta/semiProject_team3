@@ -16,33 +16,10 @@ body {
 }
 
 
-
-/*좌측 카테고리*/
-table, tr, td {
-	border: 1px solid lightgray;
-	border-collapse: collapse;
-	text-align: center;
-	padding: 20px;
-}
-
-section#left {
-	position: relative;
-	float: left;
-	margin-left: 10px;
-	padding: 10px;
-}
-
-.menuHover {
-	font-weight: 600;
-}
-.menu{
-	font-size:90%;
-}
-
 /*콘텐츠*/
 #content {
 	height: 600px;
-	background-color: #F2F2F2;
+
 	text-align: center;
 	float: left;
 	width: 80%;
@@ -83,25 +60,7 @@ input[type="password"] {
 
 	 <jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
-	<section id="left">
-		<div>
-			<table>
-				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
-				</tr>
-			</table>
-		</div>
-	</section>
+<jsp:include page="myLeft.jsp" />
 
 	<div id="content">
 		<span>탈퇴안내</span> <br />
