@@ -103,7 +103,7 @@
 				location.href='./bookmarkUpdate?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';        		
         	}else{
         		alert("로그인 후 가능한 서비스입니다.");
-        		location.href="./login.jsp";
+        		opener.location.href="./login.jsp";
         	}
         });
         
@@ -112,7 +112,7 @@
 				location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
         	}else{
         		alert("로그인 후 가능한 서비스입니다.");
-        		location.href="./login.jsp";
+        		opener.location.href="./login.jsp";
         	}
         	});
         

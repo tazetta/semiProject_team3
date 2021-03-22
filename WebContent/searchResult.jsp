@@ -102,9 +102,10 @@ button {
 	right: 0%;
 }
 
-#noneResult{
+#noneResult {
+	text-align: center;
 	font-size: 36px;
-	font-weight:600px;
+	font-weight: 600px;
 }
 </style>
 </head>
@@ -112,19 +113,18 @@ button {
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
-	<section id=background>
-		<div id="content">
-			<div id="btn">
-				<button
-					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
-				<button
-					onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
-			</div>
+	<c:choose>
+		<c:when test="${list ne '[]'}">
+			<section id=background>
+				<div id="content">
+					<div id="btn">
+						<button
+							onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=bookmarkCnt&deactivate=FALSE'">인기순</button>
+						<button
+							onclick="location.href='./search?keyword=${keyword}&searchType=${searchType}&alignType=reg_date&deactivate=FALSE'">최신순</button>
+					</div>
 
-			<c:choose>
-				<c:when test="${list ne '[]'}">
 					<c:forEach items="${list}" var="result">
-						<h2>${result}</h2>
 						<table>
 							<tr>
 								<th colspan="3" style="font-size: 150%"><a href="#"
@@ -151,25 +151,25 @@ button {
 							</tr>
 						</table>
 					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div id="noneResult">"${keyword}"에 대한 검색 결과가 없습니다.</div>
-				</c:otherwise>
-			</c:choose>
-			<div class="pageArea">
-				<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
-						test="${currPage > 1}">
-						<a href="./search?${url}&page=${currPage-1}">이전</a>
-					</c:if>
-				</span> <span id="page"> ${currPage} </span> <span> <c:if
-						test="${currPage == maxPage}">다음</c:if> <c:if
-						test="${currPage < maxPage}">
-						<a href="./search?${url}&page=${currPage+1}">다음</a>
-					</c:if>
-				</span> <span>${currPage}/${maxPage}</span>
-			</div>
-		</div>
-	</section>
+					<div class="pageArea">
+						<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+								test="${currPage > 1}">
+								<a href="./search?${url}&page=${currPage-1}">이전</a>
+							</c:if>
+						</span> <span id="page"> ${currPage} </span> <span> <c:if
+								test="${currPage == maxPage}">다음</c:if> <c:if
+								test="${currPage < maxPage}">
+								<a href="./search?${url}&page=${currPage+1}">다음</a>
+							</c:if>
+						</span> <span>${currPage}/${maxPage}</span>
+					</div>
+				</div>
+			</section>
+		</c:when>
+		<c:otherwise>
+			<div id="noneResult">"${keyword}"에 대한 검색 결과가 없습니다.</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 <script>
 	// 말줄임 기능

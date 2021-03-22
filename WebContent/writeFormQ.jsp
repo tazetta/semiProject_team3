@@ -12,7 +12,7 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 body {
-	
+	min-width:1400px;
 }
 /*콘텐츠*/
 #content {
@@ -23,11 +23,11 @@ body {
 	left: 20px;
 	margin: 0 auto;
 	width: 90%;
-	height:600px;
+	height:800px;
 }
 
 table, th, td {
-	border: 1px solid black;
+	border: 1px solid gray;
 	border-collapse: collapse;
 	text-align: center;
 	padding:10px;
@@ -43,14 +43,22 @@ table#qna {
 }
 
 input[type='text'] {
-	width: 90%
+	width: 90%;
+	height: 30px;
 }
 
 textarea {
 	background-color: white;
-	width: 100%;
+	width: 95%;
 	height: 400px;
 	resize: none;
+	margin:5px;
+}
+#content span{
+	position: relative;
+	top: 50px;
+	font-weight: 600;
+
 }
 </style>
 </head>
@@ -60,6 +68,7 @@ textarea {
 
 	<form action="writeQue" method="post">
 			<div id="content">
+			<span>문의하기</span>
 				<table id="qna">
 					<tr>
 						<th>작성자</th>

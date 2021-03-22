@@ -43,6 +43,9 @@ span {
 	font-size: 80%;
 	color: gray;
 }
+.btn{
+	float:right;
+}
 </style>
 </head>
 <body>
@@ -52,7 +55,7 @@ span {
 	<div id="content">
 		<table id="qna">
 			<tr>
-				<td colspan="2"><span>제목</span><br />${dto.subject}</td>
+				<td colspan="2"><span>제목</span><br /><b>${dto.subject}</b></td>
 			</tr>
 			<tr>
 				<td><span>작성자</span><br />${dto.id}</td>
@@ -63,29 +66,21 @@ span {
 			</tr>
 
 			<tr>
-				<td colspan="2">
+				<td colspan="2" >
 					<c:choose>
 							<c:when test="${sessionScope.isManager eq true}">
 								<c:if test="${dto.ansIdx eq 0}">
 									<button class="wd" onclick="location.href='writeFormA?qnaIdx=${dto.qnaIdx}'">답변하기</button>
 									</c:if>
-									<input type="button" onclick="location.href='./unAnsList'" value="목록" />
-								<%-- 	<c:choose>
-							<c:when test="${qna.ansIdx gt 0}">
-									<input type="button" onclick="location.href='./qnaList'" value="목록" />
-							</c:when>
-							<c:otherwise>
-								<input type="button" onclick="location.href='./unAnsList'" value="목록" />
-							</c:otherwise>
-
-						</c:choose> --%>
+									<input type="button" onclick="location.href='./unAnsList'" value="목록"  class="btn"/>
+					
 									
 							</c:when>
 							<c:otherwise>
 								<c:if test="${dto.ansIdx eq 0}">
-									<input type="button" onclick="location.href='./qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제" />			
+									<input type="button" onclick="location.href='./qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제"  class="btn" />			
 								</c:if>
-								 <input type="button" onclick="location.href='./qnaListUser'" value="목록" />								
+								 <input type="button" onclick="location.href='./qnaListUser'" value="목록"  class="btn" />								
 							</c:otherwise>
 						</c:choose>
 					

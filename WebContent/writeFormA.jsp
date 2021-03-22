@@ -22,8 +22,8 @@ body {
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 90%;
-	height:600px;
+	width: 96%;
+	height:900px;
 }
 
 table, th, td {
@@ -43,7 +43,8 @@ table#qna {
 }
 
 input[type='text'] {
-	width: 90%
+	width: 90%;
+	height:30px;
 }
 
 textarea {

@@ -208,7 +208,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 	
 	/*상세보기(Q&A)*/
 	public QnaDTO qnaDetail(String loginId, String qnaIdx) {
-		String sql ="SELECT q.qnaidx, q.subject, q.id, q.content, q.reg_date, a.ansidx, a.managerid, a.subjecta, a.contenta "
+		String sql ="SELECT q.qnaidx, q.subject, q.id, q.content, q.reg_date, a.ansidx, a.managerid, a.subjecta, a.contenta, a.reg_datea "
 				+ "FROM question q, answer a  WHERE q.qnaidx=? AND q.qnaidx=a.qnaidx(+)";
 		QnaDTO dto = null;
 		try {
@@ -227,6 +227,7 @@ int pagePerCnt = 10; // 페이지 당 보여줄 갯수
 				dto.setManagerid(rs.getString("managerid"));
 				dto.setSubjectA(rs.getString("subjecta"));
 				dto.setContentA(rs.getString("contenta"));
+				dto.setReg_dateA(rs.getDate("reg_dateA"));
 				
 			}
 		} catch (SQLException e) {

@@ -13,68 +13,9 @@
 <title>고객센터</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- JQuery사용 위해 불러옴 -->
+ <link rel="stylesheet" href="./css/qnaList.css">
 <style>
-/*콘텐츠*/
-#content {
-	height: 600px;
-	background-color: #F2F2F2;
-	text-align: center;
-	position: relative;
-	top: 0px;
-	left: 20px;
-	margin: 0 auto;
-	width: 90%;
-}
 
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	text-align: center;
-}
-
-table#qna {
-	background-color: white;
-	position: relative;
-	top: 80px;
-	margin: 0 auto;
-	width: 60%;
-}
-
-#btn {
-	position: absolute;
-	right: 10px;
-	top: 20px;
-}
-#btn2 {
-	position: absolute;
-	right: 120px;
-	top: 20px;
-}
-
-/*페이징*/
-.pageArea {
-	text-align: center;
-	position: absolute;
-	top: 80%;
-	left: 50%;
-}
-
-.pageArea span {
-	font-size: 16px;
-	border: 1px solid lightgray;
-	background-color: lightgray;
-	padding: 2px 10px;
-}
-
-a {
-	text-decoration: none;
-}
-
-#page {
-	font-weight: 600;
-	border: none;
-	background-color: transparent;
-}
 </style>
 </head>
 <body>
@@ -82,8 +23,6 @@ a {
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
-
-	<section id="background">
 		<div id="content">
 			<table id="qna">
 				<tr>
@@ -102,7 +41,7 @@ a {
 							<td>${qna.id}</td>
 							<td><c:choose>
 							<c:when test="${qna.ansIdx gt 0}">
-									<a href="ansDetail?qnaIdx=${qna.qnaIdx }">답변완료</a>
+									<b><a href="ansDetail?qnaIdx=${qna.qnaIdx }"  style="color:green">답변완료</a></b>
 							</c:when>
 							<c:otherwise>
 								 
@@ -132,7 +71,7 @@ a {
 					</span>
 				</div>
 	
-	</section>
+
 
 </body>
 <script>
