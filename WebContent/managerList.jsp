@@ -37,13 +37,16 @@ td {
 	color: white;
 }
 
-input [type='button']{
-	
+.regist{
+		font-size: 13px;
+	padding: 5px 8px;
+	margin: 5px 0;
 }
 
 .button {
-	text-align: right;
 	float : right;
+    margin-top: -6%;
+    margin-right: -3%;
 }
 
 #who {
@@ -85,16 +88,17 @@ input [type='button']{
 					<td>${manager.name}</td>
 
 					<c:if test="${sessionScope.loginId eq 'sysadmin'}">
-						<td><a href="managerDel?managerid=${manager.managerid}">삭제</a></td>
+						<td><b><a href="managerDel?managerid=${manager.managerid}">삭제</a></b></td>
 					</c:if>
 
 				</tr>
 			</c:forEach>
 
 			<c:if test="${sessionScope.loginId eq 'sysadmin'}">
-				<span class="button">
-					<input type="button" value="신규 관리자 등록" onclick="show();" />
-				</span>
+				<div class="button">
+					<!-- <input type="button" value="신규 관리자 등록" onclick="show();" /> -->
+					<button class="regist" onclick="show();">신규 관리자 등록</button>
+				</div>
 			</c:if>
 		</table>
 	</div>
@@ -105,7 +109,7 @@ input [type='button']{
 				.open(
 						"managerRegist.jsp",
 						"신규관리자등록",
-						"width=500, height=400, left=530, top=100, location=no, status=no, scrollbars=no");
+						"width=500, height=350, left=530, top=100, location=no, status=no, scrollbars=no");
 	}
 
 	var msg = "${msg}";
