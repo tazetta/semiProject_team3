@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,47 +8,81 @@
 <title>팝업 목록 페이지</title>
 <link rel="stylesheet" type="text/css" href="basic.css">
 <style>
-#button {
-	float: right;
-	margin-top: 50px;
-	margin-right: 500px;
+#pop_main {
+	width: 900px;
+	height: 660px;
+	margin: 0 508px;
 }
 
-table {
-	margin-left: 600px;
-	margin-top: 100px;
+#popup {
+	border-collapse: collapse;
+	margin: 45px 0;
+}
+
+th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	padding: 8px;
+	font-size: 14px;
+}
+
+td {
+	background-color: white;
+}
+
+#title {
+	background-color: gray;
+	color: white;
+}
+
+.regist {
+	font-size: 13px;
+	padding: 5px 8px;
+	margin: 5px 0;
+}
+
+.button {
+	float: right;
+	margin-top: -6%;
+	margin-right: -3%;
 }
 </style>
 </head>
 <body>
 	<!--상단페이지-->
 	<jsp:include page="top.jsp" />
-	
+
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
-	
-	<div id ="button"><button onclick="location.href='popWrite.jsp'">등록</button></div>
-    <div class="pop">
-            <table >
-                <tr>
-                    <th>등록일</th>
-                    <th>등록 관리자</th>
-                    <th>제목</th>
-                    <th>노출여부</th>                 
-                </tr>
-                <c:forEach items="${popupList}" var="popup">
-                <tr>
-	                <td>${popup.reg_date}</td>
-	                <td>${popup.managerid}</td>
+
+	<div id="pop_main">
+
+		<div class="button">
+			<button class="regist" onclick="location.href='popWrite.jsp'">등록</button>
+		</div>
+
+
+		<table id="popup">
+			<tr id="title">
+				<th>등록일</th>
+				<th>등록 관리자</th>
+				<th>제목</th>
+				<th>노출여부</th>
+				<th></th>
+			</tr>
+			<c:forEach items="${popupList}" var="popup">
+				<tr>
+					<td>${popup.reg_date}</td>
+					<td>${popup.managerid}</td>
 					<td><a href="popupDetail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
 					<td>${popup.popupalert}</td>
 					<!-- <td><button onclick="location.href='popupDel?infoidx=${popup.infoidx}'">삭제</button></td> -->
 					<td><a href="popupDel?infoidx=${popup.infoidx}">삭제</a></td>
-                </tr>
-                </c:forEach>
-            </table>
-             
-        </div>
+				</tr>
+			</c:forEach>
+		</table>
+
+	</div>
 </body>
 <script>
 	var msg = "${msg}";
