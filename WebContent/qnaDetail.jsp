@@ -72,7 +72,7 @@ span {
 								<c:if test="${dto.ansIdx eq 0}">
 									<button class="wd" onclick="location.href='writeFormA?qnaIdx=${dto.qnaIdx}'">답변하기</button>
 									</c:if>
-									<input type="button" onclick="location.href='./unAnsList'" value="목록"  class="btn"/>
+									<input type="button" onclick="location.href='./qnaList'" value="목록"  class="btn"/>
 					
 									
 							</c:when>

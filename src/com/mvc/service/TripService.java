@@ -186,7 +186,6 @@ public class TripService {
 		public void popularImage() throws IOException {
 			String img = req.getParameter("img");
 			System.out.println("img:"+img);
-			TripDAO dao = new TripDAO();
 			ArrayList<TripDTO> list = dao.popularImage();
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			
