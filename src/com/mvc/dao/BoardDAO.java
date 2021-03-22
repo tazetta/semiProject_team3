@@ -125,6 +125,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 		return max;
 	}
@@ -354,6 +356,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 		return max;
 	}
@@ -451,6 +455,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 		return success;
 	}
@@ -469,6 +475,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			resClose();
 		}
 		return max;
 	}
