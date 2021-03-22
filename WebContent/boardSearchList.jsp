@@ -67,7 +67,8 @@
 			#field{
 				margin-left:15%;
 				text-align:center;
-				width:1200px;			
+				width:1200px;	
+				margin-top:20px;		
 			}
 			.mouse_over:hover{
 				font-weight: 600;
@@ -106,6 +107,7 @@
 			</tr>
 		</c:forEach>
 		</c:if>
+		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="bbs">
 			<tr>
 				<td>${bbs.boardIdx}</td>
@@ -115,7 +117,11 @@
 				<td>${bbs.reg_date}</td>
 			</tr>
 		</c:forEach>
+		</c:if>
 	</table>
+	<c:if test="${empty list}">
+			<p>해당 글이 없습니다.</p>
+	</c:if>
 	<div class="pageArea">
 		<span>
 			<c:if test="${currPage==1}">이전</c:if>

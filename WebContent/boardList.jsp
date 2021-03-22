@@ -66,11 +66,11 @@
 				margin:2px
 			}
 			#field{
-				margin-left:10%;
+				margin-left:15%;
 				text-align:center;
 				width:1200px;	
-				position: relative;
-				top:20px;		
+				margin-top:20px;
+						
 			}
 			.mouse_over:hover{
 				font-weight: 600;
