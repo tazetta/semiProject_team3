@@ -467,20 +467,21 @@ public class MemberService {
 	      String loginId = (String) req.getSession().getAttribute("loginId"); 
 	      String myIdx = req.getParameter("myidx");
 	      String type = req.getParameter("type");
-	      System.out.println(loginId+"의"+type+":"+myIdx);
-	      
+	      System.out.println(loginId+"의 "+type+":"+myIdx);
+	      MemberDAO dao = new MemberDAO();
 	      if(loginId!=null) { //로그인체크
 	      boolean success =dao.myUpdate(myIdx,type);
 	      System.out.println("북마크업데이트:"+success);
 	      msg="삭제에 실패했습니다";
-	      page="./profile";
+	      page="profile";
 	      if(success) {
-	         if(type=="1") {
+	         if(type.equals("1")) {
 	         msg="즐겨찾기에서 삭제되었습니다.";
 	         page="bookmarkList";
-	         }
+	         }else {
 	         msg="가봤어요에서 삭제되었습니다.";
 	         page="visitedList";
+	         }
 	      }
 	      req.getSession().setAttribute("msg", msg);
 	      resp.sendRedirect(page); 

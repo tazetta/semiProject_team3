@@ -7,114 +7,120 @@
    <title>마이페이지 - 즐겨찾기</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
     <style>
-       body {
-   min-width: 1400px;
+body {
+	min-width: 1400px;
 }
 
 /*좌측 카테고리*/
 table, tr, td {
-   border: 1px solid lightgray;
-   border-collapse: collapse;
-   text-align: center;
-   padding: 20px;
+	border: 1px solid lightgray;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 20px;
 }
 
 section#left {
-   position: relative;
-   float: left;
-   margin-left: 10px;
-   padding: 10px;
+	position: relative;
+	float: left;
+	margin-left: 10px;
+	padding: 10px;
 }
 
 .menuHover {
-   font-weight: 600;
+	font-weight: 600;
 }
 
 /*콘텐츠*/
 #content {
-   background-color: #F2F2F2;
-   text-align: center;
-   position: relative;
-   top: 0px;
-   left: 20px;
-   float: left;
-   margin: 10px;
-   width: 80%;
-   height: 500px;
-   /* flex-direction:column; */
+	background-color: #F2F2F2;
+	text-align: center;
+	position: relative;
+	top: 0px;
+	left: 20px;
+	float: left;
+	margin: 10px;
+	width: 1200px;
+	height: 1200px;
+
 }
 
-span {
-   position: relative;
-   top: 50px;
-   font-weight: 600;
+#content span {
+	position: relative;
+	top: 50px;
+	left: 0px;
+	font-weight: 600;
 }
 
-/* table#bookmarkList {
-   background-color: white;
-   text-align: center;
-   position: relative;
-   top: 80px;
-   margin: 0 auto;
-   width: 1200px;
-} */
-
-.noneList {
-   position: relative;
-   top: 150px;
-   height: 60px;
-   text-align: center;
-   align-items: stretch;
-   background-color: transParent;
-}
 
 .text {
-   text-align: left;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    width: 95%;
-    height: auto; 
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-}
-.bottom{
-float:right;
+	text-align: left;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	width: 95%;
+	height: auto;
 }
 
-#list{
-   background-color: #FFFFFF;
-    margin-top: 1%;
-    margin-right: 1%;
-    width: 80%;
-    float: left;
-    overflow: hidden;
+.bottom {
+	position: relative;
+	bottom: 0px;
+	float: right;
+}
+
+.bottom a {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+.list {
+
+	
+	background-color: white;
+	text-align: center;
+	position: relative;
+	top: 80px;
+	margin: 0 auto;
+	width: 800px;
+	margin-top:15px;
+
+}
+
+
+.list table, .list tr, .list th, .list td {
+	padding: 5px 10px;
+	border: none;
+}
+
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
 }
 /*페이징*/
 .pageArea {
-   text-align: center;
-   position: absolute;
-   top: 50%;
-   left: 50%;
+	text-align: center;
+	position: relative;
+	top: 50px;
+	left: 20px;
 }
 
 .pageArea span {
-   font-size: 16px;
-   border: 1px solid lightgray;
-   background-color: lightgray;
-   padding: 2px 10px;
+	font-size: 16px;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	padding: 2px 10px;
 }
 
 a {
-   text-decoration: none;
+	text-decoration: none;
 }
 
 #page {
-   font-weight: 600;
-   border: none;
-   background-color: transparent;
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
 }
     </style>
    </head>
@@ -151,7 +157,7 @@ a {
          </c:if>
             
                <c:forEach items="${list}" var="bm">
-            <div id="list">
+            <div class="list">
                <table >
                   <tr>
                      <th colspan="3" style="font-size:150%">${bm.title }</th>
@@ -159,7 +165,7 @@ a {
                   <tr>
                      <td id="user" rowspan="2">
                         <div>
-                           <a href="./tripDetail?contentId=${bm.contentid}" target=window.open()><img src="${bm.firstimage}" width="300px" height="200px">
+                           <a href="./tripDetail?contentId=${bm.contentid}" target=window.open()><img src="${bm.firstimage}" width="250px" height="150px">
                            </a>
                         </div>
                      </td>
@@ -169,7 +175,7 @@ a {
                   </tr>
                   <tr>
                      <td class="bottom">
-                     <a href="bookmarkUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}" target="_blanck">삭제</a></td>
+                     <a href="myUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}" >삭제</a></td>
                      <td class="bottom" colspan="2">${bm.reg_date }</td>
                   </tr>
             
@@ -205,7 +211,7 @@ a {
    
    // 말줄임 기능
    $('.ellipsis').each(function(){
-       var length = 200; //글자수
+       var length = 120; //글자수
        $(this).each(function(){
           
          if($(this).text().length >= length){
