@@ -124,7 +124,6 @@ button {
 			<c:choose>
 				<c:when test="${list ne '[]'}">
 					<c:forEach items="${list}" var="result">
-						<h2>${result}</h2>
 						<table>
 							<tr>
 								<th colspan="3" style="font-size: 150%"><a href="#"
