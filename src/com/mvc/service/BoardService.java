@@ -202,7 +202,7 @@ public class BoardService {
 		String id = req.getParameter("id");
 		String boardIdx = req.getParameter("boardIdx");
         System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
-		if(loginId.equals(id)) {
+		if(loginId!=null) {
 			String currPage = req.getParameter("page");
 			BoardDAO dao = new BoardDAO();
 			BoardDTO dto = dao.detail(boardIdx);
