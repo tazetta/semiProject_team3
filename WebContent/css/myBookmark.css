@@ -1,0 +1,118 @@
+body {
+	min-width: 1400px;
+}
+
+/*좌측 카테고리*/
+table, tr, td {
+	border: 1px solid lightgray;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 20px;
+}
+
+section#left {
+	position: relative;
+	float: left;
+	margin-left: 10px;
+	padding: 10px;
+}
+
+.menuHover {
+	font-weight: 600;
+}
+
+.menu{
+	font-size:90%;
+}
+/*콘텐츠*/
+#content {
+	background-color: #F2F2F2;
+	text-align: center;
+	position: relative;
+	top: 0px;
+	left: 20px;
+	float: left;
+	margin: 10px;
+	width: 85%;
+	height: 1200px;
+
+}
+
+#content span {
+	position: relative;
+	top: 50px;
+	left: 0px;
+	font-weight: 600;
+}
+
+
+.text {
+	text-align: left;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	width: 95%;
+	height: auto;
+}
+
+.bottom {
+	position: relative;
+	bottom: 0px;
+	float: right;
+}
+
+.bottom a {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+.list {
+
+	
+	background-color: white;
+	text-align: center;
+	position: relative;
+	top: 80px;
+	margin: 0 auto;
+	width: 800px;
+	margin-top:15px;
+
+}
+
+
+.list table, .list tr, .list th, .list td {
+	padding: 5px 10px;
+	border: none;
+}
+
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
+}
+/*페이징*/
+.pageArea {
+	text-align: center;
+	position: relative;
+	top: 70px;
+	left: 20px;
+}
+
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	padding: 2px 10px;
+}
+
+a {
+	text-decoration: none;
+}
+
+#page {
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
+}

@@ -10,24 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- JQuery사용 위해 불러옴 -->
 <style>
-/* .container {
-	width: 300vw;
-	transition-duration: 0.5s;
-}
 
-.inner {
-	width: 100vw;
-	float: left;
-}
-
-.inner img {
-	width: 70%;
-	height: 500px;
-}
-
-button {
-	text-align: center;
-} */
 /* 브라우저 마진과 패딩 리셋 */
 * {margin:0;padding:0;}
 	.section input[id*="slide"] {display:none;}

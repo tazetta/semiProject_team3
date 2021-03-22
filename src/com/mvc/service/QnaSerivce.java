@@ -50,7 +50,7 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
-			QnaDAO dao = new QnaDAO();
+			/* QnaDAO dao = new QnaDAO(); */
 			HashMap<String, Object> map = dao.qnaList(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
@@ -83,7 +83,7 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
-			QnaDAO dao = new QnaDAO();
+			/* QnaDAO dao = new QnaDAO(); */
 			HashMap<String, Object> map = dao.qnaListUser(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
