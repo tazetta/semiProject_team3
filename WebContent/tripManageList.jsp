@@ -71,6 +71,12 @@ div.deactivate {
 	position: absolute;
 	left: 60%;
 }
+
+#noneResult {
+	font-size: 36px;
+	font-weight: 600px;
+	text-align: center;
+}
 </style>
 <body>
 	<jsp:include page="top.jsp" />
@@ -100,28 +106,36 @@ div.deactivate {
 			</div>
 		</div>
 		<div>
-			<table>
-				<tr>
-					<th>contentID</th>
-					<th>여행지 이름</th>
-					<th>등록 날짜</th>
-					<th>비활성화 여부</th>
-				</tr>
-				<c:forEach items="${tripList}" var="trip">
-					<tr>
-						<td>${trip.contentId}</td>
-						<td class='title'><a
-							href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
-						<td class="date">${trip.reg_date}</td>
-						<td><c:if test="${trip.deactivate eq true}">
+			<c:choose>
+				<c:when test="${tripList ne '[]'}">
+					<table>
+						<tr>
+							<th>contentID</th>
+							<th>여행지 이름</th>
+							<th>등록 날짜</th>
+							<th>비활성화 여부</th>
+						</tr>
+						<c:forEach items="${tripList}" var="trip">
+							<tr>
+								<td>${trip.contentId}</td>
+								<td class='title'><a
+									href="./tripManageDetail?contentId=${trip.contentId}&page=${currPage}">${trip.title}</a></td>
+								<td class="date">${trip.reg_date}</td>
+								<td><c:if test="${trip.deactivate eq true}">
 							Y
 						</c:if> <c:if test="${trip.deactivate eq false}">
 							N
 						</c:if></td>
-					</tr>
-				</c:forEach>
-			</table>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:when>
+				<c:otherwise>
+					<div id="noneResult">"${keyword}"에 대한 검색 결과가 없습니다.</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
+		<c:if test="${tripList ne '[]'}">
 		<div class="pageArea">
 			<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
 					test="${currPage > 1}">
@@ -154,6 +168,7 @@ div.deactivate {
 				</c:if>
 			</span> <span>${currPage}/${maxPage}</span>
 		</div>
+		</c:if>
 	</div>
 </body>
 <script>
