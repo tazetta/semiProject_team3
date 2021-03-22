@@ -85,11 +85,12 @@ position: relative;
 
 </body>
 <script>
-	$(".naviUl>li").hover(function () {
-        $(this).toggleClass("li");
-    });
-    $("li").click(function(){
-        $(this).css({" background-color":"lightgray"})
-    })
+	$(".naviUl li a").hover(function () {
+        $(this).css({"color":"#A4A4A4"});
+    },
+    function(){
+    	$(this).css({"color":"white"});}
+    );
+	
 	</script>
 </html>

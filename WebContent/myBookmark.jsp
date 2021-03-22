@@ -6,37 +6,116 @@
    <meta charset="UTF-8">
    <title>마이페이지 - 즐겨찾기</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
-     <link rel="stylesheet" href="./css/myBookmark.css">
+    <!--  <link rel="stylesheet" href="./css/myBookmark.css"> -->
     <style>
+body {
+	min-width: 1400px;
+}
 
+/*콘텐츠*/
+#content {
+	text-align: center;
+	position: relative;
+	top: 0px;
+	left: 20px;
+	float: left;
+	margin-bottom: 18px;	
+	width: 85%;
+
+}
+
+#spanTitle {
+	position: relative;
+	top: 30px;
+	left: 0px;
+	font-weight: 600;
+	background-color:  #93c47dff ;
+	padding:5px 10px;
+	color:white;
+}
+
+.text {
+	text-align: left;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	width: 95%;
+	height: auto;
+}
+
+.bottom {
+	position: relative;
+	bottom: 0px;
+	right:10px;
+	float: right;
+}
+
+.bottom a {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+.list {
+	background-color: white;
+	border :1px solid gray;
+	border-radius:5px;
+	text-align: center;
+	position: relative;
+	top: 40px;
+	margin: 0 auto;
+	width: 800px;
+	margin-top:20px;
+
+}
+
+
+.list table, .list tr, .list th, .list td {
+	padding: 5px 10px;
+	border: none;
+	
+}
+
+
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
+}
+/*페이징*/
+.pageArea {
+	text-align: center;
+	position: relative;
+	top: 70px;
+	left: 20px;
+}
+
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	padding: 2px 10px;
+}
+
+a {
+	text-decoration: none;
+}
+
+#page {
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
+}
     </style>
    </head>
    <body>
    <jsp:include page="top.jsp" />
    <jsp:include page="navi.jsp" />
+<jsp:include page="myLeft.jsp" />
 
-   <section id="left">
-      <div>
-         <table>
-            <tr>
-               <td class="menu"><a href="profile">사용자 정보</a></td>
-            </tr>
-            <tr>
-               <td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-            </tr>
-            <tr>
-               <td class="menu"><a href="visitedList">가봤어요</a></td>
-            </tr>
-            <tr>
-               <td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
-            </tr>
-         </table>
-      </div>
-   </section>
-   
-   <section id=background>
       <div id="content">
-         <span>가보고 싶은 여행지</span>
+         <span id="spanTitle">가보고 싶은 여행지</span>
          <c:if test="${list eq '[]'}">
             <div class="noneList">
                <p>즐겨찾기에 등록된 여행지가 없습니다</p>
@@ -87,7 +166,7 @@
             </div>
          </c:if>
       </div>
-   </section>
+
    </body>
    <script>
    

@@ -17,7 +17,7 @@ body {
 	min-width: 1400px;
 }
 
-/*좌측 카테고리*/
+
 table, tr, td {
 	border: 1px solid lightgray;
 	border-collapse: collapse;
@@ -25,23 +25,10 @@ table, tr, td {
 	padding: 20px;
 }
 
-section#left {
-	position: relative;
-	float: left;
-	margin-left: 10px;
-	padding: 10px;
-}
-
-.menuHover {
-	font-weight: 600;
-}
-.menu{
-	font-size:90%;
-}
 
 /*콘텐츠*/
 #content {
-	background-color: #F2F2F2;
+	
 	text-align: center;
 	position: relative;
 	top: 0px;
@@ -50,12 +37,11 @@ section#left {
 	margin: 10px;
 	width: 85%;
 	height: 1000px;
-	/* flex-direction:column; */
 }
 
 span {
 	position: relative;
-	top: 50px;
+	top: 30px;
 	font-weight: 600;
 }
 
@@ -105,25 +91,7 @@ a {
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
-	<section id="left">
-		<div>
-			<table>
-				<tr>
-					<td class="menu"><a href="profile">사용자 정보</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="wroteList">내가 쓴 글 보기</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="visitedList">가봤어요</a></td>
-				</tr>
-				<tr>
-					<td class="menu"><a href="bookmarkList">즐겨찾기</a></td>
-				</tr>
-			</table>
-		</div>
-	</section>
+<jsp:include page="myLeft.jsp" />
 
 	<section id=background>
 		<div id="content">
@@ -176,12 +144,7 @@ if (msg != "") {
 
 <%request.removeAttribute("msg");%>
 
-$(".menu").hover(function () {
-    $(this).toggleClass("menuHover");
-});
-$(".menu").click(function () {
-    $(this).css({ "background-color": "#F5D0A9", "font-weight": "600" });
-})
+
 	
 </script>
 </html>
