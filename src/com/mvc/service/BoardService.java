@@ -199,10 +199,10 @@ public class BoardService {
 	public void updateForm() throws ServletException, IOException {
 		
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		
-		if(loginId!=null) {
-			String boardIdx = req.getParameter("boardIdx");
-			String id = req.getParameter("id");
+		String id = req.getParameter("id");
+		String boardIdx = req.getParameter("boardIdx");
+		System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
+		if(loginId.equals(id)) {
 			String currPage = req.getParameter("page");
 			BoardDAO dao = new BoardDAO();
 			BoardDTO dto = dao.detail(boardIdx);
