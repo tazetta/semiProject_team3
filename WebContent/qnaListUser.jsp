@@ -31,6 +31,7 @@
 					<div class="noneList">
 						<p>작성한 문의글이 없습니다</p>
 					</div>
+					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 
 				</c:when>
 				<c:otherwise>
