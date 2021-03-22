@@ -120,6 +120,7 @@ public class QnaSerivce {
 			page="qnaList";
 			if(success) {
 				msg="글 등록에 성공 했습니다";
+				page="ansDetail?qnaIdx="+qnaIdx;
 			}
 			req.getSession().setAttribute("msg", msg); 
 			dis = req.getRequestDispatcher(page);
@@ -254,7 +255,7 @@ public class QnaSerivce {
 		String qnaIdx =req.getParameter("qnaIdx");
 		System.out.println(loginId+" 의 게시글 삭제: "+qnaIdx);
 		if (loginId != null) { // 로그인체크
-			QnaDAO dao = new QnaDAO();
+			/* QnaDAO dao = new QnaDAO(); */
 			boolean success =dao.qnaDel(qnaIdx);
 			msg="삭제에 실패했습니다";
 			page="qnaListUser";
