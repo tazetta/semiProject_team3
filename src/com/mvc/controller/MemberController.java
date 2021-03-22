@@ -56,6 +56,7 @@ public class MemberController extends HttpServlet {
 			System.out.println("");
 			System.out.println("-- 수정할 회원정보 보기 요청--");
 			service.updateDetail();
+			break;
 
 		case "/memberUpdate":
 			System.out.println("");

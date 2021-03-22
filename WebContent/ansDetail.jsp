@@ -43,6 +43,9 @@ span {
 	font-size: 80%;
 	color: gray;
 }
+.btn{
+	float:right;
+}
 </style>
 </head>
 <body>
@@ -65,13 +68,13 @@ span {
 				<td colspan="2"><span>답변</span><br/><br/><b>${dto.subjectA}</b><br/>${dto.contentA}</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" style="background-color:transParent">
 					<c:choose>
 							<c:when test="${sessionScope.isManager eq true}">
-									<input type="button" onclick="location.href='./qnaList'" value="목록" />
+									<input type="button" onclick="location.href='./qnaList'" value="목록"  class="btn"/>
 							</c:when>
 							<c:otherwise>	
-								 <input type="button" onclick="location.href='./qnaListUser'" value="목록" />								
+								 <input type="button" onclick="location.href='./qnaListUser'" value="목록"  class="btn"/>								
 							</c:otherwise>
 						</c:choose>
 					</td>

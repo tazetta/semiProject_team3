@@ -41,7 +41,7 @@ section#left {
 	top: 0px;
 	left: 20px;
 	float: left;
-	width: 80%;
+	width: 85%;
 }
 
 span {

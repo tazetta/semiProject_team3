@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내가 쓴 글 보기</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- JQuery사용 위해 불러옴 -->
 <style>
@@ -45,8 +45,8 @@ section#left {
 	left: 20px;
 	float: left;
 	margin: 10px;
-	width: 1200px;
-	height: 1200px;
+	width: 85%;
+	height: 1000px;
 	/* flex-direction:column; */
 }
 
@@ -76,9 +76,9 @@ table#wroteList {
 /*페이징*/
 .pageArea {
 	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
+	position: relative;
+	top: 70px;
+	left: 20px;
 }
 
 .pageArea span {
