@@ -31,7 +31,9 @@ section#left {
         .menuHover {
             font-weight: 600;
         }
-
+.menu{
+	font-size:90%;
+}
 
 /*콘텐츠*/
 #content {

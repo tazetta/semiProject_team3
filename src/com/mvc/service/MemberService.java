@@ -183,6 +183,7 @@ public class MemberService {
 			page = Integer.parseInt(pageParam); 
 		}
 		if (loginId != null) { // 로그인 체크
+			/* MemberDAO dao = new MemberDAO(); */
 			HashMap<String, Object> map = dao.wroteList(loginId, page);
 			req.setAttribute("maxPage", map.get("maxPage"));
 			req.setAttribute("list", map.get("list")); // req에 저장
@@ -346,6 +347,7 @@ public class MemberService {
 
 		boolean success = false;
 		if (loginId != null) {// 로그인 체크
+			/* MemberDAO dao = new MemberDAO(); */
 			success = dao.memberWithdraw(loginId, pw);
 			System.out.println("회원탈퇴" + success);
 
@@ -384,7 +386,7 @@ public class MemberService {
 	            group = Integer.parseInt(pageParam); 
 	         }
 	         int type=2;
-	         MemberDAO dao = new MemberDAO();
+			/* MemberDAO dao = new MemberDAO(); */
 	         HashMap<String, Object> map =dao.visitedList(loginId,group,type);
 	         if(map !=null) {
 	            req.setAttribute("maxPage", map.get("maxPage"));
@@ -416,7 +418,6 @@ public class MemberService {
 	            group = Integer.parseInt(pageParam); 
 	         }
 	         int type=1;
-	         MemberDAO dao = new MemberDAO();
 	         HashMap<String, Object> map =dao.visitedList(loginId,group,type);
 	         if(map !=null) {
 	            req.setAttribute("maxPage", map.get("maxPage"));
@@ -468,7 +469,7 @@ public class MemberService {
 	      String myIdx = req.getParameter("myidx");
 	      String type = req.getParameter("type");
 	      System.out.println(loginId+"의 "+type+":"+myIdx);
-	      MemberDAO dao = new MemberDAO();
+		/* MemberDAO dao = new MemberDAO(); */
 	      if(loginId!=null) { //로그인체크
 	      boolean success =dao.myUpdate(myIdx,type);
 	      System.out.println("북마크업데이트:"+success);
