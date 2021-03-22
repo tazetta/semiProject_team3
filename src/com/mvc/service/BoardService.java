@@ -201,7 +201,7 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String id = req.getParameter("id");
 		String boardIdx = req.getParameter("boardIdx");
-		System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
+        System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
 		if(loginId.equals(id)) {
 			String currPage = req.getParameter("page");
 			BoardDAO dao = new BoardDAO();
