@@ -91,6 +91,9 @@ div.chkBtn {
 }
 
 .btn {
+    border:#BDBDBD ;
+    background-color:#D8D8D8;
+    font-weight: 600;
 	padding: 20px 40px;
 }
 </style>

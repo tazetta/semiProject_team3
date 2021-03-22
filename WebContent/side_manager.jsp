@@ -44,13 +44,13 @@ a:hover {
 	<div id="side">
 		<table id="aside_table">
 			<tr>
-				<td><a href="./memberList" target="_parent">일반 회원</a></td>
+				<td class="genmem"><a href="./memberList" target="_parent">일반 회원</a></td>
 			</tr>
 			<tr>
-				<td><a href="./memberBlackList" target="_parent">블랙리스트 회원</a></td>
+				<td class="blackmem"><a href="./memberBlackList" target="_parent">블랙리스트 회원</a></td>
 			</tr>
 			<tr>
-				<td><a href="./memberDelList" target="_parent">탈퇴 회원</a></td>
+				<td class="delmem"><a href="./memberDelList" target="_parent">탈퇴 회원</a></td>
 			</tr>
 		</table>
 	</div>

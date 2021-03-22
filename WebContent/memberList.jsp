@@ -44,7 +44,11 @@ td{
 	font-size : 16px;
 	border:1px solid lightgray;
 	padding: 2px 10px;
-	margin:2px
+	margin:2px;
+}
+
+.genmem, .blackmem, .delmem{
+	background-color: rgb(240, 191, 58);
 }
 </style>
 
