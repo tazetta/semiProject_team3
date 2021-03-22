@@ -96,14 +96,29 @@
 	</body>
 	<script>
 	
-	var msg="${msg}";
-	if(msg!=""){
-		alert(msg);
-	}
+
 	
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
+		
+        $('#userName').focusout(function(){
+            if($(this).val()==''){
+                 alert('가입하신 이름을 입력해주세요.');
+                 
+             }else{
+                 nameChk = true;
+             }
+         });
+        
+        $('#userPhone').focusout(function(){
+            if($(this).val()==''){
+                 alert('가입하신 핸드폰번호를 입력해주세요.');
+                 
+             }else{
+                 phoneChk = true;
+             }
+         });
 	
 	
 		$('#userPhone').keydown(function(event) {
@@ -122,7 +137,7 @@
     	});
 	
 	
-		 $('#btn1').click(function(){
+/* 		 $('#btn1').click(function(){
 			var $name = $("#userName");
 			var $phone = $("#userPhone");
 			
@@ -135,8 +150,34 @@
 				$phone.focus();
 			}
 			
-		});
-	
+		}); */
+		
+        $('#userId').focusout(function(){
+            if($(this).val().length<5){
+                 alert('가입하신 아이디를 5자 이상 입력해주세요.');
+                 
+             }else{
+                 idChk = true;
+             }
+         });
+		
+        $('#userName1').focusout(function(){
+            if($(this).val()==''){
+                 alert('가입하신 이름을 입력해주세요.');
+                 
+             }else{
+                 nameChk = true;
+             }
+         });
+        
+        $('#userPhone1').focusout(function(){
+            if($(this).val()==''){
+                 alert('가입하신 핸드폰번호를 입력해주세요.');
+                 
+             }else{
+                 phoneChk = true;
+             }
+         });
 	
 		 $('#userPhone1').keydown(function(event) {
 	        var key = event.charCode || event.keyCode || 0;
@@ -153,7 +194,7 @@
 	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
     	});
 		
-		 $("#btn2").click(function(){
+/* 		 $("#btn2").click(function(){
 			 
 			 var $id = $("#userId");
 			 var $name = $("#userName1");
@@ -172,6 +213,6 @@
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
 			}
-		});
+		}); */
 	</script>
 </html>

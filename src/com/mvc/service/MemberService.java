@@ -283,7 +283,7 @@ public class MemberService {
 			req.getSession().setAttribute("findId", id); // "findId"라는 이름으로 session에 저장
 		}else{
 			page = "findIdPw.jsp";
-//			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
 			
 		}
 		req.setAttribute("msg", msg);
@@ -301,7 +301,7 @@ public class MemberService {
 		System.out.println(id+"/"+name+"/"+phone);
 		
 		
-//		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
 		page = "findIdPw.jsp";
 		
 		if(dao.findPw(id, name, phone)) {
