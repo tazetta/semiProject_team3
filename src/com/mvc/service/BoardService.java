@@ -249,8 +249,11 @@ public class BoardService {
 			System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
 			BoardDAO dao = new BoardDAO();
 			msg="수정권한이 없습니다.";
-			if(loginId.equals(dto.getId())&&dao.update(dto)>0) {
-				msg="수정이 완료되었습니다";
+			if(loginId.equals(dto.getId())){
+				msg="수정에 실패했습니다.";
+				if(dao.update(dto)>0) {
+					msg="수정이 완료되었습니다";
+				}			
 			}
 			
 			if(dto.getOriFileName()!=null) {
