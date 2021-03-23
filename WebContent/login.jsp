@@ -35,7 +35,7 @@
 	                <tr>
 	                    <th style="background-color : purple">아이디</th>
 	                    <td>
-	                        <input type="text" name="userId" placeholder="아이디"/>
+	                        <input type="text" name="userId" maxlength="12" placeholder="아이디"/>
 	                    </td>
 	                    <td rowspan="2">
 	                        <input type="submit" id="send" value="로그인"/>
@@ -44,7 +44,7 @@
 	                <tr>
 	                    <th style="background-color : purple">비밀번호</th>
 	                    <td>
-	                        <input type="password" name="userPw" placeholder="비밀번호"/>
+	                        <input type="password" name="userPw" maxlength="20" placeholder="비밀번호"/>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -68,5 +68,25 @@
 		if(msg != ""){
 			alert(msg);
 		}
+		
+ 		//Id에 한글 입력안되게(영어 숫자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userId]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			   }
+ 			  });
+ 			});
+ 		
+ 		//pw에 한글 입력안되게(영어 숫자 특수문자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userPw]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9~!@#$%^&*()_.,+<>?:{}]/gi,''));
+ 			   }
+ 			  });
+ 			});
 	</script>
 </html>

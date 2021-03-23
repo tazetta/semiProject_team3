@@ -33,17 +33,17 @@
 	#btn1{
 		position: absolute;
 		top:150px;
-		left: 23%;
+		left: 22%;
 	}
 	#btn2{
 		position: absolute;
-		left:56.5%;
+		left:53.5%;
 		top:145px;
 		margin:5px;		
 	}
 	#btn3{
 		position: absolute;
-		left:63%;
+		left:59.5%;
 		top:145px;
 		margin:5px;		
 	}
@@ -94,7 +94,7 @@
 			</div>
 			<div>
 				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
-				<button id= "btn2" onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=400px,location=no,status=no,scrollbars=yes');">신고</button>
+				<button id= "btn2" onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
 				<div id= "btn3">
 				<c:if test="${boardkeyword eq null}">
@@ -153,7 +153,7 @@
 						<td class ="comm_table" style="width:150px;">${comment.reg_date}</td>
 						<td class ="comm_table" style="width:50px;">
 						<c:if test="${comment.id!=loginId}">
-							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=400px,location=no,status=no,scrollbars=yes');"/>
+							<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx=${comment.reIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
 						</c:if>
 						</td>
 					</tr>
@@ -175,60 +175,6 @@
 		</div>
 </body>
 <script>
-	/*  $('#more').click(function(){
-		console.log("더보기!!!!!!")
-		
-		var boardIdx = "${dto.boardIdx}";
-		var page ="${currPage}";
-		var commpage="${commcurrPage+1}";
-		var loginId = "${loginId}";
-			$.ajax({
-				type:"get"
-				,url:"/boardDetail"
-				,data:{
-					"boardIdx":boardIdx
-					,"page":page
-					,"commpage":commpage
-					,"type":"ajax"
-				}
-				,dataType:"json"
-				,success: function(data) {
-					
-					 if(data.commcurrPage<data.maxPage){
-						 $('#span').html(
-						for (var i = 0; i < data.list.length; i++) {
-							<c:if test="${comment.deactivate eq 'FALSE'}">
-							<table id="comment_table" class ="comm_table">
-								<tr class ="comm_table">
-									<td class ="comm_table" style="width:150px;">data.list.id</td>
-									<td class ="comm_table">
-										data.list.content
-										<c:if test="data.list.id==loginId"><!-- 작성자만 버튼 보이게 -->
-											<a style="color:blue;" class="mouse_over" href="commentUpdateForm?reIdx="+data.list.reIdx+"&id="+data.list.id+"&boardIdx="+boardIdx+"&page="+page">수정</a>
-										</c:if>
-										<c:if test="${data.list.id==loginId || isManager=='true'}">
-											<a style="color:blue;" class="mouse_over" href="commentDel?reIdx="+data.list.reIdx+"&id="+data.list.id+"&boardIdx="+boardIdx+"&page="+page">삭제</a>
-										</c:if>
-									</td>
-									<td class ="comm_table" style="width:150px;">data.list.reg_date</td>
-									<td class ="comm_table" style="width:50px;">
-									<c:if test="data.list.id==loginId">
-										<input type="button" value="신고" onclick="window.open('./commReportForm?reIdx='+data.list.reIdx,'신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');"/>
-									</c:if>
-									</td>
-								</tr>
-							</table>			
-						</c:if> 
-						};
-					);
-					} 
-				}
-				,error: function(e) {
-					console.log(e);
-				}
-			});				
-		
-	} */
 	
 	$('#comm_regist').click(function(){
 		var comment = $('#comment').val();

@@ -123,7 +123,7 @@
 			
 		});      
  		
- 		//Id에 한글 입력안되게
+ 		//Id에 한글 입력안되게(영어 숫자만)
  		$(document).ready(function(){
  			  $("input[name=userId]").keyup(function(event){ 
  			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
@@ -133,7 +133,17 @@
  			  });
  			});
  		
- 		//pw에 한글 입력안되게
+/*  		//이름에 한글 입력안되게(영어 숫자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userName]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^ㄱ-힣]/gi,''));
+ 			   }
+ 			  });
+ 			}); */
+ 		
+ 		//pw에 한글 입력안되게(영어 숫자 특수문자만)
  		$(document).ready(function(){
  			  $("input[name=userPw]").keyup(function(event){ 
  			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
@@ -143,7 +153,7 @@
  			  });
  			});
  		
- 		//email에 한글 입력안되게
+ 		//email에 한글 입력안되게(영어 숫자만 (@.은 이메일 형식상))
  		$(document).ready(function(){
  			  $("input[name=email]").keyup(function(event){ 
  			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
