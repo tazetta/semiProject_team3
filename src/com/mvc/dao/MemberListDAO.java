@@ -166,8 +166,7 @@ public class MemberListDAO {
 				dto.setEmail(rs.getString("email"));
 				memberDelList.add(dto);
 			}
-			int type = 2;
-			int maxPage = getMaxPage(pagePerCnt, type);
+			int maxPage = Del_getMaxPage(pagePerCnt);
 			map.put("memberDelList", memberDelList);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -178,6 +177,25 @@ public class MemberListDAO {
 		}
 		return map;
 	}
+	
+	private int Del_getMaxPage(int pagePerCnt) {
+		String sql = "SELECT COUNT(id) FROM member WHERE withdraw='TRUE'";
+		int max = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt / (double) pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return max;
+	}
+	
 
 	public boolean memberDraw(String id) {
 

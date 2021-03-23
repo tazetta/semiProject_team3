@@ -36,12 +36,12 @@ td{
 	color : white;
 }
 
-#page{
+#delpage{
      margin-top:50px;
      text-align:center;           
 }
 
-#page span{
+#delpage span{
 	font-size : 16px;
 	border:1px solid lightgray;
 	padding: 2px 10px;
@@ -93,7 +93,7 @@ td{
 			</table>
 		</div>
 		
-		<div id="page">
+		<div id="delpage">
 			<span>
 				<c:if test="${currPage==1}">이전</c:if>
 				<c:if test="${currPage>1}">
