@@ -170,30 +170,42 @@ public class BoardService {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String isManager = (String) req.getSession().getAttribute("isManager");
 		String boardIdx = req.getParameter("boardIdx");
-		String id = req.getParameter("id");
-		if(loginId.equals(id) || isManager.equals("true")) {//작성자와 로그인아이디가 같거나 관리자 이면
-		System.out.println("delete idx : "+boardIdx);
-		System.out.println("삭제할 글 작성자 아이디:"+id);	
-		//FileService upload = new FileService(req);
-
+		String currPage = req.getParameter("page");
+		//String id = req.getParameter("id");
 		BoardDAO dao = new BoardDAO();
-		String newFileName = dao.getFileName(boardIdx);//파일명추출
+		BoardDTO dto = dao.detail(boardIdx);
+		System.out.println(dto.getId());
+		if(loginId!=null) {
+			
+			System.out.println("delete idx : "+boardIdx);
+			System.out.println("삭제할 글 작성자 아이디:"+dto.getId());	
+			msg="삭제 권한이없습니다.";
+			page="/boardList?page="+currPage;
+			
+			if(loginId.equals(dto.getId()) || isManager!=null) {//작성자와 로그인아이디가 같거나 관리자 이면
 
-		dao = new BoardDAO();
-		msg="삭제 실패했습니다.";
-		page="boardList";
-		if(dao.del(boardIdx,newFileName)>0) {
-			msg="삭제가 완료되었습니다.";
+				dao = new BoardDAO();
+				String newFileName = dao.getFileName(boardIdx);//파일명추출
+
+				dao = new BoardDAO();
+				if(dao.del(boardIdx,newFileName)>0) {
+					msg="삭제가 완료되었습니다.";
+				}
+//				if(success>0 && newFileName!=null) {//비활성화해도 파일은 남아있게 삭제하는부분 주석 처리
+//				System.out.println("파일 삭제");
+//				upload.delete(newFileName);
+//				}
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+		} else {
+			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
-//		if(success>0 && newFileName!=null) {//비활성화해도 파일은 남아있게 삭제하는부분 주석 처리
-//			System.out.println("파일 삭제");
-//			upload.delete(newFileName);
-//		}
 		
-		}
 	}
 
 	public void updateForm() throws ServletException, IOException {
@@ -202,16 +214,19 @@ public class BoardService {
 		String id = req.getParameter("id");
 		String boardIdx = req.getParameter("boardIdx");
         System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
-		if(loginId.equals(id)) {
+		if(loginId!=null) {
 			String currPage = req.getParameter("page");
 			BoardDAO dao = new BoardDAO();
 			BoardDTO dto = dao.detail(boardIdx);
 			page = "/boardList?page="+currPage;
-			if(loginId.equals(id) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
+			msg="수정권한이 없습니다.";
+			if(loginId.equals(dto.getId()) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
 				page="boardUpdateForm.jsp";
 				req.setAttribute("page", currPage);
 				req.setAttribute("dto", dto);
+				msg="";
 			}		
+			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);			
 		} else {
@@ -306,9 +321,12 @@ public class BoardService {
 		dao = new BoardDAO();
 		dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
 		page = "/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
-		if(loginId.equals(id)) {//로그인아이디와 작성자 아이디가 같으면
+		msg="수정권한이 없습니다.";
+		if(loginId.equals(commentUpdatedto.getId())) {//로그인아이디와 작성자 아이디가 같으면
 			req.setAttribute("commentUpdatedto", commentUpdatedto);
+			msg="";
 		}
+		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
 		
@@ -341,14 +359,19 @@ public class BoardService {
 	public void commentDel() throws ServletException, IOException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		String isManager = (String) req.getSession().getAttribute("isManager");
+		System.out.println("관리자인가?"+isManager);
 		String id = req.getParameter("id");
 		String reIdx = req.getParameter("reIdx");
 		String boardIdx = req.getParameter("boardIdx");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
-		page="/boardDetail?boardIdx="+boardIdx;
 		BoardDAO dao = new BoardDAO();
+		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
+		msg="댓글 삭제권한이 없습니다.";
+		page="/boardDetail?boardIdx="+boardIdx;
+		dao = new BoardDAO();
 		dao.upDown(boardIdx); //댓글삭제할때도 조회수가 올라가버려서
-		if(loginId.equals(id) || isManager.equals("true")) {//본인이거나 관리자일때
+		System.out.println("삭제할 아이디와 로그인아이디비교: "+commentUpdatedto.getId()+"/"+loginId );
+		if(loginId.equals(commentUpdatedto.getId()) || isManager!=null) {//본인이거나 관리자일때
 			msg="댓글 삭제에 실패했습니다.";
 			dao = new BoardDAO();
 			if(dao.commentDel(reIdx)) {
