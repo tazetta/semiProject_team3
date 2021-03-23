@@ -10,19 +10,18 @@
 			table,th,td{
 				border: 1px solid lightgray;
 				border-collapse: collapse;
-				padding: 20px;
+				padding: 5px;
 				text-align: center;
 			}
 			fieldset,p{			
 				text-align: left;
 			}
-			th{
-				white-space: nowrap;
-				width: 150px;
-				min-width: 100px;
+			th{				
+				width: 90px;
+				min-width: 90px;
 			}
 			table{				
-				width : 100%;
+				width : 50%;
 			}
 			.btn{
 				font-size: 14pt;
@@ -31,10 +30,10 @@
 				padding: 5px 10px;
 			} 
 			.body{
-				width: 60%;
-				position:relative;
-				left : 5%;
-				
+				margin-left: 20%;
+				font-size: 10pt;
+				min-width: 900px;
+				max-width: 900px;
 			}
 			.comtent{
 				height: 300px;				
@@ -55,7 +54,7 @@
 			}
 			.mid{
 				width: 100%;
-				min-width: 1000px;
+				min-width: 900px;		
 			}
 
 			a {
@@ -75,6 +74,9 @@
 			#content {
 				margin-left: 300px;
 				margin-right: 300px;
+			}
+			.nowrap{
+				white-space: nowrap;
 			}
 </style>
 </head>

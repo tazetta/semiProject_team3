@@ -39,6 +39,9 @@
 			#white{
 				border-color: white;
 			}
+			.inbody{
+				width: 100%;
+			}
 		</style>
 	</head>
 	<body>	
@@ -49,8 +52,8 @@
 		<br/><br/><br/>
 		<table class="body" >
 			<tr>
-				<td id="white">
-					<table>
+				<td id="white" >
+					<table class="inbody">
 						<tr>
 							<th>제목</th>
 							<td>${dto.subject}</td>
@@ -81,8 +84,8 @@
 							
 							<c:if test="${com.reIdx eq reason.reIdx}">		
 								<br/>				
-								<table>
-									<tr style="background-color: coral;">
+								<table  class="inbody">
+									<tr style="background-color: coral;"  class="nowrap">
 										<th style="width: 100px;">${com.id }</th>
 										<td>${com.content }</td>
 										<th>${com.reg_date }</th>
@@ -101,15 +104,15 @@
 										<td colspan="5" style="border: 1px solid white;">
 											<fieldset>
 												<legend>신고 사유 </legend>
-												<p>
 													<b>${reason.reason }</b>
+													<div style="text-align: right;">신고자 : ${reason.rid }</div>													
 											</fieldset>
 										</td>
 									</tr>
 								</table>
 							</c:if>
 						</c:forEach>
-							<table>
+							<table class="inbody">
 								<tr>
 									<td  style="border: 1px solid white;" colspan="4">
 										<div style="text-align: right;">
