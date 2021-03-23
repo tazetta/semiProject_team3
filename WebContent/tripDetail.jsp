@@ -36,6 +36,13 @@
             .color{
             	background-color: lightcoral;
             }
+            #fav,#vis{
+            	cursor: pointer;
+            	font-size: 10pt;
+            }
+            #fav:hover,#vis:hover {
+				font-size: 12pt;
+			}
         </style>
     </head>
     <body>
@@ -54,29 +61,33 @@
                 </tr>
                 <tr>
                     <td>${detail.reg_date }</td>
-                    <td id="fav">
-                    <c:if test="${book.deactivate eq null }">
-						♡
-                    </c:if>
-                    <c:if test="${book.deactivate eq 'TRUE' }">
-						♡
-                    </c:if>
-                    <c:if test="${book.deactivate eq 'FALSE' }">
-						♥
-                    </c:if>
+                    <td>
+	                    <span id="fav">
+		                    <c:if test="${book.deactivate eq null }">
+								♡
+		                    </c:if>
+		                    <c:if test="${book.deactivate eq 'TRUE' }">
+								♡
+		                    </c:if>
+		                    <c:if test="${book.deactivate eq 'FALSE' }">
+								♥
+		                    </c:if>
+	                    </span>
                     </td>                    
                     <td id="favN">${detail.bookmark }</td>
                     
-                    <td id="vis">
-                    <c:if test="${visit.deactivate eq null }">
-						☆
-                    </c:if>
-                    <c:if test="${visit.deactivate eq 'TRUE' }">
-						☆
-                    </c:if>
-                    <c:if test="${visit.deactivate eq 'FALSE' }">
-						★ 
-                    </c:if>
+                    <td>
+	                    <span id="vis">
+		                    <c:if test="${visit.deactivate eq null }">
+								☆
+		                    </c:if>
+		                    <c:if test="${visit.deactivate eq 'TRUE' }">
+								☆
+		                    </c:if>
+		                    <c:if test="${visit.deactivate eq 'FALSE' }">
+								★ 
+		                    </c:if>
+	                    </span>
                     </td>
                 </tr>
                 <tr>
