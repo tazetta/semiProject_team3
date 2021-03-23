@@ -248,7 +248,7 @@ public class BoardService {
 			BoardDTO dto = upload.regist();
 			System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
 			BoardDAO dao = new BoardDAO();
-			msg="수정에 실패했습니다.";
+			msg="수정권한이 없습니다.";
 			if(loginId.equals(dto.getId())&&dao.update(dto)>0) {
 				msg="수정이 완료되었습니다";
 			}
@@ -318,17 +318,24 @@ public class BoardService {
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		BoardDAO dao = new BoardDAO();
 		CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
-		dao = new BoardDAO();
-		dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
-		page = "/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
-		msg="수정권한이 없습니다.";
-		if(loginId.equals(commentUpdatedto.getId())) {//로그인아이디와 작성자 아이디가 같으면
-			req.setAttribute("commentUpdatedto", commentUpdatedto);
-			msg="";
+		if(loginId!=null) {
+			dao = new BoardDAO();
+			dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
+			page = "/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
+			msg="수정권한이 없습니다.";
+			if(loginId.equals(commentUpdatedto.getId())) {//로그인아이디와 작성자 아이디가 같으면
+				req.setAttribute("commentUpdatedto", commentUpdatedto);
+				msg="";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
 		
 	}
 
@@ -341,19 +348,29 @@ public class BoardService {
 		String currPage = req.getParameter("page");
 		System.out.println(id+"/"+reIdx+"/"+boardIdx+"/"+loginId);
 		
-		if(loginId.equals(id)) {
+		if(loginId!=null) {
 			BoardDAO dao = new BoardDAO();
-			dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
+			CommentDTO commentUpdatedto = dao.commentUpdateForm(reIdx);
+			msg="댓글 수정권한이 없습니다.";
 			page="/boardDetail?boardIdx="+boardIdx+"&page="+currPage;
-			msg="댓글 수정에 실패하였습니다.";
-			dao = new BoardDAO();
-			if(dao.commentUpdate(reIdx, comment)) {
-				msg="댓글 수정이 완료되었습니다.";
-			}
+			if(loginId.equals(commentUpdatedto.getId())) {
+				dao = new BoardDAO();
+				dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
+				msg="댓글 수정에 실패하였습니다.";
+				dao = new BoardDAO();
+				if(dao.commentUpdate(reIdx, comment)) {
+					msg="댓글 수정이 완료되었습니다.";
+				}
+				req.setAttribute("msg", msg);
+				dis = req.getRequestDispatcher(page);
+				dis.forward(req, resp);
+			}					
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
 			req.setAttribute("msg", msg);
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
-		}		
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
+		}
 	}
 
 	public void commentDel() throws ServletException, IOException {
@@ -384,6 +401,7 @@ public class BoardService {
 	}
 
 	public void boardSearch() throws ServletException, IOException {
+		String loginId = (String) req.getSession().getAttribute("loginId");
 		String searchType = req.getParameter("searchType");
 		String keyword = req.getParameter("boardkeyword");
 		System.out.println(searchType+"/"+keyword);
@@ -395,20 +413,27 @@ public class BoardService {
 		}
 		BoardDAO dao = new BoardDAO();
 		String url = "searchType=" + searchType + "&boardkeyword=" + keyword;
-		
-		HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
-		dao = new BoardDAO();
-		ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
-		
-		System.out.println(map.get("maxPage"));
-		req.setAttribute("boardkeyword", keyword);
-		req.setAttribute("maxPage", map.get("maxPage"));
-		req.setAttribute("url", url);
-		req.setAttribute("list",map.get("list"));
-		req.setAttribute("managerbbsList", managerbbsList);
-		req.setAttribute("currPage", group);
-		dis = req.getRequestDispatcher("boardSearchList.jsp");
-		dis.forward(req, resp);
+		if(loginId!=null) {
+			HashMap<String, Object> map = dao.boardSearch(group,searchType,keyword);
+			dao = new BoardDAO();
+			ArrayList<BoardDTO> managerbbsList = dao.managerbbsList();
+			
+			System.out.println(map.get("maxPage"));
+			req.setAttribute("boardkeyword", keyword);
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("url", url);
+			req.setAttribute("list",map.get("list"));
+			req.setAttribute("managerbbsList", managerbbsList);
+			req.setAttribute("currPage", group);
+			dis = req.getRequestDispatcher("boardSearchList.jsp");
+			dis.forward(req, resp);
+			
+		}else {
+			msg = "로그인이 필요한 서비스입니다.";
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 

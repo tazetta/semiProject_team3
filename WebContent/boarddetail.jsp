@@ -37,13 +37,13 @@
 	}
 	#btn2{
 		position: absolute;
-		left:54%;
+		left:53.5%;
 		top:145px;
 		margin:5px;		
 	}
 	#btn3{
 		position: absolute;
-		left:60%;
+		left:59.5%;
 		top:145px;
 		margin:5px;		
 	}
