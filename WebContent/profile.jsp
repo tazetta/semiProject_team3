@@ -25,10 +25,17 @@ body {
 	width: 85%;
 }
 #content table,#content tr, #content td{
-	border: 1px solid gray;
+	 border: 1px solid lightgray; 
 	border-collapse: collapse;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
+}
+
+th{
+width:150px;
+background-color: lightgray;
+	color: black;
+	border :1px solid white;
 }
 	
 span {
@@ -42,7 +49,7 @@ table#profile {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 600px;
+	width: 500px;
 	clear: both;
 	
 }

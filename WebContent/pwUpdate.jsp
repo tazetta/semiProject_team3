@@ -28,7 +28,7 @@ table, tr, td {
 	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 }
 
 span {
@@ -38,12 +38,18 @@ span {
 	color: dimgrey;
 }
 
+th{
+background-color: lightgray;
+	color: black;
+	border :1px solid white;
+}
+
 table#profile {
 	background-color: white;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 600px;
+	width: 500px;
 }
 
 input[type="password"] {
