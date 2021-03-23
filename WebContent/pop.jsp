@@ -104,14 +104,14 @@ td {
 			<span>
 				<c:if test="${currPage==1}">이전</c:if>
 				<c:if test="${currPage>1}">
-					<a href='./memberList?page=${currPage-1}'>이전</a>
+					<a href='./popupList?page=${currPage-1}'>이전</a>
 				</c:if>
 			</span>
 			<span>${currPage}</span>
 			<span>
 				<c:if test="${currPage == maxPage}">다음</c:if>
          		<c:if test="${currPage < maxPage}">
-         			<a href="./memberList?page=${currPage+1}">다음</a></c:if>
+         			<a href="./popupList?page=${currPage+1}">다음</a></c:if>
 			</span>		
 		</div>
 </body>
