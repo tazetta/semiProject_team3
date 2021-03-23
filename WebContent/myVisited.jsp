@@ -59,14 +59,15 @@ body {
 
 .list {
 	background-color: white;
-	border :1px solid gray;
-	border-radius:5px;
+	 border : 0.5px solid lightgray;
+	border-radius:3px;
 	text-align: center;
 	position: relative;
 	top: 40px;
 	margin: 0 auto;
 	width: 800px;
 	margin-top:20px;
+	  box-shadow: 3px 3px 3px  gray;
 
 }
 
@@ -118,7 +119,7 @@ a {
 <jsp:include page="myLeft.jsp" />
 
 		<div id="content">
-			<span id="spanTitle">내가 가 본 여행지</span>
+			<span id="spanTitle">내가 가 본 여행지&nbsp;<img alt="flag" src="./css/myVisited.png" width="20px" height="20px"></span>
 			<c:if test="${list eq '[]'}">
 				<div class="noneList">
 					<p>가봤어요에 등록된 여행지가 없습니다</p>
@@ -130,7 +131,7 @@ a {
 				
 					<table class="list">
 						<tr>
-							<th colspan="3" style="font-size: 150%">${bm.title }</th>
+							<th colspan="3" style="font-size: 110%">${bm.title }</th>
 						</tr>
 						<tr>
 							<td id="trip" rowspan="2">

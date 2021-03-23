@@ -18,6 +18,10 @@
 	margin: 45px 0;
 }
 
+.pop_form {
+	text-align: left;
+}
+
 th, td {
 	border: 1px solid lightgray;
 	text-align: center;
@@ -60,7 +64,9 @@ td {
 			<button class="regist" onclick="location.href='popWrite.jsp'">신규 팝업등록</button>
 		</div>
 
-
+			<div class="pop_form">
+				<h3>팝업 목록</h3>
+			</div>
 		<table id="popup">
 			<tr id="title">
 				<th>등록일</th>

@@ -18,11 +18,16 @@ body {
 }
 
 
-table, tr, td {
+table, tr, td,th {
 	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
+}
+
+.firstTr th{
+	background-color: gray;
+	color:white;
 }
 
 
@@ -51,7 +56,7 @@ table#wroteList {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 900px;
+	width: 700px;
 }
 
 .noneList {
@@ -67,7 +72,7 @@ table#wroteList {
 	text-align: center;
 	position: relative;
 	top: 70px;
-	left: 20px;
+/* 	left: 0px; */
 }
 
 .pageArea span {
@@ -102,20 +107,20 @@ a {
 				</div>
 			</c:if>
 			<table id="wroteList">
+			 <tr class="firstTr">
+			 	<th>글번호</th>
+			 	<th>제목</th>
+			 	<th>작성일</th>
+			 </tr>
 
 				<c:forEach items="${list}" var="bbs">
 
 					<tr>
 						<td>${bbs.rnum }</td>
-						<th style="width: 500px"><a
+						<th style="width: 450px"><a
 							href="boardDetail?boardIdx=${bbs.boardIdx}&page=1">${bbs.subject }</a></th>
 						<td>${bbs.reg_date }</td>
-						<%-- <td>
-							<button
-								onclick="location.href='./boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
-							<br />
-							<button onclick="location.href='./wroteDel?boardIdx=${bbs.boardIdx}'">삭제</button>
-						</td> --%>
+						
 					</tr>
 				</c:forEach>
 			</table>

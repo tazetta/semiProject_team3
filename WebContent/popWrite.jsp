@@ -27,7 +27,7 @@
 }
 
 textarea{
-    padding-top : 30%;
+    padding-bottom : 30%;
 }
 
 th, td {

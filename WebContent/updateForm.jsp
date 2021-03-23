@@ -27,8 +27,15 @@ table, tr, td {
 	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 }
+th{
+	
+background-color: lightgray;
+	color: black;
+	border :1px solid white;
+}
+
 
 span {
 	position: relative;
