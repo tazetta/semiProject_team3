@@ -141,6 +141,8 @@ $(".menu").click(function () {
 	 	alert("비밀번호를 입력해주세요");
 	 }else if($updatePw.val().length<5){
 		 alert("비밀번호는 5자 이상 입력해주세요");
+	 }else if($updatePw.val().length>50){
+		 alert("비밀번호는 50자 이하로 입력해주세요");
 	 }else if(pwChk==false){
 		 alert("비밀번호가 일치하지 않습니다");
 	 }else{
