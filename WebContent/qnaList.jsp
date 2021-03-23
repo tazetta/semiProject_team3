@@ -26,11 +26,11 @@
 		<div id="content">
 			<table id="qna">
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성일</th>
+					<th >번호</th>
+					<th >제목</th>
+					<th >작성일</th>
 					<th>작성자</th>
-					<th>답변</th>
+					<th >답변</th>
 				</tr>
 					<c:forEach items="${list}" var="qna">
 						<tr>
