@@ -49,7 +49,7 @@ td{
 }
 
 .delmem{
-	background-color: blanchedalmond;
+	background-color: lightgray;
 	font-weight: bold;
 }
 

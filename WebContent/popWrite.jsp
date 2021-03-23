@@ -101,14 +101,5 @@ td {
 	if (msg != "") {
 		alert(msg);
 	}
-
-	var $subject = $("#p_subject");
-	var $content = $("#p_content");
-	$("#test").click(function() {
-
-		if ($subject.val() == "" || $content.val() == "") {
-			alert("제목이나 내용을 작성해주세요");
-		}
-	});
 </script>
 </html>

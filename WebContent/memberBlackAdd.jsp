@@ -41,9 +41,6 @@ th, td {
 	margin: 6px 0;
 }
 
-.memberlist {
- 	color : #08444d;
-}
 
 </style>
 </head>

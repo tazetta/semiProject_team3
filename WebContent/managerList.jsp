@@ -96,7 +96,6 @@ td {
 
 			<c:if test="${sessionScope.loginId eq 'sysadmin'}">
 				<div class="button">
-					<!-- <input type="button" value="신규 관리자 등록" onclick="show();" /> -->
 					<button class="regist" onclick="show();">신규 관리자 등록</button>
 				</div>
 			</c:if>

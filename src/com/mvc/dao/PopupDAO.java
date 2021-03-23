@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -38,14 +39,23 @@ public class PopupDAO {
 		}
 	}
 	
-	public ArrayList<PopupDTO> popupList() {
+	public HashMap<String, Object> popupList(int page) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pagePerCnt = 10;
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		String sql = "SELECT infoidx, reg_date, managerid, subject, popupalert FROM ("
+				+"SELECT ROW_NUMBER() OVER(ORDER BY popupalert DESC, infoidx DESC)" 
+				+ "AS rnum, infoidx, reg_date, managerid, subject, popupalert "
+				+"FROM popup) WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<PopupDTO> popupList = new ArrayList<PopupDTO>();
-		String sql = "SELECT infoidx, reg_date, managerid, subject, popupalert FROM popup"
-				+" ORDER BY popupalert DESC, infoidx DESC";
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				PopupDTO dto = new PopupDTO();
@@ -56,12 +66,35 @@ public class PopupDAO {
 				dto.setPopupalert(rs.getString("popupalert"));
 				popupList.add(dto);
 			}
+			int type = 1;
+			int maxPage = getMaxPage(pagePerCnt, type);
+			map.put("popupList", popupList);
+			map.put("maxPage", maxPage);
+			System.out.println("maxPage: " + maxPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			resClose();
 		}		
-		return popupList;
+		return map;
+	}
+	
+	private int getMaxPage(int pagePerCnt, int type) {
+		String sql = "SELECT COUNT(infoidx) FROM popup";
+		int max = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt(1);
+				max = (int) Math.ceil(cnt / (double) pagePerCnt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return max;
 	}
 	
 	public boolean popupWrite(PopupDTO dto) {
