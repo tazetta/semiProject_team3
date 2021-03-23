@@ -71,7 +71,7 @@
                 <tr>
                     <th style="background-color : blanchedalmond">아이디</th>
                     <td>
-                        <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
+                        <input type="text" id="userId" name="userId" maxlength="12" placeholder="아이디를 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
@@ -101,6 +101,16 @@
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
+		
+ 		//Id에 한글 입력안되게(영어 숫자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userId]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			   }
+ 			  });
+ 			});
 		
         $('#userName').focusout(function(){
             if($(this).val()==''){

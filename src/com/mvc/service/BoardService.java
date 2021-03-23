@@ -415,7 +415,8 @@ public class BoardService {
 	public void boardReportForm() throws ServletException, IOException {
 		String boardIdx = req.getParameter("boardIdx");
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		System.out.println("신고할 게시글번호: "+boardIdx+"/"+loginId);
+		String isManager = req.getParameter("isManager");
+		System.out.println("신고할 게시글번호: "+boardIdx+"/"+loginId+"/"+isManager);
 		if(loginId!=null) {
 			req.setAttribute("boardIdx", boardIdx);
 			dis = req.getRequestDispatcher("boardReportForm.jsp");
@@ -434,9 +435,8 @@ public class BoardService {
 		String reason = req.getParameter("reason");
 		System.out.println(boardIdx+"/"+loginId+"/"+reason);
 		if(loginId!=null) {
-			BoardDAO dao = new BoardDAO();
-			
-			msg= "이미 신고한 게시글입니다.";
+			BoardDAO dao = new BoardDAO();		
+			msg= "이미 신고한 게시글이거나 신고할수 없는 게시물입니다.";
 			page="boardReportForm.jsp";
 			if(dao.boardReport(boardIdx,loginId,reason)) {
 				msg="신고처리가 완료되었습니다.";

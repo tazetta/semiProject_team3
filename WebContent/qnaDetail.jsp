@@ -78,7 +78,7 @@ span {
 							</c:when>
 							<c:otherwise>
 								<c:if test="${dto.ansIdx eq 0}">
-									<input type="button" onclick="location.href='./qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제"  class="btn" />			
+									<input type="button" onclick="location.href='qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제"  class="btn" />			
 								</c:if>
 								 <input type="button" onclick="location.href='./qnaListUser'" value="목록"  class="btn" />								
 							</c:otherwise>
