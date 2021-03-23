@@ -30,8 +30,11 @@
                 margin: 5px;
             }
             img{
-            width: 100%;
-            height: 300px
+	            width: 100%;
+	            height: 300px
+            }
+            .color{
+            	background-color: lightcoral;
             }
         </style>
     </head>
@@ -45,10 +48,10 @@
             <table>
                 <tr>
                     <th rowspan="2">${detail.title }</th>
-                    <th>등록일${sessionScope.loginId }</th>
-                    <th>즐겨찾기</th>
-                    <th>즐겨찾기수</th>
-                    <th>가봤어요</th>
+                    <th class="color">등록일</th>
+                    <th class="color">즐겨찾기</th>
+                    <th class="color">즐겨찾기수</th>
+                    <th class="color">가봤어요</th>
                 </tr>
                 <tr>
                     <td>${detail.reg_date }</td>
