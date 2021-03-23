@@ -138,11 +138,18 @@
 		</div>
 	</body>
 <script>
+
 	$('#boardSearch').click(function(){
 		console.log("검색요청");
-		var searchType = $('#comm_select').val()
-		var keyword = $('#boardkeyword').val()
-		location.href="./boardSearch?searchType="+searchType+"&boardkeyword="+keyword;
+		var searchType = $('#comm_select').val();
+		var keyword = $('#boardkeyword').val();
+		if(keyword==""){
+			alert("검색어를 입력해주세요");
+			$('#boardkeyword').focus();
+		}else{
+			location.href="./boardSearch?searchType="+searchType+"&boardkeyword="+keyword;
+			
+		}
 	});
 	var msg="${msg}";
 	if(msg!=""){
