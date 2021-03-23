@@ -41,7 +41,7 @@
                    <tr>
                        <th>아이디</th>
                        <td>
-                           <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
+                           <input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디를 입력해주세요."/>
                            <input type="button" id="overlay" value="중복 확인"/>
                        </td>
                    </tr>
@@ -122,6 +122,36 @@
             }
 			
 		});      
+ 		
+ 		//Id에 한글 입력안되게
+ 		$(document).ready(function(){
+ 			  $("input[name=userId]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			   }
+ 			  });
+ 			});
+ 		
+ 		//pw에 한글 입력안되게
+ 		$(document).ready(function(){
+ 			  $("input[name=userPw]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			   }
+ 			  });
+ 			});
+ 		
+ 		//email에 한글 입력안되게
+ 		$(document).ready(function(){
+ 			  $("input[name=email]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9@_.-]/gi,''));
+ 			   }
+ 			  });
+ 			});
         
       	//pw가 5자 이상인가?
         $('#userPw').focusout(function(){
