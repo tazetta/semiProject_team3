@@ -281,8 +281,9 @@ input{
 		var $contentId = $("#contentId");
 		if($contentId.val() == '') {
 			alert("contentId를 입력해 주세요.");
+		} else if($contentId.val() >= 1000000000){
+			alert("10억 미만의 숫자를 입력해 주세요.")
 		} else{
-			
 		$.ajax({
 			type : 'get',
 			url : 'tripInsertOverlay',
