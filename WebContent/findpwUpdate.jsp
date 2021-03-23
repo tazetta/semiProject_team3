@@ -36,13 +36,13 @@
                 <tr>
                     <th style="background-color : blanchedalmond">비밀번호</th>
                     <td>
-                        <input type="password" id="newPw" name="newPw" placeholder="새로운 비밀번호를 입력해주세요."/>
+                        <input type="password" id="newPw" name="newPw" maxlength="20" placeholder="새로운 비밀번호를 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
                     <th style="background-color : blanchedalmond">비밀번호 확인</th>
                     <td>
-                        <input type="password" id="pwConfirm" placeholder="비밀번호 확인."/>
+                        <input type="password" id="pwConfirm" maxlength="20" placeholder="비밀번호 확인."/>
                         <br/>
                         <span id="passChk"></span>
                     </td>
@@ -65,6 +65,16 @@
 	var $newPw = $("#newPw");
 	var $pwConfirm = $("#pwConfirm");
 	var pwChk = false;
+	
+	//pw에 한글 입력안되게(영어 숫자 특수문자만)
+	$(document).ready(function(){
+		  $("input[name=userPw]").keyup(function(event){ 
+		   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+		    var inputVal = $(this).val();
+		    $(this).val(inputVal.replace(/[^a-z0-9~!@#$%^&*()_.,+<>?:{}]/gi,''));
+		   }
+		  });
+		});
 	
  	//pw가 5자 이상인가?
     $('#newPw').focusout(function(){

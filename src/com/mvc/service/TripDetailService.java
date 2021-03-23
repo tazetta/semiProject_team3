@@ -60,28 +60,39 @@ public class TripDetailService {
 	
 	
 	public void addDel() throws ServletException, IOException {
-		String myidx = req.getParameter("myidx");
-		String deact = req.getParameter("deact");
-		String conIdx = req.getParameter("conIdx");
-		String type = req.getParameter("type");
 		
-		String id = (String) req.getSession().getAttribute("loginId");
-		System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx+"/"+type+"/"+id);
-		BookmarkDTO bdto= new BookmarkDTO();
-		if(myidx!="") {
-			bdto.setMyidx(Integer.parseInt(myidx));			
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+			String myidx = req.getParameter("myidx");
+			String deact = req.getParameter("deact");
+			String conIdx = req.getParameter("conIdx");
+			String type = req.getParameter("type");
+			
+			String id = (String) req.getSession().getAttribute("loginId");
+			System.out.println("북마크 번호 : "+myidx+"/"+deact+"/"+conIdx+"/"+type+"/"+id);
+			BookmarkDTO bdto= new BookmarkDTO();
+			if(myidx!="") {
+				bdto.setMyidx(Integer.parseInt(myidx));			
+			}
+			bdto.setDeactivate(deact);
+			bdto.setContentid(Integer.parseInt(conIdx));
+			bdto.setType(Integer.parseInt(type));
+			bdto.setId(id);
+			
+			
+			TripDetailDAO dao = new TripDetailDAO();	
+			int a =dao.addDel(bdto);
+			System.out.println("성공여부 : "+a);
+			dao.resClose();
+			resp.sendRedirect("./tripDetail?contentId="+conIdx);
+			
+		}else {
+			req.setAttribute("msg", "로그인이 필요한 서비스입니다.");
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
-		bdto.setDeactivate(deact);
-		bdto.setContentid(Integer.parseInt(conIdx));
-		bdto.setType(Integer.parseInt(type));
-		bdto.setId(id);
 		
-		
-		TripDetailDAO dao = new TripDetailDAO();	
-		int a =dao.addDel(bdto);
-		System.out.println("성공여부 : "+a);
-		dao.resClose();
-		resp.sendRedirect("./tripDetail?contentId="+conIdx);
 		
 	}
 

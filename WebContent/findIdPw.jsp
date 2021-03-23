@@ -71,7 +71,7 @@
                 <tr>
                     <th style="background-color : blanchedalmond">아이디</th>
                     <td>
-                        <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요."/>
+                        <input type="text" id="userId" name="userId" maxlength="12" placeholder="아이디를 입력해주세요."/>
                     </td>
                 </tr>
                 <tr>
@@ -88,7 +88,8 @@
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
-                <button id="btn2">찾기</button>
+				<input type="button" id="btn2" value="찾기"/>            
+                <!-- <button id="btn2">찾기</button> -->
                 <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
             </div>
         </fieldset>
@@ -101,6 +102,16 @@
 		var nameChk = false;
 		var phoneChk = false;
 		var idChk = false;
+		
+ 		//Id에 한글 입력안되게(영어 숫자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userId]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			   }
+ 			  });
+ 			});
 		
         $('#userName').focusout(function(){
             if($(this).val()==''){
@@ -152,7 +163,7 @@
 			
 		}); */
 		
-        $('#userId').focusout(function(){
+/*         $('#userId').focusout(function(){
             if($(this).val().length<5){
                  alert('가입하신 아이디를 5자 이상 입력해주세요.');
                  
@@ -177,7 +188,7 @@
              }else{
                  phoneChk = true;
              }
-         });
+         }); */
 	
 		 $('#userPhone1').keydown(function(event) {
 	        var key = event.charCode || event.keyCode || 0;
@@ -194,7 +205,7 @@
 	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
     	});
 		
-/* 		 $("#btn2").click(function(){
+ 		 $("#btn2").click(function(){
 			 
 			 var $id = $("#userId");
 			 var $name = $("#userName1");
@@ -212,7 +223,10 @@
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
+			}else{
+				console.log("비밀번호를 수정해주세요.");
+				$('form').submit();
 			}
-		}); */
+		}); 
 	</script>
 </html>
