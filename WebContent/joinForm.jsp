@@ -41,7 +41,7 @@
                    <tr>
                        <th>아이디</th>
                        <td>
-                           <input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디를 입력해주세요."/>
+                           <input type="text" id="userId" name="userId" maxlength="15" placeholder="아이디를 입력해주세요."/>
                            <input type="button" id="overlay" value="중복 확인"/>
                        </td>
                    </tr>
@@ -54,13 +54,13 @@
                    <tr>
                        <th>비밀번호</th>
                        <td>
-                           <input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력해주세요."/>
+                           <input type="password" id="userPw" name="userPw" maxlength="15" placeholder="비밀번호를 입력해주세요."/>
                        </td>
                    </tr>
                    <tr>
                        <th>비밀번호 확인</th>
                        <td>
-                           <input type="password" id="pwConfirm" placeholder="비밀번호를 한번 더 입력해주세요."/>
+                           <input type="password" id="pwConfirm" maxlength="15" placeholder="비밀번호를 한번 더 입력해주세요."/>
                            <br/>
                            <span></span>
                        </td>
@@ -138,7 +138,7 @@
  			  $("input[name=userPw]").keyup(function(event){ 
  			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
  			    var inputVal = $(this).val();
- 			    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+ 			    $(this).val(inputVal.replace(/[^a-z0-9~!@#$%^&*()_.,+<>?:{}]/gi,''));
  			   }
  			  });
  			});
