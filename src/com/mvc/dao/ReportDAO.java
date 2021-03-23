@@ -173,9 +173,9 @@ public ReportDAO() {
 
 	public RepDTO repReason(String Idx, int type, String reIdx) {
 		RepDTO dto = null;
-		String sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs  WHERE boardIdx=? )AS repCnt FROM  bbsrep WHERE bbsrepidx=?";
+		String sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs  WHERE boardIdx=? )AS repCnt,id FROM  bbsrep WHERE bbsrepidx=?";
 		if (type==2) {
-			sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs_comment  WHERE reidx=? )AS repCnt FROM  commentrep WHERE commentrepidx=?";
+			sql = "SELECT reason, deactivate, (SELECT reportcnt FROM bbs_comment  WHERE reidx=? )AS repCnt,id FROM  commentrep WHERE commentrepidx=?";
 		}
 		try {
 			ps = conn.prepareStatement(sql);
@@ -187,6 +187,7 @@ public ReportDAO() {
 				dto.setReason(rs.getString("reason"));
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setRepCnt(rs.getInt("repCnt"));
+				dto.setRid(rs.getString("id"));
 				if(reIdx != null) {
 					dto.setReIdx(Integer.parseInt(reIdx));					
 				}
@@ -298,15 +299,15 @@ public ReportDAO() {
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		String sql = "SELECT boardidx,id,reason,deactivate, bbsrepidx ,managerid FROM"
+		String sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid FROM"
 				+ "(SELECT ROW_NUMBER() OVER(ORDER BY bbsrepidx DESC) AS rnum "
-				+ ",b.boardidx,b.id,r.reason,b.deactivate, r.bbsrepidx,r.managerid "
+				+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
 				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		
 		if(type.equals("2")) {
-			sql = "SELECT reidx,id,reason,deactivate, commentrepidx ,managerid, boardIdx FROM" + 
+			sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid FROM" + 
 					"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx DESC) AS rnum " + 
-					",b.reidx,b.id,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx " + 
+					",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
 					"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		
 		}		
@@ -330,12 +331,12 @@ public ReportDAO() {
 					dto.setReIdx(rs.getInt("reidx"));
 					dto.setCommentRepIdx(rs.getInt("commentrepidx"));					
 				}
-				dto.setId(rs.getString("id"));
+				dto.setId(rs.getString("bid"));
 				dto.setReason(rs.getString("reason"));
 				dto.setDeactivate(rs.getString("deactivate"));
 				dto.setManagerId(rs.getString("managerid"));
 				dto.setBoardIdx(rs.getInt("boardIdx"));
-			
+				dto.setRid(rs.getString("rid"));
 				
 				System.out.println("처리자 : "+rs.getString("managerid"));
 				list.add(dto);
