@@ -83,7 +83,6 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
-			/* QnaDAO dao = new QnaDAO(); */
 			HashMap<String, Object> map = dao.qnaListUser(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
@@ -152,7 +151,7 @@ public class QnaSerivce {
 			if(success) {
 				msg="글 등록에 성공 했습니다";
 			}
-			req.getSession().setAttribute("msg", msg); 
+			req.setAttribute("msg", msg); 
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		}else {
@@ -266,7 +265,6 @@ public class QnaSerivce {
 				msg="삭제에 성공했습니다";
 			}
 			req.setAttribute("msg", msg);
-			req.getSession().setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			
