@@ -43,7 +43,7 @@
 		<jsp:include page="side_repList.jsp"/>
 		<br/><br/><br/>
 			<table class="body">
-				<tr>
+				<tr class="nowrap">
 					<th>제목</th>
 					<td>${dto.subject}</td>
 					<th>신고수 / <b>${reason.repCnt }</b></th>
@@ -71,9 +71,8 @@
 					<td style="border: 1px solid white;" colspan="5">
 						<fieldset>
 							<legend>신고 사유 </legend>
-							<p>				
 								<b>${reason.reason }</b>
-							</p>
+							<div style="text-align: right;">신고자 : ${reason.rid }</div>
 						</fieldset>
 						<div style="text-align: right;">
 							<input  class="btn" type="button"  onclick="location.href='./reportBBS?page=${currPage}&deactivate=${reason.deactivate}'" value="목록"/>		
