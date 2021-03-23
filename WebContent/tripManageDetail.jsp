@@ -16,8 +16,9 @@ table, th, td {
 	margin-left: 25%;
 	margin-top: 20px;
 }
-table{
-	width:50%;
+
+table {
+	width: 50%;
 }
 
 .pageArea {
@@ -37,18 +38,23 @@ table{
 	font-weight: 600;
 	color: red;
 }
-#tripSearchBar{
+
+#tripSearchBar {
 	text-align: center;
 }
+
 .button {
 	text-align: center;
 }
-button{
+
+button {
 	padding: 10px 10px;
 }
-#overview{
-	width:80%;
+
+#overview {
+	width: 80%;
 }
+
 div.tripManageList {
 	position: absolute;
 	top: 20%;
@@ -92,7 +98,8 @@ div.tripManageName {
 				</tr>
 				<tr>
 					<th>이미지</th>
-					<td><img src="${tripDTO.firstImage}" width="200px" height="200px"></td>
+					<td><img src="${tripDTO.firstImage}" width="200px"
+						height="200px"></td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -141,40 +148,51 @@ div.tripManageName {
 				<tr>
 					<th>비활성화 여부</th>
 					<td>
-					<c:if test="${tripDTO.deactivate eq 'TRUE'}">
-					비활성화
-					</c:if>
-					<c:if test="${tripDTO.deactivate eq 'FALSE'}">
-					활성화
-					</c:if>
+					<c:choose>
+						<c:when test="${tripDTO.deactivate eq 'TRUE'}">
+							비활성화
+						</c:when>
+						<c:otherwise>
+							활성화
+						</c:otherwise>
+					</c:choose>
 					</td>
 				</tr>
 			</table>
 		</form>
 		<div class="button">
-			<button onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}&page=${currPage}'">수정</button>
-			<c:if test="${sessionScope.type eq 'manageList'}">
-				<button onclick="location.href='./tripManageList?page=${currPage}'">닫기</button>
-			</c:if>
-			<c:if test="${sessionScope.type eq 'filter'}">
-				<button onclick="location.href='./tripDeactivateFilter?${sessionScope.url}&page=${currPage}'">닫기</button>
-			</c:if>
-			<c:if test="${sessionScope.type eq 'search'}">
-				<button onclick="location.href='./tripSearch?${sessionScope.url}&page=${currPage}'">닫기</button>
-			</c:if>
+			<button
+				onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}&page=${currPage}'">수정</button>
+			<c:choose>
+				<c:when test="${sessionScope.type eq 'manageList'}">
+					<button onclick="location.href='./tripManageList?page=${currPage}'">닫기</button>
+				</c:when>
+				<c:when test="${sessionScope.type eq 'filter'}">
+					<button
+						onclick="location.href='./tripDeactivateFilter?${sessionScope.url}&page=${currPage}'">닫기</button>
+				</c:when>
+				<c:when test="${sessionScope.type eq 'search'}">
+					<button
+						onclick="location.href='./tripSearch?${sessionScope.url}&page=${currPage}'">닫기</button>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 </body>
 <script>
-$('a').hover(function(){
-	   $(this).css({'font-weight':'600'});
-},function(){
-	    $(this).css({'font-weight':'1'});
-});
+	$('a').hover(function() {
+		$(this).css({
+			'font-weight' : '600'
+		});
+	}, function() {
+		$(this).css({
+			'font-weight' : '1'
+		});
+	});
 
 	var msg = "${msg}";
-	if(msg!=""){
+	if (msg != "") {
 		alert(msg);
-	}	
+	}
 </script>
 </html>
