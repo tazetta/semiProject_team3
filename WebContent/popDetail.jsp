@@ -5,9 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>팝업 상세보기</title>
+<style>
+#pop_main {
+	width: 900px;
+	margin: 7% 34%;
+}
+
+#popup {
+	border-collapse: collapse;
+	margin: 45px 0;
+}
+
+th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	padding: 8px;
+	font-size: 14px;
+}
+
+td {
+	background-color: white;
+}
+
+#title {
+	background-color: gray;
+	color: white;
+}
+</style>
 </head>
-<link rel="stylesheet" type="text/css" href="basic.css">
-<body>
 <body>
 	<!--상단페이지-->
 	<jsp:include page="top.jsp" />
@@ -35,7 +60,7 @@
 			<tr>
 				<td colspan="2">
 					<button onclick="location.href='./popupUpdateForm?infoidx=${dto.infoidx}'">수정</button>
-					<button onclick="location.href='./popupList'">닫기</button>
+					<input type="button" onclick="location.href='./popupList'" value="닫기"/>
 				</td>
 			</tr>
 		</table>

@@ -100,7 +100,12 @@ textarea {
 		if($subject.val()==""||$content.val()==""){
 			console.log($subject.val()+"/"+$content.val())
 			alert("제목과 내용을 모두 작성해주세요");
-		}else{
+		}else if($subject.val().length>100){
+			alert("제목은 100자 이하로 입력해주세요");
+		}else if($content.val().length>1000){
+			alert("내용은 1000자 이하로 입력해주세요");	
+		}
+		else{
 			$("form").submit();
 		}
 	});

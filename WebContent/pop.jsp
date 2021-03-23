@@ -10,8 +10,7 @@
 <style>
 #pop_main {
 	width: 900px;
-	height: 660px;
-	margin: 0 508px;
+	margin: 7% 34%;
 }
 
 #popup {
@@ -41,10 +40,10 @@ td {
 	margin: 5px 0;
 }
 
-.button {
+.p_button {
 	float: right;
 	margin-top: -6%;
-	margin-right: -3%;
+	margin-right: 14%;
 }
 </style>
 </head>
@@ -57,8 +56,8 @@ td {
 
 	<div id="pop_main">
 
-		<div class="button">
-			<button class="regist" onclick="location.href='popWrite.jsp'">등록</button>
+		<div class="p_button">
+			<button class="regist" onclick="location.href='popWrite.jsp'">신규 팝업등록</button>
 		</div>
 
 
@@ -76,7 +75,6 @@ td {
 					<td>${popup.managerid}</td>
 					<td><a href="popupDetail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
 					<td>${popup.popupalert}</td>
-					<!-- <td><button onclick="location.href='popupDel?infoidx=${popup.infoidx}'">삭제</button></td> -->
 					<td><a href="popupDel?infoidx=${popup.infoidx}">삭제</a></td>
 				</tr>
 			</c:forEach>
