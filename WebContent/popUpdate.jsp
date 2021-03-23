@@ -15,11 +15,11 @@
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 
-	<div class="pop">
+	<div class="pop_main">
 		<form action="popupUpdate" method="post">
-			<table>
+			<table id="popup">
 				<input type="hidden" name="infoidx" value="${dto.infoidx}" />
-				<tr>
+				<tr id="title">
 					<th>등록관리자</th>
 					<td><input type="text" name="managerid"
 						value="${sessionScope.loginId}" readonly /></td>
@@ -42,7 +42,7 @@
 				<tr>
 					<td colspan="2">
 						<button>저장</button>
-						<button onclick="location.href='./popupList'">닫기</button>
+						<input type="button" onclick="location.href='./popupList'" value="닫기"/>
 					</td>
 				</tr>
 			</table>

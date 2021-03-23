@@ -16,7 +16,8 @@
 
 #member {
 	border-collapse: collapse;
-	margin: 45px 0;
+    margin-top: 6%;
+
 }
 
 th, td {

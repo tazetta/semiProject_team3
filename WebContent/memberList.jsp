@@ -30,6 +30,7 @@ td{
 	background-color: white;
 }
 
+
 #title {
 	background-color: gray;
 	color : white;

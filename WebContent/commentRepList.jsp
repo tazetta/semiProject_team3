@@ -30,16 +30,17 @@
 		<!-- <a href="./reportComment">미처리 내역 </a> / <a href="./reportComment?deactivate=TRUE">처리 내역 </a> -->
 		<br/>
 		<table class="body">
-			<tr>
-				<td style="border-color: white;border-bottom-color: lightgray;" colspan="5">
+			<tr  class="nowrap">
+				<td style="border-color: white;border-bottom-color: lightgray;" colspan="6">
 					<select id="pros" onchange=processing()>
 						<option value="A"  ${deactivate eq 'FALSE' ? 'selected="selected"' : '' }>미처리 내역</option>
 						<option value="B"${deactivate eq 'TRUE' ? 'selected="selected"' : '' }>처리 내역</option>
 					</select>
 				</td>
 			</tr>
-			<tr>
-				<th>신고댓글 no.</th>
+			<tr  class="nowrap">
+				<th>신고 no.</th>
+				<th>신고자</th>
 				<th>신고 당한 ID</th>
 				<th style="width: 30%; min-width: 150px;">신고 사유</th>
 				<th>블라인드 여부</th>
@@ -47,7 +48,8 @@
 			</tr>
 			<c:forEach items="${list }" var="rep">
 			<tr>
-				<td><a id="click" href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.reIdx }</a></td>
+				<td><a id="click" href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.commentRepIdx }</a></td>
+				<td>${rep.rid }</td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>
 				<c:if test="${rep.deactivate eq 'FALSE' }">
@@ -64,14 +66,14 @@
 					<c:if test="${list eq '[]'}"><p style="text-align: center;">신고 된 댓글이 없습니다.</p></c:if>
 				<div id="page">
 				<span>
-					<c:if test="${currPage==1}">이전</c:if>
+					<c:if test="${currPage==1}"></c:if>
 					<c:if test="${currPage>1}">
 						<a href='./reportComment?page=${currPage-1}&deactivate=${deactivate}'>이전</a>
 					</c:if>
 				</span>
 				<span>${currPage}</span>
 				<span>
-					<c:if test="${currPage == maxPage}">다음</c:if>
+					<c:if test="${currPage == maxPage}"></c:if>
 		         	<c:if test="${currPage < maxPage}">
 		         		<a href="./reportComment?page=${currPage+1}&deactivate=${deactivate}">다음</a></c:if>
 				</span>		

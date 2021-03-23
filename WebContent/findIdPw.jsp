@@ -113,7 +113,7 @@
  			  });
  			});
 		
-        $('#userName').focusout(function(){
+/*         $('#userName').focusout(function(){
             if($(this).val()==''){
                  alert('가입하신 이름을 입력해주세요.');
                  
@@ -129,7 +129,7 @@
              }else{
                  phoneChk = true;
              }
-         });
+         }); */
 	
 	
 		$('#userPhone').keydown(function(event) {
@@ -148,20 +148,20 @@
     	});
 	
 	
-/* 		 $('#btn1').click(function(){
+ 		 $('#btn1').click(function(){
 			var $name = $("#userName");
 			var $phone = $("#userPhone");
 			
 			
 			if($name.val()==''){
-				alert('이름을 입력해주세요.');
+				alert('이름, 핸드폰번호를 확인해주세요.');
 				$name.focus();
 			}else if($phone.val()==''){
-				alert('핸드폰번호를 입력해주세요.');
+				alert('이름, 핸드폰번호를 확인해주세요.');
 				$phone.focus();
 			}
 			
-		}); */
+		}); 
 		
 /*         $('#userId').focusout(function(){
             if($(this).val().length<5){

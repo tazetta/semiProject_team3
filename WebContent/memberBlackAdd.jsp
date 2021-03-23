@@ -11,16 +11,15 @@
 	width : 60%;
 	height : 300px;
 	float: right;
-	margin-right: 98px;
-	margin-top : -210px;
+	margin-right: 11%;
+	margin-top : 4%;
 	
 }
 
 .memberList_add{
 	border-collapse: collapse;
 	margin-top: 75px;
-	/* margin-left: 65px; */ 
-	margin-left: 35%;
+	margin-left: 31%;
 	width : 40%;
 }
 
@@ -32,7 +31,7 @@ th, td {
 
 .addbtn {
 	width: 350px;
-	margin: 0 48%;
+	margin: 0 43%;
 	padding-top: 65px;
 }
 
@@ -79,7 +78,7 @@ th, td {
 			<div class="addbtn">
 				<button class="add">추가</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="add" onclick="location.href='./memberBlackDetail'">취소</button>
+				 <input type="button" class="add" onclick="location.href='./memberList'" value="닫기"/>
 			</div>
 			</form>
 	</div>
