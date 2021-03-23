@@ -13,8 +13,8 @@
 	width : 60%;
 	height : 300px;
 	float: right;
-	margin-right: 98px;
-	margin-top : -210px;
+	margin-right: 10%;
+	margin-top : 4%;
 }
 
 .memberList_de {

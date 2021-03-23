@@ -8,15 +8,35 @@
 <title>일반 회원정보 리스트</title>
 
 <style>
-table, th,td {
-	border: 1px solid lightgray;
+#memberList_main{
+	width: 900px;
+	height : 660px;
+	margin: 0 508px;
+}
+
+#member {
 	border-collapse: collapse;
+	margin: 45px 0;
+}
+
+th,td{
+	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 20px;
+	padding: 8px;
+	font-size: 14px;
+}
+
+td{
+	background-color: white;
+}
+
+#title {
+	background-color: gray;
+	color : white;
 }
 
 #page{
-     margin-top:10px;
+     margin-top:50px;
      text-align:center;           
 }
 
@@ -24,11 +44,12 @@ table, th,td {
 	font-size : 16px;
 	border:1px solid lightgray;
 	padding: 2px 10px;
-	margin:2px
+	margin:2px;
 }
-p{
-	position: relative;
-	left:18%;
+
+.genmem{
+	background-color: blanchedalmond;
+	font-weight: bold;
 }
 </style>
 
@@ -49,8 +70,8 @@ p{
 
 		<div class="memberList_main">
 			<c:if test="${not empty memberSearchList}">
-			<table>
-				<tr>
+			<table id="member">
+				<tr id="title">
 					<th>가입일</th>
 					<th>아이디</th>
 					<th>이름</th>
