@@ -12,7 +12,7 @@ import com.mvc.service.MemberService;
 
 @WebServlet({ "/login", "/profile", "/memberUpdateForm", "/memberUpdate", "/pwUpdate", "/wroteList", "/overlay",
 		"/logout", "/join", "/findId", "/findPw", "/memberWithdraw", "/visitedList", "/bookmarkList", "/findpwUpdate",
-		"/myUpdate" })
+		"/myUpdate","/wroteDel" })
 
 public class MemberController extends HttpServlet {
 
@@ -76,12 +76,6 @@ public class MemberController extends HttpServlet {
 			service.wroteList();
 			break;
 
-		case "/wroteDel":
-			System.out.println("");
-			System.out.println("--내가 쓴 글 삭제 요청--");
-			service.wroteDel();
-
-			break;
 
 		case "/overlay":
 			System.out.println("중복체크요청");
@@ -140,6 +134,12 @@ public class MemberController extends HttpServlet {
 			System.out.println("--마이페이지 북마크 수정--");
 			service.myUpdate();
 			
+			break;
+			
+		case "/wroteDel":
+			System.out.println("");
+			System.out.println("--내가 쓴 글 삭제--");
+			service.wroteDel();
 			break;
 
 		}

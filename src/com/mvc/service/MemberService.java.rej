@@ -1,31 +1,33 @@
 diff a/src/com/mvc/service/MemberService.java b/src/com/mvc/service/MemberService.java	(rejected hunks)
-@@ -234,21 +234,22 @@
- 		resp.getWriter().print(json);//페이지에 그려주는것
- 		
+@@ -390,6 +390,31 @@
+ 		}	
  	}
--
-+	
-+	/*아이디찾기*/
- 	public void findId() throws ServletException, IOException {
- 		
- 		String name = req.getParameter("userName");
- 		String phone = req.getParameter("userPhone");
- 		System.out.println(name+"/"+phone);
--		boolean success = dao.findId(name, phone);
-+		String id = dao.findId(name, phone);
- 		
--		String id = req.getParameter("userId");
-+		System.out.println("아이디찾기 : "+id);
- 		
--		System.out.println("아이디찾기 : "+success);
-+//		page="findIdPw.jsp";
-+		msg="이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
- 		
--		msg="가입했던 이름과 핸드폰번호를 다시 확인 후 입력해주세요.";
--		if(success) {
--			page="login.jsp";
-+		if(id!="") {
-+//			page="login.jsp";
- 			msg=name+"님의 아이디는 "+id+" 입니다.";
- 		}
- 		req.setAttribute("msg", msg);
+ 
++	/*내가 쓴 글 삭제*/
++	public void wroteDel() throws ServletException, IOException {
++		String loginId = (String) req.getSession().getAttribute("loginId");
++		String boardIdx = (String) req.getParameter("boardIdx");
++		System.out.println(loginId+"의 "+boardIdx+"삭제");
++		
++		if(loginId!=null) { //로그인체크
++		FileService upload = new FileService(req);
++
++		BoardDAO dao = new BoardDAO();
++		String newFileName = dao.getFileName(boardIdx);//파일명추출
++
++		dao = new BoardDAO();
++		msg="삭제 실패했습니다.";
++		page="wroteList";
++		if(dao.del(boardIdx,newFileName)>0) {
++			msg="삭제가 완료되었습니다.";
++		}
++		req.setAttribute("msg", msg);
++		dis = req.getRequestDispatcher(page);
++		dis.forward(req, resp);
++		}else {
++			resp.sendRedirect("index.jsp");
++		}
++	}
+ 
+ 
+ }

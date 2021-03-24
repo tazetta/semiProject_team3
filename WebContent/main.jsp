@@ -44,47 +44,7 @@ body {
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 
-
-	<!-- <section>
-		<span class="ci"> <a href="main.html" target="_parent"><img
-				alt="CI" src="koreaCI.png" width="200px" height="50px"></a>
-		</span>
-		<div id="search">
-			<form action="search" method="GET">
-				<select name="searchType">
-					<option value="title">제목</option>
-					<option value="overview">내용</option>
-				</select>
-				<input type="text" name="keyword" placeholder="검색어를 입력해주세요" /> <input
-					type="submit" value="검색" />
-			</form>
-		</div>
-		<div class="login">
-			<ul>
-				<li><a href="login.jsp">로그인</a></li>
-				<li><a href="joinForm.jsp">회원가입 </a></li>
-
-			</ul>
-		</div>
-	</section>
-
-	<section id="navi">
-		<div class="bar">
-			<ul>
-				<li class="navi"><a href="./themeContentList">테마별</a></li>
-
-				<li class="navi"><a href="./areaContentList">지역별</a></li>
-
-				<li class="navi"><a href="./boardList">커뮤니티</a></li>
-
-				<li class="navi"><a href="#">고객센터</a></li>
-
-				<li class="navi"><a href="profile">마이페이지</a></li>
-
-			</ul>
-		</div>
-	</section> -->
-	<c:if test="${sessionScope.loginId eq null}">
+<%-- 	<c:if test="${sessionScope.loginId eq null}">
 		<section>
 			<form action="login" method="post">
 				<table>
@@ -104,7 +64,7 @@ body {
 				</table>
 			</form>
 		</section>
-	</c:if>
+	</c:if> --%>
 	<jsp:include page="popularTrip.jsp"/>
 	<br/>
 	<jsp:include page="weatherCast.jsp" />
