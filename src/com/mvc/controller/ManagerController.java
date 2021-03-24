@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.service.ManagerService;
 
-@WebServlet({ "/managerList", "/managerDel", "/managerRegist"})
+@WebServlet({ "/managerList", "/managerDel", "/managerRegist","/managerOverlay"})
 
 public class ManagerController extends HttpServlet {
 
@@ -47,6 +47,11 @@ public class ManagerController extends HttpServlet {
 			case "/managerRegist":
 				System.out.println("관리자 등록 요청");
 				service.managerRegist();
+				break;
+				
+			case "/managerOverlay":
+				System.out.println("관리자아이디 중복 확인요청");
+				service.managerOverlay();
 				break;
 		}
 	}
