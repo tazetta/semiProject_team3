@@ -14,8 +14,8 @@
 /* 브라우저 마진과 패딩 리셋 */
 * {margin:0;padding:0;}
 	.section input[id*="slide"] {display:none;}
-	.section {margin-left:80px; margin-top:40px;}
-	.section .slidewrap {max-width:800px;margin:0px;  box-shadow: 4px 4px 4px  gray;}
+	.section {margin-left:80px; margin-top:40px; }
+	.section .slidewrap {max-width:800px;margin:0px;  box-shadow: 4px 4px 4px  gray; border-radius:10px;}
 	.section .slidelist {white-space:nowrap;font-size:0;overflow:hidden;position:relative;}
 	.section .slidelist > li {display:inline-block;vertical-align:middle;width:100%;transition:all .5s;}
 	.section .slidelist > li > a {display:block;position:relative;}
@@ -42,6 +42,7 @@
 	.img{
 		width:800px;
 		height:460px;
+		 border-radius:10px;
 	}
 	.slidewrap span{
 		font-size:110%;
