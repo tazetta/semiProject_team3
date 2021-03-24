@@ -40,6 +40,7 @@
 			</tr>
 			<tr class="nowrap">
 				<th>신고 no.</th>
+				<th>신고게시물</th>
 				<th>신고자</th>
 				<th>신고 당한 ID</th>
 				<th style="width: 30%; min-width: 150px;">신고 사유</th>
@@ -51,6 +52,7 @@
 					<td>
 						<a  id="click" href="./repDetail?boardIdx=${rep.boardIdx }&bbsRepIdx=${rep.bbsRepIdx}&page=${currPage}">${rep.bbsRepIdx }</a>
 					</td>
+					<td>${rep.boardIdx }</td>
 					<td>${rep.rid }</td>
 					<td>${rep.id }</td>
 					<td>${rep.reason }</td>

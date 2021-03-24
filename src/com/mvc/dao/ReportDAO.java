@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.dto.RepDTO;
-import com.mvc.dto.BookmarkDTO;
-import com.mvc.dto.TripDTO;
 
 public class ReportDAO {
 
@@ -300,16 +298,26 @@ public ReportDAO() {
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid FROM"
-				+ "(SELECT ROW_NUMBER() OVER(ORDER BY bbsrepidx ASC) AS rnum "
+				+ "(SELECT ROW_NUMBER() OVER(ORDER BY r.bbsrepidx ASC) AS rnum "
 				+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
 				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
-		
+		if(deactivate.equals("TRUE")) {
+			sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid FROM"
+					+ "(SELECT ROW_NUMBER() OVER(ORDER BY r.bbsrepidx DESC) AS rnum "
+					+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
+					+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
+		}
 		if(type.equals("2")) {
 			sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid FROM" + 
-					"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx ASC) AS rnum " + 
+					"(SELECT ROW_NUMBER() OVER(ORDER BY r.commentrepidx ASC) AS rnum " + 
 					",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
 					"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
-		
+			if(deactivate.equals("TRUE")) {
+				sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid FROM" + 
+						"(SELECT ROW_NUMBER() OVER(ORDER BY r.commentrepidx DESC) AS rnum " + 
+						",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
+						"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
+			}
 		}		
 		ArrayList<RepDTO> list = null;
 
@@ -350,6 +358,25 @@ public ReportDAO() {
 			e.printStackTrace();
 		}
 		return map;
+	}
+
+	public boolean tasked(RepDTO dto) {
+		boolean suc = false;
+		String sql = "SELECT * FROM bbsrep WHERE boardIDX = ? AND deactivate = 'FALSE'";
+		if(dto.getType().equals("2")) {
+			 sql = "SELECT * FROM commentrep WHERE reIdx = ? AND deactivate = 'FALSE'";
+		}
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, dto.getBoardIdx());
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				suc=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return suc;
 	}
 
 //	public HashMap<String, Object> reportBBS(int page, String deactivate) {

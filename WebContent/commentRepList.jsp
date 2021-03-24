@@ -40,6 +40,7 @@
 			</tr>
 			<tr  class="nowrap">
 				<th>신고 no.</th>
+				<th>신고댓글</th>
 				<th>신고자</th>
 				<th>신고 당한 ID</th>
 				<th style="width: 30%; min-width: 150px;">신고 사유</th>
@@ -49,6 +50,7 @@
 			<c:forEach items="${list }" var="rep">
 			<tr>
 				<td><a id="click" href="./repDetailCom?reIdx=${rep.reIdx }&commentRepIdx=${rep.commentRepIdx}&boardIdx=${rep.boardIdx }&page=${currPage}">${rep.commentRepIdx }</a></td>
+				<td>${rep.reIdx }</td>
 				<td>${rep.rid }</td>
 				<td>${rep.id }</td>
 				<td>${rep.reason }</td>

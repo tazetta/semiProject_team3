@@ -105,7 +105,12 @@ public class ReportService {
 			dto.setDeactivate(deactivate);
 			
 			ReportDAO dao = new ReportDAO();
-			int suc=dao.updateYN(dto,managerid);
+			boolean doit = dao.tasked(dto);
+			int suc =0;
+			if(doit) {
+				suc=dao.updateYN(dto,managerid);
+				
+			}
 			dao.resClose();
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();

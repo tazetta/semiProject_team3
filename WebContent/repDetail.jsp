@@ -113,6 +113,9 @@
 						console.log(data.suc);
 						if(data.suc>0){
 							location.href="./reportBBS?page=${currPage}&deactivate=${reason.deactivate}";
+						}else{
+							alert("정상적인 방법으로 수정을 시도하세요 .");
+							location.href="./reportBBS";
 						}
 					}
 					,error: function(e) {
