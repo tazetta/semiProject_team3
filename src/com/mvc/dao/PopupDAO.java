@@ -66,8 +66,7 @@ public class PopupDAO {
 				dto.setPopupalert(rs.getString("popupalert"));
 				popupList.add(dto);
 			}
-			int type = 1;
-			int maxPage = getMaxPage(pagePerCnt, type);
+			int maxPage = getMaxPage(pagePerCnt);
 			map.put("popupList", popupList);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -79,7 +78,7 @@ public class PopupDAO {
 		return map;
 	}
 	
-	private int getMaxPage(int pagePerCnt, int type) {
+	private int getMaxPage(int pagePerCnt) {
 		String sql = "SELECT COUNT(infoidx) FROM popup";
 		int max = 0;
 		try {

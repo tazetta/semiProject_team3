@@ -62,6 +62,16 @@ td {
 	padding: 2px 10px;
 	margin:2px;
 }
+
+a {
+	text-decoration: none;
+	font-size: 90%;
+	color: black;
+}
+
+a:hover {
+	font-weight: 600;
+}
 </style>
 </head>
 <body>

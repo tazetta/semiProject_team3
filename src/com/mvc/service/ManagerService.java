@@ -41,6 +41,7 @@ public class ManagerService {
 		req.setAttribute("managerList", managerList);
 		dis = req.getRequestDispatcher("managerList.jsp");
 		dis.forward(req, resp);
+		dao.resClose();
 	}
 
 	public void managerDel() throws ServletException, IOException {
@@ -57,6 +58,7 @@ public class ManagerService {
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		dao.resClose();
 	}
 
 	public void managerRegist() throws ServletException, IOException {
@@ -77,11 +79,13 @@ public class ManagerService {
 		if (dao.managerRegist(dto)) {
 			// page = "/managerList"; //페이지 닫기..?
 			msg = "관리자 등록에 성공 하였습니다.";
+			
 
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher("managerRegistClose.jsp");
 		dis.forward(req, resp);
+		dao.resClose();
 
 	}
 }
