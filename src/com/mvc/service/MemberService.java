@@ -285,6 +285,7 @@ public class MemberService {
 		}else{
 			page = "findIdPw.jsp";
 			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+			dis = req.getRequestDispatcher(page);
 			
 		}
 		req.setAttribute("msg", msg);
