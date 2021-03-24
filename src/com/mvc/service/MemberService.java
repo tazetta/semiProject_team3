@@ -299,20 +299,44 @@ public class MemberService {
 		String id = req.getParameter("userId");
 		String name = req.getParameter("userName");
 		String phone = req.getParameter("userPhone");
+		boolean pw = false;
 		System.out.println(id+"/"+name+"/"+phone);
+		MemberDAO dao = new MemberDAO();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		
-		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
-		page = "findIdPw.jsp";
-		
-		if(dao.findPw(id, name, phone)) {
-			page = "findpwUpdate.jsp";
-			msg = "비밀번호를 수정해주세요.";
-			req.setAttribute("id", id);
+		try {
+			pw = dao.findPw(id, name, phone);
+			System.out.println("가입여부 : " + pw);
+			if(pw) {
+				page="findpwUpdate.jsp";
+				msg = "비밀번호를 수정해주세요.";
+				req.setAttribute("id", id);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			map.put("use", pw);
+			Gson gson = new Gson();
+			String json = gson.toJson(map);
+			System.out.println(json);
+			resp.getWriter().print(json);// 페이지에 그려주는것.
 		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
+		
+//		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+//		page = "findIdPw.jsp";
+//		
+//		if(dao.findPw(id, name, phone)) {
+//			page = "findpwUpdate.jsp";
+//			msg = "비밀번호를 수정해주세요.";
+//			req.setAttribute("id", id);
+//		}
+//		req.setAttribute("msg", msg);
+//		dis = req.getRequestDispatcher(page);
+//		dis.forward(req, resp);
 		
 	}
 	
