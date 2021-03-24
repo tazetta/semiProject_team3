@@ -68,7 +68,7 @@
 	
 	//pw에 한글 입력안되게(영어 숫자 특수문자만)
 	$(document).ready(function(){
-		  $("input[name=userPw]").keyup(function(event){ 
+		  $("input[name=newPw]").keyup(function(event){ 
 		   if (!(event.keyCode >=37 && event.keyCode<=40)) {
 		    var inputVal = $(this).val();
 		    $(this).val(inputVal.replace(/[^a-z0-9~!@#$%^&*()_.,+<>?:{}]/gi,''));
