@@ -108,4 +108,17 @@ public class ManagerDAO {
 		return success;
 		}
 
+		public boolean overlay(String managerid) throws SQLException {
+			
+			boolean success = false;
+			
+			String sql = "SELECT managerid FROM manager WHERE managerid=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, managerid);
+			rs = ps.executeQuery();
+			success = rs.next();
+			
+			return !success;
+		}
+
 }

@@ -97,7 +97,10 @@
 	</body>
 	<script>
 	
-
+	var msg="${msg}";
+	   if(msg!=""){
+	      alert(msg);
+	   }
 	
 		var nameChk = false;
 		var phoneChk = false;
@@ -158,7 +161,7 @@
     	});
 	
 	
- 		 $('#btn1').click(function(){
+ 		/*  $('#btn1').click(function(){
 			var $name = $("#userName");
 			var $phone = $("#userPhone");
 			
@@ -171,7 +174,7 @@
 				$phone.focus();
 			}
 			
-		}); 
+		});  */
 		
 /*         $('#userId').focusout(function(){
             if($(this).val().length<5){
