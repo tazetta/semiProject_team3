@@ -98,15 +98,17 @@ a {
 	<jsp:include page="navi.jsp" />
 <jsp:include page="myLeft.jsp" />
 
-	<section id=background>
+
 		<div id="content">
 			<span>커뮤니티 - 내가 쓴 글</span>
-			<c:if test="${list eq  '[]'}">
+			<c:choose>
+				<c:when test="${list eq  '[]'}">
 				<div class="noneList">
 					<p>작성한 글이 없습니다</p>
 				</div>
-			</c:if>
-			<table id="wroteList">
+				</c:when>
+				<c:otherwise>
+					<table id="wroteList">
 			 <tr class="firstTr">
 			 	<th>글번호</th>
 			 	<th>제목</th>
@@ -124,7 +126,7 @@ a {
 					</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${list ne  '[]'}">
+			
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
 							test="${currPage>1}">
@@ -137,9 +139,14 @@ a {
 						</c:if>
 					</span>
 				</div>
-			</c:if>
+				</c:otherwise>
+			</c:choose>
+			
+				
+		
+			
 		</div>
-	</section>
+	
 </body>
 <script>
 var msg = "${msg}";

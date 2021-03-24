@@ -223,10 +223,32 @@
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
-			}else{
+            }else{
+				$.ajax({
+					type:'get'
+					,url:'overlay'
+					,data:{"id":$("#userId").val()}
+					,dataType:'JSON'
+					,success:function(obj){
+						console.log(obj);
+						if(obj.use){//obj를 사용할수있다면
+							alert('가입하신 아이디가 아닙니다. 다시 확인해주세요.');
+							$id.focus();
+						}else{
+							console.log("비밀번호를 수정해주세요.");
+							$('form').submit();
+						}
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				});
+            	
+            }
+			/* }else{
 				console.log("비밀번호를 수정해주세요.");
 				$('form').submit();
-			}
+			} */
 		}); 
 	</script>
 </html>
