@@ -139,6 +139,18 @@ $(".menu").click(function () {
 	 }
  }) ;
  
+ $("#updatePw").keyup(function(){
+     if ($(this).val() != $("#confirmPw").val()) {
+         $("#passChk").html("비밀번호 불일치");
+         $("#passChk").css({ "color": "red" });
+         pwChk = false;
+     } else {
+         $("#passChk").html("비밀번호 일치");
+         $("#passChk").css({ "color": "green" });
+         pwChk = true;
+     }
+ })
+
 /*비밀번호 유효성 검사*/
  
  $("#save").click(function(){

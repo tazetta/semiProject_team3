@@ -116,7 +116,7 @@ public class ReportService {
 			resp.getWriter().println(json);
 			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			req.setAttribute("msg", "관리자 로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}
@@ -152,7 +152,7 @@ public class ReportService {
 			dao.resClose();
 			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			req.setAttribute("msg", "관리자 로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}
@@ -186,7 +186,7 @@ public class ReportService {
 			}
 			dao.resClose();			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			req.setAttribute("msg", "관리자 로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}
@@ -229,7 +229,7 @@ public class ReportService {
 			dis.forward(req, resp); 
 			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			req.setAttribute("msg", "관리자 로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}
@@ -271,7 +271,7 @@ public class ReportService {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp); 			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			req.setAttribute("msg", "관리자 로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("/login.jsp");
 			dis.forward(req, resp);
 		}

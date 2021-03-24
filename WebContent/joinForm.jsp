@@ -162,6 +162,16 @@
  			   }
  			  });
  			});
+ 		
+ 		//phone에 한글,영어,특수문자 입력안되게(숫자만)
+ 		$(document).ready(function(){
+ 			  $("input[name=userPhone]").keyup(function(event){ 
+ 			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+ 			    var inputVal = $(this).val();
+ 			    $(this).val(inputVal.replace(/[^0-9-]/gi,''));
+ 			   }
+ 			  });
+ 			});
         
       	//pw가 5자 이상인가?
         $('#userPw').focusout(function(){

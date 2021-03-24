@@ -183,7 +183,7 @@ public class MemberService {
 			page = Integer.parseInt(pageParam); 
 		}
 		if (loginId != null) { // 로그인 체크
-			/* MemberDAO dao = new MemberDAO(); */
+
 			HashMap<String, Object> map = dao.wroteList(loginId, page);
 			req.setAttribute("maxPage", map.get("maxPage"));
 			req.setAttribute("list", map.get("list")); // req에 저장
@@ -466,16 +466,23 @@ public class MemberService {
 		System.out.println(loginId+"의 "+boardIdx+"삭제");
 		
 		if(loginId!=null) { //로그인체크
-		FileService upload = new FileService(req);
 
 		BoardDAO dao = new BoardDAO();
-		String newFileName = dao.getFileName(boardIdx);//파일명추출
-
-		dao = new BoardDAO();
-		msg="삭제 실패했습니다.";
+		BoardDTO dto = dao.detail(boardIdx);
+		System.out.println("글작성자:"+dto.getId());
+		
+		msg="삭제 권한이 없습니다";
 		page="wroteList";
-		if(dao.del(boardIdx,newFileName)>0) {
-			msg="삭제가 완료되었습니다.";
+		
+		if(loginId.equals(dto.getId())) {
+			dao = new BoardDAO();
+			String newFileName = dao.getFileName(boardIdx);//파일명추출
+			msg="삭제 실패했습니다.";
+			dao = new BoardDAO();
+			if(dao.del(boardIdx,newFileName)>0) {
+				msg="삭제되었습니다.";
+			}
+			
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);

@@ -1,0 +1,9 @@
+diff a/WebContent/wroteList.jsp b/WebContent/wroteList.jsp	(rejected hunks)
+@@ -150,6 +150,7 @@
+ 							<button
+ 								onclick="location.href='./boardUpdateForm?boardIdx=${bbs.boardIdx}&id=${loginId}'">수정</button>
+ 							<br />
++							<button onclick="location.href='./wroteDel?boardIdx=${bbs.boardIdx}'">삭제</button>
+ 						</td>
+ 					</tr>
+ 				</c:forEach>

@@ -56,7 +56,7 @@ table#wroteList {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 700px;
+	width: 800px;
 }
 
 .noneList {
@@ -113,6 +113,7 @@ a {
 			 	<th>글번호</th>
 			 	<th>제목</th>
 			 	<th>작성일</th>
+			 	<th>삭제</th>
 			 </tr>
 
 				<c:forEach items="${list}" var="bbs">
@@ -122,6 +123,7 @@ a {
 						<th style="width: 450px"><a
 							href="boardDetail?boardIdx=${bbs.boardIdx}&page=1">${bbs.subject }</a></th>
 						<td>${bbs.reg_date }</td>
+						<td>  <button onclick="location.href='wroteDel?boardIdx=${bbs.boardIdx}'">삭제</button></td>
 						
 					</tr>
 				</c:forEach>
