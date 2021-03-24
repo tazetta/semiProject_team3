@@ -11,7 +11,7 @@
 #boardTableDiv {
 	position: absolute;
 	/* top: 100%; */
-	top: 180px;
+	top: 200px;
 	margin-left: 950px;
 	background-color: white;
 	border-top: 2px solid lightgray;
@@ -32,7 +32,7 @@
 
 #boardTableDiv span {
 	position: absolute;
-	top: -35px;
+	top: -40px;
 	left: 220px;
 	font-size: 110%;
 	font-weight: 600;
@@ -45,6 +45,7 @@
 }
 #boardTable td{
  border-bottom: 1px solid #EEECEC;
+ font-size:90%;
 }
 
 </style>
