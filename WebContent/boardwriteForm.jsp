@@ -55,11 +55,11 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" id="subject" name="subject" placeholder="제목을 입력하세요"/></td>
+				<td><input type="text" id="subject" name="subject" maxlength="100" placeholder="제목을 100자 내로 입력하세요."/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea></td>
+				<td><textarea id="content" name="content" maxlength="1000" placeholder="내용을 1000자 내로 입력하세요"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -75,5 +75,9 @@
 	</form>
 </body>
 <script>
+var msg="${msg}";
+if(msg!=""){
+	alert(msg);
+}
 </script>
 </html>

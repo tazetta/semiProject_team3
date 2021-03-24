@@ -300,13 +300,13 @@ public ReportDAO() {
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid FROM"
-				+ "(SELECT ROW_NUMBER() OVER(ORDER BY bbsrepidx DESC) AS rnum "
+				+ "(SELECT ROW_NUMBER() OVER(ORDER BY bbsrepidx ASC) AS rnum "
 				+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
 				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		
 		if(type.equals("2")) {
 			sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid FROM" + 
-					"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx DESC) AS rnum " + 
+					"(SELECT ROW_NUMBER() OVER(ORDER BY r.reidx ASC) AS rnum " + 
 					",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
 					"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		

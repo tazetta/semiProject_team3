@@ -60,10 +60,12 @@ public class TripDetailService {
 	
 	
 	public void addDel() throws ServletException, IOException {
+
 		
 		String loginId = (String) req.getSession().getAttribute("loginId");
 		
 		if(loginId!=null) {
+
 			String myidx = req.getParameter("myidx");
 			String deact = req.getParameter("deact");
 			String conIdx = req.getParameter("conIdx");
@@ -88,11 +90,11 @@ public class TripDetailService {
 			resp.sendRedirect("./tripDetail?contentId="+conIdx);
 			
 		}else {
+
 			req.setAttribute("msg", "로그인이 필요한 서비스입니다.");
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);	
 		}
-		
 		
 	}
 
