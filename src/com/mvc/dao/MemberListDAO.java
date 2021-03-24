@@ -199,7 +199,7 @@ public class MemberListDAO {
 
 	public boolean memberDraw(String id) {
 
-		String sql = "DELETE FROM member WHERE id=?";
+		String sql = "UPDATE member SET pw='' ,name='탈퇴회원', phone='', email='',withdraw='TRUE'  WHERE id=?";
 		boolean success = false;
 
 		try {
