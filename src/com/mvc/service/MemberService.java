@@ -296,9 +296,9 @@ public class MemberService {
 	/*비밀번호 찾기*/
 	public void findPw() throws ServletException, IOException{
 		
-		String id = req.getParameter("userId");
-		String name = req.getParameter("userName");
-		String phone = req.getParameter("userPhone");
+		String id = req.getParameter("id");
+		String name = req.getParameter("name");
+		String phone = req.getParameter("phone");
 		boolean pw = false;
 		System.out.println(id+"/"+name+"/"+phone);
 		MemberDAO dao = new MemberDAO();
@@ -307,18 +307,18 @@ public class MemberService {
 		try {
 			pw = dao.findPw(id, name, phone);
 			System.out.println("가입여부 : " + pw);
-			if(pw) {
-				page="findpwUpdate.jsp";
-				msg = "비밀번호를 수정해주세요.";
-				req.setAttribute("id", id);
-			}
+//			if(pw) {
+//				page="findpwUpdate.jsp";
+//				msg = "비밀번호를 수정해주세요.";
+//				req.setAttribute("id", id);
+//			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			dao.resClose();
-			req.setAttribute("msg", msg);
-			dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
+//			req.setAttribute("msg", msg);
+//			dis = req.getRequestDispatcher(page);
+//			dis.forward(req, resp);
 			map.put("use", pw);
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
@@ -337,6 +337,18 @@ public class MemberService {
 //		req.setAttribute("msg", msg);
 //		dis = req.getRequestDispatcher(page);
 //		dis.forward(req, resp);
+		
+	}
+	
+	public void findPw1() throws ServletException, IOException{
+		
+		String id = req.getParameter("id");
+		System.out.println(id);	
+		page="findpwUpdate.jsp";
+
+		req.setAttribute("id", id);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 		
 	}
 	
