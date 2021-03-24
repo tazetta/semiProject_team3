@@ -252,6 +252,8 @@ public class BoardService {
 			if(loginId.equals(dto.getId())){
 				msg="수정에 실패했습니다.";
 				if(dao.update(dto)>0) {
+					dao = new BoardDAO();
+					dao.upDown(Integer.toString(dto.getBoardIdx()));
 					msg="수정이 완료되었습니다";
 				}			
 			}
