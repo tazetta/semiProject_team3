@@ -76,14 +76,7 @@ public class BoardService {
 			msg = "글 등록에 실패하였습니다.";
 			int currPage =1;
 			long boardIdx = dao.write(dto);
-//			HashMap<String, Object> map = new HashMap<String, Object>();
-//			map.put("boardIdx",boardIdx);
-//			Gson gson = new Gson();
-//			String json = gson.toJson(map);
-//			System.out.println(json);
-//			resp.setContentType("text/html; charset=UTF-8");
-//			resp.setHeader("Access-Control-Allow-origin", "*");
-//			resp.getWriter().print(json);
+
 			if(boardIdx>0) {
 				page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 				msg = "글 등록에 성공하였습니다.";
@@ -296,7 +289,7 @@ public class BoardService {
 			BoardDAO dao = new BoardDAO();
 			dao.upDown(boardIdx); //댓글등록할때도 조회수가 올라가버려서
 			page="boardDetail?page="+currPage;
-			msg="댓글등록에 실패하였습니다.";
+			msg="댓글등록에 실패했습니다.";
 			dao = new BoardDAO();
 			if(dao.commentWrite(boardIdx,comment,loginId)) {
 				msg="댓글이 등록되었습니다.";
@@ -361,7 +354,7 @@ public class BoardService {
 			if(loginId.equals(commentUpdatedto.getId())) {
 				dao = new BoardDAO();
 				dao.upDown(boardIdx); //댓글수정할때도 조회수가 올라가버려서
-				msg="댓글 수정에 실패하였습니다.";
+				msg="댓글등록에 실패했습니다.";
 				dao = new BoardDAO();
 				if(dao.commentUpdate(reIdx, comment)) {
 					msg="댓글 수정이 완료되었습니다.";

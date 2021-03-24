@@ -52,11 +52,11 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="subject" value="${dto.subject}"/></td>
+				<td><input type="text" name="subject" value="${dto.subject}" maxlength="100"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="content">${dto.content}</textarea></td>
+				<td><textarea name="content" maxlength="1000">${dto.content}</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
