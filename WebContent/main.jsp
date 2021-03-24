@@ -20,6 +20,7 @@
 <style>
 body {
 	min-width: 1400px;
+ font-family: "NanumGothic"; 
 }
 
 .popup {

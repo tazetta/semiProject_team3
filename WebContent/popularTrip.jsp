@@ -14,7 +14,7 @@
 /* 브라우저 마진과 패딩 리셋 */
 * {margin:0;padding:0;}
 	.section input[id*="slide"] {display:none;}
-	.section {margin-left:80px; margin-top:40px;}
+	.section {margin-left:80px; margin-top:30px;}
 	.section .slidewrap {max-width:800px;margin:0px;}
 	.section .slidelist {white-space:nowrap;font-size:0;overflow:hidden;position:relative;}
 	.section .slidelist > li {display:inline-block;vertical-align:middle;width:100%;transition:all .5s;}
@@ -45,18 +45,24 @@
 	}
 	.slidewrap span{
 		font-size:110%;
+		font-family: "NanumGothic";
 		font-weight:600;
 		position:absolute;
-		top:140px;
-		left:380px;
+		top:170px;
+		left:80px;
 		color: black;
 		z-index:9;
-		text-shadow: 2px 2px 2px white;
-		background-color:  blanchedalmond ;
-		padding:5px 10px;
+		/* text-shadow: 2px 2px 2px white; */
+		background-color: rgba(255,255,255,0.2) ;
+		padding:5px 20px;
 	}
 	
-
+/* @font-face{
+	font-family: "NanumGothicExtraBold";
+	src : local("NanumGothicExtraBold");
+	src:url('./css/NanumGothicExtraBold.ttf') format('truetype');
+	font-style:normal;
+} */
 	
 </style>
 </head>
