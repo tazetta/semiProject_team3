@@ -13,9 +13,88 @@
 <title>고객센터</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- JQuery사용 위해 불러옴 -->
- <link rel="stylesheet" href="./css/qnaListUser.css">
+ <!-- <link rel="stylesheet" href="./css/qnaListUser.css"> -->
 <style>
+body{
+	min-width:1400px;
+}
+/*콘텐츠*/
+#content {
+	height: 800px;
+	/* background-color: #F2F2F2; */
+	text-align: center;
+	position: relative;
+	top: 0px;
+	left: 20px;
+	margin: 0 auto;
+	width: 95%;
+}
+.noneList {
+	position: relative;
+	top: 150px;
+	height: 60px;
+	text-align: center;
+	align-items: stretch;
+	background-color: transParent;
+}
 
+table, th, td {
+	/* border: 1px solid black; */
+	border-collapse: collapse;
+	text-align: center;
+	padding:10px;
+}
+#qna th{
+	background-color:  #0B0B3B;
+	color:white;
+}
+
+#qna td{
+border-bottom: 1px solid lightgray;
+}
+#title{
+	font-weight:600;
+	color:black;
+}
+table#qna {
+	background-color: white;
+	position: relative;
+	top: 80px;
+	margin: 0 auto;
+	width: 50%;
+}
+
+.wd {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+/*페이징*/
+.pageArea {
+	text-align: center;
+	position: relative;
+	top: 20%;
+	left: 20px;
+}
+
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	padding: 2px 10px;
+}
+
+a {
+	text-decoration: none;
+
+}
+
+#page {
+	font-weight: 600;
+	border: none;
+	background-color: transparent;
+}
 </style>
 </head>
 <body>
@@ -46,8 +125,8 @@
 						<c:forEach items="${list}" var="qna">
 							<tr>
 								<td>${qna.rnum}</td>
-								<th style="width: 400px"><a
-									href="qnaDetail?qnaIdx=${qna.qnaIdx}">${qna.subject}</a></th>
+								<td style="width: 400px" ><a
+									href="qnaDetail?qnaIdx=${qna.qnaIdx}" id="title">${qna.subject}</a></td>
 								<td>${qna.reg_date}</td>
 								<td>${qna.id}</td>
 
