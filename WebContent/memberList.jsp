@@ -30,6 +30,7 @@ td{
 	background-color: white;
 }
 
+
 #title {
 	background-color: gray;
 	color : white;
@@ -48,14 +49,10 @@ td{
 }
 
 .genmem{
-	background-color: blanchedalmond;
+	background-color: lightgray;
 	font-weight: bold;
 }
 
-.memberlist a {
- background-color: blanchedalmond;
- color : red;
-}
 </style>
 
 </head>

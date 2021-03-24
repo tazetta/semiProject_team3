@@ -15,6 +15,7 @@ public class RepDTO {
 	
 	private String reason;
 	private String id;
+	private String rid;
 	private Date reg_date;
 	private String deactivate;
 	private String managerId;
@@ -23,6 +24,13 @@ public class RepDTO {
 	private String type;
 	private int repCnt;
 	
+	
+	public String getRid() {
+		return rid;
+	}
+	public void setRid(String rid) {
+		this.rid = rid;
+	}
 	public int getRepCnt() {
 		return repCnt;
 	}

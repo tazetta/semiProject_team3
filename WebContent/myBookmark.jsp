@@ -56,15 +56,15 @@ body {
 
 .list {
 	background-color: white;
-	border :1px solid gray;
-	border-radius:5px;
+	 border : 0.5px solid lightgray;
+	border-radius:3px;
 	text-align: center;
 	position: relative;
 	top: 40px;
 	margin: 0 auto;
 	width: 800px;
 	margin-top:20px;
-
+  box-shadow: 3px 3px 3px  gray;
 }
 
 
@@ -115,7 +115,7 @@ a {
 <jsp:include page="myLeft.jsp" />
 
       <div id="content">
-         <span id="spanTitle">가보고 싶은 여행지</span>
+         <span id="spanTitle">가보고 싶은 여행지&nbsp;<img alt="flag" src="./css/star.png" width="20px" height="20px"></span>
          <c:if test="${list eq '[]'}">
             <div class="noneList">
                <p>즐겨찾기에 등록된 여행지가 없습니다</p>
@@ -126,7 +126,7 @@ a {
             <div class="list">
                <table >
                   <tr>
-                     <th colspan="3" style="font-size:150%">${bm.title }</th>
+                     <th colspan="3" style="font-size:110%">${bm.title }</th>
                   </tr>
                   <tr>
                      <td id="user" rowspan="2">
@@ -155,12 +155,12 @@ a {
             <div class="pageArea">
                <span> <c:if test="${currPage==1}">이전</c:if> <c:if
                      test="${currPage>1}">
-                     <a href="?page=${currPage-1}">이전</a>
+                     <a href="bookmarkList?page=${currPage-1}">이전</a>
                   </c:if>
                </span> <span id="page">${currPage}</span> <span> <c:if
                      test="${currPage==maxPage}">다음</c:if> <c:if
                      test="${currPage<maxPage}">
-                     <a href="?page=${currPage+1}">다음</a>
+                     <a href="bookmarkList?page=${currPage+1}">다음</a>
                   </c:if>
                </span>
             </div>

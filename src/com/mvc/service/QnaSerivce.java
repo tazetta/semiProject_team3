@@ -49,7 +49,7 @@ public class QnaSerivce {
 			group = Integer.parseInt(pageParam); 
 		}
 		
-		if (loginId != null) { // 로그인체크
+		if (loginId != null && isManager()) { // 로그인체크
 			/* QnaDAO dao = new QnaDAO(); */
 			HashMap<String, Object> map = dao.qnaList(loginId,group);
 			req.setAttribute("list", map.get("list")); 
@@ -61,7 +61,7 @@ public class QnaSerivce {
 			dis = req.getRequestDispatcher("qnaList.jsp");
 			dis.forward(req, resp);
 		} else {
-			msg="로그인이 필요한 서비스 입니다";
+			msg="관리자 로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
@@ -83,7 +83,6 @@ public class QnaSerivce {
 		}
 		
 		if (loginId != null) { // 로그인체크
-			/* QnaDAO dao = new QnaDAO(); */
 			HashMap<String, Object> map = dao.qnaListUser(loginId,group);
 			req.setAttribute("list", map.get("list")); 
 			req.setAttribute("maxPage", map.get("maxPage"));
@@ -109,7 +108,7 @@ public class QnaSerivce {
 		String qnaIdx = req.getParameter("qnaIdx");
 		System.out.println(loginId + "의 답변 -> "+qnaIdx+":"+subject+":"+content);
 		
-		if (loginId != null) { // 로그인체크
+		if (loginId != null  && isManager()) { // 로그인체크
 			QnaDTO dto = new QnaDTO();
 			dto.setQnaIdx(Integer.parseInt(qnaIdx));
 			dto.setSubjectA(subject);
@@ -126,7 +125,7 @@ public class QnaSerivce {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
-			msg="로그인이 필요한 서비스 입니다";
+			msg="관리자 로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}
@@ -152,7 +151,7 @@ public class QnaSerivce {
 			if(success) {
 				msg="글 등록에 성공 했습니다";
 			}
-			req.getSession().setAttribute("msg", msg); 
+			req.setAttribute("msg", msg); 
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		}else {
@@ -198,7 +197,7 @@ public class QnaSerivce {
 		String  qnaIdx = req.getParameter("qnaIdx");
 		
 		System.out.println(loginId + "의 고객센터 답변 -"+qnaIdx);
-		if (loginId != null) { // 로그인체크
+		if (loginId != null  && isManager()) { // 로그인체크
 			QnaDTO dto = dao.qnaDetail(loginId,qnaIdx);
 			System.out.println("dto:"+dto);
 			msg="상세보기에 실패했습니다";
@@ -212,7 +211,7 @@ public class QnaSerivce {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		}else {
-			msg="로그인이 필요한 서비스 입니다";
+			msg="관리자 로그인이 필요한 서비스 입니다";
 			req.getSession().setAttribute("msg", msg);
 			resp.sendRedirect("index.jsp"); 
 		}		
@@ -266,7 +265,6 @@ public class QnaSerivce {
 				msg="삭제에 성공했습니다";
 			}
 			req.setAttribute("msg", msg);
-			req.getSession().setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			

@@ -86,11 +86,13 @@ public class QNAController extends HttpServlet {
 			System.out.println("");
 			System.out.println("--고객센터 게시글 삭제 요청--");
 			service.qnaDel();
+			break;
 			
 		case"/unAnsList":
 			System.out.println("");
 			System.out.println("--고객센터 미답변 게시글 리스트 요청--");
 			service.unAnsList();
+			break;
 		}
 
 	}

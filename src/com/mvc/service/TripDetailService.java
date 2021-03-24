@@ -60,7 +60,12 @@ public class TripDetailService {
 	
 	
 	public void addDel() throws ServletException, IOException {
-		if(req.getSession().getAttribute("loginId")!=null) {
+
+		
+		String loginId = (String) req.getSession().getAttribute("loginId");
+		
+		if(loginId!=null) {
+
 			String myidx = req.getParameter("myidx");
 			String deact = req.getParameter("deact");
 			String conIdx = req.getParameter("conIdx");
@@ -85,9 +90,10 @@ public class TripDetailService {
 			resp.sendRedirect("./tripDetail?contentId="+conIdx);
 			
 		}else {
-			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
-			dis = req.getRequestDispatcher("/login.jsp");//다른 페이지 경유 시켜서 종료 시키야할듯
-			dis.forward(req, resp);
+
+			req.setAttribute("msg", "로그인이 필요한 서비스입니다.");
+			dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);	
 		}
 		
 	}

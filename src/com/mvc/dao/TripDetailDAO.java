@@ -179,33 +179,52 @@ public TripDetailDAO() {
 		int suc = 0;
 		String sql = "INSERT INTO bookmark (myIdx, contentId, id, type) VALUES (bookmark_seq.NEXTVAL,?,?,?)";
 		try {
+			
 			if (bdto.getMyidx() > 0) {
 				System.out.println("업데이트");
-				sql = "UPDATE bookmark SET deactivate='FALSE' WHERE myidx=?  ";
-				if (bdto.getDeactivate().equals("FALSE")) {
-					sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=? ";
-				}
-				ps = conn.prepareStatement(sql);
+				sql = "SELECT deactivate FROM bookmark WHERE myidx=?";
+				ps=conn.prepareStatement(sql);
 				ps.setInt(1, bdto.getMyidx());
+				rs= ps.executeQuery();
+				String deact="";
+				if(rs.next()) {
+					deact =rs.getString(1);
+					System.out.println("디 엑티비티 : "+deact+bdto.getDeactivate());
+				}
+				if(deact.equals(bdto.getDeactivate())) {
+					suc=0;
+				}else {
+					sql = "UPDATE bookmark SET deactivate='TRUE' WHERE myidx=? AND id=? AND contentId=?";
+					if (bdto.getDeactivate().equals("FALSE")) {
+						sql = "UPDATE bookmark SET deactivate='FALSE' WHERE myidx=? AND id=? AND contentId=?";
+					}
+					ps = conn.prepareStatement(sql);
+					ps.setInt(1, bdto.getMyidx());
+					ps.setString(2, bdto.getId());
+					ps.setInt(3, bdto.getContentid());		
+					suc = ps.executeUpdate();
+				}
 			} else {
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, bdto.getContentid());
 				ps.setString(2, bdto.getId());
 				ps.setInt(3, bdto.getType());
+				suc = ps.executeUpdate();
 				
 			}
-			suc = ps.executeUpdate();
 			System.out.println("추가,수정 : " + suc);
-			
-			if(bdto.getType()==1) {
-				sql="UPDATE trip set bookmarkcnt= bookmarkcnt+1 WHERE contentid=?";
-				
-				if (bdto.getDeactivate().equals("FALSE")) {
-					sql="UPDATE trip set bookmarkcnt= bookmarkcnt-1 WHERE contentid=?";				
+			if(suc>0) {
+				if(bdto.getType()==1) {
+					sql="UPDATE trip set bookmarkcnt= bookmarkcnt-1 WHERE contentid=?";
+					
+					if (bdto.getDeactivate().equals("FALSE")) {
+						sql="UPDATE trip set bookmarkcnt= bookmarkcnt+1 WHERE contentid=?";				
+					}
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, bdto.getContentid());				
+					ps.executeUpdate();
+					
 				}
-				ps=conn.prepareStatement(sql);
-				ps.setInt(1, bdto.getContentid());				
-				ps.executeUpdate();
 				
 			}
 			

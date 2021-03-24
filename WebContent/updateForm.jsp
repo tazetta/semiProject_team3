@@ -27,8 +27,15 @@ table, tr, td {
 	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
-	padding: 20px;
+	padding: 10px;
 }
+th{
+	
+background-color: lightgray;
+	color: black;
+	border :1px solid white;
+}
+
 
 span {
 	position: relative;
@@ -105,7 +112,19 @@ table#profile {
     	
     	if($pw.val()==""){
     		alert("비밀번호를 입력해주세요");
-    	}else{
+    	}else if($name.val()==""||$phone.val()==""||$email.val()==""){
+    		console.log($name.val());
+    		alert("수정할 내용을 공란없이 입력해주세요");
+    	}else if($name.val().length>50){
+    		alert("이름은 50자 이하로 입력해주세요");
+    	}else if($phone.val().length>20){
+    		alert("핸드폰 번호는 20자 이하로 입력해주세요");
+    	}else if($email.val().length>50){
+    		alert("이메일은 50자 이하로 입력해주세요");
+    	}else if($email.val().indexOf("@")<0||$email.val().indexOf(".")<0){
+    		alert("이메일 형식을 맞춰주세요(@,.필수)");
+    	}
+    	else{
     		console.log("서버로 전송");
     		
     		var params ={};

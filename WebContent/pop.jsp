@@ -10,13 +10,17 @@
 <style>
 #pop_main {
 	width: 900px;
-	height: 660px;
-	margin: 0 508px;
+    margin-top: 7%;
+    margin-left: 34%;
 }
 
 #popup {
 	border-collapse: collapse;
 	margin: 45px 0;
+}
+
+.pop_form {
+	text-align: left;
 }
 
 th, td {
@@ -41,10 +45,22 @@ td {
 	margin: 5px 0;
 }
 
-.button {
+.p_button {
 	float: right;
 	margin-top: -6%;
-	margin-right: -3%;
+	margin-right: 14%;
+}
+
+#page{
+     margin : auto;
+     text-align:center;           
+}
+
+#page span{
+	font-size : 16px;
+	border:1px solid lightgray;
+	padding: 2px 10px;
+	margin:2px;
 }
 </style>
 </head>
@@ -57,11 +73,13 @@ td {
 
 	<div id="pop_main">
 
-		<div class="button">
-			<button class="regist" onclick="location.href='popWrite.jsp'">등록</button>
+		<div class="p_button">
+			<button class="regist" onclick="location.href='popWrite.jsp'">신규 팝업등록</button>
 		</div>
 
-
+			<div class="pop_form">
+				<h3>팝업 목록</h3>
+			</div>
 		<table id="popup">
 			<tr id="title">
 				<th>등록일</th>
@@ -76,13 +94,26 @@ td {
 					<td>${popup.managerid}</td>
 					<td><a href="popupDetail?infoidx=${popup.infoidx}">${popup.subject}</a></td>
 					<td>${popup.popupalert}</td>
-					<!-- <td><button onclick="location.href='popupDel?infoidx=${popup.infoidx}'">삭제</button></td> -->
 					<td><a href="popupDel?infoidx=${popup.infoidx}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-
 	</div>
+	
+			<div id="page">
+			<span>
+				<c:if test="${currPage==1}">이전</c:if>
+				<c:if test="${currPage>1}">
+					<a href='./popupList?page=${currPage-1}'>이전</a>
+				</c:if>
+			</span>
+			<span>${currPage}</span>
+			<span>
+				<c:if test="${currPage == maxPage}">다음</c:if>
+         		<c:if test="${currPage < maxPage}">
+         			<a href="./popupList?page=${currPage+1}">다음</a></c:if>
+			</span>		
+		</div>
 </body>
 <script>
 	var msg = "${msg}";

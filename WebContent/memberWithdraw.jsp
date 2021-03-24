@@ -26,7 +26,7 @@ body {
 }
 
 table, tr, td {
-	border: 1px solid lightgray;
+	/* border: 1px solid lightgray; */
 	border-collapse: collapse;
 	text-align: center;
 	padding: 20px;

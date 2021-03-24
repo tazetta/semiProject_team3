@@ -2,6 +2,7 @@ package com.mvc.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,11 +30,30 @@ public class PopupService {
 	}
 	
 	public void popupList() throws ServletException, IOException{
+		String isManager = (String) req.getSession().getAttribute("isManager");
+
+		if (isManager=="true") {
+			String pageParam = req.getParameter("page");
+			System.out.println("page:" + pageParam);
+			// 한페이지 그룹 -> 1~10번
+			int group = 1;
+			if (pageParam != null) {
+				group = Integer.parseInt(pageParam);
+			}
+			
 			PopupDAO dao = new PopupDAO();
-			ArrayList<PopupDTO> popupList = dao.popupList();
-			req.setAttribute("popupList", popupList);
-			dis = req.getRequestDispatcher("pop.jsp");		
+			HashMap<String, Object> map = dao.popupList(group);
+			
+			req.setAttribute("maxPage", map.get("maxPage"));
+			req.setAttribute("popupList", map.get("popupList"));
+			req.setAttribute("currPage", group);
+			dis = req.getRequestDispatcher("pop.jsp");
 			dis.forward(req, resp);
+		} else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void popupWrite() throws ServletException, IOException {
@@ -148,8 +168,8 @@ public class PopupService {
 			msg = "팝업 수정에 실패하였습니다.";
 			
 			if(dao.update(dto)) {
+				msg = "해당 팝업을 수정하시겠습니까?";
 				page="popupDetail?infoidx="+infoidx;
-				msg = "수정 성공";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);

@@ -6,7 +6,63 @@
 <head>
 <meta charset="utf-8">
 <title>팝업 수정 페이지</title>
-<link rel="stylesheet" type="text/css" href="basic.css">
+<style>
+.pop_regist {
+	margin-top: 6%
+}
+
+.pop_form {
+	text-align: center;
+}
+
+#popup_form {
+	border-collapse: collapse;
+	width: 40%;
+	height: 100%;
+	margin-left: 30%;
+	margin-bottom: 2%;
+}
+
+#p_content {
+	width: 60%;
+}
+
+textarea {
+	padding-bottom: 30%;
+}
+
+th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	padding: 5px;
+	font-size: 14px;
+}
+
+th {
+	width: 15%;
+}
+
+td {
+	background-color: white;
+}
+
+#p_title {
+	background-color: gray;
+	color: white;
+}
+
+.addbtn {
+	width: 350px;
+	margin: 0 45%;
+	padding-top: 1%;
+}
+
+.add {
+	font-size: 13px;
+	padding: 6px 15px;
+	margin: 1px 0;
+}
+</style>
 </head>
 <body>
 	<!--상단페이지-->
@@ -15,44 +71,49 @@
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 
-	<div class="pop">
+	<div class="pop_regist">
 		<form action="popupUpdate" method="post">
-			<table>
-				<input type="hidden" name="infoidx" value="${dto.infoidx}" />
-				<tr>
+			<div class="pop_form">
+				<h3>팝업 수정하기</h3>
+			</div>
+			<table id="popup_form">
+				<input type="hidden" name="infoidx" id="p_content" value="${dto.infoidx}" />
+				<tr id="p_title">
 					<th>등록관리자</th>
-					<td><input type="text" name="managerid"
+					<td><input type="text" name="managerid" id="p_content"
 						value="${sessionScope.loginId}" readonly /></td>
 				</tr>
-				<tr>
+				<tr id="p_title">
 					<th>제목</th>
-					<td><input type="text" name="subject" value="${dto.subject}" /></td>
+					<td><input type="text" name="subject" id="p_content"
+						value="${dto.subject}" /></td>
 				</tr>
-				<tr>
+				<tr id="p_title">
 					<th>내용</th>
-					<td><textarea name="content">${dto.content}</textarea></td>
+					<td><textarea name="content" id="p_content">${dto.content}</textarea></td>
 				</tr>
 				<tr>
-					<th>노출여부</th>
-					<td><input type="radio" name="popupalert" value="YES"
-						<c:if test="${dto.popupalert eq 'YES'}">checked</c:if> />Y <input
-						type="radio" name="popupalert" value="NO"
-						<c:if test="${dto.popupalert eq 'NO'}">checked</c:if> />N</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<button>저장</button>
-						<button onclick="location.href='./popupList'">닫기</button>
+					<th style="color:white; background-color: gray">노출여부</th>
+					<td>
+					<input type="radio" name="popupalert" value="YES"
+						<c:if test="${dto.popupalert eq 'YES'}">checked</c:if> />Y 
+					<input type="radio" name="popupalert" value="NO"
+						<c:if test="${dto.popupalert eq 'NO'}">checked</c:if> />N
 					</td>
 				</tr>
 			</table>
+			<div class="addbtn">
+				<button class="add">저장</button>
+				<input type="button" class="add"
+					onclick="location.href='./popupList'" value="닫기" />
+			</div>
 		</form>
 	</div>
 </body>
 <script>
 	var msg = "${msg}";
-	if(msg!=""){
-		alert(msg);
-	}	
+	if (msg != "") {
+		confirm(msg);
+	}
 </script>
 </html>

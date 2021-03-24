@@ -30,51 +30,64 @@
                 margin: 5px;
             }
             img{
-            width: 100%;
-            height: 300px
+	            width: 100%;
+	            height: 300px
             }
+            .color{
+            	background-color: lightcoral;
+            }
+            #fav,#vis{
+            	cursor: pointer;
+            	font-size: 10pt;
+            }
+            #fav:hover,#vis:hover {
+				font-size: 12pt;
+			}
         </style>
     </head>
     <body>
     <c:if test="${detail.deactivate ne 'FALSE' }">
-	    <h1>삭제 되거나 없는 페이지 입니다.</h1>
-	    <button onclick=top.window.close()>창닫기</button>
+    <script>alert("삭제되거나 없는 페이지 입니다."); location.href="./index.jsp";</script>
     </c:if>
     <c:if test="${detail.deactivate eq 'FALSE' }">
         <fieldset id="page">
             <table>
                 <tr>
                     <th rowspan="2">${detail.title }</th>
-                    <th>등록일${sessionScope.loginId }</th>
-                    <th>즐겨찾기</th>
-                    <th>즐겨찾기수</th>
-                    <th>가봤어요</th>
+                    <th class="color">등록일</th>
+                    <th class="color">즐겨찾기</th>
+                    <th class="color">즐겨찾기수</th>
+                    <th class="color">가봤어요</th>
                 </tr>
                 <tr>
                     <td>${detail.reg_date }</td>
-                    <td id="fav">
-                    <c:if test="${book.deactivate eq null }">
-						♡
-                    </c:if>
-                    <c:if test="${book.deactivate eq 'TRUE' }">
-						♡
-                    </c:if>
-                    <c:if test="${book.deactivate eq 'FALSE' }">
-						♥
-                    </c:if>
+                    <td>
+	                    <span id="fav">
+		                    <c:if test="${book.deactivate eq null }">
+								♡
+		                    </c:if>
+		                    <c:if test="${book.deactivate eq 'TRUE' }">
+								♡
+		                    </c:if>
+		                    <c:if test="${book.deactivate eq 'FALSE' }">
+								♥
+		                    </c:if>
+	                    </span>
                     </td>                    
                     <td id="favN">${detail.bookmark }</td>
                     
-                    <td id="vis">
-                    <c:if test="${visit.deactivate eq null }">
-						☆
-                    </c:if>
-                    <c:if test="${visit.deactivate eq 'TRUE' }">
-						☆
-                    </c:if>
-                    <c:if test="${visit.deactivate eq 'FALSE' }">
-						★ 
-                    </c:if>
+                    <td>
+	                    <span id="vis">
+		                    <c:if test="${visit.deactivate eq null }">
+								☆
+		                    </c:if>
+		                    <c:if test="${visit.deactivate eq 'TRUE' }">
+								☆
+		                    </c:if>
+		                    <c:if test="${visit.deactivate eq 'FALSE' }">
+								★ 
+		                    </c:if>
+	                    </span>
                     </td>
                 </tr>
                 <tr>
@@ -100,7 +113,13 @@
     <script>
         $('#fav').click(function(){
         	if( ${sessionScope.loginId !=null }){
-				location.href='./bookmarkUpdate?myidx=${book.myidx }&deact=${book.deactivate}&conIdx=${conIdx }&type=1';        		
+        		var deact = "${book.deactivate}";
+        		if(deact=="FALSE"){
+        			deact="TRUE";
+        		}else{
+        			deact="FALSE";
+        		}
+				location.href='./bookmarkUpdate?myidx=${book.myidx }&deact='+deact+'&conIdx=${conIdx }&type=1';        		
         	}else{
         		alert("로그인 후 가능한 서비스입니다.");
         		opener.location.href="./login.jsp";
@@ -109,7 +128,13 @@
         
         $('#vis').click(function(){
         	if( ${sessionScope.loginId !=null }){
-				location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact=${visit.deactivate}&conIdx=${conIdx }&type=2';
+        		var deact = "${visit.deactivate}";
+        		if(deact=="FALSE"){
+        			deact="TRUE";
+        		}else{
+        			deact="FALSE";
+        		}
+				location.href='./bookmarkUpdate?myidx=${visit.myidx }&deact='+deact+'&conIdx=${conIdx }&type=2';
         	}else{
         		alert("로그인 후 가능한 서비스입니다.");
         		opener.location.href="./login.jsp";

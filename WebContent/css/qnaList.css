@@ -28,6 +28,9 @@ table#qna {
 	width: 60%;
 }
 
+#qna{
+	background-color: gray;
+}
 #btn {
 	position: absolute;
 	right: 10px;
