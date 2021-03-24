@@ -53,7 +53,7 @@ public class MemberListDAO {
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT reg_date, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " + "AS rnum, reg_date, id, name, phone, email "
-				+ "FROM member WHERE id NOT IN ('admin') AND name != '탈a퇴#회@원') WHERE rnum BETWEEN ? AND ?";
+				+ "FROM member WHERE id NOT IN ('admin')) WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberList = new ArrayList<MemberListDTO>();
 		try {
@@ -147,8 +147,7 @@ public class MemberListDAO {
 
 		String sql = "SELECT reg_date, withdraw, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) "
-				+ "AS rnum, reg_date, withdraw,  id, name, phone, email " 
-				+ "FROM member WHERE withdraw='TRUE' AND name != '탈a퇴#회@원' "
+				+ "AS rnum, reg_date, withdraw,  id, name, phone, email " + "FROM member WHERE withdraw='TRUE'"
 				+ ") WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberDelList = new ArrayList<MemberListDTO>();
@@ -200,7 +199,7 @@ public class MemberListDAO {
 
 	public boolean memberDraw(String id) {
 
-		String sql = "UPDATE member SET pw='' ,name='탈a퇴#회@원', phone='', email='',withdraw='TRUE'  WHERE id=?";
+		String sql = "UPDATE member SET pw='' ,name='탈퇴회원', phone='', email='',withdraw='TRUE'  WHERE id=?";
 		boolean success = false;
 
 		try {
@@ -365,15 +364,11 @@ public class MemberListDAO {
 				ps.setString(1, dto.getId());
 
 				int cnt = 0;
-				if (ps.executeUpdate() > 0) { // 상태를 true로 바꾼다.
+				if (ps.executeUpdate() > 0) { 
 					cnt += 1;
-					String black_sql2 = "UPDATE blacklist SET blackstatus='TRUE' WHERE id=?";
-					ps = conn.prepareStatement(black_sql2);
-					//ps.setInt(1, dto.getBlackidx());
-					ps.setString(1, dto.getId());
+				}
 					ps.executeUpdate();
 					success = true;
-				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
