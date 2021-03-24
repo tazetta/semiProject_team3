@@ -71,13 +71,21 @@ public class BoardService {
 			System.out.println(dto.getOriFileName()+"=>"+dto.getNewFileName());//확인
 			//DB저장(작성자,제목,내용 + 파일 이름)
 			BoardDAO dao = new BoardDAO();
-			
+
 			page = "boardwriteForm.jsp";
 			msg = "글 등록에 실패하였습니다.";
 			int currPage =1;
 			long boardIdx = dao.write(dto);
-
-			if(boardIdx>0) {
+			String isManager = (String) req.getSession().getAttribute("isManager");
+			if(isManager!=null) {
+				if(boardIdx==0) {
+					msg="관리자공지는 10개로 제한되어있습니다.";
+					page="boardList";
+				}else {
+					page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
+					msg = "글 등록에 성공하였습니다.";
+				}
+			}else if(isManager==null && boardIdx>0) {
 				page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 				msg = "글 등록에 성공하였습니다.";
 			}

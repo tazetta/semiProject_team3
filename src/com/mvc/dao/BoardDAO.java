@@ -146,28 +146,51 @@ public class BoardDAO {
 				ps.setString(2, dto.getContent());
 				ps.setString(3, dto.getId());
 				ps.setString(4, "false");				
-				ps.executeUpdate();				
+				ps.executeUpdate();
+				rs = ps.getGeneratedKeys();
+				if(rs.next()) {
+					pk = rs.getLong(1);
+					System.out.println("idx :"+pk);
+					if(dto.getOriFileName()!=null) {
+						sql = "INSERT INTO photo (fileIdx,oriFileName,newFileName,boardIdx)VALUES(photo_seq.NEXTVAL,?,?,?)";
+						ps = conn.prepareStatement(sql);
+						ps.setString(1, dto.getOriFileName());
+						ps.setString(2, dto.getNewFileName());
+						ps.setLong(3, pk);
+						ps.executeUpdate();					
+					}
+				}		
+
 			}else {
-				ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
-				ps.setString(1, dto.getSubject());
-				ps.setString(2, dto.getContent());
-				ps.setString(3, "관리자");
-				ps.setString(4, "true");				
-				ps.executeUpdate();	
-			}
-			rs = ps.getGeneratedKeys();
-			if(rs.next()) {
-				pk = rs.getLong(1);
-				System.out.println("idx :"+pk);
-				if(dto.getOriFileName()!=null) {
-					sql = "INSERT INTO photo (fileIdx,oriFileName,newFileName,boardIdx)VALUES(photo_seq.NEXTVAL,?,?,?)";
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, dto.getOriFileName());
-					ps.setString(2, dto.getNewFileName());
-					ps.setLong(3, pk);
-					ps.executeUpdate();					
+				String admin_ten = "SELECT count(boardIdx) from BBS where id='관리자' and deactivate='FALSE'";
+				ps = conn.prepareStatement(admin_ten);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					if(rs.getInt(1)>=10) {
+						pk=0;						
+					}else {
+						ps = conn.prepareStatement(sql,new String[] {"boardIdx"});
+						ps.setString(1, dto.getSubject());
+						ps.setString(2, dto.getContent());
+						ps.setString(3, "관리자");
+						ps.setString(4, "true");				
+						ps.executeUpdate();			
+						rs = ps.getGeneratedKeys();
+						if(rs.next()) {
+							pk = rs.getLong(1);
+							System.out.println("idx :"+pk);
+							if(dto.getOriFileName()!=null) {
+								sql = "INSERT INTO photo (fileIdx,oriFileName,newFileName,boardIdx)VALUES(photo_seq.NEXTVAL,?,?,?)";
+								ps = conn.prepareStatement(sql);
+								ps.setString(1, dto.getOriFileName());
+								ps.setString(2, dto.getNewFileName());
+								ps.setLong(3, pk);
+								ps.executeUpdate();					
+							}
+						}		
+					}			
 				}
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
