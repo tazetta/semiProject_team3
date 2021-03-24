@@ -66,8 +66,7 @@ public class PopupDAO {
 				dto.setPopupalert(rs.getString("popupalert"));
 				popupList.add(dto);
 			}
-			int type = 1;
-			int maxPage = getMaxPage(pagePerCnt, type);
+			int maxPage = getMaxPage(pagePerCnt);
 			map.put("popupList", popupList);
 			map.put("maxPage", maxPage);
 			System.out.println("maxPage: " + maxPage);
@@ -79,7 +78,7 @@ public class PopupDAO {
 		return map;
 	}
 	
-	private int getMaxPage(int pagePerCnt, int type) {
+	private int getMaxPage(int pagePerCnt) {
 		String sql = "SELECT COUNT(infoidx) FROM popup";
 		int max = 0;
 		try {
@@ -175,12 +174,13 @@ public class PopupDAO {
 			int a = ps.executeUpdate();
 			System.out.println(a);
 			
-			sql="UPDATE popup SET subject=?, content=?, popupalert=? WHERE infoidx=?";
+			sql="UPDATE popup SET managerid=?, subject=?, content=?, popupalert=? WHERE infoidx=?";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getSubject());
-			ps.setString(2, dto.getContent());
-			ps.setString(3, dto.getPopupalert());
-			ps.setInt(4, dto.getInfoidx());
+			ps.setString(1, dto.getManagerid());
+			ps.setString(2, dto.getSubject());
+			ps.setString(3, dto.getContent());
+			ps.setString(4, dto.getPopupalert());
+			ps.setInt(5, dto.getInfoidx());
 			if(ps.executeUpdate()>0) {
 				success = true;
 			}		

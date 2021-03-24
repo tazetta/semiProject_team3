@@ -113,7 +113,7 @@ td {
 <script>
 	var msg = "${msg}";
 	if (msg != "") {
-		confirm(msg);
+		alert(msg);
 	}
 </script>
 </html>

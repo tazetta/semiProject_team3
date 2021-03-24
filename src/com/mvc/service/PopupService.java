@@ -49,6 +49,7 @@ public class PopupService {
 			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("pop.jsp");
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -81,9 +82,11 @@ public class PopupService {
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);		
-			dis.forward(req, resp);					
+			dis.forward(req, resp);			
+			dao.resClose();
 			
 		}else {
+			
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
 			dis.forward(req, resp);
@@ -110,6 +113,7 @@ public class PopupService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);			
+			dao.resClose();
 			
 		}else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
@@ -137,6 +141,7 @@ public class PopupService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 			
 		}else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
@@ -168,12 +173,13 @@ public class PopupService {
 			msg = "팝업 수정에 실패하였습니다.";
 			
 			if(dao.update(dto)) {
-				msg = "해당 팝업을 수정하시겠습니까?";
+				msg = "해당 팝업을 수정하였습니다.";
 				page="popupDetail?infoidx="+infoidx;
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 			
 		}else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
@@ -199,6 +205,7 @@ public class PopupService {
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);		
 			dis.forward(req, resp);		
+			dao.resClose();
 			
 		}else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
@@ -219,6 +226,7 @@ public class PopupService {
 		
 		dis = req.getRequestDispatcher(page);		
 		dis.forward(req, resp);
+		dao.resClose();
 	}
 
 	
