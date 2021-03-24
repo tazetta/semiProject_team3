@@ -173,7 +173,7 @@ public class PopupService {
 			msg = "팝업 수정에 실패하였습니다.";
 			
 			if(dao.update(dto)) {
-				msg = "해당 팝업을 수정하시겠습니까?";
+				msg = "해당 팝업을 수정하였습니다.";
 				page="popupDetail?infoidx="+infoidx;
 			}
 			req.setAttribute("msg", msg);
