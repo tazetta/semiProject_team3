@@ -37,22 +37,22 @@
         /*검색창*/
         div#search{
             position: static;
-            height:0px;
+           
+            height:4px;
 
-            /* top:40px; */
         }
      
         #search input[type='text']{
-            border: 2px solid #D8D8D8;
-            background-color:#D8D8D8;
+            border: 2px solid #E6E6E6;
+            background-color:#E6E6E6;
             text-align: center;
             width: 500px;
             height: 30px;
 
         }
         #search input[type='submit']{
-            border:#BDBDBD ;
-            background-color:#D8D8D8;
+            border:#E6E6E6 ;
+            background-color:#E6E6E6;
             width: 50px;
             height: 35px;
             margin-left: 10px;
@@ -74,6 +74,11 @@
         	bottom: 0px;
         	right: 0px;
         }
+        #select{
+        	background-color:  white;
+        	height:30px;
+        	border:0.5px solid lgihtgray;
+        }
         
     </style>
 
@@ -90,7 +95,7 @@
     		<td>
 	    <div id="search">
 	        <form action="search" method="GET">
-	        	<select name="searchType">
+	        	<select name="searchType" id="select">
 	        		<option value="title">제목</option>
 	        		<option value="overview">내용</option>
 	        	</select>

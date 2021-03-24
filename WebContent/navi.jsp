@@ -11,7 +11,9 @@
 <style>
 div.bar {
 	display: flex;
-	background-color: #025169;
+	background-color: white;
+	border-bottom: 1.8px solid #086A87;
+	/* border-top:0.5px solid #0B610B; */
 	/* #025169  #540B0B  */
 	height: 50px;
 	border-radius: 2px;
@@ -27,10 +29,11 @@ div.bar {
 .naviUl li{
 position: relative;
 	float: left;
-	padding: 10px 30px;
-	color: white;
+	padding: 5px 30px;
+	color: black;
 	font-size: 100%;
 	font-weight: 600;
+	font-family: "NanumGothic";
 	text-align: center;
 	width: 110px;
 	height: 20px;
@@ -41,12 +44,19 @@ position: relative;
 .naviUl a:link {
 	text-decoration: none;
 	font-size: 90%;
-		color: white;
+		color: black;
 }
 
 .naviUl a:visited {
-		color: white;
+		color: black;
 }
+
+/* @font-face{
+	font-family: "NanumGothicBold";
+	src : local("NanumGothicBold");
+	src:url('./css/NanumGothicBold.ttf') format('truetype');
+	font-style:normal;
+} */
 </style>
 </head>
 <body>
@@ -85,7 +95,7 @@ position: relative;
         $(this).css({"color":"#A4A4A4"});
     },
     function(){
-    	$(this).css({"color":"white"});}
+    	$(this).css({"color":"black"});}
     );
 	
 	</script>

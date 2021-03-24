@@ -9,42 +9,67 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 #div1 {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-collapse: collapse;
 	padding: 5px 10px;
-	width: 300px;
-	position: absolute;
+	width: 250px;
+	/* position: absolute; */
 }
 
 #div2 {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-collapse: collapse;
 	padding: 5px 10px;
-	width: 300px;
-	position: absolute;
-	left: 329px;
+	width: 250px;
+	/* position: absolute;
+	left: 329px; */
 }
 
 #div3 {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-collapse: collapse;
 	padding: 5px 10px;
-	width: 300px;
-	position: absolute;
-	left: 650px;
+	width: 250px;
+	/* position: absolute;
+	left: 650px; */
 }
 
-#div1, #div2, #div3 {
+#area,#div1, #div2, #div3 {
 	float: left;
+	margin:5px;
+
 }
 
-#weather {
+#area{
+	height:30px;
+	background-color:gray;
+	color:white;
+	border-radius:5px;
+	padding:5px 10px;
+}
+
+ #weather {
 	width: 50px;
 	height: 50px;
+}
+ 
+#weatherS{
+text-align:center;
+	position:relative;
+	top:20px;
+	margin:0 auto;
+	/* border: 1px solid black; */
+	width :60vw;
+	height:600px;
+}
+
+p{
+	padding-top:5px;
 }
 </style>
 </head>
 <body>
+<section id="weatherS">
 	<select id="area" name="area" onchange='areaList(value)'>
 		<option value="서울">서울</option>
 		<option value="부산">부산</option>
@@ -66,7 +91,8 @@
 	</select>
 
 	<div id="div1">
-		<h3 style="background-color: blanchedalmond">오늘</h3>
+		<h3 >오늘</h3>
+		<!-- <h3 style="background-color: blanchedalmond">오늘</h3> -->
 		<p id="SKY0"></p>
 		<p id="PTY0"></p>
 		<p id="POP0"></p>
@@ -74,7 +100,7 @@
 		<p id="TMX0"></p>
 	</div>
 	<div id="div2">
-		<h3 style="background-color: blanchedalmond">내일</h3>
+		<h3 >내일</h3>
 		<p id="SKY1"></p>
 		<p id="PTY1"></p>
 		<p id="POP1"></p>
@@ -82,14 +108,14 @@
 		<p id="TMX1"></p>
 	</div>
 	<div id="div3">
-		<h3 style="background-color: blanchedalmond">모레</h3>
+		<h3 >모레</h3>
 		<p id="SKY2"></p>
 		<p id="PTY2"></p>
 		<p id="POP2"></p>
 		<p id="REH2"></p>
 		<p id="TMX2"></p>
 	</div>
-
+</section>
 </body>
 <script>
 	$(document).ready(function() {

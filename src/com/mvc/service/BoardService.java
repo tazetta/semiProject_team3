@@ -71,13 +71,21 @@ public class BoardService {
 			System.out.println(dto.getOriFileName()+"=>"+dto.getNewFileName());//확인
 			//DB저장(작성자,제목,내용 + 파일 이름)
 			BoardDAO dao = new BoardDAO();
-			
+
 			page = "boardwriteForm.jsp";
 			msg = "글 등록에 실패하였습니다.";
 			int currPage =1;
 			long boardIdx = dao.write(dto);
-
-			if(boardIdx>0) {
+			String isManager = (String) req.getSession().getAttribute("isManager");
+			if(isManager!=null) {
+				if(boardIdx==0) {
+					msg="관리자공지는 10개로 제한되어있습니다.";
+					page="boardList";
+				}else {
+					page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
+					msg = "글 등록에 성공하였습니다.";
+				}
+			}else if(isManager==null && boardIdx>0) {
 				page = "boardDetail?boardIdx="+boardIdx+"&page="+currPage;
 				msg = "글 등록에 성공하였습니다.";
 			}
@@ -204,6 +212,7 @@ public class BoardService {
 	public void updateForm() throws ServletException, IOException {
 		
 		String loginId = (String) req.getSession().getAttribute("loginId");
+		String isManager = (String) req.getSession().getAttribute("isManager");
 		String id = req.getParameter("id");
 		String boardIdx = req.getParameter("boardIdx");
         System.out.println("수정할 아이디와 로그인 아이디 : "+ loginId+"/"+id);
@@ -213,7 +222,7 @@ public class BoardService {
 			BoardDTO dto = dao.detail(boardIdx);
 			page = "/boardList?page="+currPage;
 			msg="수정권한이 없습니다.";
-			if(loginId.equals(dto.getId()) && dto.getDeactivate().equals("FALSE")) {//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
+			if((loginId.equals(dto.getId())|| (isManager!=null && dto.getId().equals("관리자"))) && dto.getDeactivate().equals("FALSE")){//로그인아이디와 작성자 아이디가 같고 비활성화상태가 아니면
 				page="boardUpdateForm.jsp";
 				req.setAttribute("page", currPage);
 				req.setAttribute("dto", dto);
@@ -233,7 +242,7 @@ public class BoardService {
 
 	public void update() throws IOException, ServletException {
 		String loginId = (String) req.getSession().getAttribute("loginId");
-		
+		String isManager = (String) req.getSession().getAttribute("isManager");
 		if(loginId!=null) {
 			String currPage = req.getParameter("page");
 			System.out.println("수정후페이지:"+currPage);
@@ -242,7 +251,7 @@ public class BoardService {
 			System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
 			BoardDAO dao = new BoardDAO();
 			msg="수정권한이 없습니다.";
-			if(loginId.equals(dto.getId())){
+			if((loginId.equals(dto.getId())|| (isManager!=null && dto.getId().equals("관리자")))){
 				msg="수정에 실패했습니다.";
 				if(dao.update(dto)>0) {
 					dao = new BoardDAO();

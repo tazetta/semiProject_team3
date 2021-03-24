@@ -64,7 +64,7 @@
         </fieldset>
 	</form>
 	
-	<form action="findPw" method="POST">
+	<form action="findPw1" id="findPw1" method="POST">
         <fieldset id="fieldset2">
             <div>비밀번호 찾기</div>
             <table>
@@ -97,7 +97,10 @@
 	</body>
 	<script>
 	
-
+	var msg="${msg}";
+	   if(msg!=""){
+	      alert(msg);
+	   }
 	
 		var nameChk = false;
 		var phoneChk = false;
@@ -158,7 +161,7 @@
     	});
 	
 	
- 		 $('#btn1').click(function(){
+ 		/*  $('#btn1').click(function(){
 			var $name = $("#userName");
 			var $phone = $("#userPhone");
 			
@@ -171,7 +174,7 @@
 				$phone.focus();
 			}
 			
-		}); 
+		});  */
 		
 /*         $('#userId').focusout(function(){
             if($(this).val().length<5){
@@ -215,7 +218,7 @@
 	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
     	});
 		
- 		 $("#btn2").click(function(){
+$("#btn2").click(function(){
 			 
 			 var $id = $("#userId");
 			 var $name = $("#userName1");
@@ -233,7 +236,7 @@
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
-            }else{
+            }/* else if($id.val()!=''){
 				$.ajax({
 					type:'get'
 					,url:'overlay'
@@ -244,9 +247,6 @@
 						if(obj.use){//obj를 사용할수있다면
 							alert('가입하신 아이디가 아닙니다. 다시 확인해주세요.');
 							$id.focus();
-						}else{
-							console.log("비밀번호를 수정해주세요.");
-							$('form').submit();
 						}
 					}
 					,error:function(e){
@@ -254,6 +254,29 @@
 					}
 				});
             	
+            } */ else{
+            	var params = {};
+				params.id = $id.val();
+				params.name = $name.val();
+				params.phone = $phone.val();
+            	$.ajax({
+					type:'get'
+					,url:'findPw'
+					,data: params
+					,dataType:'JSON'
+					,success:function(obj){
+						console.log(obj);
+						if(obj.use == false){//입력값이 맞다면
+							alert("입력하신 정보를 확인해주세요.");
+						}else{
+							alert('비밀번호를 수정해주세요.');
+							location.href='./findPw1?id='+$id.val();
+						}
+					}
+					,error:function(e){
+						console.log(e);
+					}
+				});
             }
 			/* }else{
 				console.log("비밀번호를 수정해주세요.");
