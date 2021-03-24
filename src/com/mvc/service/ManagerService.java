@@ -36,14 +36,26 @@ public class ManagerService {
 	}
 
 	public void managerList() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
+
+		if (isManager=="true") {
 		ManagerDAO dao = new ManagerDAO();
 		ArrayList<ManagerDTO> managerList = dao.managerList();
 		req.setAttribute("managerList", managerList);
 		dis = req.getRequestDispatcher("managerList.jsp");
 		dis.forward(req, resp);
+		dao.resClose();
+	}else {
+		req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+		dis = req.getRequestDispatcher("login.jsp");
+		dis.forward(req, resp);
+	}
 	}
 
 	public void managerDel() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
+
+		if (isManager=="true") {
 		String managerid = req.getParameter("managerid");
 		System.out.println("삭제할 관리자번호 : " + managerid);
 
@@ -57,9 +69,18 @@ public class ManagerService {
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+		dao.resClose();
+	} else {
+		req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+		dis = req.getRequestDispatcher("login.jsp");
+		dis.forward(req, resp);
 	}
+}
 
 	public void managerRegist() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
+
+		if (isManager=="true") {
 		String managerId = req.getParameter("managerId");
 		String managerPw = req.getParameter("managerPw");
 		String managerName = req.getParameter("managerName");
@@ -77,11 +98,21 @@ public class ManagerService {
 		if (dao.managerRegist(dto)) {
 			// page = "/managerList"; //페이지 닫기..?
 			msg = "관리자 등록에 성공 하였습니다.";
+			
 
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher("managerRegistClose.jsp");
 		dis.forward(req, resp);
+		dao.resClose();
 
+	}else {
+		
+		req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+		dis = req.getRequestDispatcher("login.jsp");
+		dis.forward(req, resp);
 	}
+	
+	}
+
 }

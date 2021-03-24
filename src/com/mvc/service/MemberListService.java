@@ -45,6 +45,7 @@ public class MemberListService {
 			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("memberList.jsp");
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -73,6 +74,7 @@ public class MemberListService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -99,6 +101,7 @@ public class MemberListService {
 			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("memberDelList.jsp");
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -127,6 +130,7 @@ public class MemberListService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -146,11 +150,12 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			if (dao.memberDraw(id)) {
-				msg = "해당 회원을 삭제하시겠습니까?";
+				msg = "해당 회원을 삭제하였습니다.";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -175,6 +180,7 @@ public class MemberListService {
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -205,6 +211,7 @@ public class MemberListService {
 			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("memberSearchList.jsp");
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -231,6 +238,7 @@ public class MemberListService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -264,6 +272,7 @@ public class MemberListService {
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -291,6 +300,7 @@ public class MemberListService {
 			req.setAttribute("currPage", group);
 			dis = req.getRequestDispatcher("memberBlackList.jsp");
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -318,6 +328,7 @@ public class MemberListService {
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");
@@ -337,11 +348,12 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			if (dao.memberBlackDel(blackidx)) {
-				msg = "블랙리스트에서 삭제하였습니다.";
+				msg = "해당 회원을 블랙리스트에서 삭제하였습니다.";
 			}
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
+			dao.resClose();
 		} else {
 			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
 			dis = req.getRequestDispatcher("login.jsp");

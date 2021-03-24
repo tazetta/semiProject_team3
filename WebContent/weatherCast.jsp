@@ -42,9 +42,15 @@
 	width: 50px;
 	height: 50px;
 }
+
+#weatherS{
+	position:relative;
+	margin:0 auto;
+}
 </style>
 </head>
 <body>
+<section id="weatherS">
 	<select id="area" name="area" onchange='areaList(value)'>
 		<option value="서울">서울</option>
 		<option value="부산">부산</option>
@@ -89,7 +95,7 @@
 		<p id="REH2"></p>
 		<p id="TMX2"></p>
 	</div>
-
+</section>
 </body>
 <script>
 	$(document).ready(function() {

@@ -11,12 +11,12 @@
 #boardTableDiv {
 	position: absolute;
 	/* top: 100%; */
-	top: 170px;
+	top: 200px;
 	margin-left: 950px;
 	background-color: white;
-	border: 1px solid lightgray;
+	border-top: 2px solid lightgray;
 	text-align: center;
-	width:35vw;
+	width: 35vw;
 	/* margin-left:70%; */
 }
 
@@ -31,26 +31,34 @@
 }
 
 #boardTableDiv span {
- position:absolute;
-	 	top:-30px; 
-	 left:220px;
+	position: absolute;
+	top: -40px;
+	left: 220px;
 	font-size: 110%;
 	font-weight: 600;
 	color: black;
-	text-shadow: 2px 2px 2px white;
 	padding: 5px 10px;
 }
+
+#boardTable th{
+	 border-bottom: 1px solid lightgray;
+}
+#boardTable td{
+ border-bottom: 1px solid #EEECEC;
+ font-size:90%;
+}
+
 </style>
 </head>
 <body>
 	<div id="boardTableDiv">
-		<span style="background-color: blanchedalmond">커뮤니티 인기 게시물 <img
-			src="./css/emoji2.png" alt="emoji" width="20px" height="20px"></span>
+		<span>커뮤니티 인기 게시물 <img src="./css/emoji2.png" alt="emoji"
+			width="20px" height="20px"></span>
 		<!--   #E0E6F8 -->
 		<table id="boardTable">
 			<tr class="mainBoard">
-				<th class="mainBoard" style="width: 400px;">제목</th>
-				<th class="mainBoard" style="width: 200px;">작성자</th>
+				<td class="mainBoard" style="width: 400px;">제목</td>
+				<td class="mainBoard" style="width: 200px;">작성자</td>
 			</tr>
 			<c:forEach items="${list}" var="board">
 				<tr class="mainBoard">
