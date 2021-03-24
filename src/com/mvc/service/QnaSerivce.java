@@ -167,15 +167,15 @@ public class QnaSerivce {
 		String  qnaIdx = req.getParameter("qnaIdx");
 		
 		System.out.println(loginId + " 고객센터 상세보기 -"+qnaIdx);
-		if (loginId != null) { // 로그인체크
+		if (loginId != null && qnaIdx !=null) { // 로그인체크
 			QnaDTO dto = dao.qnaDetail(loginId,qnaIdx);
 			System.out.println("dto:"+dto);
 			msg="상세보기에 실패했습니다";
-			page="/qnaListUser";
+			page="qnaListUser";
 			if(isManager()) {
-				page="/qnaList";
+				page="qnaList";
 			}
-			if(dto!=null) {
+			if(dto!=null && loginId.equals(dto.getId())) {
 				msg="";
 				page="qnaDetail.jsp";
 				req.setAttribute("dto", dto);
