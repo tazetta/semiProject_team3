@@ -20,10 +20,10 @@ public class WeatherCastController extends HttpServlet {
 		WeatherCastService service = new WeatherCastService(req, resp);
 
 		switch (subAddr) {
-		case "/mainWeatherCast":
-			System.out.println("mainWeatherCast 요청");
-			service.mainWeatherCast();
-			break;
+			case "/mainWeatherCast":
+				System.out.println("mainWeatherCast 요청");
+				service.mainWeatherCast();
+				break;
 		}
 	}
 

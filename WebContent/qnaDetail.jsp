@@ -11,7 +11,7 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 body {
-	
+	font-family: "NanumGothic"; 
 }
 /*콘텐츠*/
 #content {

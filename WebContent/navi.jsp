@@ -12,7 +12,8 @@
 div.bar {
 	display: flex;
 	background-color: white;
-	border-bottom: 1.8px solid #086A87;
+	border-bottom: 1.6px solid #025169;
+	box-shadow: 3px 2px 3px lightgray;
 	/* border-top:0.5px solid #0B610B; */
 	/* #025169  #540B0B  */
 	height: 50px;

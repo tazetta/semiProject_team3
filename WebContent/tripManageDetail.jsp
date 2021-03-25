@@ -8,7 +8,7 @@
 <title>여행지 상세보기</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-table, th, td {
+/* table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 	padding: 10px 20px;
@@ -67,23 +67,17 @@ div.tripManageName {
 	width: 120px;
 	height: 30px;
 	text-align: center;
-}
+} */
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi_manager.jsp" />
-	<div class="tripManageList">
-		<div class="tripManageName">
-			<a href="./tripManageList">여행지 목록</a>
-		</div>
-		<div class="tripManageName">
-			<a href="./tripInsertInformation">여행지 저장</a>
-		</div>
-	</div>
-	<div>
+	<jsp:include page="side_tripList.jsp"/>
+	
+	<div  class="tripBody">
 		<form name="form">
-			<table>
+			<table class="midBody">
 				<tr>
 					<th>관리자 아이디</th>
 					<td>${tripDTO.managerId}</td>
@@ -158,25 +152,26 @@ div.tripManageName {
 					</c:choose>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2"class="button">
+						<div >
+							<input type="button" onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}&page=${currPage}'" value="수정"/>
+							<c:choose>
+								<c:when test="${sessionScope.type eq 'manageList'}">
+									<input type="button" onclick="location.href='./tripManageList?page=${currPage}'"value="닫기"/>
+								</c:when>
+								<c:when test="${sessionScope.type eq 'filter'}">
+									<input type="button" onclick="location.href='./tripDeactivateFilter?${sessionScope.url}&page=${currPage}'" value="닫기"/>
+								</c:when>
+								<c:when test="${sessionScope.type eq 'search'}">
+									<input type="button" onclick="location.href='./tripSearch?${sessionScope.url}&page=${currPage}'"value="닫기"/>
+								</c:when>
+							</c:choose>
+						</div>					
+					</td>
+				</tr>
 			</table>
 		</form>
-		<div class="button">
-			<button
-				onclick="location.href='./tripManageUpdateForm?contentId=${tripDTO.contentId}&page=${currPage}'">수정</button>
-			<c:choose>
-				<c:when test="${sessionScope.type eq 'manageList'}">
-					<button onclick="location.href='./tripManageList?page=${currPage}'">닫기</button>
-				</c:when>
-				<c:when test="${sessionScope.type eq 'filter'}">
-					<button
-						onclick="location.href='./tripDeactivateFilter?${sessionScope.url}&page=${currPage}'">닫기</button>
-				</c:when>
-				<c:when test="${sessionScope.type eq 'search'}">
-					<button
-						onclick="location.href='./tripSearch?${sessionScope.url}&page=${currPage}'">닫기</button>
-				</c:when>
-			</c:choose>
-		</div>
 	</div>
 </body>
 <script>

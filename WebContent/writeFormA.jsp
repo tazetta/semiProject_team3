@@ -12,102 +12,109 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 body {
-	
+	font-family: "NanumGothic";
 }
 /*콘텐츠*/
 #content {
-	background-color: #F2F2F2;
-	text-align: center;
+	/* background-color: #F2F2F2; */
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+	/* text-align: center; */
 	position: relative;
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 96%;
-	height:900px;
+	width: 70%;
+	height: 900px;
 }
 
 table, th, td {
-	border: 1px solid black;
+	/* border: 1px solid lightgray; */
 	border-collapse: collapse;
-	text-align: center;
-	padding:10px;
+	/* text-align: center; */
+	padding: 10px;
 }
 
-table#qna {
+table.qna {
 	background-color: white;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 60%;
+	width: 80%;
 	clear: both;
+}
+
+.qna th {
+	width: 200px;
 }
 
 input[type='text'] {
 	width: 90%;
-	height:30px;
+	height: 30px;
 }
 
 textarea {
 	background-color: white;
-	width: 100%;
+	width: 90%;
 	height: 400px;
 	resize: none;
+
 }
+span {
+	font-size: 80%;
+	color: gray;
+}
+
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
 	<form action="writeAns" method="post">
-	<input type="hidden" name="qnaIdx" value="${dto.qnaIdx}"/>
-			<div id="content">
-				<table id="qna">
-					<tr>
-						<th>작성자</th>
-						<td>${loginId}</td>
-						
-					</tr>
-					<tr>
-						<th>문의날짜</th>
-						<td>${dto.reg_date}</td>
-					</tr>
-					<tr>
-						<th>문의제목</th>
-						<td>${dto.subject}</td>
-					</tr>
-					<tr>
-						<th>문의내용</th>
-						<td>${dto.content}</td>
-					</tr>
-					
-					<tr>
-						<th>제목</th>
-						<td><input type="text" id="subject" name="subject" placeholder="제목을 입력하세요" /></td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td><textarea id="text" name="content" placeholder="내용을 입력하세요"></textarea></td>
-					</tr>
+		<input type="hidden" name="qnaIdx" value="${dto.qnaIdx}" />
+		<div id="content">
+			<table class ="qna">
+				<tr>
+					<td colspan="2"><span>문의 제목</span><br />
+					<b style="font-size: 140%">${dto.subject}</b></td>
+				</tr>
+				<tr>
+					<td><span>문의 작성자</span><br />${dto.id}</td>
+					<td><span>문의 작성일</span><br />${dto.reg_date}</td>
 
-					<tr>
-						<td colspan="2">
-						<input type="button" value="저장" id="save" /> 
-						
-						
-						
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-top: 10px; padding-bottom: 60px;"><hr /><span>문의 내용</span><br/>${dto.content}</td>
+				</tr>
+			</table>
+			<table class ="qna" style="background-color: #E6E6E6;text-align:center;">
+				<tr>
+					<td><span>제목</span><br/><input type="text" id="subject" name="subject"
+						placeholder="제목을 입력하세요" /></td>
+				</tr>
+				<tr>
+					<td><span>내용</span><br/><textarea id="text" name="content" placeholder="내용을 입력하세요"></textarea></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><input type="button" value="저장" id="save" />
+
+
+
 						<c:choose>
 							<c:when test="${qna.ansIdx gt 0}">
-									<input type="button" id="cancel" onclick="location.href='./qnaList'" value="취소" />
+								<input type="button" id="cancel"
+									onclick="location.href='./qnaList'" value="취소" />
 							</c:when>
 							<c:otherwise>
-								 <input type="button" id="cancel" onclick="location.href='./unAnsList'" value="취소" />
+								<input type="button" id="cancel"
+									onclick="location.href='./unAnsList'" value="취소" />
 							</c:otherwise>
 
-						</c:choose>
-						</td>
-					</tr>
-				</table>
-			</div>
+						</c:choose></td>
+				</tr>
+			</table>
+		</div>
 
 	</form>
 </body>
