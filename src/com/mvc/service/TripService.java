@@ -57,7 +57,7 @@ public class TripService {
 	}
 
 	public void resultList() throws ServletException, IOException {
-		StringBuffer url = new StringBuffer();
+		StringBuilder url = new StringBuilder();
 		String pageParam = req.getParameter("page");
 		String nav = req.getParameter("nav");
 		String[] localCode = req.getParameterValues("local");

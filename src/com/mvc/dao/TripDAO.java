@@ -124,19 +124,23 @@ public class TripDAO {
 		return list;
 	}
 
-	private void chkCheckBox(String[] localCode) throws SQLException {
-		if (localCode.length == 1) {
-			ps.setString(1, localCode[0]);
-		} else if (localCode.length == 2) {
-			ps.setString(1, localCode[0]);
-			ps.setString(2, localCode[1]);
-		} else if (localCode.length == 3) {
-			ps.setString(1, localCode[0]);
-			ps.setString(2, localCode[1]);
-			ps.setString(3, localCode[2]);
+	private void checkBox(String[] localCode) throws SQLException {
+		for(int i = 0; i < localCode.length; i++) {
+			ps.setString(i+1, localCode[i]);
 		}
 	}
 
+	private StringBuilder appendSQL(String[] localCode, StringBuilder sql) {
+		for (int i = 1; i <= localCode.length; i++) {
+			if (i == localCode.length) {
+				sql.append("?)");
+			} else {
+				sql.append("?,");
+			}
+		}
+		return sql;
+	}
+	
 	public HashMap<String, Object> resultList(int page, String nav, String[] localCode, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -148,14 +152,10 @@ public class TripDAO {
 
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
 		// 체크박스가 선택된 수만큼 ? 생성
-		String inSQL = " IN(";
-		for (int i = 1; i <= localCode.length; i++) {
-			if (i == localCode.length) {
-				inSQL += "?)";
-			} else {
-				inSQL += "?,";
-			}
-		}
+		StringBuilder inSQL = new StringBuilder(); 
+		inSQL.append(" IN(");
+		inSQL = appendSQL(localCode, inSQL);
+		System.out.println("inSQL : " + inSQL);
 		// type이 theme일 때
 		String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
 		if (type.equals("area")) { // type이 area일 때
@@ -167,7 +167,7 @@ public class TripDAO {
 				+ ") WHERE rnum BETWEEN ? AND ?";
 		try {
 			ps = conn.prepareStatement(sql);
-			chkCheckBox(localCode);
+			checkBox(localCode);
 			ps.setString(localCode.length + 1, nav);
 			ps.setInt(localCode.length + 2, start);
 			ps.setInt(localCode.length + 3, end);
@@ -198,21 +198,18 @@ public class TripDAO {
 	private int getMaxPage(String nav, String[] localCode, int pagePerCnt, String type) {
 		int maxPage = 0;
 		try {
-			String inSQL = " IN(";
-			for (int i = 1; i <= localCode.length; i++) {
-				if (i == localCode.length) {
-					inSQL += "?)";
-				} else {
-					inSQL += "?,";
-				}
-			}
+			StringBuilder inSQL = new StringBuilder(); 
+			inSQL.append(" IN(");
+			inSQL = appendSQL(localCode, inSQL);
+			System.out.println("inSQL : " + inSQL);
 			String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
 			if (type.equals("area")) { // type이 area일 때
 				insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
 			}
+			
 			String sql = "SELECT COUNT(contentId) FROM trip WHERE " + insertSQL + " AND deactivate = 'FALSE'";
 			ps = conn.prepareStatement(sql);
-			chkCheckBox(localCode);
+			checkBox(localCode);
 			ps.setString(localCode.length + 1, nav);
 			rs = ps.executeQuery();
 			if (rs.next()) {
