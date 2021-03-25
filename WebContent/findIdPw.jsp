@@ -40,7 +40,7 @@
 	</head>
 	<body>
 	<h2 style="text-align : center">아이디 비밀번호 찾기</h2>
-	<form action="findId" method="POST">
+	<form action="findId1" method="POST">
 		<fieldset id="fieldset1">
             <div>아이디 찾기</div>
             <table>
@@ -58,13 +58,13 @@
                 </tr>
             </table>
             <div style="text-align: right; margin-top: 10px;">
-                <button id="btn1" type="submit">찾기</button>
+                <input type="button" id="btn1" value="찾기"/>
                 <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
             </div>
         </fieldset>
 	</form>
 	
-	<form action="findPw1" id="findPw1" method="POST">
+	<form action="findPw1" method="POST">
         <fieldset id="fieldset2">
             <div>비밀번호 찾기</div>
             <table>
@@ -89,7 +89,6 @@
             </table>
             <div style="text-align: right; margin-top: 10px;">
 				<input type="button" id="btn2" value="찾기"/>            
-                <!-- <button id="btn2">찾기</button> -->
                 <input type="button" onclick="location.href='./login.jsp'" value="취소"/>
             </div>
         </fieldset>
@@ -218,7 +217,7 @@
 	        return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
     	});
 		
-$("#btn2").click(function(){
+	$("#btn2").click(function(){
 			 
 			 var $id = $("#userId");
 			 var $name = $("#userName1");
@@ -236,25 +235,7 @@ $("#btn2").click(function(){
 			}else if($phone.val()==''){
 				alert('가입하신 핸드폰 번호를 입력해주세요.');
 				$phone.focus();
-            }/* else if($id.val()!=''){
-				$.ajax({
-					type:'get'
-					,url:'overlay'
-					,data:{"id":$("#userId").val()}
-					,dataType:'JSON'
-					,success:function(obj){
-						console.log(obj);
-						if(obj.use){//obj를 사용할수있다면
-							alert('가입하신 아이디가 아닙니다. 다시 확인해주세요.');
-							$id.focus();
-						}
-					}
-					,error:function(e){
-						console.log(e);
-					}
-				});
-            	
-            } */ else{
+            }else{
             	var params = {};
 				params.id = $id.val();
 				params.name = $name.val();
@@ -270,7 +251,7 @@ $("#btn2").click(function(){
 							alert("입력하신 정보를 확인해주세요.");
 						}else{
 							alert('비밀번호를 수정해주세요.');
-							location.href='./findPw1?id='+$id.val();
+							$("form").submit();
 						}
 					}
 					,error:function(e){
@@ -278,10 +259,41 @@ $("#btn2").click(function(){
 					}
 				});
             }
-			/* }else{
-				console.log("비밀번호를 수정해주세요.");
-				$('form').submit();
-			} */
 		}); 
+	
+	$("#btn1").click(function(){
+		 
+		 var $name = $("#userName");
+		 var $phone = $("#userPhone");
+		 
+		if($name.val()==''){
+			alert('가입하신 이름을 입력해주세요.');
+			$name.focus();
+		}else if($phone.val()==''){
+			alert('가입하신 핸드폰 번호를 입력해주세요.');
+			$phone.focus();
+        }else{
+        	var params = {};
+			params.name = $name.val();
+			params.phone = $phone.val();
+        	$.ajax({
+				type:'get'
+				,url:'findId'
+				,data: params
+				,dataType:'JSON'
+				,success:function(obj){
+					console.log(obj.use);
+					if(obj.use == ""){//아이디 값이 없다면
+						alert("이름, 핸드폰번호를 다시 확인 후 입력해주세요.");
+					}else{
+						location.href="./findId1?id="+obj.use;
+					}
+				}
+				,error:function(e){
+					console.log(e);
+				}
+			});
+       }
+	}); 
 	</script>
 </html>

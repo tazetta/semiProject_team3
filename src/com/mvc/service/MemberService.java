@@ -267,33 +267,53 @@ public class MemberService {
 	/*아이디 찾기*/
 	public void findId() throws ServletException, IOException {
 		
-		String name = req.getParameter("userName");
-		String phone = req.getParameter("userPhone");
+		String name = req.getParameter("name");
+		String phone = req.getParameter("phone");
 		System.out.println(name + "/" + phone);
-		
-		String id = dao.findId(name, phone);
-		
-		System.out.println("아이디찾기 : "+id);
-		
-		
-		if(id!="") {
-			page = "findIdAfter.jsp";
-//			page="login.jsp";
-//			msg = name+" 님의 아이디는"+id+" 입니다.";
-			
-			req.getSession().setAttribute("findId", id); // "findId"라는 이름으로 session에 저장
-		}else{
-			page = "findIdPw.jsp";
-			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
-			dis = req.getRequestDispatcher(page);
-			
-		}
-		req.setAttribute("msg", msg);
-		dis = req.getRequestDispatcher(page);
-		dis.forward(req, resp);
+		MemberDAO dao = new MemberDAO();				
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String id = "";
+		try {
+			id = dao.findId(name, phone);
+			System.out.println("아이디찾기 : "+id);
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+			map.put("use", id);
+			Gson gson = new Gson();
+			String json = gson.toJson(map);
+			System.out.println(json);
+			resp.getWriter().print(json);// 페이지에 그려주는것.
+		}	
+//		if(id!="") {
+//			page = "findIdAfter.jsp";
+//			
+//			req.getSession().setAttribute("findId", id); // "findId"라는 이름으로 session에 저장
+//		}else{
+//			page = "findIdPw.jsp";
+//			msg = "이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
+//			dis = req.getRequestDispatcher(page);
+//			
+//		}
+//		req.setAttribute("msg", msg);
+//		dis = req.getRequestDispatcher(page);
+//		dis.forward(req, resp);
 
 	}
-	
+	/*아이디찾기 두번째 요청*/
+	public void findId1() throws ServletException, IOException{
+		
+		String id = req.getParameter("id");
+		System.out.println(id);	
+		page="findIdAfter.jsp";
+
+		req.setAttribute("findId", id);
+		dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+		
+	}
 	/*비밀번호 찾기*/
 	public void findPw() throws ServletException, IOException{
 		
@@ -308,42 +328,21 @@ public class MemberService {
 		try {
 			pw = dao.findPw(id, name, phone);
 			System.out.println("가입여부 : " + pw);
-//			if(pw) {
-//				page="findpwUpdate.jsp";
-//				msg = "비밀번호를 수정해주세요.";
-//				req.setAttribute("id", id);
-//			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			dao.resClose();
-//			req.setAttribute("msg", msg);
-//			dis = req.getRequestDispatcher(page);
-//			dis.forward(req, resp);
 			map.put("use", pw);
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			System.out.println(json);
 			resp.getWriter().print(json);// 페이지에 그려주는것.
-		}
-		
-//		msg = "아이디, 이름, 핸드폰번호를 다시 확인 후 입력해주세요.";
-//		page = "findIdPw.jsp";
-//		
-//		if(dao.findPw(id, name, phone)) {
-//			page = "findpwUpdate.jsp";
-//			msg = "비밀번호를 수정해주세요.";
-//			req.setAttribute("id", id);
-//		}
-//		req.setAttribute("msg", msg);
-//		dis = req.getRequestDispatcher(page);
-//		dis.forward(req, resp);
-		
+		}	
 	}
-	
+	/*비밀번호 찾기 두번째 요청*/
 	public void findPw1() throws ServletException, IOException{
 		
-		String id = req.getParameter("id");
+		String id = req.getParameter("userId");
 		System.out.println(id);	
 		page="findpwUpdate.jsp";
 
@@ -360,7 +359,7 @@ public class MemberService {
 		String newPw = req.getParameter("newPw");
 		String id = req.getParameter("id");
 		System.out.println("새비밀번호: "+newPw);
-		
+		System.out.println("비밀번호 바꿀 대상 : "+id);
 		msg="비밀번호를 다시 확인해주세요.";
 		page = "findpwUpdate.jsp";
 		

@@ -12,7 +12,7 @@ import com.mvc.service.MemberService;
 
 @WebServlet({ "/login", "/profile", "/memberUpdateForm", "/memberUpdate", "/pwUpdate", "/wroteList", "/overlay",
 		"/logout", "/join", "/findId", "/findPw", "/memberWithdraw", "/visitedList", "/bookmarkList", "/findpwUpdate",
-		"/myUpdate","/wroteDel","/findPw1" })
+		"/myUpdate","/wroteDel","/findPw1","/findId1" })
 
 public class MemberController extends HttpServlet {
 
@@ -99,6 +99,11 @@ public class MemberController extends HttpServlet {
 			System.out.println("아이디 찾기 요청");
 			service.findId();
 			break;
+			
+		case "/findId1":
+			System.out.println("아이디 찾기 두번째 요청");
+			service.findId1();
+			break;
 
 		case "/findPw":
 			System.out.println("비밀번호 찾기 요청");
@@ -106,7 +111,7 @@ public class MemberController extends HttpServlet {
 			break;
 		
 		case "/findPw1":
-			System.out.println("비밀번호 찾기 요청");
+			System.out.println("비밀번호 찾기 두번째 요청");
 			service.findPw1();
 			break;
 			
