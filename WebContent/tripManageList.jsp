@@ -10,78 +10,16 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <style>
-table {
-	height: 50%;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	padding: 10px 20px;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-}
-
-.title {
-	width: 200px;
-}
-
-.pageArea {
-	width: 100%;
-	text-align: center;
-	margin: 10px;
-}
-
-.pageArea span {
-	font-size: 16px;
-	border: 1px solid lightgray;
-	padding: 2px 10px;
-	color: gray;
-}
-
-.date {
-	width: 100px;
-}
-
-#page {
-	font-weight: 600;
-	color: red;
-}
-
-#tripSearchBar {
-	text-align: center;
-}
-
-div.tripManageList {
-	position: absolute;
-	top: 20%;
-}
-
-div.tripManageName {
-	padding: 5px 15px;
-	border: 1px solid black;
-	width: 120px;
-	height: 30px;
-	text-align: center;
-}
-
-div.deactivate {
-	position: absolute;
-	left: 60%;
-}
-
-#noneResult {
-	font-size: 36px;
-	font-weight: 600px;
-	text-align: center;
+.tripList{
+	background-color: lightgray;
 }
 </style>
 <body>
 	<jsp:include page="top.jsp" />
-	<jsp:include page="navi_manager.jsp" />
-	<div>
+	<jsp:include page="navi_manager.jsp" /> 
+	<div class="tripBody">
+		<jsp:include page="side_tripList.jsp"/>
+
 		<div id='tripSearchBar'>
 			<form action="tripSearch" method="GET">
 				<select name="searchType">
@@ -96,19 +34,10 @@ div.deactivate {
 			</form>
 		</div>
 
-		<div class="tripManageList">
-			<div class="tripManageName" id="99">
-				<a href="./tripManageList?tripNav=99" class="list">여행지 목록</a>
-			</div>
-			<div class="tripManageName" id="100">
-				<a href="./tripInsertInformation?tripNav=100" class="list">여행지
-					저장</a>
-			</div>
-		</div>
 		<div>
 			<c:choose>
 				<c:when test="${tripList ne '[]'}">
-					<table>
+					<table class="midBody">
 						<tr>
 							<th>contentID</th>
 							<th>여행지 이름</th>
@@ -172,10 +101,10 @@ div.deactivate {
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		$("div#"+${tripNav}).css({"background-color" : "lightgray","font-weight":'600'});
 		console.log(sessionStorage.getItem("url"));
-	});
+	}); */
 	
  	$('.list').hover(function(){
 		   $(this).css({'font-weight':'600'});
