@@ -36,7 +36,7 @@
 
 #popupMain {
 	width: 30%;
-	height: 300px;
+	height: 340px;
 	background-color: white;
 	margin-top: 5%;
 	margin-left: 30%;

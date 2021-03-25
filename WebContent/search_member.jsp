@@ -8,30 +8,29 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 .m_search{
-	width: 87%;
+	width: 86%;
 	margin-top : 5%;
 }
 
 #filter {
 	font-size: 16px;
-	width : 7%;
-	padding : 7px 8px;
+	width : 6%;
+	padding : 3px 8px;
 	float: left;
 }
 
 .m_search input{
-	width: 13%;
-	padding: 8px;
+	width: 11%;
+	padding: 4px;
 	float: left;
-	margin: 0 1%;
+	margin: 0 5px;
 }
 
 .m_search button {
-	width: 5%;
-	padding: 8px;
+	width: 3%;
+	padding: 3px;
 	border: 1px solid;
 	background-color: whitesmoke;
-	outline: none;
 
 </style>
 </head>
