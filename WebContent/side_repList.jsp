@@ -54,7 +54,6 @@
 				width: 90%;
 				min-width: 1000px;
 				margin-left: 5%;
-				border:  2px solid red;
 			}
 			#page {
 				text-align: center;
