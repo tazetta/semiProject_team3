@@ -10,7 +10,7 @@
             table,td,th{
                 border: 1px solid black;
                 border-collapse: collapse;
-                padding: 5px 10px;
+                padding: 10px 20px;
             }
             table{
             	width:500px;
