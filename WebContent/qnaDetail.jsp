@@ -98,7 +98,6 @@ $("#del").click(function(){
 			}else{
 				location.href="qnaDetail?qnaIdx="+${dto.qnaIdx};
 			}
-	 
 });
 	</script>
 </html>
