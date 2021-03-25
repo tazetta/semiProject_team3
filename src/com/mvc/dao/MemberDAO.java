@@ -20,6 +20,7 @@ public class MemberDAO {
 	Connection conn = null; // DB연결시 사용될 변수
 	PreparedStatement ps = null; // DB재사용시 사용될 변수
 	ResultSet rs = null; // SELECT문 실행시 사용될 변수
+	
 
 	/* DB연결 메서드 */
 	public MemberDAO() { // 클래스 객체화시 호출되는 생성자
@@ -78,6 +79,19 @@ public class MemberDAO {
 				}
 
 			}
+			//블랙리스트 추가부분
+			if(rs.next()) {
+				success = true;
+			}else {
+				sql= "SELECT id FROM blacklist WHERE id=? AND blackstatus='FALSE'";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					success = true;
+				}
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -461,6 +475,22 @@ public class MemberDAO {
 		}
 		return success;
 
+	}
+
+	public boolean chkblacklist(String id) {
+		boolean success = false;
+		String sql = "SELECT id FROM blacklist WHERE id=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			success = rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return success;
 	}
 
 }
