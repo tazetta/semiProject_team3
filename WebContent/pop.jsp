@@ -10,8 +10,8 @@
 <style>
 #pop_main {
 	width: 900px;
-    margin-top: 7%;
-    margin-left: 34%;
+    margin-top: 5%;
+    margin-left: 35%;
 }
 
 #popup {
@@ -42,13 +42,11 @@ td {
 .regist {
 	font-size: 13px;
 	padding: 5px 8px;
-	margin: 5px 0;
 }
 
 .p_button {
 	float: right;
-	margin-top: -6%;
-	margin-right: 14%;
+	margin-right: 30%;
 }
 
 #page{
@@ -61,6 +59,7 @@ td {
 	border:1px solid lightgray;
 	padding: 2px 10px;
 	margin:2px;
+	background-color: whitesmoke;
 }
 
 a {
