@@ -34,7 +34,6 @@ fieldset {
 	padding: 20px;
 	margin: 5%;
 	border: 1px solid white;
-	background-color: whitesmoke;
 }
 
 .regist_btn {
@@ -46,6 +45,12 @@ fieldset {
 	font-size: 13px;
 	padding: 6px 15px;
 	margin: 6px 0;
+}
+
+#overlay {
+	background-color: darkseagreen;
+    border: 1px solid black;
+	color: white;
 }
 </style>
 </head>
@@ -60,7 +65,7 @@ fieldset {
 						<th>관리자 ID</th>
 						<td>
 						<input type="text" id="managerId" name="managerId" placeholder="admin+숫자로 입력 " /> 
-						<input type="button" id="overlay" value="vvv" />
+						<input type="button" id="overlay" value="✔" />
 						</td>
 					</tr>
 					<tr>
@@ -106,7 +111,7 @@ console.log($('#managerId').val());
 			console.log(obj);
 			if(obj.use){
 				alert('사용할 수 있는 관리자 아이디입니다.');
-				$("#managerId").css({backgroundColor:'lightblue'});
+				$("#overlay").css({color:'black'});
 				overChk = true;
 			}else{
 				alert('이미 사용중인 관리자 아이디입니다.');

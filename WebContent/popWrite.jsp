@@ -13,6 +13,8 @@
 
 .pop_form{
 	text-align: center;
+	    width: 300px;
+    margin: 3% 25%;
 }
 #popup_form {
 	border-collapse: collapse;
@@ -61,6 +63,15 @@ td {
 	padding: 6px 15px;
 	margin: 1px 0;
 }
+
+hr{
+    width: 150px;
+    border: 1px solid black;
+}
+
+h3{
+	margin: 0;
+}
 </style>
 <body>
 	<!--상단페이지-->
@@ -72,7 +83,7 @@ td {
 	<div class="pop_regist">
 	
 		<form action="popupWrite" method="post">
-		<div class="pop_form"><h3>신규 팝업 등록하기</h3></div>
+		<div class="pop_form"><h3>신규 팝업 등록하기</h3><hr/></div>
 			<table id="popup_form">
 				<tr id="p_title">
 					<th>등록관리자</th>
