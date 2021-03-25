@@ -51,7 +51,7 @@ public class BoardDAO {
 		}
 	public ArrayList<BoardDTO> managerbbsList() {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		String sql = "SELECT boardIdx,subject,bHit,reg_date,id FROM bbs WHERE isManager='true' AND DEACTIVATE='FALSE' ";
+		String sql = "SELECT boardIdx,subject,bHit,reg_date,id FROM bbs WHERE isManager='true' AND DEACTIVATE='FALSE' ORDER BY boardIdx DESC";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();

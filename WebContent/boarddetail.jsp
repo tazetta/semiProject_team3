@@ -129,8 +129,10 @@
 			</tr>			
 			</c:if>
 		</table>
+		<c:if test="${isManager!='true' }">
 		<input id="comment" class="comment" type="text" maxlength="500" placeholder="댓글을 입력해주세요"/>
 		<button id="comm_regist">등록</button>
+		</c:if>
 		<c:if test="${commentUpdatedto.id ne null}">
 			<input id ="comm_up" class="comment" type="text" maxlength="500" value="${commentUpdatedto.content}"/>
 			<button id="comm_update">수정</button>
