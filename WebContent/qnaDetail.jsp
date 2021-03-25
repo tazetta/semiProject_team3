@@ -15,7 +15,7 @@ body {
 }
 /*콘텐츠*/
 #content {
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 	position: relative;
 	top: 0px;
 	left: 20px;
@@ -25,7 +25,7 @@ body {
 }
 
 table, th, td {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-collapse: collapse;
 	padding: 10px;
 }
@@ -55,14 +55,15 @@ span {
 	<div id="content">
 		<table id="qna">
 			<tr>
-				<td colspan="2"><span>제목</span><br /><b>${dto.subject}</b></td>
+				<td colspan="2"><span>제목</span><br /><b style="font-size:140%">${dto.subject}</b></td>
 			</tr>
 			<tr>
 				<td><span>작성자</span><br />${dto.id}</td>
 				<td><span>작성일</span><br />${dto.reg_date}</td>
+				
 			</tr>
 			<tr>
-				<td colspan="2">${dto.content}</td>
+				<td colspan="2" style="padding-top:10px;padding-bottom:60px;"><hr/>${dto.content}</td>
 			</tr>
 
 			<tr>
@@ -78,7 +79,7 @@ span {
 							</c:when>
 							<c:otherwise>
 								<c:if test="${dto.ansIdx eq 0}">
-									<input type="button" onclick="location.href='qnaDel?qnaIdx=${dto.qnaIdx}'" value="삭제"  class="btn" />			
+									<input type="button"  value="삭제"  id="del" />			
 								</c:if>
 								 <input type="button" onclick="location.href='./qnaListUser'" value="목록"  class="btn" />								
 							</c:otherwise>
@@ -91,5 +92,13 @@ span {
 
 </body>
 <script>
+$("#del").click(function(){
+		 if(confirm("정말로 삭제하시겠습니까?")){
+			 location.href="qnaDel?qnaIdx="+${dto.qnaIdx};
+			}else{
+				location.href="qnaDetail?qnaIdx="+${dto.qnaIdx};
+			}
+	 
+});
 	</script>
 </html>
