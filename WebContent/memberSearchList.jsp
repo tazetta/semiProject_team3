@@ -48,7 +48,7 @@ td{
 }
 
 .genmem{
-	background-color: blanchedalmond;
+	background-color: gray;
 	font-weight: bold;
 }
 </style>
