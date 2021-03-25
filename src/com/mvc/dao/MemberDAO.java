@@ -56,10 +56,12 @@ public class MemberDAO {
 
 		boolean success = false;
 		try {
-			String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
+			String sql = "SELECT id FROM member WHERE id = ? AND pw =? AND withdraw = 'FALSE' AND " + 
+					"(SELECT count(blackidx) FROM blacklist where id = ? AND blackstatus='TRUE')<=0";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, pw);
+			ps.setString(3, id);
 			rs = ps.executeQuery();
 
 //			ResultSet rs2 = ps.executeQuery();
@@ -79,18 +81,7 @@ public class MemberDAO {
 				}
 
 			}
-			//블랙리스트 추가부분
-			if(rs.next()) {
-				success = true;
-			}else {
-				sql= "SELECT id FROM blacklist WHERE id=? AND blackstatus='FALSE'";
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, id);
-				rs = ps.executeQuery();
-				if(rs.next()) {
-					success = true;
-				}
-			}
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -477,20 +468,6 @@ public class MemberDAO {
 
 	}
 
-	public boolean chkblacklist(String id) {
-		boolean success = false;
-		String sql = "SELECT id FROM blacklist WHERE id=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			rs = ps.executeQuery();
-			success = rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		return success;
-	}
+
 
 }

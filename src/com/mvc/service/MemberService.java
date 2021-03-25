@@ -54,10 +54,6 @@ public class MemberService {
 			if(dao.chkManager(id)) {
 				req.getSession().setAttribute("isManager", "true");
 			}
-			dao = new MemberDAO();
-			if(dao.chkblacklist(id)) {
-				req.getSession().setAttribute("isBlackmem", "false");
-			}
 		}
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
