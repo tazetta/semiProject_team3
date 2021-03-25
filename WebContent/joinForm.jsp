@@ -16,6 +16,7 @@
                 width: 600px;
                 height : 500px;
                 background-color : white;
+                margin:auto;
             }
             input[type='text'],input[type='password'],input[type='email']{
                 width: 70%;
@@ -25,7 +26,7 @@
             }
             fieldset{
                 padding: 20px;
-                width: 500px;
+                width: 900px;
                 margin: auto;
                 margin-top: 8%;
                 border: 1px solid white;

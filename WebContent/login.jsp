@@ -33,7 +33,7 @@
         <form action="login" method="post">
 	        <table>
 	                <tr>
-	                    <th style="background-color : purple">아이디</th>
+	                    <th style="background-color : midnightblue; color : white;">아이디</th>
 	                    <td>
 	                        <input type="text" name="userId" maxlength="12" placeholder="아이디"/>
 	                    </td>
@@ -42,7 +42,7 @@
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <th style="background-color : purple">비밀번호</th>
+	                    <th style="background-color : midnightblue; color : white;">비밀번호</th>
 	                    <td>
 	                        <input type="password" name="userPw" maxlength="20" placeholder="비밀번호"/>
 	                    </td>
@@ -50,7 +50,7 @@
 	                <tr>
 	                    <td colspan="3">
 	                        <input type="button" onclick="location.href='joinForm.jsp'" value="회원가입"/>
-	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
+	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                        <input type="button" onclick="location.href='index.jsp'" value="메인으로"/>
 	                    </td>
 	                </tr>
