@@ -91,7 +91,7 @@ div.chkBtn{
 		<input type="hidden" name="nav" value="${nav}" /> 
 		<input type="hidden" name="type" value="area" /> 
 		<div class = "chkBtn">
-			<input type="button" class="btn" onclick="allChk()" value="전체 선택">	
+			<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">	
 			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
 		</div>
 	</form>
@@ -124,9 +124,11 @@ div.chkBtn{
 	function allChk(){
 		if(isChecked == false) {
 			$("input[name=local]").prop("checked",true);		
+			$("#allBtn").val("전체해제");
 			isChecked = true;
 		} else{
 			$("input[name=local]").prop("checked",false);		
+			$("#allBtn").val("전체선택");
 			isChecked = false;
 		}
 	}
