@@ -24,6 +24,7 @@ div.bar {
 	margin:  10px 0px;
 	width: 100%;
 	min-width: 1000px;
+	/* z-index:10; */
 }
 
 
