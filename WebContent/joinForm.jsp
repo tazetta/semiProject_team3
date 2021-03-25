@@ -17,6 +17,7 @@
                 height : 500px;
                 background-color : white;
                 margin:auto;
+                margin-top:5%;
             }
             input[type='text'],input[type='password'],input[type='email']{
                 width: 70%;
@@ -27,16 +28,18 @@
             fieldset{
                 padding: 20px;
                 width: 900px;
+                height: 600px;
                 margin: auto;
-                margin-top: 8%;
+                margin-top: 5%;
                 border: 1px solid white;
                 background-color: whitesmoke;
             }
         </style>
 	</head>
 	<body>
-		<h1 style="text-align : center; background-color : blanchedalmond">회원가입 페이지</h1>
-        <br/>
+	<br/>
+	<br/>
+		<h1 style="text-align : center; background-color : blanchedalmond; width: 900px; margin: auto;">회원가입 페이지</h1>
            <fieldset>
                <table>
                    <tr>
