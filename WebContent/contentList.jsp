@@ -34,6 +34,7 @@ div.areaList>div {
 }
 
 div.areaList {
+
 }
 
 /*  a:link {
@@ -64,7 +65,8 @@ div.chkBtn{
 .areabody{
 	margin-top: 25px;
 	width: 100%;
-	min-width: 1400px;
+	min-width: 1000px;
+	margin-left: 5%;
 }
 </style>
 </head>
@@ -80,6 +82,7 @@ div.chkBtn{
 			</div>
 		</c:forEach>
 	</div>
+
 
 <!-- 	<form action="resultList" method="get" onsubmit="return false"> -->
 	<form action="resultList" method="get">
@@ -105,7 +108,7 @@ div.chkBtn{
 			<tr>
 				<td>
 					<div class = "chkBtn">
-						<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택">
+						<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택"/>
 						<input type="button" class="btn" onclick="minChkBox()" value="검색" />
 					</div>
 				</td>
@@ -123,12 +126,7 @@ div.chkBtn{
 		$("div#"+${nav}).css({"background-color" : "lightgray","font-weight":"600"});
 	});
 	   
-	$('a').hover(function(){
-		   $(this).css({'font-weight':'600'});
-	},function(){
-		    $(this).css({'font-weight':'1'});
-	});
-	
+
 	function minChkBox(){
 		var cnt = 0;
 		$('input[type="checkbox"]').each(function(idx, item){

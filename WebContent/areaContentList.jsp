@@ -9,8 +9,8 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 div.areaList {
-	position: absolute;
-	top: 20%;
+	float: left;
+	margin-left: 3%;
 }
 
 div.area {
@@ -34,12 +34,10 @@ div.cityList>div {
 }
 
 div.cityList {
-	position: absolute;
-	left: 25%;
-	top: 15%;
+
 }
 
-a:link {
+/* a:link {
 	color: black;
 	text-decoration: none;
 }
@@ -47,12 +45,11 @@ a:link {
 a:visited {
 	color: black;
 	text-decoration: none;
-}
+} */
 
 div.chkBtn{
-	position: absolute;
-	top:36%;
-	right:47%;
+	text-align: center;
+	margin-top: 15px;
 }
 .btn{
     border:#BDBDBD ;
@@ -60,11 +57,23 @@ div.chkBtn{
     font-weight: 600;
 	padding:20px 40px;
 }
+.mid{
+	min-width: 600px;
+	width: 800px;
+	margin-left:20%;
+}
+.areabody{
+	margin-top: 25px;
+	width: 100%;
+	min-width: 1000px;
+	margin-left: 5%;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
+	<div class="areabody">
 	<div class="areaList">
 		<c:forEach items="${areaList}" var="area">
 			<div class="area" id="${area.areaCode}">
@@ -74,27 +83,38 @@ div.chkBtn{
 	</div>
 
 	<form action="resultList" method="GET">
-		<div class="cityList">
-			<c:forEach items="${cityList}" var="city" varStatus="status">
-				<c:if test="${status.index % 5 == 0}">
-					<div class="clear">
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
-					</div>
-				</c:if>
-				<c:if test="${status.index % 5 != 0}">
-					<div>
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
-					</div>
-				</c:if>
-			</c:forEach>
-		</div>
+	<table class="mid">
+		<tr>
+			<td>
+				<div class="cityList">
+					<c:forEach items="${cityList}" var="city" varStatus="status">
+						<c:if test="${status.index % 5 == 0}">
+							<div class="clear">
+								<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+							</div>
+						</c:if>
+						<c:if test="${status.index % 5 != 0}">
+							<div>
+								<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class = "chkBtn">
+					<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택"/>	
+					<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+				</div>
+			</td>
+		</tr>		
+	</table>
 		<input type="hidden" name="nav" value="${nav}" /> 
 		<input type="hidden" name="type" value="area" /> 
-		<div class = "chkBtn">
-			<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">	
-			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
-		</div>
 	</form>
+	</div>
 </body>
 <script>
 	$(document).ready(function() {

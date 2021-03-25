@@ -8,30 +8,11 @@
 <title>지역별</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-div.areaList {
-	position: absolute;
-	top: 20%;
-}
+/* 
 
-div.area {
-	padding: 0px 15px;
-	border: 1px solid black;
-	width: 120px;
-	height: 30px;
-	text-align: center;
-}
 
-div.clear {
-	clear: left;
-	border: 1px solid black;
-}
 
-div.cityList>div {
-	float: left;
-	border: 1px solid black;
-	padding: 5px 5px;
-	width: 140px;
-}
+
 
 div.cityList {
 	position: absolute;
@@ -61,6 +42,44 @@ table, th, td {
 	width:50%;
 }
 
+
+a {
+	text-decoration: none;
+}
+
+div.chkBtn{
+	position: absolute;
+	top:36%;
+	right:47%;
+}
+.btn{
+    border:#BDBDBD ;
+    background-color:#D8D8D8;
+    font-weight: 600;
+	padding:20px 40px;
+} */
+div.areaList {
+float: left;
+	margin-left: 3%;
+}
+
+div.area {
+	padding: 0px 15px;
+	border: 1px solid black;
+	width: 120px;
+	height: 30px;
+	text-align: center;	
+}
+div.clear {
+	clear: left;
+	border: 1px solid black;
+}
+div.cityList>div {
+float: left;
+	border: 1px solid black;
+	padding: 5px 5px;
+	width: 140px;
+}
 .pageArea {
 	width: 100%;
 	text-align: center;
@@ -74,18 +93,14 @@ table, th, td {
 	color: gray;
 }
 
-a {
-	text-decoration: none;
-}
-
 #page {
 	font-weight: 600;
 	color: red;
 }
+
 div.chkBtn{
-	position: absolute;
-	top:36%;
-	right:47%;
+	text-align: center;
+	margin-top: 15px;
 }
 .btn{
     border:#BDBDBD ;
@@ -93,12 +108,35 @@ div.chkBtn{
     font-weight: 600;
 	padding:20px 40px;
 }
+.mid{
+	min-width: 600px;
+	width: 800px;
+	margin-left:20%;
+}
+.areabody{
+	margin-top: 25px;
+	width: 100%;
+	min-width: 1000px;
+	margin-left: 5%;
+}
+.result, .result th, .result td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 10px 20px;
+	text-align: center;
+	margin-left: 20%;
+	margin-top: 20px;
+}
+.result{
+	width: 70%;
+	max-width: 800px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
+	<div class="areabody">
 	<div class="areaList">
 		<c:forEach items="${areaList}" var="area">
 			<div class="area" id="${area.areaCode}">
@@ -108,28 +146,38 @@ div.chkBtn{
 	</div>
 
 	<form action="resultList" method="get">
-		<div class="cityList">
-			<c:forEach items="${cityList}" var="city" varStatus="status">
-				<c:if test="${status.index % 5 == 0}">
-					<div class="clear">
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+		<table class="mid">
+			<tr>
+				<td>
+					<div class="cityList">
+						<c:forEach items="${cityList}" var="city" varStatus="status">
+							<c:if test="${status.index % 5 == 0}">
+								<div class="clear">
+									<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+								</div>
+							</c:if>
+							<c:if test="${status.index % 5 != 0}">
+								<div>
+									<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
-				</c:if>
-				<c:if test="${status.index % 5 != 0}">
-					<div>
-						<input type="checkbox" name="local" value="${city.cityCode}">${city.name}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class = "chkBtn">
+						<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">	
+						<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
 					</div>
-				</c:if>
-			</c:forEach>
-			<input type="hidden" name="nav" value="${nav}" /> 
-			<input type="hidden" name="type" value="area" /> 
-		</div>
-			<div class = "chkBtn">
-				<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">	
-				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
-			</div>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="nav" value="${nav}" /> 
+		<input type="hidden" name="type" value="area" /> 	
 	</form>
-	<table>
+	<table class="result">
 		<tr>
 			<th>사진</th>
 			<th>제목</th>
@@ -148,25 +196,30 @@ div.chkBtn{
 				<td>${result.bookmarkCnt}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="4" style="border-color: white;">
+				<div class="pageArea">
+					<span> 
+						<c:if test="${currPage == 1}">이전</c:if> 
+						<c:if test="${currPage > 1}">
+							<a href="./resultList?${url}&page=${currPage-1}">이전</a>
+						</c:if>
+					</span> 
+					<span id="page">
+						${currPage}
+					</span> 
+					<span> 
+						<c:if test="${currPage == maxPage}">다음</c:if> 
+						<c:if test="${currPage < maxPage}">
+							<a href="./resultList?${url}&page=${currPage+1}">다음</a>
+						</c:if>
+					</span>
+					<span>${currPage}/${maxPage}</span>
+				</div>
+			</td>
+		</tr>	
 	</table>
 
-	<div class="pageArea">
-		<span> 
-			<c:if test="${currPage == 1}">이전</c:if> 
-			<c:if test="${currPage > 1}">
-				<a href="./resultList?${url}&page=${currPage-1}">이전</a>
-			</c:if>
-		</span> 
-		<span id="page">
-			${currPage}
-		</span> 
-		<span> 
-			<c:if test="${currPage == maxPage}">다음</c:if> 
-			<c:if test="${currPage < maxPage}">
-				<a href="./resultList?${url}&page=${currPage+1}">다음</a>
-			</c:if>
-		</span>
-		<span>${currPage}/${maxPage}</span>
 	</div>
 </body>
 <script>
