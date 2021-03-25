@@ -26,8 +26,9 @@ table, tr, td,th {
 }
 
 .firstTr th{
-	background-color: gray;
-	color:white;
+	background-color: lightgray;
+	color: black;
+	border :1px solid white;
 }
 
 
