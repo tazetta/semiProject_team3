@@ -21,7 +21,7 @@ div.bar {
 /* 	border: 1px solid lightgray; */
 	justify-content: center;
 	align-items: center;
-	margin:  10px 0px;
+	margin-top: 10px;
 	width: 100%;
 	min-width: 1000px;
 	/* z-index:10; */
