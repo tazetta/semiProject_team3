@@ -251,7 +251,7 @@ public class MemberListDAO {
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT reg_date, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " + "AS rnum, reg_date, id, name, phone, email "
-				+ "FROM member WHERE id NOT IN ('admin') AND " + searchType + "=?) WHERE rnum BETWEEN ? AND ?";
+				+ "FROM member WHERE id NOT IN ('admin') AND withdraw='FALSE' AND " + searchType + "=?) WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberSearchList = new ArrayList<MemberListDTO>();
 		try {

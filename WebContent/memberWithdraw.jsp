@@ -67,7 +67,7 @@ input[type="password"] {
 		
 				<form action="memberWithdraw" method="post">
 			<table id="pwChk">
-				<tr>
+				<tr  style="border-top:1px solid #D8D8D8;">
 					<th>비밀번호 확인</th>
 					<td><input type="password" name="userPw" id="confirmPw"></td>
 				</tr>
@@ -79,7 +79,7 @@ input[type="password"] {
 						<br/> 
 					</th>
 				</tr>
-				<tr>
+				<tr  style="border-top:1px solid #D8D8D8;">
 					<td colspan="2" style="border: none">
 					<input type="button" value="탈퇴하기" id="withdraw"></td>
 					
