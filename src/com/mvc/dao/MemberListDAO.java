@@ -53,7 +53,7 @@ public class MemberListDAO {
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT reg_date, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " + "AS rnum, reg_date, id, name, phone, email "
-                + "FROM member WHERE id NOT IN ('admin') AND name != '탈a퇴#회@원') WHERE rnum BETWEEN ? AND ?";
+				+ "FROM member WHERE id NOT IN ('admin') AND name != '탈a퇴#회@원') WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberList = new ArrayList<MemberListDTO>();
 		try {
@@ -98,7 +98,7 @@ public class MemberListDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return max;
@@ -107,12 +107,14 @@ public class MemberListDAO {
 	public MemberListDTO memberDetail(String id) {
 
 		MemberListDTO dto = null;
-		String sql = "SELECT m.reg_date, m.id, m.name, m.phone, m.email, m.withdraw, m.reportcnt, m.update_date, m.blackcnt, b.blackstatus FROM "
-					+ "member m, blacklist b WHERE m.id=b.id(+) AND m.id=?";
-
+		boolean success = false;
+		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt,  "
+				+ "(SELECT count(blackidx) FROM blacklist WHERE id=? AND blackstatus='TRUE') AS staus_cnt "
+				+ "FROM member WHERE id=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
+			ps.setString(2, id);
 			System.out.println("쿼리 실행");
 			rs = ps.executeQuery();
 			System.out.println("id : " + id);
@@ -127,14 +129,19 @@ public class MemberListDAO {
 				dto.setReportcnt(rs.getInt("reportcnt"));
 				dto.setUpdate_date(rs.getDate("update_date"));
 				dto.setBlackcnt(rs.getInt("blackcnt"));
-				dto.setBlackstatus(rs.getString("blackstatus"));
 			}
-
+			if (rs.getInt("staus_cnt") > 0) {
+				dto.setBlackstatus("TRUE");
+				success = true;
+			} else {
+				dto.setBlackstatus("FALSE");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
+		System.out.println("상세보기&블랙 성공여부 :" + success);
 		return dto;
 	}
 
@@ -147,9 +154,8 @@ public class MemberListDAO {
 
 		String sql = "SELECT reg_date, withdraw, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) "
-                + "AS rnum, reg_date, withdraw,  id, name, phone, email " 
-                + "FROM member WHERE withdraw='TRUE' AND name != '탈a퇴#회@원' "
-				+ ") WHERE rnum BETWEEN ? AND ?";
+				+ "AS rnum, reg_date, withdraw,  id, name, phone, email "
+				+ "FROM member WHERE withdraw='TRUE' AND name != '탈a퇴#회@원' " + ") WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberDelList = new ArrayList<MemberListDTO>();
 		try {
@@ -178,7 +184,7 @@ public class MemberListDAO {
 		}
 		return map;
 	}
-	
+
 	private int Del_getMaxPage(int pagePerCnt) {
 		String sql = "SELECT COUNT(id) FROM member WHERE withdraw='TRUE'";
 		int max = 0;
@@ -191,16 +197,15 @@ public class MemberListDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return max;
 	}
-	
 
 	public boolean memberDraw(String id) {
 
-        String sql = "UPDATE member SET pw='' ,name='탈a퇴#회@원', phone='', email='',withdraw='TRUE'  WHERE id=?";
+		String sql = "UPDATE member SET pw='' ,name='탈a퇴#회@원', phone='', email='',withdraw='TRUE'  WHERE id=?";
 		boolean success = false;
 
 		try {
@@ -344,7 +349,7 @@ public class MemberListDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			resClose();
 		}
 		return max;
@@ -365,11 +370,11 @@ public class MemberListDAO {
 				ps.setString(1, dto.getId());
 
 				int cnt = 0;
-				if (ps.executeUpdate() > 0) { 
+				if (ps.executeUpdate() > 0) {
 					cnt += 1;
 				}
-					ps.executeUpdate();
-					success = true;
+				ps.executeUpdate();
+				success = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -436,7 +441,7 @@ public class MemberListDAO {
 	public MemberListDTO memberDelDetail(String id) {
 		MemberListDTO dto = null;
 		String sql = "SELECT reg_date, id, name, phone, email, withdraw, reportcnt, update_date, blackcnt FROM "
-					+ "member WHERE id=?";
+				+ "member WHERE id=?";
 
 		try {
 			ps = conn.prepareStatement(sql);

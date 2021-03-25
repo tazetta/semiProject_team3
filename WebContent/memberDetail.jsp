@@ -108,5 +108,7 @@ th, td {
 	if (msg != "") {
 		alert(msg);
 	}
+	
+	
 </script>
 </html>

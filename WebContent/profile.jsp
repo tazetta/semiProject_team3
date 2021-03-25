@@ -29,6 +29,7 @@ body {
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
+	
 }
 
 th{
@@ -53,6 +54,7 @@ table#profile {
 	clear: both;
 	
 }
+
 
 #wd {
 	position: absolute;

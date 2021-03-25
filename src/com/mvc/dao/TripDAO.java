@@ -94,7 +94,7 @@ public class TripDAO {
 		ArrayList<CityDTO> list = new ArrayList<CityDTO>();
 		CityDTO dto = null;
 		try {
-			if (!areaCode.equals("0")) {
+			if (areaCode != null) {
 				String sql = "SELECT cityCode,name, areaCode FROM city WHERE areacode=?";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, areaCode);
@@ -105,7 +105,7 @@ public class TripDAO {
 					dto.setName(rs.getString("name"));
 					list.add(dto);
 				}
-			}	else if (areaCode.equals("0")) { // tripInsetrInformation으로 요청이 올 때
+			} else { // 여행지 저장, 여행지 수정폼에서 요청 왔을 때
 				String sql = "SELECT c.cityCode, c.name, a.name, a.areaCode FROM city c, area a WHERE c.areacode = a.areacode ORDER BY c.citycode";
 				ps = conn.prepareStatement(sql);
 				rs = ps.executeQuery();
@@ -125,6 +125,7 @@ public class TripDAO {
 	}
 
 	private void checkBox(String[] localCode) throws SQLException {
+		// 체크박스 개수만큼 ? 대응
 		for(int i = 0; i < localCode.length; i++) {
 			ps.setString(i+1, localCode[i]);
 		}
@@ -202,7 +203,6 @@ public class TripDAO {
 		try {
 			StringBuilder inSQL = new StringBuilder(); 
 			inSQL = appendSQL(localCode, inSQL);
-			System.out.println("inSQL : " + inSQL);
 			String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
 			if (type.equals("area")) { // type이 area일 때
 				insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
