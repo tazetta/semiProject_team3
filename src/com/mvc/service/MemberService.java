@@ -204,7 +204,7 @@ public class MemberService {
 		String id = req.getParameter("id");
 		boolean success = false;
 		System.out.println("id : " + id);
-		MemberDAO dao = new MemberDAO();// MemberDAO를 객체화
+//		MemberDAO dao = new MemberDAO();// MemberDAO를 객체화
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		try {
@@ -236,7 +236,7 @@ public class MemberService {
 		String email = req.getParameter("email");
 		System.out.println(id + "/" + name + "/" + pw + "/" + phone + "/" + email);
 
-		MemberDAO dao = new MemberDAO();
+//		MemberDAO dao = new MemberDAO();
 		MemberDTO dto = new MemberDTO();
 		dto.setId(id);
 		dto.setName(name);
@@ -270,7 +270,7 @@ public class MemberService {
 		String name = req.getParameter("name");
 		String phone = req.getParameter("phone");
 		System.out.println(name + "/" + phone);
-		MemberDAO dao = new MemberDAO();				
+//		MemberDAO dao = new MemberDAO();				
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String id = "";
 		try {
@@ -322,7 +322,7 @@ public class MemberService {
 		String phone = req.getParameter("phone");
 		boolean pw = false;
 		System.out.println(id+"/"+name+"/"+phone);
-		MemberDAO dao = new MemberDAO();
+//		MemberDAO dao = new MemberDAO();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		try {
