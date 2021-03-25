@@ -146,9 +146,7 @@ a {
 							</td>
 						</tr>
 						<tr>
-							<td class="bottom"><%-- <a
-								href="myUpdate?myidx=${bm.myidx}&type=${bm.type}"
-								>삭제</a> --%>
+							<td class="bottom">
 								<input type="button"  value="삭제" onclick="deletingList(${bm.myidx},${bm.type })" class="del" />
 								</td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>

@@ -18,14 +18,12 @@ body {
 /*콘텐츠*/
 #content {
 	height: 600px;
-	
 	text-align: center;
 	float: left;
 	width: 80%;
 }
 
 table, tr, td {
-	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
@@ -38,11 +36,7 @@ span {
 	color: dimgrey;
 }
 
-th{
-background-color: lightgray;
-	color: black;
-	border :1px solid white;
-}
+
 
 table#profile {
 	background-color: white;
@@ -77,7 +71,7 @@ input[type="password"] {
 		<span>비밀번호 변경</span> <br />
 		<form action="pwUpdate" method="post">
 			<table id="profile">
-				<tr>
+				<tr style="border-top:1px solid #D8D8D8;">
 					<th>현재 비밀번호</th>
 					<td><input type="password" name="userPw" id="userPw"></td>
 				</tr>
@@ -89,8 +83,8 @@ input[type="password"] {
 					<th>비밀번호 확인</th>
 					<td><input type="password" id="confirmPw"></td>
 				</tr>
-				<tr>
-					<td colspan="2" style="border: none">
+				<tr style="border-top:1px solid #D8D8D8;">
+					<td colspan="2" style="padding-top:30px;">
 					<input type="button" value="저장" id="save" /> 
 					<input type="button" value="취소" id="save"  onclick="location.href='profile'"/>
 					</td>
