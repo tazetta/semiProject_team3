@@ -33,17 +33,17 @@
 	#btn1{
 		position: absolute;
 		top:150px;
-		left: 22%;
+		left: 21.5%;
 	}
 	#btn2{
 		position: absolute;
-		left:53.5%;
+		left:51.5%;
 		top:145px;
 		margin:5px;		
 	}
 	#btn3{
 		position: absolute;
-		left:59.5%;
+		left:57%;
 		top:145px;
 		margin:5px;		
 	}
