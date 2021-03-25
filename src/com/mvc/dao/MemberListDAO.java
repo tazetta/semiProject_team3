@@ -417,6 +417,31 @@ public class MemberListDAO {
 		}
 		return dto;
 	}
+	
+	public ArrayList<MemberListDTO> reason(String blackidx) {
+		ArrayList<MemberListDTO> reason = new ArrayList<MemberListDTO>();
+		MemberListDTO dto = null;
+		
+		String sql = "select reason, reg_date from blacklist where id = (select id from blacklist where blackidx=?) ORDER BY reg_date DESC";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, blackidx);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				dto = new MemberListDTO();
+				dto.setReg_date(rs.getDate("reg_date"));
+				dto.setReason(rs.getString("reason"));
+				reason.add(dto);
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				resClose();
+			}
+		System.out.println(reason);
+		return reason;
+	}
 
 	public boolean memberBlackDel(String blackidx) {
 
@@ -469,4 +494,6 @@ public class MemberListDAO {
 		}
 		return dto;
 	}
+
+
 }

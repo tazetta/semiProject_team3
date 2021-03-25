@@ -55,6 +55,26 @@
 	font-weight: bold;
 }
 
+#reason{
+	border-collapse: collapse;
+	margin-top: 20px;
+	width : 54%;
+}
+
+#reason th, td {
+	border: 1px solid lightgray;
+	text-align: center;
+	font-size: 13px;
+}
+
+#reason th{
+	padding: 8px;
+}
+
+#reason td{
+	padding: 8px;
+}
+
 </style>
 
 </head>
@@ -79,7 +99,6 @@
 				<th>등록 관리자</th>                
                 <th>아이디</th>
                 <th>이름</th>
-                <th>블랙리스트 등록사유</th>
                 <th>블랙리스트로 등록된 횟수</th>
                 <th>글,댓글 신고수</th>
                 <th>블랙리스트 상태</th>
@@ -90,13 +109,26 @@
                 <td>${dto.managerid}</td>
                 <td>${dto.id}</td>
                 <td>${dto.name}</td>
-                <td>${dto.reason}</td>
                 <td>${dto.blackcnt}</td>
                 <td>${dto.reportcnt}</td>
                 <td>${dto.blackstatus}</td>
                 <td>${dto.update_date}</td>           
             </tr>
 			</table>
+			
+			<table id="reason">
+			<tr>
+				<th>블랙리스트 등록일</th>
+				<th>블랙리스트 등록사유</th>
+			</tr>
+			<c:forEach items="${reason}" var="black">
+			<tr>
+				<td>${black.reg_date}</td>
+				<td>${black.reason}</td>
+			</tr>
+			</c:forEach>
+			</table>
+			
 				<div class="black">
 				<c:if test="${dto.blackstatus ne 'FALSE'}">
                 	<button class="mbtn" onclick="location.href='./memberBlackDel?blackidx=${dto.blackidx}'">블랙리스트 삭제</button>

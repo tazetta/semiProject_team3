@@ -320,11 +320,14 @@ public class MemberListService {
 
 			MemberListDAO dao = new MemberListDAO();
 			MemberListDTO dto = dao.memberBlackDetail(blackidx);
+			ArrayList<MemberListDTO> reason = null;
 
 			if (dto != null) {
 				dao = new MemberListDAO();
+				reason= dao.reason(blackidx);
 				page = "memberBlackDetail.jsp";
 				req.setAttribute("dto", dto);
+				req.setAttribute("reason", reason);
 			}
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
