@@ -203,7 +203,7 @@ public class TripDAO {
 		try {
 			StringBuilder inSQL = new StringBuilder(); 
 			inSQL = appendSQL(localCode, inSQL);
-			String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
+			String insertSQL = " areaCode" + inSQL + " AND contentCode=?"; // type이 theme일 때
 			if (type.equals("area")) { // type이 area일 때
 				insertSQL = " cityCode" + inSQL + " AND areaCode = ?";
 			}

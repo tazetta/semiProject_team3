@@ -62,63 +62,54 @@ public class TripService {
 		String nav = req.getParameter("nav");
 		String[] localCode = req.getParameterValues("local");
 		String type = req.getParameter("type");
-		System.out.println("type : " + type);
-		System.out.println("page : " + pageParam);
-		System.out.println("nav : " + nav);
+		System.out.println("type : " + type + " / page : " + pageParam + " / nav : " + nav);
 
 		ArrayList<ContentDTO> contentList = null;
 		ArrayList<AreaDTO> areaList = null;
 		ArrayList<CityDTO> cityList = null;
-		if (localCode != null) {
-			try {
-				contentList = dao.contentList();
-				areaList = dao.areaList();
-				if (type.equals("area")) {
-					cityList = dao.cityList(nav);
-					req.setAttribute("cityList", cityList);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				dao.resClose();
-			}
-
-			int group = 1;
-			if (pageParam != null) {
-				group = Integer.parseInt(pageParam);
-			}
-			url.append("nav=" + nav);
-			url.append("&type=" + type);
-			for (int i = 0; i < localCode.length; i++) {
-				url.append("&local=" + localCode[i]);
-			}
-
-			dao = new TripDAO();
-			HashMap<String, Object> map = dao.resultList(group, nav, localCode, type);
-			System.out.println("map.get(maxpage) : " + map.get("maxPage"));
-
-			req.setAttribute("maxPage", map.get("maxPage"));
-			req.setAttribute("list", map.get("list"));
-			req.setAttribute("currPage", group);
-			req.setAttribute("url", url);
-			req.setAttribute("nav", nav);
-			req.setAttribute("contentList", contentList);
-			req.setAttribute("areaList", areaList);
-
-			String page = "contentResult.jsp";
+		
+		try {
+			contentList = dao.contentList();
+			areaList = dao.areaList();
 			if (type.equals("area")) {
-				page = "areaContentResult.jsp";
+				cityList = dao.cityList(nav);
+				req.setAttribute("cityList", cityList);
 			}
-
-			RequestDispatcher dis = req.getRequestDispatcher(page);
-			dis.forward(req, resp);
-		} else {
-			if (type.equals("theme")) {
-				resp.sendRedirect("themeContentList");
-			} else if (type.equals("area")) {
-				resp.sendRedirect("areaContentList");
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
 		}
+
+		int group = 1;
+		if (pageParam != null) {
+			group = Integer.parseInt(pageParam);
+		}
+		url.append("nav=" + nav);
+		url.append("&type=" + type);
+		for (int i = 0; i < localCode.length; i++) {
+			url.append("&local=" + localCode[i]);
+		}
+
+		dao = new TripDAO();
+		HashMap<String, Object> map = dao.resultList(group, nav, localCode, type);
+		System.out.println("map.get(maxpage) : " + map.get("maxPage"));
+
+		req.setAttribute("maxPage", map.get("maxPage"));
+		req.setAttribute("list", map.get("list"));
+		req.setAttribute("currPage", group);
+		req.setAttribute("url", url);
+		req.setAttribute("nav", nav);
+		req.setAttribute("contentList", contentList);
+		req.setAttribute("areaList", areaList);
+
+		String page = "contentResult.jsp";
+		if (type.equals("area")) {
+			page = "areaContentResult.jsp";
+		}
+
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 
 	public void areaContentList() throws ServletException, IOException {
@@ -152,14 +143,10 @@ public class TripService {
 		String searchType = req.getParameter("searchType");
 		String alignType = req.getParameter("alignType");
 		String pageParam = req.getParameter("page");
-		System.out.println("keyword : " + keyword);
-		System.out.println("searchType : " + searchType);
-		System.out.println("page : " + pageParam);
-
 		if (alignType == null) {
 			alignType = "bookmarkCnt";
 		}
-		System.out.println("alignType : " + alignType);
+		System.out.println("keyword : " + keyword + " / searchType : " + searchType + " / page : " + pageParam + " / alignType : " + alignType);
 
 		int group = 1;
 		if (pageParam != null) {
@@ -325,10 +312,12 @@ public class TripService {
 				tripNav = "99";
 			}
 			System.out.println("tripNav : " + tripNav);
+			
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
 			}
+			
 			HashMap<String, Object> tripMap = dao.tripManageList(group);
 
 			req.getSession().setAttribute("type", "manageList");
@@ -337,6 +326,7 @@ public class TripService {
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
+			
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
@@ -356,10 +346,12 @@ public class TripService {
 			System.out.println("isDeactivate : " + isDeactivate);
 			System.out.println("pageParam : " + pageParam + " / tripSearchType : " + searchType);
 			System.out.println("tripKeyword : " + keyword);
+			
 			int group = 1;
 			if (pageParam != null) {
 				group = Integer.parseInt(pageParam);
 			}
+			
 			HashMap<String, Object> tripMap = dao.tripSearch(group, keyword, searchType, isDeactivate);
 			String url = "keyword=" + keyword + "&searchType=" + searchType + "&deactivate=" + isDeactivate;
 
@@ -370,6 +362,7 @@ public class TripService {
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
+			
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
@@ -387,6 +380,7 @@ public class TripService {
 
 			req.setAttribute("currPage", page);
 			req.setAttribute("tripDTO", tripDTO);
+			
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageDetail.jsp");
 			dis.forward(req, resp);
 		} else {
@@ -423,7 +417,6 @@ public class TripService {
 				TripDetailDTO tripDTO = dao.tripManageDetail(contentId);
 
 				req.setAttribute("currPage", page);
-
 				req.setAttribute("contentList", contentList);
 				req.setAttribute("largeList", largeList);
 				req.setAttribute("mediumList", mediumList);
@@ -431,6 +424,7 @@ public class TripService {
 				req.setAttribute("areaList", areaList);
 				req.setAttribute("cityList", cityList);
 				req.setAttribute("tripDTO", tripDTO);
+				
 				RequestDispatcher dis = req.getRequestDispatcher("tripManageUpdateForm.jsp");
 				dis.forward(req, resp);
 			}
@@ -462,6 +456,7 @@ public class TripService {
 					+ " / " + address + " / " + title);
 			System.out.println(contentType + " / " + medium + " / " + small + " / " + area + " / " + city + " / "
 					+ large + " / " + overview + " / " + deactivate);
+
 			TripDTO tripDTO = new TripDTO();
 			tripDTO.setManagerId(managerId);
 			tripDTO.setContentId(Integer.parseInt(contentId));
@@ -479,8 +474,8 @@ public class TripService {
 			tripDTO.setOverview(overview);
 			tripDTO.setDeactivate(deactivate);
 			boolean success = dao.tripManageUpdate(tripDTO);
-			HashMap<String, Object> map = new HashMap<String, Object>();
 
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("success", success);
 			map.put("currPage", currPage);
 			Gson gson = new Gson();
@@ -500,6 +495,7 @@ public class TripService {
 			}
 			HashMap<String, Object> tripMap = dao.tripDeactivateFilter(group);
 			String url = "deactivate=TRUE";
+
 			req.getSession().setAttribute("type", "filter");
 			req.getSession().setAttribute("url", url);
 			req.setAttribute("url", url);
@@ -507,6 +503,7 @@ public class TripService {
 			req.setAttribute("tripList", tripMap.get("tripList"));
 			req.setAttribute("maxPage", tripMap.get("maxPage"));
 			req.setAttribute("currPage", group);
+			
 			RequestDispatcher dis = req.getRequestDispatcher("tripManageList.jsp");
 			dis.forward(req, resp);
 		} else {
