@@ -124,9 +124,9 @@ a {
 							href="boardDetail?boardIdx=${bbs.boardIdx}&page=1">${bbs.subject }</a></th>
 						<td>${bbs.reg_date }</td>
 						<td> 
-						<input type="button"  value="삭제"  class="del" />
-							<%-- <input type="hidden" name=currentList${status.boardIdx}  value="${bbs.boardIdx}"/>
-							<input type="button"  value="삭제" onclick="deletingList(currentList${status.boardIdx})" class="del" /> --%>
+							<input type="button"  value="삭제" onclick="deletingList(${bbs.boardIdx})" class="del" />  
+							
+						
 						</td>
 						
 					</tr>
@@ -162,23 +162,22 @@ if (msg != "") {
 
 <%request.removeAttribute("msg");%>
 
+/* var value = new Array();
+<c:forEach items="${list}" var="bbs">
+	value.push('${bbs.boardIdx}');
+</c:forEach>
+console.log(value[0]); */
 
 
-/* $(".del").click(function(){
+function deletingList(boardIdx){
+	console.log(boardIdx);
 	 if(confirm("정말로 삭제하시겠습니까?")){
-		 	location.href="wroteDel?boardIdx="+${bbs.boardIdx};
+		 
+		 	location.href="wroteDel?boardIdx="+boardIdx;
 		}else{
-			location.href="wroteList?boardIdx="+${bbs.boardIdx};
+			location.href="wroteList";
 		}
-}); */
-
-/* function deletingList(boardIdx){
-	 if(confirm("정말로 삭제하시겠습니까?")){
-		 	location.href="wroteDel?boardIdx="+boardIdx.value;
-		}else{
-			location.href="wroteList?boardIdx="+boardIdx.value;
-		}
-}; */
+};  
 	
 </script>
 </html>
