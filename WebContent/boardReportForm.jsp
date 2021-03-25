@@ -50,7 +50,7 @@
 				<td><textarea id="reason" name="reason" placeholder="신고사유를 입력하세요"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button>등록</button>
+				<td colspan="2"><input type="button" id ="regist" value="등록"/>
 				<input type="button" onclick=window.close() value="취소"/>
 				</td>
 			</tr>
@@ -59,6 +59,14 @@
 	</c:if>
 </body>
 <script>
+var $reason = $("#reason");
+$("#regist").click(function(){
+	if($reason.val()==""){
+		alert("신고사유를 입력해주세요");
+	}else{
+		$("form").submit();
+	}
+});
 var msg="${msg}";
 if(msg!=""){
 	alert(msg);

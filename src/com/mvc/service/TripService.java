@@ -295,7 +295,7 @@ public class TripService {
 				mediumList = dao.mediumList();
 				smallList = dao.smallList();
 				areaList = dao.areaList();
-				cityList = dao.cityList("0");
+				cityList = dao.cityList(null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -413,7 +413,7 @@ public class TripService {
 				mediumList = dao.mediumList();
 				smallList = dao.smallList();
 				areaList = dao.areaList();
-				cityList = dao.cityList("0");
+				cityList = dao.cityList(null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
