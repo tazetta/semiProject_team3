@@ -52,11 +52,11 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="subject" value="${dto.subject}" maxlength="100"/></td>
+				<td><input type="text" id="subject" name="subject" value="${dto.subject}" maxlength="100"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="content" maxlength="1000">${dto.content}</textarea></td>
+				<td><textarea name="content" id="content" maxlength="1000">${dto.content}</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -67,11 +67,23 @@
 				</td>
 			</tr>			
 			<tr>
-				<td colspan="2"><button>수정</button>
+				<td colspan="2"><input type="button" id="regist" value="수정"/>
 				<input type="button" id="cancel" onclick="location.href='./boardList'" value="취소"/>
 				</td>
 			</tr>
 		</table>
 	</form>
 </body>
+<script>
+var $subject = $("#subject");
+var $content = $("#content");
+$("#regist").click(function(){
+	if($subject.val()==""||$content.val()==""){
+		console.log($subject.val()+"/"+$content.val())
+		alert("제목과 내용을 모두 작성해주세요");
+	}else{
+		$("form").submit();
+	}
+});
+</script>
 </html>
