@@ -10,26 +10,28 @@
 <style>
 #memberList_main{
 	width: 900px;
-	height : 660px;
+	height : 445px;
 	margin: 0 508px;
 }
 
 #member {
 	border-collapse: collapse;
-	margin: 45px 0;
+	margin: 20px 0;
+	width: 800px;
 }
 
-th,td{
+#member th,td{
 	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 8px;
 	font-size: 14px;
 }
-
-td{
-	background-color: white;
+#member th {
+	padding: 8px;
 }
-
+#member td{
+	background-color: white;
+	padding: 12px;
+}
 
 #title {
 	background-color: gray;
@@ -46,6 +48,7 @@ td{
 	border:1px solid lightgray;
 	padding: 2px 10px;
 	margin:2px;
+	background-color: whitesmoke;
 }
 
 .genmem{
@@ -86,7 +89,7 @@ td{
 						<td>${member.name}</td>
 						<td>${member.phone}</td>
 						<td>${member.email}</td>
-						<td><a href="memberDetail?id=${member.id}">상세보기</a></td>
+						<td><a href="memberDetail?id=${member.id}"><b>상세보기</b></a></td>
 					</tr>
 				</c:forEach>
 			</table>
