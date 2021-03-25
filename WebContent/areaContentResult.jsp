@@ -85,7 +85,7 @@ a {
 div.chkBtn{
 	position: absolute;
 	top:36%;
-	right:53%;
+	right:47%;
 }
 .btn{
     border:#BDBDBD ;
@@ -125,6 +125,7 @@ div.chkBtn{
 			<input type="hidden" name="type" value="area" /> 
 		</div>
 			<div class = "chkBtn">
+				<input type="button" class="btn" onclick="allChk()" value="전체 선택">	
 				<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
 			</div>
 	</form>
@@ -187,12 +188,21 @@ div.chkBtn{
 					cnt++;
 				}
 		});
-		if(cnt > 3) {
-			alert('최대 3개까지 선택 가능합니다.');
-		} else if(cnt == 0){
+		if(cnt == 0){
 			alert('하나 이상을 선택해 주세요.');
 		} else{
 			$('form').submit();
+		}
+	}
+	
+	var isChecked = false;
+	function allChk(){
+		if(isChecked == false) {
+			$("input[name=local]").prop("checked",true);		
+			isChecked = true;
+		} else{
+			$("input[name=local]").prop("checked",false);		
+			isChecked = false;
 		}
 	}
 </script>
