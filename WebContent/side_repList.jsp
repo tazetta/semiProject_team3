@@ -49,12 +49,11 @@
 				padding: 10px;
 				z-index: 10;
 				float: left;
-				display: inline;
-				
 			}
 			.mid{
 				width: 100%;
 				min-width: 1000px;
+				margin-left: 5%;
 			}
 			#page {
 				text-align: center;

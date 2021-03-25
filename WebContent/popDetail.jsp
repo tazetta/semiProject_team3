@@ -12,6 +12,8 @@
 
 .pop_form {
 	text-align: center;
+    width: 300px;
+    margin: 3% 25%;
 }
 
 #popup_form {
@@ -26,10 +28,10 @@
 	width: 60%;
 }
 
-th, td {
+#popup_form th, td {
 	border: 1px solid lightgray;
 	text-align: center;
-	padding: 5px;
+	padding: 15px;
 	font-size: 14px;
 }
 
@@ -59,6 +61,15 @@ td {
 	padding: 6px 15px;
 	margin: 1px 0;
 }
+
+hr{
+    width: 130px;
+    border: 1px solid black;
+}
+
+h3{
+	margin: 0;
+}
 </style>
 </head>
 <body>
@@ -68,7 +79,7 @@ td {
 	<!--상단네비-->
 	<jsp:include page="navi_manager.jsp" />
 	<div class="pop_regist">
-	<div class="pop_form"><h3>팝업 상세보기</h3></div>
+	<div class="pop_form"><h3>팝업 상세보기</h3><hr/></div>
 		<table id="popup_form">
 			<tr id="p_title">
 				<th>등록관리자</th>
