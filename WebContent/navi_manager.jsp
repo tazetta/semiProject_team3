@@ -16,7 +16,7 @@ body {
   border-bottom: 1px solid #08444d;
   justify-content: center;
   align-items: center;
-  min-width: 1000px;
+  min-width: 1400px;
 }
 
 #m_navbar li {
