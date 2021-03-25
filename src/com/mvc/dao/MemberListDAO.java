@@ -306,8 +306,8 @@ public class MemberListDAO {
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
 		String sql = "SELECT blackidx, id, reason, reg_date, managerid, blackstatus FROM ("
-				+ "SELECT ROW_NUMBER() OVER(ORDER BY blackstatus DESC, blackidx DESC) "
-				+ "AS rnum, blackidx, id, reason, reg_date, managerid, blackstatus FROM blacklist) WHERE rnum BETWEEN ? AND ?";
+				+ "SELECT ROW_NUMBER() OVER(ORDER BY blackstatus DESC, blackidx DESC) AS rnum, blackidx, id, reason, reg_date, managerid, blackstatus "
+				+ "FROM blacklist where ROWID IN (select MAX(ROWID) from blacklist group by id)) WHERE rnum BETWEEN ? AND ?";
 
 		ArrayList<MemberListDTO> memberBlackList = new ArrayList<MemberListDTO>();
 		try {
@@ -369,10 +369,11 @@ public class MemberListDAO {
 				ps = conn.prepareStatement(black_sql);
 				ps.setString(1, dto.getId());
 
-				int cnt = 0;
-				if (ps.executeUpdate() > 0) {
-					cnt += 1;
-				}
+//				int cnt = 0;
+//				if (ps.executeUpdate() > 0) {
+//					cnt += 1;
+//					System.out.println(cnt);
+//				}
 				ps.executeUpdate();
 				success = true;
 			}
