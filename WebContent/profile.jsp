@@ -25,7 +25,7 @@ body {
 	width: 85%;
 }
 #content table,#content tr, #content td{
-	 border: 1px solid lightgray; 
+	 border: 1px solid #E6E6E6; 
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
@@ -34,7 +34,7 @@ body {
 
 th{
 width:150px;
-background-color: lightgray;
+background-color: #E6E6E6;
 	color: black;
 	border :1px solid white;
 }
