@@ -85,13 +85,13 @@
 							<c:if test="${com.reIdx eq reason.reIdx}">		
 								<br/>				
 								<table  class="inbody">
-									<tr style="background-color: coral;"  class="nowrap">
+									<tr>
 										<th style="width: 100px;">${com.id }</th>
-										<td>${com.content }</td>
+										<td style="text-align: left;">${com.content }</td>
 										<th>${com.reg_date }</th>
 										<th>신고수 / ${reason.repCnt }</th>
 										<c:if test="${reason.deactivate eq 'FALSE' }">
-											<th>
+											<th style="background-color: coral;">
 												블라인드 				
 												<select id="YN">
 													<option value="TRUE" ${com.deactivate eq 'TRUE' ? 'selected="selected"' : ""}>Y</option>

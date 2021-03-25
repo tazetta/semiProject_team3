@@ -15,14 +15,20 @@
         }
 		table{
             	width:700px;
+            	height:80px;
         }
 		fieldset{
                 padding: 20px 30px;
                 width: 700px;
+                height:300px;
                 margin: auto;
                 margin-top: 10%;
                 border: 1px solid white;
                 background-color: whitesmoke;
+        }
+        #btn{
+        		padding: 10px 25px;
+        		font-size: 15px;
         }
 
 	</style>
@@ -30,14 +36,18 @@
 		<fieldset>
             <div style="font-size : 25px">아이디 찾기</div>
             <br/>
+            <br/>
+            <br/>
+            <br/>
             <table>
                 <tr>
-                    <th style="background-color : blanchedalmond">아이디</th>
-                    <th>${findId}</th>
+                    <th style="background-color : blanchedalmond; font-size : 20px;">아이디</th>
+                    <th style="font-size: 20px;">${findId}</th>
                 </tr>
             </table>
             <div style="text-align: center; margin-top: 20px;">
-                <input type="button" onclick="location.href='./login.jsp'" value="확인"/>
+            <br/>
+                <input type="button" id="btn" onclick="location.href='./login.jsp'" value="확인"/>
             </div>
         </fieldset>
 	</body>

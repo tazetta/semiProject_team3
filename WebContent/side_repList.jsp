@@ -10,7 +10,7 @@
 			table,th,td{
 				border: 1px solid lightgray;
 				border-collapse: collapse;
-				padding: 5px;
+				padding: 15px 5px;;
 				text-align: center;
 			}
 			fieldset,p{			
@@ -30,10 +30,10 @@
 				padding: 5px 10px;
 			} 
 			.body{
-				margin-left: 20%;
+				margin-left:20%;
 				font-size: 10pt;
-				min-width: 900px;
-				max-width: 900px;
+				min-width: 700px;
+				width:60%;
 			}
 			.comtent{
 				height: 300px;				
@@ -54,9 +54,14 @@
 			}
 			.mid{
 				width: 100%;
-				min-width: 900px;		
+				min-width: 1000px;
 			}
-
+			#page {
+				text-align: center;
+				margin-top: 10px;
+				font-size: 12pt;
+				font-weight: bold;
+			}
 			a {
 				text-decoration: none;
 				font-size: 90%;
@@ -78,6 +83,11 @@
 			.nowrap{
 				white-space: nowrap;
 			}
+			
+			.header{
+				background-color: gray;
+				color: white;
+			}
 </style>
 </head>
 <body>
@@ -91,7 +101,6 @@
 			</tr>
 		</table>
 	</div>
-
 </body>
 <script>
 </script>

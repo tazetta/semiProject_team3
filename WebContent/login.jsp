@@ -10,6 +10,7 @@
             table{
                 margin: auto;
                 margin-top: 15%;
+                width : 500px;
             }
             table,th,td{
                 border: 1px solid black;
@@ -25,6 +26,19 @@
                 border: 1px solid white;
                 background-color: whitesmoke;
             }
+            #send{
+            	font-size : 15px;
+            	padding: 15px 20px;
+            	margin-left: 10%;
+            }
+            input[type='text']{
+                width: 90%;
+                height: 25px;
+        	}
+        	input[type='password']{
+                width: 90%;
+                height: 25px;
+        	}
         </style>
 	</head>
 	<body>
@@ -33,24 +47,25 @@
         <form action="login" method="post">
 	        <table>
 	                <tr>
-	                    <th style="background-color : purple">아이디</th>
+	                    <th style="background-color : midnightblue; color : white;">아이디</th>
 	                    <td>
 	                        <input type="text" name="userId" maxlength="12" placeholder="아이디"/>
 	                    </td>
-	                    <td rowspan="2">
+	                    <td rowspan="2" style="border: 1px solid whitesmoke;">
 	                        <input type="submit" id="send" value="로그인"/>
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <th style="background-color : purple">비밀번호</th>
+	                    <th style="background-color : midnightblue; color : white;">비밀번호</th>
 	                    <td>
 	                        <input type="password" name="userPw" maxlength="20" placeholder="비밀번호"/>
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <td colspan="3">
+	                    <td colspan="3" style="border : 1px solid whitesmoke;">
 	                        <input type="button" onclick="location.href='joinForm.jsp'" value="회원가입"/>
 	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
+	                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                        <input type="button" onclick="location.href='index.jsp'" value="메인으로"/>
 	                    </td>
 	                </tr>

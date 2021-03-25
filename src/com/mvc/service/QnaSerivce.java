@@ -175,11 +175,10 @@ public class QnaSerivce {
 			if(isManager()) {
 				page="qnaList";
 			}
-			if(dto!=null && isManager()) {
-				msg="";
-				page="qnaDetail.jsp";
-				req.setAttribute("dto", dto);
-			}else if(dto!=null && loginId.equals(dto.getId())) {
+			/*
+			 * if(dto!=null && isManager()) { msg=""; page="qnaDetail.jsp";
+			 * req.setAttribute("dto", dto); }else
+			 */if(dto!=null && loginId.equals(dto.getId())||dto!=null && isManager()) {
 				msg="";
 				page="qnaDetail.jsp";
 				req.setAttribute("dto", dto);

@@ -51,7 +51,7 @@ a:visited {
 div.chkBtn{
 	position: absolute;
 	top:30%;
-	right:53%;
+	right:47%;
 }
 .btn{
     border:#BDBDBD ;
@@ -72,6 +72,7 @@ div.chkBtn{
 		</c:forEach>
 	</div>
 
+<!-- 	<form action="resultList" method="get" onsubmit="return false"> -->
 	<form action="resultList" method="get">
 		<div class="areaList">
 			<c:forEach items="${areaList}" var="area" varStatus="status">
@@ -90,7 +91,8 @@ div.chkBtn{
 		<input type="hidden" name="nav" value="${nav}" />
 		<input type="hidden" name="type" value="theme" />
 		<div class = "chkBtn">
-			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
+			<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택">
+			<input type="button" class="btn" onclick="minChkBox()" value="검색" />
 		</div>
 	</form>
 </body>
@@ -105,23 +107,30 @@ div.chkBtn{
 		    $(this).css({'font-weight':'1'});
 	});
 	
-	function maxChkBox(){
+	function minChkBox(){
 		var cnt = 0;
 		$('input[type="checkbox"]').each(function(idx, item){
-			
 			if($(this)[0].checked){
 					cnt++;
 				}
 		});
-		if(cnt > 3) {
-			alert('최대 3개까지 선택 가능합니다.');
-		} else if(cnt == 0){
+		if(cnt == 0){
 			alert('하나 이상을 선택해 주세요.');
 		} else{
-		
 			$('form').submit();
 		}
-		
+	}
+	var isChecked = false;
+	function allChk(){
+		if(isChecked == false) {
+			$("input[name=local]").prop("checked",true);		
+			$("#allBtn").val("전체해제");
+			isChecked = true;
+		} else{
+			$("input[name=local]").prop("checked",false);		
+			$("#allBtn").val("전체선택");
+			isChecked = false;
+		}
 	}
 </script>
 </html>

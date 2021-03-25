@@ -8,9 +8,7 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<style>		
-		#page {
-			text-align: center;
-		}
+		
 		#click{
 			color: blue;
 			font-weight: bold;
@@ -31,14 +29,14 @@
 		<br/>
 		<table class="body">
 			<tr class="nowrap">
-				<td style="border-color: white;border-bottom-color: lightgray;" colspan="6">
+				<td style="border-color: white;border-bottom-color: lightgray;" colspan="7">
 					<select id="pros" onchange=processing()>
 						<option value="A"  ${deactivate eq 'FALSE' ? 'selected="selected"' : '' }>미처리 내역</option>
 						<option value="B"${deactivate eq 'TRUE' ? 'selected="selected"' : '' }>처리 내역</option>
 					</select>
 				</td>
 			</tr>
-			<tr class="nowrap">
+			<tr class="nowrap header">
 				<th>신고 no.</th>
 				<th>신고게시물</th>
 				<th>신고자</th>
@@ -66,19 +64,20 @@
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="5" style="border: 1px solid white;"><c:if
+				<td colspan="7" style="border: 1px solid white;"><c:if
 						test="${list eq '[]'}">
 						<p style="text-align: center;">신고 된 게시글이 없습니다.</p>
 					</c:if>
 					<div id="page">
 						<span>
-							<c:if test="${currPage==1}"></c:if> <c:if test="${currPage>1}">
+							<c:if test="${currPage==1}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
+							<c:if test="${currPage>1}">
 								<a href='./reportBBS?page=${currPage-1}&deactivate=${deactivate}'>이전</a>
 							</c:if>
 						</span>
-						<span>${currPage}</span>
+						<span>&nbsp;&nbsp;${currPage}&nbsp;&nbsp;</span>
 						<span>
-							<c:if test="${currPage == maxPage}"></c:if>
+							<c:if test="${currPage == maxPage}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
 							<c:if  test="${currPage < maxPage}">
 								<a href="./reportBBS?page=${currPage+1}&deactivate=${deactivate}">다음</a>
 							</c:if>
