@@ -20,6 +20,7 @@
 		text-align: center;
 		padding : 5px 10px;
 	}
+	
 	#total{
 		margin-left:10%;
 		border:0px solid black;
