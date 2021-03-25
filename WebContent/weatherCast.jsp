@@ -9,63 +9,65 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 #div1 {
-	/* border: 1px solid black; */
-	border-collapse: collapse;
-	padding: 5px 10px;
-	width: 250px;
-	/* position: absolute; */
-}
+		/* border: 1px solid black; */
+		border-collapse: collapse;
+		padding: 5px 10px;
+		width: 250px;
+		/* position: absolute; */
+	}
 
 #div2 {
-	/* border: 1px solid black; */
-	border-collapse: collapse;
-	padding: 5px 10px;
-	width: 250px;
-	/* position: absolute;
-	left: 329px; */
-}
+		/* border: 1px solid black; */
+		border-collapse: collapse;
+		padding: 5px 10px;
+		width: 250px;
+		/* position: absolute;
+		left: 329px; */
+	}
 
 #div3 {
-	/* border: 1px solid black; */
-	border-collapse: collapse;
-	padding: 5px 10px;
-	width: 250px;
-	/* position: absolute;
-	left: 650px; */
-}
+		/* border: 1px solid black; */
+		border-collapse: collapse;
+		padding: 5px 10px;
+		width: 250px;
+		/* position: absolute;
+		left: 650px; */
+	}
 
 #area,#div1, #div2, #div3 {
-	float: left;
-	margin:5px;
-
-}
+		float: left;
+		margin:5px;
+		margin-bottom: 50px;
+	}
 
 #area{
-	height:30px;
-	background-color:gray;
-	color:white;
-	border-radius:5px;
-	padding:5px 10px;
-}
+		height:30px;
+		background-color:gray;
+		color:white;
+		border-radius:5px;
+		padding:5px 10px;
+	}
 
  #weather {
-	width: 50px;
-	height: 50px;
-}
+		width: 50px;
+		height: 50px;
+	}
  
 #weatherS{
-text-align:center;
-	position:relative;
-	top:20px;
-	margin:0 auto;
-	/* border: 1px solid black; */
-	width :60vw;
-	height:600px;
-}
+		text-align:center;
+		margin:0 auto;
+		/* border: 1px solid black; */
+		/* width :60vw; */
+		width : 80%;
+	}
 
 p{
-	padding-top:5px;
-}
+		padding-top:5px;
+	}
+#TMX0,#TMX1,#TMX2{
+		font-size:  14pt;
+		font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -78,7 +80,7 @@ p{
 		<option value="광주">광주</option>
 		<option value="대전">대전</option>
 		<option value="울산">울산</option>
-		<option value="세종특별자치시">세종특별자치시</option>
+		<option value="세종특별자치시">세종시</option>
 		<option value="경기도">경기도</option>
 		<option value="강원도">강원도</option>
 		<option value="충청북도">충청북도</option>
