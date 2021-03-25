@@ -20,6 +20,7 @@ public class MemberDAO {
 	Connection conn = null; // DB연결시 사용될 변수
 	PreparedStatement ps = null; // DB재사용시 사용될 변수
 	ResultSet rs = null; // SELECT문 실행시 사용될 변수
+	
 
 	/* DB연결 메서드 */
 	public MemberDAO() { // 클래스 객체화시 호출되는 생성자
@@ -55,10 +56,12 @@ public class MemberDAO {
 
 		boolean success = false;
 		try {
-			String sql = "SELECT id FROM member WHERE id=? AND pw=? AND withdraw='FALSE'";
+			String sql = "SELECT id FROM member WHERE id = ? AND pw =? AND withdraw = 'FALSE' AND " + 
+					"(SELECT count(blackidx) FROM blacklist where id = ? AND blackstatus='TRUE')<=0";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, pw);
+			ps.setString(3, id);
 			rs = ps.executeQuery();
 
 //			ResultSet rs2 = ps.executeQuery();
@@ -78,6 +81,8 @@ public class MemberDAO {
 				}
 
 			}
+
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -462,5 +467,7 @@ public class MemberDAO {
 		return success;
 
 	}
+
+
 
 }
