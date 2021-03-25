@@ -137,15 +137,15 @@
  			  });
  			});
  		
-/*  		//이름에 한글 입력안되게(영어 숫자만)
+  		//이름에 특수문자 숫자 입력안되게(영어 숫자만)
  		$(document).ready(function(){
  			  $("input[name=userName]").keyup(function(event){ 
  			   if (!(event.keyCode >=37 && event.keyCode<=40)) {
  			    var inputVal = $(this).val();
- 			    $(this).val(inputVal.replace(/[^ㄱ-힣]/gi,''));
+ 			    $(this).val(inputVal.replace(/[^a-zㄱ-힣]/gi,''));
  			   }
  			  });
- 			}); */
+ 			}); 
  		
  		//pw에 한글 입력안되게(영어 숫자 특수문자만)
  		$(document).ready(function(){

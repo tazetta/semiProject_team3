@@ -8,7 +8,7 @@
 <title>테마별</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-div.contentList {
+/* div.contentList {
 	position: absolute;
 	top: 20%;
 }
@@ -39,7 +39,7 @@ div.areaList {
 	top: 15%;
 }
 
-a:link {
+ a:link {
 	color: black;
 	text-decoration: none;
 }
@@ -62,27 +62,13 @@ table, th, td {
 	width: 50%;
 }
 
-.pageArea {
-	width: 100%;
-	text-align: center;
-	margin: 10px;
-}
 
-.pageArea span {
-	font-size: 16px;
-	border: 1px solid lightgray;
-	padding: 2px 10px;
-	color: gray;
-}
 
 a {
 	text-decoration: none;
 }
 
-#page {
-	font-weight: 600;
-	color: red;
-}
+
 
 div.chkBtn {
 	position: absolute;
@@ -95,13 +81,104 @@ div.chkBtn {
     background-color:#D8D8D8;
     font-weight: 600;
 	padding: 20px 40px;
+} */
+div.contentList {
+	float: left;
+	margin-left: 3%;
 }
+
+div.content {
+	padding: 0px 15px;
+	border: 1px solid black;
+	width: 120px;
+	height: 30px;
+	text-align: center;	
+}
+
+div.clear {
+	clear: left;
+	border: 1px solid black;
+}
+
+div.areaList>div {
+	float: left;
+	border: 1px solid black;
+	padding: 5px 5px;
+	width: 140px;
+}
+
+div.areaList {
+}
+
+/*  a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+} 
+ */
+ #page {
+	font-weight: 600;
+	color: red;
+}
+.pageArea {
+	width: 100%;
+	text-align: center;
+	margin: 10px;
+}
+
+.pageArea span {
+	font-size: 16px;
+	border: 1px solid lightgray;
+	padding: 2px 10px;
+	color: gray;
+}
+div.chkBtn{
+	text-align: center;
+	margin-top: 15px;
+
+}
+.btn{
+    border:#BDBDBD ;
+    background-color:#D8D8D8;
+    font-weight: 600;
+	padding:20px 40px;
+}
+.mid{
+	min-width: 600px;
+	width: 800px;
+	margin-left:20%;
+}
+.areabody{
+	margin-top: 25px;
+	width: 100%;
+	min-width: 1000px;
+	margin-left: 5%;
+}
+
+.result, .result th, .result td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 10px 20px;
+	text-align: center;
+	margin-left: 20%;
+	margin-top: 20px;
+}
+.result{
+	width: 70%;
+	max-width: 800px;
+}
+
 </style>
 </head>
 <body>
-	<jsp:include page="top.jsp" />
+		<jsp:include page="top.jsp" />
 	<jsp:include page="navi.jsp" />
-
+	
+	<div class="areabody">
 	<div class="contentList">
 		<c:forEach items="${contentList}" var="content">
 			<div class="content" id="${content.contentCode}">
@@ -110,29 +187,44 @@ div.chkBtn {
 		</c:forEach>
 	</div>
 
+
+<!-- 	<form action="resultList" method="get" onsubmit="return false"> -->
 	<form action="resultList" method="get">
-		<div class="areaList">
-			<c:forEach items="${areaList}" var="area" varStatus="status">
-				<c:if test="${status.index % 5 == 0}">
-					<div class="clear">
-						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+		<table class="mid">
+			<tr>
+				<td>
+					<div class="areaList">
+						<c:forEach items="${areaList}" var="area" varStatus="status">
+							<c:if test="${status.index % 5 == 0}">
+								<div class="clear">
+									<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+								</div>
+							</c:if>
+							<c:if test="${status.index % 5 != 0}">
+								<div>
+									<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
-				</c:if>
-				<c:if test="${status.index % 5 != 0}">
-					<div>
-						<input type="checkbox" name="local" value="${area.areaCode}">${area.name}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class = "chkBtn">
+						<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택">
+						<input type="button" class="btn" onclick="minChkBox()" value="검색" />
 					</div>
-				</c:if>
-			</c:forEach>
-			<input type="hidden" name="nav" value="${nav}" /> <input
-				type="hidden" name="type" value="theme" />
-		</div>
-		<div class="chkBtn">
-			<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">
-			<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
-		</div>
+				</td>
+			</tr>
+		</table>
+		
+		<input type="hidden" name="nav" value="${nav}" />
+		<input type="hidden" name="type" value="theme" />
+		
 	</form>
-	<table>
+	
+	<table class="result">
 		<tr>
 			<th>사진</th>
 			<th>제목</th>
@@ -150,30 +242,30 @@ div.chkBtn {
 				<td>${result.bookmarkCnt}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="4" style="border-color: white;">
+				<div class="pageArea">
+					<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
+							test="${currPage > 1}">
+							<a href="./resultList?${url}&page=${currPage-1}">이전</a>
+						</c:if>
+					</span> <span id="page"> ${currPage} </span> <span> <c:if
+							test="${currPage == maxPage}">다음</c:if> <c:if
+							test="${currPage < maxPage}">
+							<a href="./resultList?${url}&page=${currPage+1}">다음</a>
+						</c:if>
+					</span> <span>${currPage}/${maxPage}</span>
+				</div>			
+			</td>
+		</tr>
 	</table>
-	<div class="pageArea">
-		<span> <c:if test="${currPage == 1}">이전</c:if> <c:if
-				test="${currPage > 1}">
-				<a href="./resultList?${url}&page=${currPage-1}">이전</a>
-			</c:if>
-		</span> <span id="page"> ${currPage} </span> <span> <c:if
-				test="${currPage == maxPage}">다음</c:if> <c:if
-				test="${currPage < maxPage}">
-				<a href="./resultList?${url}&page=${currPage+1}">다음</a>
-			</c:if>
-		</span> <span>${currPage}/${maxPage}</span>
-	</div>
+</div>	
 </body>
 <script>
 	$(document).ready(function() {
 		$("div#"+${nav}).css({"background-color" : "lightgray","font-weight":"600"});
 	});
 	
-	$('a').hover(function(){
-		   $(this).css({'font-weight':'600'});
-	},function(){
-		    $(this).css({'font-weight':'1'});
-	});
 	
 	function maxChkBox(){
 		var cnt = 0;

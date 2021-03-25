@@ -262,9 +262,9 @@ public ReportDAO() {
 				}
 			}
 			//신고 내역 부터 처리
-			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=? WHERE bbsrepidx=?";
+			String sql = "UPDATE bbsrep SET deactivate="+midSql+" , managerid=?,update_date=sysdate  WHERE bbsrepidx=?";
 			if(dto.getType().equals("2")) {
-				sql="UPDATE commentrep SET deactivate="+midSql+" , managerid=? WHERE commentrepidx=?";
+				sql="UPDATE commentrep SET deactivate="+midSql+" , managerid=?,update_date=sysdate WHERE commentrepidx=?";
 			}
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, managerid);
@@ -302,9 +302,9 @@ public ReportDAO() {
 				+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
 				+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		if(deactivate.equals("TRUE")) {
-			sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid FROM"
-					+ "(SELECT ROW_NUMBER() OVER(ORDER BY r.bbsrepidx DESC) AS rnum "
-					+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid "
+			sql = "SELECT boardidx,bid,reason,deactivate, bbsrepidx ,managerid,rid ,update_date FROM"
+					+ "(SELECT ROW_NUMBER() OVER(ORDER BY r.update_date DESC) AS rnum "
+					+ ",b.boardidx,b.id AS bid,r.reason,b.deactivate, r.bbsrepidx,r.managerid,r.id AS rid ,r.update_date "
 					+ "FROM bbsrep r, bbs b  WHERE r.boardidx=b.boardidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 		}
 		if(type.equals("2")) {
@@ -313,9 +313,9 @@ public ReportDAO() {
 					",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
 					"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 			if(deactivate.equals("TRUE")) {
-				sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid FROM" + 
-						"(SELECT ROW_NUMBER() OVER(ORDER BY r.commentrepidx DESC) AS rnum " + 
-						",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid  " + 
+				sql = "SELECT reidx,bid,reason,deactivate, commentrepidx ,managerid, boardIdx,rid,update_date FROM" + 
+						"(SELECT ROW_NUMBER() OVER(ORDER BY r.update_date DESC) AS rnum " + 
+						",b.reidx,b.id AS bid,r.reason,b.deactivate, r.commentrepidx,r.managerid, b.boardIdx,r.id AS rid ,r.update_date " + 
 						"FROM commentrep r, bbs_comment b  WHERE r.reidx=b.reidx AND  r.DEACTIVATE=?) WHERE rnum BETWEEN ? AND ?";
 			}
 		}		

@@ -23,7 +23,7 @@ div.bar {
 	align-items: center;
 	margin-top: 10px;
 	width: 100%;
-	min-width: 1000px;
+	min-width: 1400px;
 	/* z-index:10; */
 }
 

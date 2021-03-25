@@ -53,7 +53,8 @@ b {
 
 #close {
 	background-color: white;
-	vertical-align : bottom;
+	vertical-align: bottom;
+	margin-top: 19%;
 }
 
 .closebtn {
@@ -90,16 +91,17 @@ hr {
 	<c:if test="${dto.subject ne null }">
 		<div id="popup">
 			<div id="popupMain">
-				<div>
-					<h3 style="padding:40px 0 20px;">${dto.subject}</h3>
-					<hr />
-					<div style="padding: 20px; margin-bottom: 120px">${dto.content}</div>
-				</div>
-				<div id="close">
-					<a href="#" onclick="TodayPopup()"><b>오늘 하루동안 열지않기</b></a>
-					<button class="closebtn" onclick="closePopup()" />닫기</button>
-				</div>
+				<h3 style="padding: 40px 0 20px;">${dto.subject}</h3>
+				<hr />
+				<div style="padding: 20px;">${dto.content}</div>
+
+			<div id="close">
+				<a href="#" onclick="TodayPopup()"><b>오늘 하루동안 열지않기</b></a>
+				<button class="closebtn" onclick="closePopup()" />
+				닫기
+				</button>
 			</div>
+						</div>
 		</div>
 	</c:if>
 </body>

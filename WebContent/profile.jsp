@@ -25,7 +25,7 @@ body {
 	width: 85%;
 }
 #content table,#content tr, #content td{
-	 border: 1px solid #E6E6E6; 
+	 /* border: 1px solid #E6E6E6;  */
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
@@ -33,10 +33,10 @@ body {
 }
 
 th{
-width:150px;
-background-color: #E6E6E6;
+/* width:150px; */
+/* background-color: #E6E6E6; */
 	color: black;
-	border :1px solid white;
+	/* border :1px solid white; */
 }
 	
 span {
@@ -46,6 +46,7 @@ span {
 }
 
 table#profile {
+
 	background-color: white;
 	position: relative;
 	top: 80px;
@@ -53,6 +54,11 @@ table#profile {
 	width: 500px;
 	clear: both;
 	
+}
+
+tbody{
+/*  border: 1px solid lightgray; */
+ padding:10px;
 }
 
 
@@ -75,8 +81,8 @@ table#profile {
 			<span>회원정보</span>
 
 			<table id="profile">
-				<tr>
-					<th>아이디</th>
+				<tr style="border-top:1px solid #D8D8D8;">
+					<th >아이디</th>
 					<td>${sessionScope.loginId}</td>
 				</tr>
 				<tr>
@@ -91,12 +97,12 @@ table#profile {
 					<th>이메일</th>
 					<td>${profile.email}</td>
 				</tr>
-				<tr>
-					<td colspan="2" style="border: none">
+				<tr style="border-top:1px solid #D8D8D8;">
+					<td colspan="2" style="padding-top:30px;">
 						<button onclick="location.href='memberUpdateForm'">회원정보 수정</button>
 						<button onclick="location.href='pwUpdate.jsp'">비밀번호 변경</button>
 					</td>
-				</tr>
+				</tr >
 			</table>
 			<button id="wd" onclick="location.href='memberWithdraw.jsp'">회원탈퇴</button>
 		</div>

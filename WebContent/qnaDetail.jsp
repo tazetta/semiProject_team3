@@ -65,7 +65,7 @@ span {
 				
 			</tr>
 			<tr>
-				<td colspan="2" style="padding-top:10px;padding-bottom:60px;"><hr/>${dto.content}</td>
+				<td colspan="2" style="padding-top:10px;padding-bottom:60px;"><hr/><span>문의내용</span><br/><br/>${dto.content}</td>
 			</tr>
 
 			<tr>
