@@ -8,7 +8,7 @@
 <title>여행지 추가</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-table, th, td {
+/* table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 	padding: 10px 20px;
@@ -44,10 +44,6 @@ table, th, td {
 	text-align: center;
 }
 
-.button {
-	text-align: center;
-}
-
 div.tripManageList {
 	position: absolute;
 	top: 20%;
@@ -61,16 +57,10 @@ div.tripManageName {
 	text-align: center;
 }
 
-textarea {
-	width: 100%;
-	height: 150px;
-	resize: none;
-}
-input{
-	width:100%;
-}
-.select{
-	width:100%;
+*/
+
+.tripAdd{
+	background-color: lightgray;
 }
 </style>
 </head>
@@ -78,17 +68,11 @@ input{
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi_manager.jsp" />
 
-	<div class="tripManageList">
-		<div class="tripManageName" id="99">
-			<a href="./tripManageList?tripNav=99">여행지 목록</a>
-		</div>
-		<div class="tripManageName" id="100">
-			<a href="./tripInsertInformation?tripNav=100">여행지 저장</a>
-		</div>
-	</div>
-	<div>
+	<jsp:include page="side_tripList.jsp"/>
+
+	<div  class="tripBody">
 		<form name="form">
-			<table>
+			<table  class="midBody">
 				<tr>
 					<th>관리자 아이디</th>
 					<td><input type="text" id="managerId"
@@ -96,15 +80,18 @@ input{
 				</tr>
 				<tr>
 					<th>contentId</th>
-					<td><input type="number" id="contentId" min="1"
-						placeholder="1 이상의 숫자" /> <input type="button" id="overlay"
-						value="contentId 체크" /></td>
+					<td>
+						<input type="number" id="contentId" min="1" placeholder="1 이상의 숫자" /> 
+						<input type="button" id="overlay" value="contentId 체크" />
+					</td>
 				</tr>
 				<tr>
 					<th>이미지 URL</th>
-					<td><input type="text" id="firstImage"
-						placeholder="이미지 URL" /></td>
-						<td><img id="img" /></td>
+					<td>
+						<input type="text" id="firstImage" placeholder="이미지 URL" />
+						</br>
+						<img id="img" />
+					</td>
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -174,12 +161,16 @@ input{
 					<th>상세설명</th>
 					<td><textarea id="overview"></textarea></td>
 				</tr>
+				<tr>
+					<td colspan="2"class="button">
+						<div>
+							<input type="button" id="btn" value="저장"/>
+							<input type="button"  onclick="location.href='./tripManageList'" value="목록보기"/>
+						</div>
+					</td>
+				</tr>
 			</table>
 		</form>
-		<div class="button">
-			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManageList'">목록보기</button>
-		</div>
 	</div>
 </body>
 <script>

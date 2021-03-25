@@ -8,7 +8,7 @@
 <title>여행지 수정</title>
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
-table, th, td {
+/* table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 	padding: 10px 20px;
@@ -73,24 +73,17 @@ textarea {
 }
 .select{
 	width:100%;
-}
+} */
 </style>
 </head>
 <body>
 	<jsp:include page="top.jsp" />
 	<jsp:include page="navi_manager.jsp" />
-
-	<div class="tripManageList">
-		<div class="tripManageName">
-			<a href="./tripManageList">여행지 목록</a>
-		</div>
-		<div class="tripManageName">
-			<a href="./tripInsertInformation">여행지 저장</a>
-		</div>
-	</div>
-	<div>
+	<jsp:include page="side_tripList.jsp"/>
+	
+	<div  class="tripBody">
 		<form name="form">
-			<table>
+			<table class="midBody">
 				<tr>
 					<th>관리자 아이디</th>
 					<td><input type="text" id="managerId" value="${sessionScope.loginId}" readonly /></td>
@@ -101,9 +94,11 @@ textarea {
 				</tr>
 				<tr>
 					<th>이미지 URL</th>
-					<td><input type="text" id="firstImage"
-						value="${tripDTO.firstImage}" /></td>
-						<td><img id="img" src="${tripDTO.firstImage}" width="100px" height="100px"/></td>
+					<td>
+						<input type="text" id="firstImage" value="${tripDTO.firstImage}" /></br>
+						<img id="img" src="${tripDTO.firstImage}" width="100px" height="100px"/>
+					</td>
+						
 				</tr>
 				<tr>
 					<th>위도</th>
@@ -182,12 +177,16 @@ textarea {
 						</select>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2"class="button">
+						<div>
+							<input type="button" id="btn" value="저장"/>
+							<input type="button"  onclick="location.href='./tripManageList'" value="목록보기"/>
+						</div>
+					</td>
+				</tr>
 			</table>
-		</form>
-		<div class="button">
-			<button id="btn">저장</button>
-			<button onclick="location.href='./tripManageDetail?contentId=${tripDTO.contentId}&page=${currPage}'">취소</button>
-		</div>
+		</form>		
 	</div>
 </body>
 <script>
