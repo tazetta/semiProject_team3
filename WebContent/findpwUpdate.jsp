@@ -15,6 +15,7 @@
         }
 		table{
             	width:500px;
+            	height : 100px;
         }
 		fieldset{
                 padding: 20px 30px;
@@ -31,7 +32,9 @@
 	<body>
 		<form action="findpwUpdate?id=${id}" method="POST">
 		<fieldset>
-            <div>비밀번호 재설정</div>
+            <div style="font-size : 25px; font-weight: bold;">비밀번호 재설정</div>
+            <br/>
+            <br/>
             <table>
                 <tr>
                     <th style="background-color : blanchedalmond">비밀번호</th>
