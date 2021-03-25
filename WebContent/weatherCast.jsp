@@ -186,50 +186,50 @@ p{
 	function skyState(sky) {
 		var image = "";
 		switch (sky) {
-		case "맑음":
-			image = "./WeatherIcon/맑음.png";
-			break;
-		case "구름많음":
-			image = "./WeatherIcon/구름많음.png";
-			break;
-		case "흐림":
-			image = "./WeatherIcon/흐림.png";
-			break;
-		}
+			case "맑음":
+				image = "./WeatherIcon/맑음.png";
+				break;
+			case "구름많음":
+				image = "./WeatherIcon/구름많음.png";
+				break;
+			case "흐림":
+				image = "./WeatherIcon/흐림.png";
+				break;
+			}
 		return image;
 	}
 
 	function ptyState(pty) {
 		var image = "";
 		switch (pty) {
-		case "비":
-			image = "./WeatherIcon/비.png";
-			break;
-
-		case "비/눈":
-			image = "./WeatherIcon/눈비.png";
-			break;
-
-		case "눈":
-			image = "./WeatherIcon/눈.png";
-			break;
-
-		case "소나기":
-			image = "./WeatherIcon/소나기.png";
-			break;
-
-		case "빗방울":
-			image = "./WeatherIcon/비.png";
-			break;
-
-		case "빗방울/눈날림":
-			image = "./WeatherIcon/눈비.png";
-			break;
-
-		case "눈날림":
-			image = "./WeatherIcon/눈.png";
-			break;
-		}
+			case "비":
+				image = "./WeatherIcon/비.png";
+				break;
+	
+			case "비/눈":
+				image = "./WeatherIcon/눈비.png";
+				break;
+	
+			case "눈":
+				image = "./WeatherIcon/눈.png";
+				break;
+	
+			case "소나기":
+				image = "./WeatherIcon/소나기.png";
+				break;
+	
+			case "빗방울":
+				image = "./WeatherIcon/비.png";
+				break;
+	
+			case "빗방울/눈날림":
+				image = "./WeatherIcon/눈비.png";
+				break;
+	
+			case "눈날림":
+				image = "./WeatherIcon/눈.png";
+				break;
+			}
 		return image;
 	}
 </script>
