@@ -67,7 +67,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><button id="regist">등록</button>
+				<td colspan="2"><input type="button" id="regist" value="등록"/>
 				<input type="button" id="cancel" onclick="location.href='./boardList'" value="취소"/>
 				</td>
 			</tr>
@@ -75,6 +75,17 @@
 	</form>
 </body>
 <script>
+var $subject = $("#subject");
+var $content = $("#content");
+$("#regist").click(function(){
+	if($subject.val()==""||$content.val()==""){
+		console.log($subject.val()+"/"+$content.val())
+		alert("제목과 내용을 모두 작성해주세요");
+	}else{
+		$("form").submit();
+	}
+});
+
 var msg="${msg}";
 if(msg!=""){
 	alert(msg);

@@ -11,17 +11,19 @@
 <!-- JQuery사용 위해 불러옴 -->
 <style>
 body {
-	
+	font-family: "NanumGothic"; 
 }
 /*콘텐츠*/
 #content {
-	/* background-color: #F2F2F2; */
+	/*  background-color: lightgray; */
 	position: relative;
+	border-left:1px solid lightgray;
+	border-right:1px solid lightgray;
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 90%;
-	height: 600px;
+	width: 70%;
+	 height: 700px;
 }
 
 table, th, td {
@@ -35,7 +37,7 @@ table#qna {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 60%;
+	width: 80%;
 	clear: both;
 }
 
@@ -98,7 +100,6 @@ $("#del").click(function(){
 			}else{
 				location.href="qnaDetail?qnaIdx="+${dto.qnaIdx};
 			}
-	 
 });
 	</script>
 </html>

@@ -8,32 +8,34 @@
 <title>탈퇴 회원정보 리스트</title>
 </head>
 <style>
-#memberList_main{
+#memberList_main2 {
 	width: 900px;
-	height : 660px;
-	margin: 0 508px;
+	height: 445px;
+	margin: 128px 508px 0 508px;
 }
 
 #member {
 	border-collapse: collapse;
-    margin-top: 13%;
-	
+	margin: 20px 0;
+	width: 800px;
 }
 
-th,td{
+#member th,td{
 	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 8px;
 	font-size: 14px;
 }
-
-td{
+#member th {
+	padding: 8px;
+}
+#member td{
 	background-color: white;
+	padding: 12px;
 }
 
 #title {
 	background-color: gray;
-	color : white;
+	color: white;
 }
 
 #delpage{
@@ -46,6 +48,7 @@ td{
 	border:1px solid lightgray;
 	padding: 2px 10px;
 	margin:2px;
+	background-color: whitesmoke;
 }
 
 .delmem{
@@ -53,9 +56,6 @@ td{
 	font-weight: bold;
 }
 
-.memberlist a {
-	color : #08444d;
-}
 </style>
 <body>
 	<!--상단페이지-->
@@ -68,7 +68,7 @@ td{
 	<jsp:include page="side_manager.jsp" />
 
 
-		<div id="memberList_main">
+		<div id="memberList_main2">
 			<table id="member">
 				<tr id="title">
 					<th>가입일</th>
@@ -87,7 +87,7 @@ td{
 						<td>${member.name}</td>
 						<td>${member.phone}</td>
 						<td>${member.email}</td>
-						<td><a href="memberDelDetail?id=${member.id}">상세보기</a></td>
+						<td><a href="memberDelDetail?id=${member.id}"><b>상세보기</b></a></td>
 					</tr>
 				</c:forEach>
 			</table>

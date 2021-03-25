@@ -18,14 +18,20 @@
 
 .memberList_de {
 	border-collapse: collapse;
-	margin-top: 75px;
-	margin-left: 65px;
+	margin-top: 60px;
+	width : 102%;
 }
 
-th, td {
+.memberList_de th, td {
 	border: 1px solid lightgray;
 	text-align: center;
 	font-size: 13px;
+}
+
+.memberList_de th{
+	padding: 8px;
+	background-color: gray;
+	color : white;
 }
 
 #caption{
@@ -49,9 +55,6 @@ th, td {
 	font-weight: bold;
 }
 
-.memberlist {
-	color : #08444d;
-}
 </style>
 
 </head>

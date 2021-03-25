@@ -15,17 +15,19 @@ body {
 }
 /*콘텐츠*/
 #content {
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 	position: relative;
+	border-left:1px solid lightgray;
+	border-right:1px solid lightgray;
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 90%;
-	height: 600px;
+	width: 70%;
+	height: 700px;
 }
 
 table, th, td {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-collapse: collapse;
 	padding: 10px;
 }
@@ -35,7 +37,7 @@ table#qna {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 60%;
+	width: 80%;
 	clear: both;
 }
 
@@ -47,8 +49,10 @@ span {
 	float:right;
 }
 .answer{
-	background-color:green;
+	background-color:  #0B610B;
 	color:white;
+	font-weight:600;
+	padding:3px 10px;
 
 }
 </style>
@@ -60,17 +64,16 @@ span {
 	<div id="content">
 		<table id="qna">
 			<tr>
-				<td colspan="2"><span>제목</span><br /><b>${dto.subject}</b></td>
+				<td colspan="2"><span>제목</span><br /><b style="font-size:140%">${dto.subject}</b></td>
 			</tr>
 			<tr>
 				<td><span>작성자</span><br />${dto.id}</td>
-				<td><span>작성일</span><br />${dto.reg_date}</td>
+				<td ><span>작성일</span><br />${dto.reg_date}</td>
 			</tr>
 			<tr>
-				<td colspan="2"><span>문의내용</span><br/><br/>${dto.content}</td>
-			</tr>
-			<tr>
-				<td colspan="2"><span class="answer">답변&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_dateA}</span><br/><br/><b>${dto.subjectA}</b><br/>${dto.contentA}</td>
+				<td colspan="2" style="padding-bottom:30px;"><hr/><span>문의내용</span><br/><br/>${dto.content}</td>
+			<tr> 
+				<td colspan="2" style="background-color: #F2F2F2; padding-top:15px;padding-bottom:30px; "><span class="answer">답변&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_dateA}</span><br/><br/><b>${dto.subjectA}</b><br/>${dto.contentA}</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="background-color:transParent">

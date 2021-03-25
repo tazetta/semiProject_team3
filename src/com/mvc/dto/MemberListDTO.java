@@ -20,6 +20,14 @@ public class MemberListDTO {
 		private String managerid;
 		private String blackstatus;
 		
+		private int staus_cnt;
+		
+		public int getStaus_cnt() {
+			return staus_cnt;
+		}
+		public void setStaus_cnt(int staus_cnt) {
+			this.staus_cnt = staus_cnt;
+		}
 		public String getId() {
 			return id;
 		}

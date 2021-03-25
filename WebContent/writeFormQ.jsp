@@ -16,20 +16,23 @@ body {
 }
 /*콘텐츠*/
 #content {
-	background-color: #F2F2F2;
-	text-align: center;
+	/* background-color: #F2F2F2; */
+	text-align: center; 
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
 	position: relative;
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 90%;
+	width: 70%;
 	height:800px;
 }
 
 table, th, td {
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 	border-collapse: collapse;
-	text-align: center;
+	background-color: #E6E6E6;
+	/* text-align: center; */
 	padding:10px;
 }
 
@@ -38,7 +41,7 @@ table#qna {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 60%;
+	width: 80%;
 	clear: both;
 }
 
@@ -54,11 +57,16 @@ textarea {
 	resize: none;
 	margin:5px;
 }
-#content span{
+#question{
 	position: relative;
 	top: 50px;
 	font-weight: 600;
 
+}
+
+#qna span{
+font-size: 85%;
+	color: gray;
 }
 </style>
 </head>
@@ -68,19 +76,14 @@ textarea {
 
 	<form action="writeQue" method="post">
 			<div id="content">
-			<span>문의하기</span>
+			<span id="question">문의하기</span>
 				<table id="qna">
+					
 					<tr>
-						<th>작성자</th>
-						<td>${loginId}</td>
+						<td><span>문의 제목</span><br/><input type="text" id="subject" name="subject" placeholder="제목을 입력하세요" /></td>
 					</tr>
 					<tr>
-						<th>제목</th>
-						<td><input type="text" id="subject" name="subject" placeholder="제목을 입력하세요" /></td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td><textarea id="text" name="content" placeholder="내용을 입력하세요"></textarea></td>
+						<td><span>문의 내용</span><br/><textarea id="text" name="content" placeholder="내용을 입력하세요"></textarea></td>
 					</tr>
 
 					<tr>

@@ -28,8 +28,7 @@
             }
             #send{
             	font-size : 15px;
-            	padding: 15px 20px;
-            	margin-left: 10%;
+            	padding: 30px 20px;
             }
             input[type='text']{
                 width: 90%;
@@ -38,6 +37,15 @@
         	input[type='password']{
                 width: 90%;
                 height: 25px;
+        	}
+        	#btn1{
+        		padding: 3px 10px;
+        	}
+        	#btn2{
+        		padding: 3px 10px;
+        	}
+        	#btn3{
+        		padding: 3px 10px;
         	}
         </style>
 	</head>
@@ -51,7 +59,7 @@
 	                    <td>
 	                        <input type="text" name="userId" maxlength="12" placeholder="아이디"/>
 	                    </td>
-	                    <td rowspan="2">
+	                    <td rowspan="2" style="border: 1px solid whitesmoke;">
 	                        <input type="submit" id="send" value="로그인"/>
 	                    </td>
 	                </tr>
@@ -62,11 +70,11 @@
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <td colspan="3">
-	                        <input type="button" onclick="location.href='joinForm.jsp'" value="회원가입"/>
-	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
-	                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                        <input type="button" onclick="location.href='index.jsp'" value="메인으로"/>
+	                    <td colspan="3" style="border : 1px solid whitesmoke;">
+	                        <input type="button" id="btn1" onclick="location.href='joinForm.jsp'" value="회원가입"/>
+	                        <input type="button" id="btn2" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
+	                        &nbsp;&nbsp;&nbsp;&nbsp;
+	                        <input type="button" id="btn3" onclick="location.href='index.jsp'" value="메인으로"/>
 	                    </td>
 	                </tr>
 	            </table>
