@@ -10,6 +10,7 @@
             table{
                 margin: auto;
                 margin-top: 15%;
+                width : 500px;
             }
             table,th,td{
                 border: 1px solid black;
@@ -25,6 +26,19 @@
                 border: 1px solid white;
                 background-color: whitesmoke;
             }
+            #send{
+            	font-size : 15px;
+            	padding: 15px 20px;
+            	margin-left: 10%;
+            }
+            input[type='text']{
+                width: 90%;
+                height: 25px;
+        	}
+        	input[type='password']{
+                width: 90%;
+                height: 25px;
+        	}
         </style>
 	</head>
 	<body>
@@ -50,7 +64,8 @@
 	                <tr>
 	                    <td colspan="3">
 	                        <input type="button" onclick="location.href='joinForm.jsp'" value="회원가입"/>
-	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                        <input type="button" onclick="location.href='findIdPw.jsp'" value="아이디/비밀번호 찾기"/>
+	                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                        <input type="button" onclick="location.href='index.jsp'" value="메인으로"/>
 	                    </td>
 	                </tr>

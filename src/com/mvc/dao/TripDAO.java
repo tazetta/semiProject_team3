@@ -131,6 +131,8 @@ public class TripDAO {
 	}
 
 	private StringBuilder appendSQL(String[] localCode, StringBuilder sql) {
+		// 체크박스가 선택된 수만큼 ? 생성
+		sql.append(" IN(");
 		for (int i = 1; i <= localCode.length; i++) {
 			if (i == localCode.length) {
 				sql.append("?)");
@@ -151,11 +153,11 @@ public class TripDAO {
 		System.out.println("end : " + end + " / start : " + start);
 
 		ArrayList<TripDTO> list = new ArrayList<TripDTO>();
-		// 체크박스가 선택된 수만큼 ? 생성
+	
 		StringBuilder inSQL = new StringBuilder(); 
-		inSQL.append(" IN(");
 		inSQL = appendSQL(localCode, inSQL);
 		System.out.println("inSQL : " + inSQL);
+		
 		// type이 theme일 때
 		String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
 		if (type.equals("area")) { // type이 area일 때
@@ -199,7 +201,6 @@ public class TripDAO {
 		int maxPage = 0;
 		try {
 			StringBuilder inSQL = new StringBuilder(); 
-			inSQL.append(" IN(");
 			inSQL = appendSQL(localCode, inSQL);
 			System.out.println("inSQL : " + inSQL);
 			String insertSQL = " areaCode" + inSQL + " AND contentCode=?";
