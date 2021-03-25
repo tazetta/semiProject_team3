@@ -13,6 +13,8 @@
 
 .pop_form {
 	text-align: center;
+	    width: 300px;
+    margin: 3% 25%;
 }
 
 #popup_form {
@@ -31,7 +33,7 @@ textarea {
 	padding-bottom: 30%;
 }
 
-th, td {
+#popup_form th, td {
 	border: 1px solid lightgray;
 	text-align: center;
 	padding: 5px;
@@ -62,6 +64,15 @@ td {
 	padding: 6px 15px;
 	margin: 1px 0;
 }
+
+hr{
+    width: 130px;
+    border: 1px solid black;
+}
+
+h3{
+	margin: 0;
+}
 </style>
 </head>
 <body>
@@ -75,6 +86,7 @@ td {
 		<form action="popupUpdate" method="post">
 			<div class="pop_form">
 				<h3>팝업 수정하기</h3>
+				<hr/>
 			</div>
 			<table id="popup_form">
 				<input type="hidden" name="infoidx" id="p_content" value="${dto.infoidx}" />

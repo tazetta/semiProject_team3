@@ -19,7 +19,7 @@ body {
 
 
 table, tr, td,th {
-	border: 1px solid lightgray;
+	/* border: 1px solid lightgray; */
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
@@ -67,6 +67,9 @@ table#wroteList {
 	text-align: center;
 	align-items: stretch;
 	background-color: transParent;
+}
+#wroteList td, #wroteList th {
+border-bottom:1px solid  lightgray;
 }
 /*페이징*/
 .pageArea {

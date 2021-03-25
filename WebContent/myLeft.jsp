@@ -15,8 +15,9 @@
 	position: relative;
 	 background-color: #F2F2F2;
 	float: left;
-	top: -10px;
-	left: 50px;
+	top: -7px;
+	left: 80px;
+	width:160px;
 }
 
 .menuHover {

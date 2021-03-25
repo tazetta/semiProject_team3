@@ -146,9 +146,9 @@ a {
 							</td>
 						</tr>
 						<tr>
-							<td class="bottom"><a
-								href="myUpdate?myidx=${bm.myidx}&type=${bm.type}&deact=${bm.deactivate}&conIdx=${bm.contentid}"
-								>삭제</a></td>
+							<td class="bottom">
+								<input type="button"  value="삭제" onclick="deletingList(${bm.myidx},${bm.type })" class="del" />
+								</td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
 
@@ -192,6 +192,15 @@ if (msg != "") {
 	    	
 	    });
 	  }); 
+	//삭제 confirm
+ 	function deletingList(myidx,type){
+ 		console.log(myidx,type);
+ 		 if(confirm("정말로 삭제하시겠습니까?")){
+ 			 	location.href="myUpdate?myidx="+myidx+"&type="+type;
+ 			}else{
+ 				location.href="visitedList";
+ 			}
+ 	};  
 	
  	
 	</script>

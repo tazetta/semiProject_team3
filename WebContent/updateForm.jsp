@@ -24,16 +24,9 @@ body {
 }
 
 table, tr, td {
-	border: 1px solid lightgray;
 	border-collapse: collapse;
 	text-align: center;
 	padding: 10px;
-}
-th{
-	
-background-color: lightgray;
-	color: black;
-	border :1px solid white;
 }
 
 
@@ -45,7 +38,6 @@ span {
 }
 
 table#profile {
-	background-color: white;
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
@@ -68,7 +60,7 @@ table#profile {
 	<div id="content">
 		<span>프로필 수정</span>
 		<table id="profile">
-			<tr>
+			<tr style="border-top:1px solid #D8D8D8;">
 				<th>아이디</th>
 				<td>${sessionScope.loginId}</td>
 			</tr>
@@ -88,8 +80,8 @@ table#profile {
 				<th>현재 비밀번호</th>
 				<td><input type="password" id="userPw"></td>
 			</tr>
-			<tr>
-				<td colspan="2" style="border: none"><input type="button"
+			<tr style="border-top:1px solid #D8D8D8;">
+				<td colspan="2" style="padding-top:30px;"><input type="button"
 					value="저장" id="save" />
 					<button onclick="location.href='profile'">취소</button></td>
 			</tr>

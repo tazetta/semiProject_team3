@@ -17,6 +17,7 @@
 #popup {
 	border-collapse: collapse;
 	margin: 45px 0;
+	width: 700px;
 }
 
 .pop_form {
@@ -71,6 +72,7 @@ a {
 a:hover {
 	font-weight: 600;
 }
+
 </style>
 </head>
 <body>
