@@ -144,6 +144,26 @@ public class MemberListDAO {
 		System.out.println("상세보기&블랙 성공여부 :" + success);
 		return dto;
 	}
+	
+	public boolean memberDel(String id) {
+		
+		String sql = "UPDATE member SET withdraw='TRUE' WHERE id=?";
+		boolean success = false;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			if (ps.executeUpdate() > 0) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		System.out.println("탈퇴처리 성공여부 :" + success);
+		return success;
+	}
 
 	public HashMap<String, Object> memberDelList(int page) {
 
@@ -423,7 +443,7 @@ public class MemberListDAO {
 		ArrayList<MemberListDTO> reason = new ArrayList<MemberListDTO>();
 		MemberListDTO dto = null;
 		
-		String sql = "select reason, reg_date from blacklist where id = (select id from blacklist where blackidx=?) ORDER BY reg_date DESC";
+		String sql = "select managerid, reason, reg_date from blacklist where id = (select id from blacklist where blackidx=?) ORDER BY reg_date DESC";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -431,6 +451,7 @@ public class MemberListDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				dto = new MemberListDTO();
+				dto.setManagerid(rs.getString("managerid"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setReason(rs.getString("reason"));
 				reason.add(dto);
@@ -495,6 +516,8 @@ public class MemberListDAO {
 		}
 		return dto;
 	}
+
+	
 
 
 }

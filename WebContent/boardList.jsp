@@ -11,51 +11,57 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="icon" href="south-korea.png">
 <style>
+body{
+font-family: "NanumGothic"; 
+
+}
 table, th, td {
 	/* border:1px solid gray; */
 	border-collapse: collapse;
 	text-align: center;
+	font-size:100%;
+	color:black;
 }
 
 th, td {
-	font-size: 18px;
-	padding: 5px 10px;
+	/* font-size: 18px; */
+	padding: 6px 10px;
 }
 
 table {
 	margin-top: 10px;
-	margin-left: 40px;
+	margin-left: 80px;
 	width: 1000px
 }
 
 #comm_select {
-	width: 100px;
-	height: 50px;
-	font-size: 14px;
+	width: 50px;
+	height: 40px;
+	font-size: 13px;
 	font-weight: 600;
-	font-size: 18px;
+
 }
 
 #boardkeyword {
 	width: 400px;
-	height: 45px;
-	font-size: 18px;
+	height: 34px;
+	font-size: 14px;
 	font-weight: 600;
 }
 
 #boardSearch {
-	width: 100px;
-	height: 50px;
-	font-size: 18px;
+	width: 50px;
+	height: 40px;
+	font-size: 14px;
 	font-weight: 600;
 }
 
 #write {
-	width: 100px;
-	height: 50px;
+	width: 70px;
+	height: 40px;
 	position: relative;
-	left: 26%;
-	font-size: 18px;
+	left: 30%;
+font-size: 13px;
 	font-weight: 600;
 }
 
@@ -66,11 +72,15 @@ table {
 
 .pageArea span {
 	font-size: 16px;
-	border: 1px solid lightgray;
+	/* border: 1px solid lightgray; */
+	background-color: lightgray;
 	padding: 2px 10px;
 	margin: 2px
 }
+#page{
+background-color: transparent;
 
+}
 #field {
 	margin-left: 15%;
 	text-align: center;
@@ -87,9 +97,6 @@ table {
 	color: white;
 }
 
-.noticeTd{
-	border-bottom: 1px solid white;
-}
 #commuTable td {
 	border-bottom: 1px solid lightgray;
 }
@@ -118,12 +125,12 @@ table {
 			<c:if test="${managerbbsList ne null}">
 				<c:forEach items="${managerbbsList}" var="managerbbs">
 					<tr style="background-color:  #E6E6E6" >
-						<td class="noticeTd">${managerbbs.boardIdx}</td>
-						<td class="noticeTd"><a class="mouse_over"
+						<td >${managerbbs.boardIdx}</td>
+						<td ><a class="mouse_over"
 							href="boardDetail?boardIdx=${managerbbs.boardIdx}&page=${currPage}">${managerbbs.subject}</a></td>
-						<td class="noticeTd">${managerbbs.id}</td>
-						<td class="noticeTd">${managerbbs.bHit}</td>
-						<td class="noticeTd">${managerbbs.reg_date}</td>
+						<td >${managerbbs.id}</td>
+						<td >${managerbbs.bHit}</td>
+						<td >${managerbbs.reg_date}</td>
 					</tr>
 				</c:forEach>
 			</c:if>

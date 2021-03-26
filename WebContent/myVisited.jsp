@@ -13,6 +13,7 @@
 <style>
 body {
 	min-width: 1400px;
+	font-family: "NanumGothic"; 
 }
 
 /*콘텐츠*/
@@ -86,6 +87,10 @@ body {
 	text-align: center;
 	align-items: stretch;
 	background-color: transParent;
+}
+
+.ellipsis{
+ font-size:90%;
 }
 /*페이징*/
 .pageArea {
