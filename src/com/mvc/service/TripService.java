@@ -260,6 +260,7 @@ public class TripService {
 
 			success = dao.tripInsertOverlay(contentId);
 			map.put("use", success);
+			map.put("contentId",contentId);
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);

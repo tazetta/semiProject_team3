@@ -166,7 +166,7 @@ div.chkBtn{
 	border-bottom:1px solid lightgray;
 }
 .result{
-	width: 70%;
+	width: 1100px;
 	maring: 0 auto;
 }
 
