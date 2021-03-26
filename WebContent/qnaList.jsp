@@ -73,7 +73,7 @@ border-bottom: 1px solid lightgray;
 .pageArea {
 	text-align: center;
 	position: relative;
-	bottom: 180px;
+	top: 15%;
 	left: 20px;
 }
 
@@ -133,7 +133,7 @@ a {
 				<button id="btn" onclick="location.href='unAnsList'">미답변글보기</button>
 				<button id="btn2" onclick="location.href='qnaList'">전체글보기</button>
 				
-		</div>
+		
 
 				<div class="pageArea">
 					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
@@ -147,7 +147,7 @@ a {
 						</c:if>
 					</span>
 				</div>
-	
+	</div>
 
 
 </body>

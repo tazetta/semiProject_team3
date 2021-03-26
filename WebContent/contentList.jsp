@@ -11,24 +11,27 @@
 div.contentList {
 	float: left;
 	margin-left: 3%;
+	border: 1px solid lightgray;
+
 }
 
+
 div.content {
-	padding: 0px 15px;
-	border: 1px solid black;
-	width: 120px;
+	padding: 3px 15px;
+	/* border: 1px solid black; */
+	width: 150px;
 	height: 30px;
 	text-align: center;	
 }
 
 div.clear {
 	clear: left;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 div.areaList>div {
 	float: left;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	padding: 5px 5px;
 	width: 140px;
 }
@@ -49,18 +52,21 @@ a:visited {
  */
 div.chkBtn{
 	text-align: center;
-	margin-top: 15px;
+/* 	margin-top: 15px; */
+	margin:0 auto;
 }
 .btn{
     border:#BDBDBD ;
     background-color:#D8D8D8;
     font-weight: 600;
-	padding:20px 40px;
+	padding:10px 10px;
+	margin:3px;
 }
 .mid{
-	min-width: 600px;
 	width: 800px;
-	margin-left:20%;
+	margin: 0 auto;
+	border : 1px solid #E6E6E6;
+	
 }
 .areabody{
 	margin-top: 25px;
@@ -104,15 +110,14 @@ div.chkBtn{
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td>
+		</table>
+			
 					<div class = "chkBtn">
 						<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택"/>
 						<input type="button" class="btn" onclick="minChkBox()" value="검색" />
 					</div>
-				</td>
-			</tr>
-		</table>
+			
+		
 		
 		<input type="hidden" name="nav" value="${nav}" />
 		<input type="hidden" name="type" value="theme" />
