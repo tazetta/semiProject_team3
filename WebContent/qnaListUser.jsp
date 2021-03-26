@@ -13,14 +13,14 @@
 <title>고객센터</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- JQuery사용 위해 불러옴 -->
- <!-- <link rel="stylesheet" href="./css/qnaListUser.css"> -->
+<!-- <link rel="stylesheet" href="./css/qnaListUser.css"> -->
 <style>
-body{
-	min-width:1400px;
-	font-family: "NanumGothic"; 
+body {
+	min-width: 1400px;
+	font-family: "NanumGothic";
 }
 /*콘텐츠*/
- #content {
+#content {
 	height: 800px;
 	/* background-color: #F2F2F2; */
 	text-align: center;
@@ -28,8 +28,9 @@ body{
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-width: 95%; 
+	width: 95%;
 }
+
 .noneList {
 	position: relative;
 	top: 150px;
@@ -43,20 +44,23 @@ table, th, td {
 	/* border: 1px solid black; */
 	border-collapse: collapse;
 	text-align: center;
-	padding:10px;
-}
-#qna th{
-	background-color:  #0B0B3B;
-	color:white;
+	padding: 10px;
 }
 
-#qna td{
-border-bottom: 1px solid lightgray;
+#qna th {
+	background-color: #0B0B3B;
+	color: white;
 }
-#title{
-	font-weight:600;
-	color:black;
+
+#qna td {
+	border-bottom: 1px solid lightgray;
 }
+
+#title {
+	font-weight: 600;
+	color: black;
+}
+
 table#qna {
 	background-color: white;
 	position: relative;
@@ -88,7 +92,6 @@ table#qna {
 
 a {
 	text-decoration: none;
-
 }
 
 #page {
@@ -104,61 +107,74 @@ a {
 	<jsp:include page="navi.jsp" />
 
 
-		<div id="content">
+	<div id="content">
 
-			<c:choose>
-				<c:when test="${list eq  '[]'}">
-					<div class="noneList">
-						<p>작성한 문의글이 없습니다</p>
-					</div>
-					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
+		<c:choose>
+			<c:when test="${list eq  '[]'}">
+				<div class="noneList">
+					<p>작성한 문의글이 없습니다</p>
+				</div>
+				<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 
-				</c:when>
-				<c:otherwise>
-					<table id="qna">
+			</c:when>
+			<c:otherwise>
+				<table id="qna">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>작성자</th>
+						<th>답변</th>
+					</tr>
+					<c:forEach items="${list}" var="qna">
 						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-							<th>작성자</th>
-							<th>답변</th>
+							<td>${qna.rnum}</td>
+
+							<c:choose>
+								<c:when test="${qna.ansIdx gt 0}">
+									<td style="width: 400px"><a href="ansDetail?qnaIdx=${qna.qnaIdx}" id="title">${qna.subject}</a></td>
+								</c:when>
+								<c:otherwise>
+									<td style="width: 400px"><a href="qnaDetail?qnaIdx=${qna.qnaIdx}" id="title">${qna.subject}</a></td>
+								</c:otherwise>
+
+							</c:choose>
+
+							<td>${qna.reg_date}</td>
+							<td>${qna.id}</td>
+
+							<td><c:choose>
+									<c:when test="${qna.ansIdx gt 0}">
+										<b><a href="ansDetail?qnaIdx=${qna.qnaIdx }"
+											style="color: green">답변완료</a></b>
+									</c:when>
+									<c:otherwise>
+
+									</c:otherwise>
+
+								</c:choose></td>
 						</tr>
-						<c:forEach items="${list}" var="qna">
-							<tr>
-								<td>${qna.rnum}</td>
-								<td style="width: 400px" ><a
-									href="qnaDetail?qnaIdx=${qna.qnaIdx}" id="title">${qna.subject}</a></td>
-								<td>${qna.reg_date}</td>
-								<td>${qna.id}</td>
 
+					</c:forEach>
 
-								<td ><c:choose>
-										<c:when test="${qna.ansIdx gt 0}">
-											<b><a href="ansDetail?qnaIdx=${qna.qnaIdx }" style="color:green">답변완료</a></b>
-										</c:when>
-										<c:otherwise>
+				</table>
+				<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
 
-										</c:otherwise>
-
-									</c:choose></td>
-							</tr>
-
-						</c:forEach>
-
-					</table>
-					<button class="wd" onclick="location.href='writeFormQ.jsp'">문의하기</button>
-
-					<div class="pageArea">
-						<span> <c:if test="${currPage==1}">이전</c:if> 
-						<c:if test="${currPage>1}"> <a href="qnaListUser?page=${currPage-1}">이전</a> </c:if>
-						</span> <span id="page">${currPage}</span> <span> 
-						<c:if test="${currPage==maxPage}">다음</c:if> 
-						<c:if test="${currPage<maxPage}"> <a href="qnaListUser?page=${currPage+1}">다음</a> </c:if>
-						</span>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
+				<div class="pageArea">
+					<span> <c:if test="${currPage==1}">이전</c:if> <c:if
+							test="${currPage>1}">
+							<a href="qnaListUser?page=${currPage-1}">이전</a>
+						</c:if>
+					</span> <span id="page">${currPage}</span> <span> <c:if
+							test="${currPage==maxPage}">다음</c:if> <c:if
+							test="${currPage<maxPage}">
+							<a href="qnaListUser?page=${currPage+1}">다음</a>
+						</c:if>
+					</span>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
 
 
 
