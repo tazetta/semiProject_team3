@@ -268,6 +268,7 @@ div.tripManageName {
 	};
 	
 	var overChk = false;
+	var contentId = "";
 	$("#overlay").click(function() {
 		var $contentId = $("#contentId");
 		if($contentId.val() == '') {
@@ -287,6 +288,7 @@ div.tripManageName {
 				if (obj.use) {
 					alert('추가할 수 있는 ContentId입니다.');
 					overChk = true;
+					contentId = obj.contentId;
 				} else {
 					alert('이미 존재하는 ContentId입니다.');
 					$contentId.val('');
@@ -314,7 +316,11 @@ div.tripManageName {
 		var $area = $("#area");
 		var $city = $("#city");
 		var $overview = $("#overview");
-
+	
+		if($contentId.val() != contentId) {
+			overChk = false;
+		}
+		
 		if (overChk) {
 			if ($contentId.val() == '') {
 				alert('Content ID를 입력해 주세요.');
