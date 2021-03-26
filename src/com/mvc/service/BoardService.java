@@ -537,6 +537,7 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.mainBoardList();
 		System.out.println("메인에서 가져오는 리스트  : "+list);
+		dao.resClose();
 		return list;
 		
 //		req.getSession().setAttribute("list", list);

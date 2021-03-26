@@ -183,7 +183,8 @@ public class TripService {
 		}
 		map.put("list", list);
 		map.put("success", success);
-
+		dao.resClose();
+		
 		Gson gson = new Gson();
 		String json = gson.toJson(map);
 		System.out.println("json:" + json);
