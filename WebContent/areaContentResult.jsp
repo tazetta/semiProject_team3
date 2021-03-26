@@ -138,7 +138,7 @@ div.chkBtn{
 	color: white;
 }
 .result{
-	width: 70%;
+	width: 1150px;
 	maring: 0 auto;
 }
 </style>
@@ -194,7 +194,7 @@ div.chkBtn{
 		</tr>
 		<c:forEach items="${list}" var="result" varStatus="status">
 			<tr>
-				<td><img src="${result.firstImage}" width="100px"
+				<td><img src="${result.firstImage}" width="150px"
 					height="100px" /></td>
 
 				<td class="title"><a href="#"
