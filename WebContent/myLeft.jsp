@@ -15,7 +15,7 @@
 	position: relative;
 	 background-color: #F2F2F2;
 	float: left;
-	top: -7px;
+	top: 3px;
 	left: 80px;
 	width:160px;
 }
