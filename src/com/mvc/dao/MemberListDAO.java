@@ -144,26 +144,6 @@ public class MemberListDAO {
 		System.out.println("상세보기&블랙 성공여부 :" + success);
 		return dto;
 	}
-	
-	public boolean memberDel(String id) {
-		
-		String sql = "UPDATE member SET withdraw='TRUE' WHERE id=?";
-		boolean success = false;
-
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			if (ps.executeUpdate() > 0) {
-				success = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		System.out.println("탈퇴처리 성공여부 :" + success);
-		return success;
-	}
 
 	public HashMap<String, Object> memberDelList(int page) {
 
