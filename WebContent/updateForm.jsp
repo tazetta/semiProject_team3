@@ -10,6 +10,7 @@
 <style>
 body {
 	min-width: 1500px;
+	font-family: "NanumGothic"; 
 }
 
 

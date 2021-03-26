@@ -6,10 +6,11 @@
    <meta charset="UTF-8">
    <title>마이페이지 - 즐겨찾기</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <!-- JQuery사용 위해 불러옴 -->
-    <!--  <link rel="stylesheet" href="./css/myBookmark.css"> -->
+
     <style>
 body {
 	min-width: 1400px;
+	font-family: "NanumGothic"; 
 }
 
 /*콘텐츠*/
@@ -82,6 +83,10 @@ body {
 	text-align: center;
 	align-items: stretch;
 	background-color: transParent;
+}
+
+.ellipsis{
+ font-size:90%;
 }
 /*페이징*/
 .pageArea {

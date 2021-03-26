@@ -15,6 +15,7 @@
 <style>
 body {
 	min-width: 1400px;
+	font-family: "NanumGothic"; 
 }
 
 
@@ -22,7 +23,7 @@ table, tr, td,th {
 	/* border: 1px solid lightgray; */
 	border-collapse: collapse;
 	text-align: center;
-	padding: 10px;
+	padding: 6px;
 }
 
 .firstTr th{

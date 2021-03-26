@@ -13,6 +13,7 @@
 <style>
 body {
 	min-width: 1300px;
+	font-family: "NanumGothic"; 
 }
 
 

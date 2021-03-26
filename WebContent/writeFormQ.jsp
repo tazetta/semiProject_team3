@@ -13,6 +13,7 @@
 <style>
 body {
 	min-width:1400px;
+	font-family: "NanumGothic"; 
 }
 /*콘텐츠*/
 #content {

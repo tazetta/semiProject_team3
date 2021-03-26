@@ -10,8 +10,8 @@
 <style>
 body {
 	min-width: 1500px;
+	font-family: "NanumGothic"; 
 }
-
 
 /*콘텐츠*/
 #content {
@@ -33,10 +33,8 @@ body {
 }
 
 th{
-/* width:150px; */
-/* background-color: #E6E6E6; */
 	color: black;
-	/* border :1px solid white; */
+
 }
 	
 span {
