@@ -14,7 +14,7 @@
 
 #filter {
 	font-size: 16px;
-	width : 6%;
+	box-sizing : border-box;
 	padding : 3px 8px;
 	float: left;
 }

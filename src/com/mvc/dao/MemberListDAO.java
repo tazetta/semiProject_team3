@@ -269,10 +269,17 @@ public class MemberListDAO {
 		int pagePerCnt = 10;
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
+		/*
+		 * String sql = "SELECT reg_date, id, name, phone, email FROM (" +
+		 * "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " +
+		 * "AS rnum, reg_date, id, name, phone, email " +
+		 * "FROM member WHERE id NOT IN ('admin') AND withdraw='FALSE' AND " +
+		 * searchType + "=?) WHERE rnum BETWEEN ? AND ?";
+		 */
+		
 		String sql = "SELECT reg_date, id, name, phone, email FROM ("
 				+ "SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) " + "AS rnum, reg_date, id, name, phone, email "
-				+ "FROM member WHERE id NOT IN ('admin') AND withdraw='FALSE' AND " + searchType + "=?) WHERE rnum BETWEEN ? AND ?";
-
+				+ "FROM member WHERE id NOT IN ('admin') AND name != '탈a퇴#회@원' AND " + searchType + "=?) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<MemberListDTO> memberSearchList = new ArrayList<MemberListDTO>();
 		try {
 			ps = conn.prepareStatement(sql);
