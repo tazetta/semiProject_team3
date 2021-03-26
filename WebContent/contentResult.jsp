@@ -147,6 +147,7 @@ div.chkBtn{
 	/* min-width: 600px; */
 	width: 800px;
 	margin: 0 auto;
+	border : 1px solid #E6E6E6;
 }
 .areabody{
 	margin-top: 25px;
@@ -165,7 +166,7 @@ div.chkBtn{
 	border-bottom:1px solid lightgray;
 }
 .result{
-	width: 60%;
+	width: 70%;
 	maring: 0 auto;
 }
 
@@ -215,15 +216,14 @@ width:50%;
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td>
+			</table>
+			
 					<div class = "chkBtn">
 						<input type="button" id="allBtn" class="btn" onclick="allChk()" value="전체 선택">
 						<input type="button" class="btn" onclick="minChkBox()" value="검색" />
 					</div>
-				</td>
-			</tr>
-		</table>
+			
+		
 		
 		<input type="hidden" name="nav" value="${nav}" />
 		<input type="hidden" name="type" value="theme" />

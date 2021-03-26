@@ -58,25 +58,29 @@ div.chkBtn{
     font-weight: 600;
 	padding:20px 40px;
 } */
+body{
+	min-width:1400px;
+}
 div.areaList {
 float: left;
 	margin-left: 3%;
+	border: 1px solid lightgray;
 }
 
 div.area {
-	padding: 0px 15px;
-	border: 1px solid black;
-	width: 120px;
+	padding: 3px 15px;
+	/* border: 1px solid black; */
+	width: 150px;
 	height: 30px;
 	text-align: center;	
 }
 div.clear {
 	clear: left;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 div.cityList>div {
 float: left;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	padding: 5px 5px;
 	width: 140px;
 }
@@ -106,30 +110,36 @@ div.chkBtn{
     border:#BDBDBD ;
     background-color:#D8D8D8;
     font-weight: 600;
-	padding:20px 40px;
+	padding:10px 10px;
+	marign:3px;
 }
 .mid{
-	min-width: 600px;
+	/* min-width: 600px; */
 	width: 800px;
-	margin-left:20%;
+	margin: 0 auto;
+	border : 1px solid #E6E6E6;
+	
 }
 .areabody{
 	margin-top: 25px;
-	width: 100%;
-	min-width: 1000px;
-	margin-left: 5%;
 }
 .result, .result th, .result td{
-	border: 1px solid black;
+ 	/* border: 1px solid black;  */
 	border-collapse: collapse;
-	padding: 10px 20px;
+	/* padding: 10px 20px; */
 	text-align: center;
 	margin-left: 20%;
 	margin-top: 20px;
+	border-bottom:1px solid lightgray;
+}
+.result th{
+	padding:5px;
+	background-color: #0B0B3B;
+	color: white;
 }
 .result{
 	width: 70%;
-	max-width: 800px;
+	maring: 0 auto;
 }
 </style>
 </head>
@@ -165,15 +175,13 @@ div.chkBtn{
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td>
+				
+		</table>
 					<div class = "chkBtn">
 						<input type="button" class="btn" id="allBtn" onclick="allChk()" value="전체 선택">	
 						<input class="btn" type="button" onclick="maxChkBox()" value="검색" />
 					</div>
-				</td>
-			</tr>
-		</table>
+		
 		<input type="hidden" name="nav" value="${nav}" /> 
 		<input type="hidden" name="type" value="area" /> 	
 	</form>
