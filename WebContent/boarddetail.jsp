@@ -11,63 +11,79 @@
 <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 	table{
-		margin-left:18%;
-		width:800px;	
-	}
-	table, th, td {
-		border: 1px solid gray;
+		margin : 0 auto;
+		width:900px;	
+		font-family: "NanumGothic"; 
 		border-collapse: collapse;
+	
+		
+		
+	}
+	#board table,#board th, #board td {
+		border: 1px solid gray;
 		text-align: center;
-		padding : 5px 10px;
+		padding : 7px 10px;
 	}
 	
 	#total{
-		margin-left:10%;
-		border:0px solid black;
-		width :1200px;
+		margin : 0 auto;
+		text-align:center;
+		/* border:1px solid black; */
+		width :900px;
 		margin-top:60px;
 	}
 	button{
-		width:100px;
+		width:50px;
 		height: 30px;
+		margin:5px;
 	}
 	#btn1{
-		position: absolute;
-		top:150px;
-		left: 21.5%;
+		position: relative;
+		float:left;
+/* 		top:150px; */
+	/* 	left: 21.5%; */
 	}
 	#btn2{
-		position: absolute;
-		left:51.5%;
-		top:145px;
-		margin:5px;		
+		position: relative;
+		float:right;
+		/* left:51.5%;
+		top:145px; */
+		/* margin:5px;	 */	
 	}
-	#btn3{
+	/* #btn3{
 		position: absolute;
 		left:57%;
 		top:145px;
 		margin:5px;		
-	}
+	} */
 	.comment{
 		position: relative;
-		left:18%;
+		/* left:18%; */
 		font-size:18px;
 		width:700px;
 		height: 30px;
-		margin-top: 5px;
+		 margin-top: 5px;
 		margin-bottom :5px;
+		
 	}
-	#comm_regist,#comm_update{
+	/* #comm_regist,#comm_update{
 		position: relative;
 		left:18%;
 	}
-	
+	 */
 	p{
 		text-align: center;
 	}
-	.comm_table{
-		border: 1px solid lightgray;
+
+	
+	table#comment_table {
+	border-top: 1px solid lightgray;
+		}
+	
+	#comment_table td{
+	padding:6px;
 	}
+
 	.mouse_over:hover{
 		font-weight: 600;
 		color: blue;
@@ -93,20 +109,20 @@
 				<button onclick="location.href='./boardDel?boardIdx=${dto.boardIdx}&id=${dto.id}&page=${currPage}'">삭제</button>
 				</c:if>
 			</div>
-			<div>
+			<div id= "btn2">
 				<c:if test="${dto.id!=loginId && (dto.isManager=='false' || dto.isManager == null)}">
-				<button id= "btn2" onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
+				<button  onclick="window.open('./boardReportForm?boardIdx=${dto.boardIdx}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고</button>
 				</c:if>
-				<div id= "btn3">
+				
 				<c:if test="${boardkeyword eq null}">
 				<button onclick="location.href='./boardList?&page=${currPage}'">목록</button>
 				</c:if>
 				<c:if test="${boardkeyword ne null}">
 				<button onclick="location.href='./boardSearch?${url}&page=${currPage}'">목록</button>
 				</c:if>
-				</div>
+				
 			</div>
-		<table>
+		<table id="board">
 			<tr>
 				<th style="width: 70px;">작성자</th>
 				<td>${dto.id}</td>
@@ -141,7 +157,7 @@
 		<c:if test="${not empty list}">
 		<c:forEach items="${list}" var="comment">
 		
-				<table id="comment_table" class ="comm_table">
+				<table id="comment_table" >
 					<tr class ="comm_table">
 						<td class ="comm_table" style="width:150px;">${comment.id}</td>
 						<td class ="comm_table">

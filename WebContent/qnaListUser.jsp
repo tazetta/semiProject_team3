@@ -75,7 +75,7 @@ table#qna {
 .pageArea {
 	text-align: center;
 	position: relative;
-	top: 20%;
+	top: 15%;
 	left: 20px;
 }
 
