@@ -29,7 +29,7 @@ body {
 	height:800px;
 }
 
-table, th, td {
+#content table, #content th, #content td {
 	/* border: 1px solid gray; */
 	border-collapse: collapse;
 	background-color: #E6E6E6;
@@ -45,12 +45,15 @@ table#qna {
 	width: 80%;
 	clear: both;
 }
-
+/* 
 input[type='text'] {
 	width: 90%;
 	height: 30px;
+} */
+#subject{
+width: 90%;
+	height: 30px;
 }
-
 textarea {
 	background-color: white;
 	width: 95%;
