@@ -62,7 +62,7 @@ table#qna {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 50%;
+	width: 1000px;
 }
 
 .wd {
