@@ -66,7 +66,6 @@ div.chkBtn{
 	margin-top: 25px;
 	width: 100%;
 	min-width: 1000px;
-	margin-left: 5%;
 }
 </style>
 </head>
