@@ -47,8 +47,9 @@ body {
 }
 
 .bottom {
+
 	position: relative;
-	bottom: 0px;
+	bottom:-17px;
 	right:10px;
 	float: right;
 }
@@ -60,7 +61,7 @@ body {
 
 .list {
 	background-color: white;
-	 border : 0.5px solid lightgray;
+ border : 0.5px solid #F2F2F2;
 	border-radius:3px;
 	text-align: center;
 	position: relative;
@@ -68,14 +69,14 @@ body {
 	margin: 0 auto;
 	width: 800px;
 	margin-top:20px;
-	  box-shadow: 3px 3px 3px  gray;
+	  box-shadow: 3px 3px 3px  lightgray;
 
 }
 
 
 .list table, .list tr, .list th, .list td {
 	padding: 5px 10px;
-	border: none;
+	/* border: 1px solid black; */
 	
 }
 
@@ -152,7 +153,7 @@ a {
 						</tr>
 						<tr>
 							<td class="bottom">
-								<input type="button"  value="삭제" onclick="deletingList(${bm.myidx},${bm.type })" class="del" />
+								<input type="button" value="삭제" onclick="deletingList(${bm.myidx},${bm.type })" class="del" />
 								</td>
 							<td class="bottom" colspan="2">${bm.reg_date }</td>
 						</tr>
