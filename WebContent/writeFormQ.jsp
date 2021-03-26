@@ -32,7 +32,7 @@ body {
 #content table, #content th, #content td {
 	/* border: 1px solid gray; */
 	border-collapse: collapse;
-	background-color: #E6E6E6;
+	background-color: #F2F2F2;
 	/* text-align: center; */
 	padding:10px;
 }

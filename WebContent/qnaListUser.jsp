@@ -20,7 +20,7 @@ body{
 	font-family: "NanumGothic"; 
 }
 /*콘텐츠*/
-#content {
+ #content {
 	height: 800px;
 	/* background-color: #F2F2F2; */
 	text-align: center;
@@ -28,7 +28,7 @@ body{
 	top: 0px;
 	left: 20px;
 	margin: 0 auto;
-	width: 95%;
+width: 95%; 
 }
 .noneList {
 	position: relative;
@@ -62,7 +62,7 @@ table#qna {
 	position: relative;
 	top: 80px;
 	margin: 0 auto;
-	width: 1000px;
+	width: 900px;
 }
 
 .wd {

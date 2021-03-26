@@ -94,7 +94,7 @@ position: relative;
 </body>
 <script>
 	$(".naviUl li a").hover(function () {
-        $(this).css({"color":"#A4A4A4"});
+        $(this).css({"color":"#088A68"});
     },
     function(){
     	$(this).css({"color":"black"});}
