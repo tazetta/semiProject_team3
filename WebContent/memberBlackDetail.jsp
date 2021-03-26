@@ -26,10 +26,10 @@
 	border: 1px solid lightgray;
 	text-align: center;
 	font-size: 13px;
+	padding: 8px;
 }
 
 .memberList_de th {
-	padding: 8px;
 	background-color: gray;
 	color: white;
 }

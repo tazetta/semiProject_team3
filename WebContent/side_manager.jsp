@@ -11,21 +11,22 @@
 #side {
 	position: relative;
 	float: left;
-	margin-left: 100px;
 	padding: 10px;
 }
 
 #aside_table{
 	border-collapse: collapse;
 	margin-top : 50px; 
-	margin-left : 200px;
+	margin-left: 86px;
 	margin-right : 100px;
 }
 
-th,td {
+#aside_table td {
 	border: 1px solid lightgray;
 	text-align: center;
-	padding: 20px;
+    padding: 15px 5px;
+    width: 168px;
+    font-size: 16px;
 }
 
 a {

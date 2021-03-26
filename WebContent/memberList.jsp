@@ -11,7 +11,7 @@
 #memberList_main{
 	width: 900px;
 	height : 445px;
-	margin: 0 508px;
+    margin: 0px 286px;
 }
 
 #member {

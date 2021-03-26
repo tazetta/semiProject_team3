@@ -9,7 +9,7 @@
 <style>
 .m_search{
 	width: 86%;
-	margin-top : 5%;
+	margin-top : 1%;
 }
 
 #filter {
