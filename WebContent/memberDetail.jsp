@@ -39,7 +39,7 @@
 }
 
 .black {
-	width: 250px;
+	width: 385px;
 	margin: auto;
 	padding-top: 65px;
 }
@@ -100,6 +100,8 @@
             </tr>
 		</table>
 		<div class="black">
+			<button class="mbtn" onclick="location.href='./memberDel?id=${dto.id}'">회원 탈퇴처리</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="mbtn" onclick="location.href='./memberBlackAddForm?id=${dto.id}'">블랙리스트 추가</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="mbtn" onclick="location.href='./memberList'">닫기</button>

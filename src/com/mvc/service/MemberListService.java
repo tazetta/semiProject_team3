@@ -81,6 +81,32 @@ public class MemberListService {
 			dis.forward(req, resp);
 		}
 	}
+	
+	public void memberDel() throws ServletException, IOException {
+		String isManager = (String) req.getSession().getAttribute("isManager");
+
+		if (isManager=="true") {
+			String id = req.getParameter("id");
+			System.out.println("탈퇴시킬 회원 id: " + id);
+
+			msg = "";
+			page = "/memberList";
+
+			MemberListDAO dao = new MemberListDAO();
+			if (dao.memberDel(id)) {
+				msg = "해당 회원을 탈퇴처리하였습니다.";
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
+			dao.resClose();
+		} else {
+			req.setAttribute("msg", "로그인 후 사용이 가능한 서비스 입니다.");
+			dis = req.getRequestDispatcher("login.jsp");
+			dis.forward(req, resp);
+		}
+		
+	}
 
 	public void memberDelList() throws ServletException, IOException {
 		String isManager = (String) req.getSession().getAttribute("isManager");
@@ -363,4 +389,6 @@ public class MemberListService {
 			dis.forward(req, resp);
 		}
 	}
+
+
 }
