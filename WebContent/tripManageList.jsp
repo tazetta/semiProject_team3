@@ -13,6 +13,10 @@
 .tripList{
 	background-color: lightgray;
 }
+.header{
+				background-color: gray;
+				color: white;
+			}
 </style>
 <body>
 	<jsp:include page="top.jsp" />
@@ -38,7 +42,7 @@
 			<c:choose>
 				<c:when test="${tripList ne '[]'}">
 					<table class="midBody">
-						<tr>
+						<tr class="header"'>
 							<th>contentID</th>
 							<th>여행지 이름</th>
 							<th>등록 날짜</th>
