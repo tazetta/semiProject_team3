@@ -79,7 +79,10 @@
         	height:30px;
         	border:0.5px solid lgihtgray;
         }
-        
+        body {
+	min-width: 1400px;
+ font-family: "NanumGothic"; 
+}
     </style>
 
 </head>
