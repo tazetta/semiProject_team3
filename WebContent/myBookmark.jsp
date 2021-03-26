@@ -45,7 +45,7 @@ body {
 
 .bottom {
 	position: relative;
-	bottom: 0px;
+	bottom:-17px;
 	right:10px;
 	float: right;
 }
@@ -57,7 +57,7 @@ body {
 
 .list {
 	background-color: white;
-	 border : 0.5px solid lightgray;
+	 border : 0.5px solid #F2F2F2;
 	border-radius:3px;
 	text-align: center;
 	position: relative;
@@ -65,7 +65,7 @@ body {
 	margin: 0 auto;
 	width: 800px;
 	margin-top:20px;
-  box-shadow: 3px 3px 3px  gray;
+  box-shadow: 3px 3px 3px  lightgray;
 }
 
 
