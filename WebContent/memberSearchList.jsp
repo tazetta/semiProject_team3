@@ -10,24 +10,27 @@
 <style>
 #memberList_main{
 	width: 900px;
-	height : 660px;
-	margin: 0 508px;
+	height : 445px;
+    margin: 0px 286px;
 }
 
 #member {
 	border-collapse: collapse;
-	margin: 45px 0;
+	margin: 20px 0;
+	width: 800px;
 }
 
-th,td{
+#member th,td{
 	border: 1px solid lightgray; 
 	text-align: center;
-	padding: 8px;
 	font-size: 14px;
 }
-
-td{
+#member th {
+	padding: 8px;
+}
+#member td{
 	background-color: white;
+	padding: 12px;
 }
 
 #title {
@@ -45,10 +48,11 @@ td{
 	border:1px solid lightgray;
 	padding: 2px 10px;
 	margin:2px;
+	background-color: whitesmoke;
 }
 
 .genmem{
-	background-color: gray;
+	background-color: lightgray;
 	font-weight: bold;
 }
 </style>
