@@ -227,7 +227,7 @@ public class PopupService {
 		
 		dis = req.getRequestDispatcher(page);		
 		dis.forward(req, resp);
-		//dao.resClose();
+		
 	}
 
 	

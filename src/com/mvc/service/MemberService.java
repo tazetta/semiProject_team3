@@ -55,6 +55,7 @@ public class MemberService {
 				req.getSession().setAttribute("isManager", "true");
 			}
 		}
+		dao.resClose();
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -74,6 +75,7 @@ public class MemberService {
 				msg="";
 				req.setAttribute("profile", dto);
 			}
+			dao.resClose();
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
@@ -95,6 +97,7 @@ public class MemberService {
 				page = "updateForm.jsp";
 				req.setAttribute("profile", dto);
 			}
+			dao.resClose();
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 		} else {
@@ -127,6 +130,7 @@ public class MemberService {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 
 			map.put("success", success);
+			dao.resClose();
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			resp.getWriter().print(json);
@@ -158,6 +162,7 @@ public class MemberService {
 				msg = "비밀번호가 변경 되었습니다";
 				page = "profile";
 			}
+			dao.resClose();
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
@@ -190,6 +195,7 @@ public class MemberService {
 			req.setAttribute("currPage", page);
 			System.out.println("list: "+map.get("list"));
 			// 특정페이지로 보내기
+			dao.resClose();
 			dis = req.getRequestDispatcher("wroteList.jsp"); 
 			dis.forward(req, resp);
 		} else {
@@ -216,6 +222,7 @@ public class MemberService {
 			// 여기서 자원을 반납하면, service 내에서 DAO 를 사용 할 만큼 사용하고 닫아줄 수 있다.
 			dao.resClose();
 			map.put("use", success);
+			dao.resClose();
 			Gson gson = new Gson();
 			String json = gson.toJson(map);
 			System.out.println(json);
@@ -254,6 +261,7 @@ public class MemberService {
 		map.put("msg", msg);
 		map.put("success", success);
 		//map -> json으로 바꾸기 위한 작업
+		dao.resClose();
 		Gson gson = new Gson();
 		String json = gson.toJson(map);
 		System.out.println(json);
@@ -309,6 +317,7 @@ public class MemberService {
 		System.out.println(id);	
 		page="findIdAfter.jsp";
 
+		dao.resClose();
 		req.setAttribute("findId", id);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -346,6 +355,7 @@ public class MemberService {
 		System.out.println(id);	
 		page="findpwUpdate.jsp";
 
+		dao.resClose();
 		req.setAttribute("id", id);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -369,6 +379,7 @@ public class MemberService {
 			msg="비밀번호가 수정 되었습니다.";
 			page="login.jsp";
 		}
+		dao.resClose();
 		req.setAttribute("msg", msg);
 		dis=req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -395,6 +406,7 @@ public class MemberService {
 				page = "index.jsp";
 				req.getSession().removeAttribute("loginId");
 			}
+			dao.resClose();
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
@@ -430,6 +442,7 @@ public class MemberService {
 	            req.setAttribute("currPage", group);
 	            System.out.println("list: "+map.get("list"));
 	         }
+	 		dao.resClose();
 	         dis = req.getRequestDispatcher("myVisited.jsp"); 
 	         dis.forward(req, resp);
 	      }else {
@@ -461,6 +474,7 @@ public class MemberService {
 	            req.setAttribute("currPage", group);
 	            System.out.println("list: "+map.get("list"));
 	         }
+	 		dao.resClose();
 	         dis = req.getRequestDispatcher("myBookmark.jsp"); 
 	         dis.forward(req, resp);
 	      }else {
@@ -496,6 +510,7 @@ public class MemberService {
 			}
 			
 		}
+		dao.resClose();
 		req.setAttribute("msg", msg);
 		dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
@@ -527,6 +542,7 @@ public class MemberService {
 	         page="visitedList";
 	         }
 	      }
+			dao.resClose();
 	      req.getSession().setAttribute("msg", msg);
 	      resp.sendRedirect(page); 
 	      }
