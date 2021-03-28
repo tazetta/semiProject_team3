@@ -218,6 +218,7 @@ public class PopupService {
 		PopupDAO dao = new PopupDAO();
 		PopupDTO dto = dao.popupMain();
 		System.out.println("dto:" + dto);
+		dao.resClose();
 		BoardService bss = new BoardService(req, resp);
 		ArrayList<BoardDTO> list =bss.mainBoardList();
 		page = "main.jsp";
@@ -226,7 +227,7 @@ public class PopupService {
 		
 		dis = req.getRequestDispatcher(page);		
 		dis.forward(req, resp);
-		dao.resClose();
+		//dao.resClose();
 	}
 
 	
