@@ -43,14 +43,14 @@ public class MemberService {
 
 		msg = "아이디와 비밀번호를 확인해주세요";
 		page = "login.jsp";
+		System.out.println("서비스 dto: "+ dto);
 		if (dto!=null) { // 로그인 성공시 (true 반환시)
 			
-			if(dto.getWithdraw()!=null) {
-				if(dto.getWithdraw().equals("TRUE")) {
-					msg = "탈퇴한 회원입니다.";
-				}
-			}else
-				if(dto.getBlackCnt()>0) {
+			if(dto.getWithdraw()!=null && dto.getWithdraw().equals("TRUE")) {
+			
+				msg = "탈퇴한 회원입니다.";
+				
+			}else if(dto.getBlackCnt()>0) {
 				msg="블랙리스트에 등록된 회원입니다.";							
 			}else {
 				msg = id + "님 로그인 되었습니다";
