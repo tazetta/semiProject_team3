@@ -7,6 +7,20 @@ public class MemberDTO {
 	private String phone;
 	private String email;
 	private String managerid;
+	private String withdraw;
+	private int blackCnt;
+	public String getWithdraw() {
+		return withdraw;
+	}
+	public void setWithdraw(String withdraw) {
+		this.withdraw = withdraw;
+	}
+	public int getBlackCnt() {
+		return blackCnt;
+	}
+	public void setBlackCnt(int blackCnt) {
+		this.blackCnt = blackCnt;
+	}
 	public String getId() {
 		return id;
 	}

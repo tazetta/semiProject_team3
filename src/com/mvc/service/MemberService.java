@@ -39,21 +39,31 @@ public class MemberService {
 		String id = req.getParameter("userId");
 		String pw = req.getParameter("userPw");
 		System.out.println(id + "/" + pw);
-		boolean success = dao.login(id, pw); // dao에 id,pw 담아 보낸 후 로그인 메서드 실행
+		MemberDTO dto = dao.login(id, pw); // dao에 id,pw 담아 보낸 후 로그인 메서드 실행
 
-		System.out.println("로그인:" + success);
 		msg = "아이디와 비밀번호를 확인해주세요";
 		page = "login.jsp";
-		if (success) { // 로그인 성공시 (true 반환시)
-//			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
-			page = "index.jsp";
-			msg = id + "님 로그인 되었습니다";
-			req.getSession().setAttribute("loginId", id); // "loginId"라는 이름으로 session에 저장
+		if (dto!=null) { // 로그인 성공시 (true 반환시)
 			
+			if(dto.getWithdraw()!=null) {
+				if(dto.getWithdraw().equals("TRUE")) {
+					msg = "탈퇴한 회원입니다.";
+				}
+			}else
+				if(dto.getBlackCnt()>0) {
+				msg="블랙리스트에 등록된 회원입니다.";							
+			}else {
+				msg = id + "님 로그인 되었습니다";
+				
+				req.getSession().setAttribute("loginId", id); // "loginId"라는 이름으로 session에 저장
+				page = "index.jsp";
+			}
 			dao = new MemberDAO();
 			if(dao.chkManager(id)) {
 				req.getSession().setAttribute("isManager", "true");
 			}
+//			page = "/profile"; // 지금은 list컨트롤러 없어서 404에러 떨어짐
+			
 		}
 		dao.resClose();
 		req.setAttribute("msg", msg);

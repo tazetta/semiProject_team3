@@ -52,16 +52,16 @@ public class MemberDAO {
 	}
 
 	/* 로그인 +탈퇴여부확인 */
-	public boolean login(String id, String pw) {
+	public MemberDTO login(String id, String pw) {
 
-		boolean success = false;
+		MemberDTO dto = null;
 		try {
-			String sql = "SELECT id FROM member WHERE id = ? AND pw =? AND withdraw = 'FALSE' AND " + 
-					"(SELECT count(blackidx) FROM blacklist where id = ? AND blackstatus='TRUE')<=0";
+			String sql = "SELECT id , (SELECT count(blackidx) FROM blacklist where id = ? AND blackstatus='TRUE') AS blackCnt , withdraw" + 
+					" FROM member  where id=? AND pw =? ";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
-			ps.setString(2, pw);
-			ps.setString(3, id);
+			ps.setString(2, id);
+			ps.setString(3, pw);
 			rs = ps.executeQuery();
 
 //			ResultSet rs2 = ps.executeQuery();
@@ -69,7 +69,10 @@ public class MemberDAO {
 //			success = rs.next();
 //			success = rs2.next();
 			if (rs.next()) {
-				success = true;
+				dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setBlackCnt(rs.getInt("blackCnt"));
+				dto.setWithdraw(rs.getString("withdraw"));
 			} else {
 				sql = "SELECT managerId FROM manager WHERE managerId=? AND pw=?";
 				ps = conn.prepareStatement(sql);
@@ -77,7 +80,8 @@ public class MemberDAO {
 				ps.setString(2, pw);
 				rs = ps.executeQuery();
 				if (rs.next()) {
-					success = true;
+					dto = new MemberDTO();
+					dto.setId(rs.getString("managerId"));
 				}
 
 			}
@@ -88,7 +92,7 @@ public class MemberDAO {
 		} finally {
 			resClose();
 		}
-		return success;
+		return dto;
 	}
 
 	/* 회원정보 */

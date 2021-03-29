@@ -110,8 +110,8 @@ background-color: transparent;
 	<div id="field">
 		<select id="comm_select" name="comm_select">
 			<option value="subject">제목</option>
-			<option value="id">작성자</option>
 			<option value="content">내용</option>
+			<option value="id">작성자</option>
 		</select> <input type="text" id="boardkeyword" />
 		<button id="boardSearch">검색</button>
 		<table id="commuTable">
@@ -125,7 +125,7 @@ background-color: transparent;
 			<c:if test="${managerbbsList ne null}">
 				<c:forEach items="${managerbbsList}" var="managerbbs">
 					<tr style="background-color:  #E6E6E6" >
-						<td >${managerbbs.boardIdx}</td>
+						<td ><b>공지</b></td>
 						<td ><a class="mouse_over"
 							href="boardDetail?boardIdx=${managerbbs.boardIdx}&page=${currPage}">${managerbbs.subject}</a></td>
 						<td >${managerbbs.id}</td>
