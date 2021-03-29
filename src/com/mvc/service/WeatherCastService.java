@@ -87,7 +87,6 @@ public class WeatherCastService {
 		String today = format.format(time);
 		try {
 			while (page <= 2) {
-
 				String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=OYnBOIZFr7Qq92NvKqRJCgsU0E%2BdAOAjTZ9N8g0lLXvqa4GOfMmtvwgj7%2FhE7QNa64K%2FbbqXxOV3fZO9ffucVQ%3D%3D&numOfRows=100&dataType=XML"
 						+ "&base_date=" + today + "&base_time=0500&nx=" + areaCoords.getNx() + "&ny=" + areaCoords.getNy() + "&pageNo=" + page;
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

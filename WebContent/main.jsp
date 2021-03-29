@@ -13,7 +13,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>index</title>
+<title>메인</title>
 <!-- <link rel="icon" href="favicon.png"> -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
